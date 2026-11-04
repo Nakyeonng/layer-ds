@@ -80,7 +80,22 @@ border-radius: var(--radius-12);
   </div></main>
 </div>
 <div class="site-toast" id="toast" role="status" aria-live="polite"></div>
+<button type="button" class="btn btn--floating btn--icon-only to-top" id="to-top" aria-label="페이지 맨 위로" title="맨 위로"><span class="icon icon-24"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button>
 <script>
+(function () {
+  var top = document.getElementById('to-top');
+  if (top) {
+    var tick = false;
+    function show() { tick = false; top.classList.toggle('is-shown', window.scrollY > 480); }
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(show); } }, { passive: true });
+    show();
+    top.addEventListener('click', function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      var h = document.querySelector('.content h1'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    });
+  }
+})();
 (function () {
   var toast = document.getElementById('toast'), t;
   function say(msg) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(t); t = setTimeout(function () { toast.classList.remove('show'); }, 1400); }

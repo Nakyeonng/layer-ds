@@ -204,6 +204,18 @@ td.num, th.num { font-variant-numeric: tabular-nums; }
 }
 .site-toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+/* Page-top button — Layer Floating Button, icon only (Chevron-Up 24) */
+.to-top {
+  position: fixed; right: calc(24px + env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  width: 48px; height: 48px; padding: 0; justify-content: center; z-index: 25;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s, transform .2s, visibility 0s linear .2s;
+}
+.to-top.is-shown { opacity: 1; visibility: visible; transform: none; transition: opacity .2s, transform .2s, visibility 0s; }
+.to-top:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .to-top, .to-top.is-shown { transition: none; transform: none; } }
+@media print { .to-top { display: none; } }
+
 /* ── Narrow screens ────────────────────── */
 @media (max-width: 860px) {
   .site { display: block; }

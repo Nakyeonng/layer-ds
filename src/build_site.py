@@ -71,6 +71,20 @@ def pager(pid):
 
 SCRIPT = r'''<script>
 (function () {
+  var top = document.getElementById('to-top');
+  if (top) {
+    var tick = false;
+    function show() { tick = false; top.classList.toggle('is-shown', window.scrollY > 480); }
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(show); } }, { passive: true });
+    show();
+    top.addEventListener('click', function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      var h = document.querySelector('.content h1'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    });
+  }
+})();
+(function () {
   var toast = document.getElementById('toast'), t;
   function say(msg) { if (!toast) return; toast.textContent = msg; toast.classList.add('show'); clearTimeout(t); t = setTimeout(function () { toast.classList.remove('show'); }, 1400); }
   function copy(text, btn, msg) {
@@ -336,6 +350,7 @@ def shell(pid, title, content, wrapped=False):
   </div></main>
 </div>
 <div class="site-toast" id="toast" role="status" aria-live="polite"></div>
+<button type="button" class="btn btn--floating btn--icon-only to-top" id="to-top" aria-label="페이지 맨 위로" title="맨 위로">{icon("Icon/Assets/Chevron-Up")}</button>
 {SCRIPT}'''
     head = f'''<title>{title}</title>
 {EARLY}
