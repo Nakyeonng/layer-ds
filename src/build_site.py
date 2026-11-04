@@ -2351,7 +2351,8 @@ def p_ai_guide():
         + '<h3>"회고 화면 만들어줘"만 써도 되나요?</h3><p>됩니다. 다만 적은 만큼만 정확해집니다.</p>' + levels
         + '<h3>좋은 요청에 들어가는 다섯 가지</h3><p>전부 쓸 필요는 없지만, 많이 쓸수록 다시 고칠 일이 줄어듭니다. 특히 <strong>3번 문구</strong>가 결과를 가장 크게 바꿉니다.</p>' + checklist
         + '<h3>화면별 요청 예시</h3><p>그대로 복사해서 문구만 바꿔 쓰세요.</p>' + ex
-        + '<h3 id="explore">자유롭게 여러 시안을 보고 싶을 때 · 탐색 모드</h3>'
+        + '<h3>그린 뒤 고치기</h3><p>한 번에 완벽할 필요는 없습니다. 같은 채팅에서 이어서 말하면 그 화면을 고칩니다.</p>' + code(AI_FIX) + '</section>')
+    sx = ('<section class="section" id="explore"><h2>자유롭게 여러 시안을 보고 싶을 때 · 탐색 모드</h2>'
         '<p>기본은 <strong>정확 모드</strong>예요. 레이어 회고 화면을 시스템 그대로 만들어서, 다른 주제를 부탁하면 회고 앱처럼 보일 수 있어요. '
         '아이디어를 넓게 보고 싶거나 회고가 아닌 주제라면 <strong>탐색 모드</strong>로 부탁하세요. 회고가 아닌 주제는 말하지 않아도 탐색 모드로 바뀌어요.</p>'
         + table(['', '정확 모드(기본)', '탐색 모드'], [
@@ -2360,8 +2361,7 @@ def p_ai_guide():
             ['자유로운 것', '—', '레이아웃 · 정보 구성 · 조합, 토큰으로 만든 새 묶음, Layer 스타일의 새 일러스트, 주제 문구'],
             ['결과', '시안 1개', '서로 다른 방향 3개 + 시안마다 콘셉트 한 줄 · 시스템에서 벗어난 부분']])
         + code(AI_EXPLORE)
-        + '<p class="note">레퍼런스 캡처를 같이 올리고 "이 구성은 참고하고, 모양은 Layer로"라고 하면 첫 결과부터 원하는 방향에 가까워져요. 마음에 드는 시안의 새 묶음(이름 앞 x-)은 정식 컴포넌트 후보로 모아 두세요.</p>'
-        + '<h3>그린 뒤 고치기</h3><p>한 번에 완벽할 필요는 없습니다. 같은 채팅에서 이어서 말하면 그 화면을 고칩니다.</p>' + code(AI_FIX) + '</section>')
+        + '<p class="note">레퍼런스 캡처를 같이 올리고 "이 구성은 참고하고, 모양은 Layer로"라고 하면 첫 결과부터 원하는 방향에 가까워져요. 마음에 드는 시안의 새 묶음(이름 앞 x-)은 정식 컴포넌트 후보로 모아 두세요.</p>' + '</section>')
     s5 = ('<section class="section"><h2>결과 확인하기</h2>'
         + table(['확인', '어떻게'], [
             ['우리 컴포넌트로 그렸나요?', 'Figma: 레이어 목록에서 카드 · 버튼 아이콘이 ◇(인스턴스)인지 봅니다. 직접 그린 사각형이면 "직접 그리지 말고 Card/Retro (Mobile) 컴포넌트로 바꿔 줘". 웹페이지: 카드 · 버튼이 예시 페이지(ZIP 안 web/layer-examples.html)와 같은 모양인지 봅니다.'],
@@ -2435,7 +2435,7 @@ def p_ai_guide():
         '<strong>프로젝트로 쓰기 — Skill을 못 쓸 때만</strong><span class="path-box__skip">Skill을 추가했다면 건너뛰고 <a href="#s3">3단계로 →</a></span></div>'
         '<p class="path-box__why">무료 플랜이거나, 회사 계정에서 코드 실행 · Skills가 막혀 있을 때 이 방법을 씁니다.</p>' + s1 + s2 + '</div>')
     join = '<div class="path-join"><span>여기부터 A · B 공통</span></div>'
-    return content + strip + choose + box_a + box_b + join + s3 + s4 + s5 + faq + s6
+    return content + strip + choose + box_a + box_b + join + s3 + s4 + sx + s5 + faq + s6
 
 def p_figma_file():
     COMM = "https://www.figma.com/community/file/1699490552460986431/layer-ds"
