@@ -2367,7 +2367,7 @@ def p_ai_guide():
         + code(AI_EXPLORE)
         + '<h3>이렇게 나와요 — 해외여행 보험 프로모션 시안 3개</h3>'
         '<p>위 요청을 Skill로 부탁해 받은 실제 결과예요. 세 시안 모두 Layer 토큰 · 버튼 · 배지 · 앱 바는 그대로 쓰고, 레이아웃과 정보 구성 · 비주얼을 서로 다르게 풀었어요. 시안마다 위에 <strong>콘셉트</strong>와 <strong>벗어난 부분</strong>(x-로 시작하는 새 묶음)이 적혀 있어요.</p>'
-        '<figure class="aig-fig"><a href="examples/explore-insurance.html"><img src="img/ai-explore-insurance.png" alt="탐색 모드 시안 3개: A 정보 중심(요약 상자와 번호 할인 목록), B 비주얼 강조(비행기 · 가방 일러스트 히어로, 탑승권 카드, 할인 도장), C 비교표형(요약 2칸과 할인 비교표 · 막대)" loading="lazy"></a><figcaption>A 정보 중심 · B 비주얼 강조 · C 비교표형 — <a href="examples/explore-insurance.html">시안 크게 보기</a></figcaption></figure>'
+        '<figure class="aig-fig"><a href="examples/explore-insurance.html"><img src="img/ai-explore-insurance.png" alt="탐색 모드 시안 3개: A 정보 중심(요약 상자와 번호 할인 목록), B 비주얼 강조(비행기 · 가방 일러스트 히어로, 탑승권 카드, 할인 도장), C 비교표형(요약 2칸과 할인 비교표 · 막대)" loading="lazy"></a><figcaption>A 정보 중심 · B 비주얼 강조 · C 비교표형</figcaption></figure>'
         + table(['시안', '방향', '새로 만든 묶음(벗어난 부분)'], [
             ['A · 정보 중심', '혜택 · 가격 · 할인을 위에서 아래로 한 줄씩', 'x-facts(요약 상자) · x-discounts(번호 할인 목록)'],
             ['B · 비주얼 강조', '탑승권 · 도장 은유로 떠날 준비의 설렘', 'x-hero + 새 일러스트(비행기 · 가방 · 방패) · x-pass(탑승권 카드) · x-stamps(할인 도장)'],
@@ -2505,7 +2505,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
-        ['2026-11-04', '<a href="ai-guide.html#skill-call">AI로 화면 만들기</a>', 'Skill 업로드 화면 캡처 · 넣는 순서를 실제 메뉴(사용자 지정 → Skills → Skill 업로드)로 고침. Skill 부르기(/layer-design-system) 안내 추가. 탐색 모드에 실제 결과(해외여행 보험 시안 3개) 예시 · 크게 보기 추가', '코드'],
+        ['2026-11-04', '<a href="ai-guide.html#skill-call">AI로 화면 만들기</a>', 'Skill 업로드 화면 캡처 · 넣는 순서를 실제 메뉴(사용자 지정 → Skills → Skill 업로드)로 고침. Skill 부르기(/layer-design-system) 안내 추가. 탐색 모드에 실제 결과(해외여행 보험 시안 3개) 예시 추가', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#explore">AI로 화면 만들기</a> · Skill', '탐색 모드 추가 — 정확 모드(기본, 규칙 전부)와 탐색 모드(토큰 · 기본 컴포넌트 · 해요체 · 접근성만 지키고 레이아웃 · 조합 · 새 묶음 · 일러스트는 자유, 서로 다른 시안 3개 + 벗어난 부분 표시). 회고가 아닌 주제는 자동으로 탐색 모드, 회고 전용 요소 제외. Skill · DESIGN.md · AI 안내문 · 검수 체크리스트에 반영', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#skill">AI로 화면 만들기</a> · Skill', 'Layer Skill(layer-design-system.zip) 추가 — Claude 설정 → 기능 → Skills에 한 번 올리면 프로젝트 없이 아무 채팅에서 Layer 화면 만들기. 작업 순서(준비 → 설계 → 그리기 → 검수 → 알려 주기)와 검수 체크리스트(틀 · 컴포넌트 · 버튼 · 겹침 · 색 · 내용 · 웹 스타일 빠짐 · Figma) 포함. AI 안내문에도 검수 단계 추가. GitHub skill/ 폴더', '코드'],
         ['2026-11-04', '<a href="ai-guide.html">AI로 화면 만들기</a> · 웹 키트', 'Claude 채팅 미리보기가 외부 스크립트(jsDelivr)를 막아 스타일이 빠지던 문제 대응: 붙여 넣기용 <code>layer-inline.css</code> 추가(기본 + 클래스 이름별 부품, 압축). AI는 화면에 쓴 부품만 &lt;style&gt;에 넣고 아이콘 · 로고는 SVG를 직접 넣음. layer.js 한 줄은 HTML 파일 · 사이트용으로. 프로젝트에는 layer.js · layer.css를 빼고 올리도록 안내', '코드'],
