@@ -1,0 +1,82 @@
+/* Layer Design System — primitive color palette
+   Source: Figma "Foundation / Color" (node 1:3324). Status: under review.
+   Primitives first, then role tokens (text, bg, border, overlay, status) collected from the components. */
+:root {
+  --color-gray-0: #FFFFFF;
+  --color-gray-100: #F2F4F8;
+  --color-gray-200: #EDF0F4;
+  --color-gray-300: #DFE3EA;
+  --color-gray-400: #CED2DA;
+  --color-gray-500: #A9AFBB;
+  --color-gray-600: #8B909C;
+  --color-gray-700: #666B75;
+  --color-gray-800: #454952;
+  --color-gray-900: #212329;
+  --color-blue-50: #F1F6FF;
+  --color-blue-100: #E9F0FF;
+  --color-blue-200: #E2EBFE;
+  --color-blue-300: #C4D7FD;
+  --color-blue-400: #A7C4FC;
+  --color-blue-500: #89B0FB;
+  --color-blue-600: #6C9CFA;
+  --color-blue-700: #415E96;
+  --color-blue-800: #2B3E64;
+  --color-blue-900: #172031;
+  --color-purple-50: #FBFAFF;
+  --color-purple-100: #F6F5FE;
+  --color-purple-200: #E8E6FD;
+  --color-purple-300: #D1CDFC;
+  --color-purple-400: #BAB3FA;
+  --color-purple-500: #A39AF9;
+  --color-purple-600: #8C81F7;
+  --color-purple-700: #544D94;
+  --color-purple-800: #383463;
+  --color-purple-900: #1C1A31;
+  --color-green-100: #E2FCF0;
+  --color-green-200: #C6F1DD;
+  --color-green-300: #A6E9C8;
+  --color-green-400: #6FDAA6;
+  --color-green-500: #28C07B;
+  --color-green-900: #034C0C;
+  --color-red-100: #FFE5E5;
+  --color-red-200: #FFC7C7;
+  --color-red-300: #FFA7A7;
+  --color-red-400: #FB5C5C;
+  --color-red-500: #F03E3E;
+  --color-orange-100: #FFF0CF;
+  --color-orange-200: #FDD495;
+  --color-orange-300: #FDB663;
+  --color-orange-400: #FC9F30;
+  --color-orange-500: #F58603;
+  --color-opacity-4: rgb(6 8 12 / 0.04);
+  --color-opacity-8: rgb(6 8 12 / 0.08);
+  --color-opacity-12: rgb(6 8 12 / 0.12);
+  --color-opacity-22: rgb(6 8 12 / 0.22);
+  --color-opacity-32: rgb(6 8 12 / 0.32);
+  --color-opacity-48: rgb(6 8 12 / 0.48);
+  --color-opacity-56: rgb(6 8 12 / 0.56);
+  --color-opacity-72: rgb(6 8 12 / 0.72);
+  --color-opacity-86: rgb(6 8 12 / 0.86);
+  --color-opacity-100: rgb(6 8 12 / 1);
+
+  /* Roles — pick these in components; Figma collection "Color Role", same names */
+  --color-text-primary: var(--color-gray-900);   /* 제목, 본문, 입력한 글자, 선택된 탭 */
+  --color-text-secondary: var(--color-gray-700);   /* 아코디언 내용·제목 등 보조 글자 */
+  --color-text-tertiary: var(--color-gray-500);   /* 안내 문구(placeholder), 팝업 부제, 선택 안 된 탭 */
+  --color-text-disabled: var(--color-gray-400);   /* 비활성 버튼·칩·라벨·날짜 글자 */
+  --color-text-inverse: var(--color-gray-0);   /* 진한 바탕 위 글자(Primary 버튼, 토스트, 선택된 칩) */
+  --color-text-accent: var(--color-blue-600);   /* Blue Ghost·Light Blue 버튼 글자, 오늘 날짜, 입력 중 글자 수 */
+  --color-text-error: var(--color-red-500);   /* 입력 오류 안내, 위험 행동 글자(삭제 · 내보내기) */
+  --color-bg-surface: var(--color-gray-0);   /* 화면, 카드, 팝업, 바텀시트 바탕 */
+  --color-bg-secondary: var(--color-gray-100);   /* 칩, Box 탭, 목록 카드, 아코디언, 비활성 바탕 */
+  --color-bg-inverse: var(--color-gray-900);   /* Primary·Floating 버튼 */
+  --color-bg-accent: var(--color-blue-600);   /* Blue 버튼, 선택된 칩·날짜, 체크된 체크박스·라디오 */
+  --color-bg-accent-secondary: var(--color-blue-100);   /* Light Blue 버튼, Guide 툴팁 */
+  --color-bg-selected: var(--color-blue-200);   /* 아코디언 Index 현재 항목 */
+  --color-bg-toast: var(--color-opacity-86);   /* 토스트 */
+  --color-border-default: var(--color-gray-300);   /* 입력창, Outlined 버튼 테두리 */
+  --color-border-divider: var(--color-opacity-8);   /* 탭 아래 구분선 */
+  --color-border-focus: var(--color-blue-600);   /* 입력창 포커스, 키보드 Focus 표시 */
+  --color-overlay-dim: var(--color-opacity-72);   /* 모달 뒤 딤드(팝업 · 웹 모달 · 바텀시트) — 흐름을 멈추고 답을 받아야 할 때 */
+  --color-status-error: var(--color-red-500);   /* 삭제 아이콘 바탕, 오류 아이콘 */
+}

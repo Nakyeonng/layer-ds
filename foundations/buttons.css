@@ -1,0 +1,120 @@
+/* ─────────────────────────────────────────────────────────────
+   Button — derived from Figma "Components / Button" (node 1:1123)
+   Filled (5 variants), Ghost (2), Outlined (2), Floating (1), Button Group (3)
+   Sizes:  48 (default) · 40 (.btn--sm) · 36 (.btn--xs, 웹)
+   States: Default · Hover (+1 step) · Pressed (+2 steps) · Disabled (one shared look)
+
+   Colours are the values read from the frame; comments name the palette step.
+   Real interaction uses :hover / :active / :disabled.
+   .is-hover / .is-pressed force a state for documentation specimens.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-text-primary, #212329);
+  --btn-border: transparent;
+  --btn-overlay: transparent;          /* optional tint layer (unused by current rules) */
+
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-sizing: border-box;
+  height: 48px; padding: 13px var(--spacing-20, 20px); border-radius: var(--radius-button, 12px);
+  border: 1px solid var(--btn-border);
+  background-color: var(--btn-bg);
+  background-image: linear-gradient(var(--btn-overlay), var(--btn-overlay));
+  color: var(--btn-fg);
+  font-family: var(--font-family-primary); font-size: 16px; font-weight: 600; line-height: 1.4;  /* Subtitle 16 SemiBold */
+  font-feature-settings: "case" 1, "ss02" 1;
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn .icon { width: 18px; height: 18px; }
+.btn:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: 2px; }   /* Focus: Blue 600 */
+.btn:disabled, .btn.is-disabled { cursor: not-allowed; }
+.btn--block { width: 100%; }
+
+/* ── Size 40 ─────────────────────────────── */
+.btn--sm { height: 40px; padding: 10px var(--spacing-16, 16px); gap: var(--spacing-8, 8px); border-radius: var(--radius-button-sm, 10px); font-size: 14px; } /* Subtitle 14 SemiBold */
+.btn--sm .icon { width: 16px; height: 16px; }
+.btn--xs { height: 36px; padding: var(--spacing-8, 8px) var(--spacing-12, 12px); gap: var(--spacing-4, 4px); border-radius: var(--radius-button-xs, 8px); font-size: 14px; } /* 웹 헤더 · 카드 안 작은 행동, Subtitle 14 SemiBold */
+.btn--xs .icon { width: 18px; height: 18px; }
+
+/* ── Filled ──────────────────────────────── */
+.btn--primary   { --btn-bg: var(--color-bg-inverse, #212329); --btn-fg: var(--color-text-inverse, #ffffff); }                                  /* Gray 900 */
+.btn--primary:hover,  .btn--primary.is-hover   { --btn-bg: var(--color-gray-800, #454952); }                      /* Gray 800 */
+.btn--primary:active, .btn--primary.is-pressed { --btn-bg: var(--color-gray-700, #666b75); }                      /* Gray 700 */
+
+.btn--secondary { --btn-bg: var(--color-gray-300, #dfe3ea); --btn-fg: var(--color-text-primary, #212329); }                                  /* Gray 300 */
+.btn--secondary:hover,  .btn--secondary.is-hover   { --btn-bg: var(--color-gray-400, #ced2da); }                  /* Gray 400 */
+.btn--secondary:active, .btn--secondary.is-pressed { --btn-bg: var(--color-gray-500, #a9afbb); }                  /* Gray 500 */
+
+.btn--white     { --btn-bg: var(--color-bg-surface, #ffffff); --btn-fg: var(--color-text-primary, #212329); }                                  /* Gray 0 */
+.btn--white:hover,  .btn--white.is-hover   { --btn-bg: var(--color-gray-100, #f2f4f8); }                          /* Gray 100 */
+.btn--white:active, .btn--white.is-pressed { --btn-bg: var(--color-gray-200, #edf0f4); }                          /* Gray 200 */
+
+.btn--blue      { --btn-bg: var(--color-bg-accent, #6c9cfa); --btn-fg: var(--color-text-inverse, #ffffff); }                                  /* Blue 600 */
+.btn--blue:hover,  .btn--blue.is-hover   { --btn-bg: var(--color-blue-700, #415e96); }                            /* Blue 700 */
+.btn--blue:active, .btn--blue.is-pressed { --btn-bg: var(--color-blue-800, #2b3e64); }                            /* Blue 800 */
+
+.btn--light-blue { --btn-bg: var(--color-bg-accent-secondary, #e9f0ff); --btn-fg: var(--color-text-accent, #6c9cfa); }                                 /* Blue 100 */
+.btn--light-blue:hover,  .btn--light-blue.is-hover   { --btn-bg: var(--color-blue-200, #e2ebfe); }                /* Blue 200 */
+.btn--light-blue:active, .btn--light-blue.is-pressed { --btn-bg: var(--color-blue-300, #c4d7fd); }                /* Blue 300 */
+
+.btn--primary:disabled, .btn--primary.is-disabled,
+.btn--secondary:disabled, .btn--secondary.is-disabled,
+.btn--white:disabled, .btn--white.is-disabled,
+.btn--blue:disabled, .btn--blue.is-disabled,
+.btn--light-blue:disabled, .btn--light-blue.is-disabled {
+  --btn-bg: var(--color-bg-secondary, #f2f4f8); --btn-fg: var(--color-text-disabled, #ced2da); --btn-overlay: transparent;                        /* Gray 100 / Gray 400 */
+}
+
+/* ── Ghost ───────────────────────────────── */
+.btn--ghost { --btn-bg: var(--color-bg-surface, #ffffff); --btn-fg: var(--color-text-primary, #212329); }                                      /* text Gray 900 */
+.btn--ghost:hover,  .btn--ghost.is-hover   { --btn-bg: var(--color-gray-100, #f2f4f8); }                          /* Gray 100 */
+.btn--ghost:active, .btn--ghost.is-pressed { --btn-bg: var(--color-gray-200, #edf0f4); }                          /* Gray 200 */
+.btn--ghost-blue { --btn-bg: var(--color-bg-surface, #ffffff); --btn-fg: var(--color-text-accent, #6c9cfa); }                                 /* text Blue 600 */
+.btn--ghost-blue:hover,  .btn--ghost-blue.is-hover   { --btn-bg: var(--color-blue-50, #f1f6ff); }                /* Blue 50 */
+.btn--ghost-blue:active, .btn--ghost-blue.is-pressed { --btn-bg: var(--color-blue-100, #e9f0ff); }                /* Blue 100 */
+.btn--ghost:disabled, .btn--ghost.is-disabled,
+.btn--ghost-blue:disabled, .btn--ghost-blue.is-disabled { --btn-bg: var(--color-bg-secondary, #f2f4f8); --btn-fg: var(--color-text-disabled, #ced2da); }  /* = Filled disabled */
+
+/* ── Outlined ────────────────────────────── */
+.btn--outlined { --btn-border: var(--color-border-default, #dfe3ea); --btn-fg: var(--color-text-primary, #212329); }                               /* border Gray 300 */
+.btn--outlined:hover,  .btn--outlined.is-hover   { --btn-bg: var(--color-gray-100, #f2f4f8); }
+.btn--outlined:active, .btn--outlined.is-pressed { --btn-bg: var(--color-gray-200, #edf0f4); }
+.btn--outlined-blue { --btn-border: var(--color-blue-300, #c4d7fd); --btn-fg: var(--color-text-accent, #6c9cfa); }                          /* border Blue 300 */
+.btn--outlined-blue:hover,  .btn--outlined-blue.is-hover   { --btn-bg: var(--color-blue-50, #f1f6ff); }
+.btn--outlined-blue:active, .btn--outlined-blue.is-pressed { --btn-bg: var(--color-blue-100, #e9f0ff); }
+.btn--outlined:disabled, .btn--outlined.is-disabled,
+.btn--outlined-blue:disabled, .btn--outlined-blue.is-disabled { --btn-bg: var(--color-bg-secondary, #f2f4f8); --btn-fg: var(--color-text-disabled, #ced2da); --btn-border: transparent; } /* = Filled disabled */
+
+/* ── Floating ────────────────────────────── */
+.btn--floating {
+  --btn-bg: var(--color-bg-inverse, #212329); --btn-fg: var(--color-text-inverse, #ffffff);
+  gap: var(--spacing-4, 4px); padding: 14px 18px; border-radius: var(--radius-pill, 30px);
+  font-size: 14px;                                                                         /* Subtitle 14 SemiBold */
+  box-shadow: var(--shadow-floating-button);                                               /* Elevation: Shadow 200 */
+}
+.btn--floating:hover,  .btn--floating.is-hover   { --btn-bg: var(--color-gray-800, #454952); }                    /* Gray 800 */
+.btn--floating:active, .btn--floating.is-pressed { --btn-bg: var(--color-gray-700, #666b75); }                    /* Gray 700 */
+.btn--floating:disabled, .btn--floating.is-disabled { --btn-bg: var(--color-bg-secondary, #f2f4f8); --btn-fg: var(--color-text-disabled, #ced2da); } /* = Filled disabled, keeps shadow */
+.btn--floating.btn--sm { padding: 10px var(--spacing-16, 16px); gap: var(--spacing-4, 4px); border-radius: var(--radius-pill, 30px); }
+
+/* ── Button Group (bottom of a screen) ───── */
+.btn-group { display: flex; flex-direction: column; width: 100%; max-width: 375px; }
+.btn-group__buttons { display: flex; flex-direction: column; padding: var(--spacing-8, 8px) var(--spacing-screen-x, 20px) var(--spacing-16, 16px); }
+.btn-group__buttons > .btn { width: 100%; }
+.btn-group--vertical   .btn-group__buttons { gap: var(--spacing-4, 4px); }
+.btn-group--horizontal .btn-group__buttons { flex-direction: row; gap: var(--spacing-8, 8px); }
+.btn-group--horizontal .btn-group__buttons > .btn { flex: 1 1 0; min-width: 0; width: auto; }
+
+/* Icon only (Figma Show Label=false) — 너비를 채우는 "추가" 버튼 등. 접근성 이름은 aria-label로 */
+.btn--icon-only { gap: 0; }
+.btn--icon-only .btn__label { display: none; }
+
+/* ── Text Button (Figma Button/Text Button) — 배경 없는 글자 버튼 ── */
+.text-button { padding: 0; border: 0; background: none; cursor: pointer; font: inherit;
+  font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--color-text-accent, #6c9cfa); }               /* Accent: Subtitle 16 SemiBold Blue 600 (앱 바 완료 · 마치기) */
+.text-button--neutral { font-size: 14px; font-weight: 500; color: var(--color-gray-500, #a1a6b0); }               /* Neutral: Body 14 Medium Gray 500 (목록 머리 삭제 · 편집) */
+.text-button:disabled, .text-button.is-disabled { color: var(--color-text-disabled, #ced2da); cursor: default; }  /* Disabled: Gray 400 */

@@ -1,0 +1,4750 @@
+{
+  "format": "layer-components 0.1 (Layer DS 자체 형식)",
+  "name": "Layer Design System",
+  "version": "0.2.1",
+  "updated": "2026-11-03",
+  "figma": {
+    "community": "https://www.figma.com/community/file/1699490552460986431/layer-ds",
+    "note": "보통 커뮤니티 파일을 복제한 파일에 그린다. 그 파일 안에서 nodeId로 찾고, 없으면 같은 이름의 컴포넌트 · 세트를 찾는다. 라이브러리로 게시된 파일이면 key로 불러온다(importComponentByKeyAsync / importComponentSetByKeyAsync). 컴포넌트를 다시 그리지 말고 인스턴스를 쓴다."
+  },
+  "tokens": "layer-tokens-v0.2.1.json — 이 파일의 {color.*} {spacing.*} {radius.*} {typography.*} {shadow.*} 참조가 가리키는 값",
+  "rules": [
+    "컴포넌트를 새로 그리지 않는다. 아래 Figma 인스턴스나 코드 클래스를 쓴다.",
+    "화면 너비 375, 좌우 여백 {spacing.screen-x}.",
+    "화면당 Primary 버튼 하나. 하단 CTA는 Button/Button Group.",
+    "Popup은 한 번에 하나. 결과 알림은 Toast.",
+    "partOf가 있는 컴포넌트는 부모 컴포넌트 안에서만 쓴다."
+  ],
+  "web": {
+    "files": [
+      "layer.css",
+      "layer-icons.js",
+      "layer-examples.html",
+      "logo/",
+      "illustrations/",
+      "fonts/"
+    ],
+    "cdn": "https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/",
+    "rules": [
+      "웹(HTML)으로 만들 때는 https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css와 https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer-icons.js만 불러온다(web 폴더에 저장해 열 때는 상대 경로도 됨).",
+      "각 컴포넌트의 code.example(layer-examples.html#…)에 있는 마크업을 그대로 복사해 글자 · 숫자 · 상태 클래스만 바꾼다.",
+      "컴포넌트 모양을 새 CSS로 다시 만들지 않는다. 화면 배치(열 · 간격)에만 style을 쓰고, 값은 layer.css의 CSS 변수(var(--spacing-16) 등)로 쓴다.",
+      "아이콘은 <span class=\"icon icon-24\" data-icon=\"이름\"></span>. 이름은 layer-icons.js의 목록.",
+      "화면 뼈대는 .layout-mobile(+ --secondary) 또는 .layout-web-list · .layout-web-work에서 시작한다."
+    ]
+  },
+  "components": {
+    "Button/Filled Button": {
+      "use": "화면의 주요 행동. 화면당 가장 중요한 행동 하나에 Primary를 쓴다. 보조 행동은 Secondary·White, 파란 강조는 Blue·Light Blue.",
+      "avoid": "화면 하단 CTA를 단독으로 놓지 말 것 — Button Group에 넣는다. 한 화면에 Primary 두 개 금지.",
+      "figma": {
+        "nodeId": "1:1165",
+        "key": "92d11233f64133175ddf40e89592c2f3ba8b3239",
+        "defaultVariant": {
+          "name": "Size=48, Variant=Primary, State=Default",
+          "key": "f4fc14cd4a77bfe31456cb685860ac491bcdd787"
+        },
+        "properties": {
+          "Show Icon": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Icon#316:0"
+          },
+          "Label": {
+            "type": "text",
+            "default": "버튼",
+            "propertyKey": "Label#316:21"
+          },
+          "Size": {
+            "options": [
+              "48",
+              "40",
+              "36"
+            ],
+            "default": "48"
+          },
+          "Variant": {
+            "options": [
+              "Primary",
+              "Secondary",
+              "Blue",
+              "Light Blue",
+              "White"
+            ],
+            "default": "Primary"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed",
+              "Disabled"
+            ],
+            "default": "Default"
+          },
+          "Icon": {
+            "type": "instance-swap",
+            "default": "Icon/Assets/Arrow-left",
+            "propertyKey": "Icon#367:0"
+          },
+          "Show Label": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Label#426:9"
+          }
+        },
+        "size": [
+          208,
+          48
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "48px (Size=40: 40px, Size=36: 36px 웹)",
+          "padding": "13px {spacing.20} (40: 10px {spacing.16}, 36: {spacing.8} {spacing.12})",
+          "radius": "{radius.button} (40: {radius.button-sm}, 36: {radius.button-xs})",
+          "web": "웹은 36이 기본(머리 · 카드 안 작은 행동), 40은 작성 패널 아래처럼 한 영역을 마무리하는 행동(임시저장 · 작성 완료)과 모달 안 너비를 채우는 추가 버튼, 48은 웹 모달(Modal (Web)) 아래 버튼",
+          "icon-only": "Show Label=false + Show Icon=true(예: 질문 추가 + , Light Blue 40 너비 채움). 코드는 .btn--icon-only + aria-label",
+          "icon": "18 (40: 16, 36: 18)",
+          "gap": "10px icon–label"
+        },
+        "label": {
+          "typography": "{typography.subtitle.16-semibold} (40: {typography.subtitle.14-semibold})"
+        },
+        "Primary": {
+          "bg": "{color.bg.inverse}",
+          "text": "{color.text.inverse}"
+        },
+        "Secondary": {
+          "bg": "{color.gray.300}",
+          "text": "{color.text.primary}"
+        },
+        "White": {
+          "bg": "{color.bg.surface}",
+          "text": "{color.text.primary}"
+        },
+        "Blue": {
+          "bg": "{color.bg.accent}",
+          "text": "{color.text.inverse}"
+        },
+        "Light Blue": {
+          "bg": "{color.bg.accent-secondary}",
+          "text": "{color.text.accent}"
+        },
+        "Disabled": {
+          "bg": "{color.bg.secondary}",
+          "text": "{color.text.disabled}"
+        }
+      },
+      "states": "Hover = 기본 바탕에서 팔레트 한 단계, Pressed = 두 단계(Primary는 Gray 800 → 700으로 밝아짐).",
+      "code": {
+        "class": ".btn .btn--primary|secondary|white|blue|light-blue (.btn--sm)",
+        "markup": "<button class=\"btn btn--primary\">저장</button>",
+        "example": "layer-examples.html#button-filled-button"
+      },
+      "related": [
+        "Button/Button Group"
+      ]
+    },
+    "Button/Ghost Button": {
+      "use": "바탕 없는 가벼운 대안 행동(\"다음에\", \"취소\"), Popup Stacked의 두 번째 버튼.",
+      "avoid": "주요 행동에 쓰지 말 것.",
+      "figma": {
+        "nodeId": "1:1226",
+        "key": "0882056092139e84e8c2135e73495b0a305f3612",
+        "defaultVariant": {
+          "name": "Size=48, Variant=Primary, State=Default",
+          "key": "495863e297ac8fe89b010098ad01a4d128099abc"
+        },
+        "properties": {
+          "Show Icon": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Icon#316:51"
+          },
+          "Label": {
+            "type": "text",
+            "default": "버튼",
+            "propertyKey": "Label#316:60"
+          },
+          "Size": {
+            "options": [
+              "48",
+              "40"
+            ],
+            "default": "48"
+          },
+          "Variant": {
+            "options": [
+              "Primary",
+              "Blue"
+            ],
+            "default": "Primary"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          208,
+          48
+        ]
+      },
+      "parts": {
+        "Primary": {
+          "text": "{color.text.primary}"
+        },
+        "Blue": {
+          "text": "{color.text.accent}"
+        },
+        "container": {
+          "radius": "{radius.button}"
+        }
+      },
+      "states": "Hover Gray 100 · Pressed Gray 200 (Blue: Blue 50 · 100).",
+      "code": {
+        "class": ".btn .btn--ghost | .btn--ghost-blue",
+        "example": "layer-examples.html#button-ghost-button"
+      }
+    },
+    "Button/Outlined Button": {
+      "use": "Filled 버튼과 함께 놓이는 두 번째 선택지. Show Icon + Icon 속성으로 앞 아이콘(예: 질문 수정 — Write)을 넣는다.",
+      "avoid": "단독 주요 행동에 쓰지 말 것.",
+      "figma": {
+        "nodeId": "1:1251",
+        "key": "5f984b32c9d6173fe2fcb37d7dcc13bafcd0d9b8",
+        "defaultVariant": {
+          "name": "Size=48, Variant=Primary, State=Default",
+          "key": "7f8ae9a44cfc676222fe7e6f5c0af2f47988216f"
+        },
+        "properties": {
+          "Show Icon": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Icon#316:78"
+          },
+          "Label": {
+            "type": "text",
+            "default": "버튼",
+            "propertyKey": "Label#316:87"
+          },
+          "Size": {
+            "options": [
+              "48",
+              "40"
+            ],
+            "default": "48"
+          },
+          "Variant": {
+            "options": [
+              "Primary",
+              "Blue"
+            ],
+            "default": "Primary"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed",
+              "Disabled"
+            ],
+            "default": "Default"
+          },
+          "Icon": {
+            "type": "instance-swap",
+            "default": "Icon/Assets/Arrow-left",
+            "propertyKey": "Icon#468:0"
+          }
+        },
+        "size": [
+          208,
+          48
+        ]
+      },
+      "parts": {
+        "container": {
+          "border": "1px {color.border.default} (Blue: {color.blue.300})",
+          "radius": "{radius.button}"
+        },
+        "label": {
+          "text": "{color.text.primary} (Blue: {color.text.accent})"
+        }
+      },
+      "code": {
+        "class": ".btn .btn--outlined | .btn--outlined-blue",
+        "example": "layer-examples.html#button-outlined-button"
+      }
+    },
+    "Button/Floating Button": {
+      "use": "스크롤해도 늘 보여야 하는 작성·추가 행동 하나. 화면 오른쪽 아래.",
+      "avoid": "한 화면에 둘 이상 두지 말 것.",
+      "figma": {
+        "nodeId": "1:1276",
+        "key": "20172bddeacd0624969a801304c66c52ee1afd83",
+        "defaultVariant": {
+          "name": "Size=48, Variant=Primary, State=Default",
+          "key": "42785dcd530a7c93f7d54958c31ebc8d0553e680"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "버튼",
+            "propertyKey": "Label#316:96"
+          },
+          "Show Icon": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Icon#316:106"
+          },
+          "Show Text": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Text#997:9"
+          },
+          "Size": {
+            "options": [
+              "48",
+              "40"
+            ],
+            "default": "48"
+          },
+          "Variant": {
+            "options": [
+              "Primary"
+            ],
+            "default": "Primary"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          83,
+          48
+        ]
+      },
+      "parts": {
+        "container": {
+          "bg": "{color.bg.inverse}",
+          "radius": "{radius.pill}",
+          "shadow": "{shadow.floating-button}",
+          "padding": "14px 18px"
+        },
+        "label": {
+          "typography": "{typography.subtitle.14-semibold}",
+          "text": "{color.text.inverse}"
+        }
+      },
+      "code": {
+        "class": ".btn .btn--floating",
+        "example": "layer-examples.html#button-floating-button"
+      }
+    },
+    "Button/Button Group": {
+      "use": "화면·바텀시트·날짜 선택 맨 아래 CTA 영역. Single(하나, 너비 채움) · Side by Side(Secondary + Primary 반반) · Stacked(위 Primary, 아래 Ghost).",
+      "avoid": "CTA를 화면 중간에 두지 말 것.",
+      "figma": {
+        "nodeId": "1:1289",
+        "key": "b101aba3fc7721d16e2a863787142507fa5604d6",
+        "defaultVariant": {
+          "name": "Button=Single",
+          "key": "f348dd9bd6cc5944b3e9be1ebee3ce0d16c4efb7"
+        },
+        "properties": {
+          "Show SafeArea": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show SafeArea#330:12"
+          },
+          "Button": {
+            "options": [
+              "Single",
+              "Stacked",
+              "Side by Side"
+            ],
+            "default": "Single"
+          }
+        },
+        "size": [
+          375,
+          106
+        ]
+      },
+      "parts": {
+        "container": {
+          "padding": "8px {spacing.screen-x} 16px",
+          "gap": "Side by Side {spacing.8}, Stacked {spacing.4}"
+        },
+        "safeArea": {
+          "height": "34px (Show SafeArea)"
+        }
+      },
+      "code": {
+        "class": ".btn-group (--horizontal | --vertical)",
+        "markup": "<div class=\"btn-group btn-group--horizontal\"><div class=\"btn-group__buttons\"><button class=\"btn btn--secondary btn--block\">취소</button><button class=\"btn btn--primary btn--block\">확인</button></div></div>",
+        "example": "layer-examples.html#button-button-group"
+      },
+      "related": [
+        "Button/Filled Button",
+        "Button/Ghost Button"
+      ]
+    },
+    "Chip/Two Choice": {
+      "use": "둘 중 하나를 고르는 큰 질문(온보딩 유형 선택). 두 개를 나란히, 간격 8.",
+      "avoid": "보기가 셋 이상이면 Multi Choice.",
+      "figma": {
+        "nodeId": "1:1325",
+        "key": "fba0a416ce59dd41de44943de3dc117db565ad91",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "62e9ceb5cb74faaf111d54578898b0bf58ed0bb6"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "유형타이틀",
+            "propertyKey": "Label#383:0"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed/Selected",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          163,
+          163
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "163px",
+          "radius": "{radius.card}",
+          "bg": "{color.bg.secondary}",
+          "gap": "{spacing.16}"
+        },
+        "icon": {
+          "size": "40px",
+          "component": "Icon/Graphic/*"
+        },
+        "label": {
+          "typography": "{typography.body.16-medium}"
+        },
+        "Selected": {
+          "bg": "{color.bg.accent}",
+          "text": "{color.text.inverse}",
+          "icon": "White variant"
+        }
+      },
+      "code": {
+        "class": ".chip-pair > .chip-button.chip-button--card",
+        "example": "layer-examples.html#chip-two-choice"
+      }
+    },
+    "Chip/Multi Choice with Icon": {
+      "use": "아이콘으로 보기를 구분하면 빨리 읽히는 다중 선택(직무, 관심 분야).",
+      "figma": {
+        "nodeId": "1:1338",
+        "key": "a048c254c9ba1030001c950fceba9b2581220069",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "6c6519f8cbffa18bb863c660e4582b9a51cd7943"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "타이틀",
+            "propertyKey": "Label#383:4"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed/Selected",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          112,
+          48
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "48px",
+          "radius": "{radius.chip}"
+        }
+      },
+      "code": {
+        "class": ".chip-button.chip-button--icon",
+        "example": "layer-examples.html#chip-multi-choice-with-icon"
+      }
+    },
+    "Chip/Multi Choice": {
+      "use": "여러 개 고르는 짧은 보기(시간대, 관심사). Size 48 기본, 38은 촘촘한 곳(날짜 선택 시간).",
+      "avoid": "하나만 고르는 경우는 Radio나 Two Choice.",
+      "figma": {
+        "nodeId": "1:1348",
+        "key": "008f7abcaf5755188692597cf852afb58a6106f3",
+        "defaultVariant": {
+          "name": "Size=48, State=Default",
+          "key": "9ad8ba9efaa6ececc94edcd476dfd9a790a7394f"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "타이틀",
+            "propertyKey": "Label#383:8"
+          },
+          "Size": {
+            "options": [
+              "48",
+              "38"
+            ],
+            "default": "48"
+          },
+          "State": {
+            "options": [
+              "Pressed/Selected",
+              "Default",
+              "Hover",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          82,
+          48
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "48px | 38px",
+          "radius": "{radius.chip} | {radius.chip-sm}",
+          "bg": "{color.bg.secondary}"
+        },
+        "label": {
+          "typography": "{typography.body.16-medium} | {typography.subtitle.14-semibold}",
+          "text": "{color.gray.800}"
+        },
+        "Selected": {
+          "bg": "{color.bg.accent}",
+          "text": "{color.text.inverse}"
+        },
+        "Disabled": {
+          "bg": "{color.bg.secondary}",
+          "text": "{color.text.disabled}"
+        }
+      },
+      "states": "Hover Gray 200, Pressed = Selected 모습.",
+      "code": {
+        "class": ".chip-button (.chip-button--38)",
+        "markup": "<button class=\"chip-button\" aria-pressed=\"true\">아침</button>",
+        "example": "layer-examples.html#chip-multi-choice"
+      }
+    },
+    "Progress/Progress Bar": {
+      "use": "여러 단계 작성 흐름에서 현재 단계. 모바일은 앱 바 바로 아래, 웹은 Modal (Web) 안. 여백 없음 · 너비를 채움 — 모바일 화면은 감싸는 프레임이 위 8 · 좌우 20 · 아래 20.",
+      "figma": {
+        "nodeId": "1:1355",
+        "key": "0ab46d9cfce3f426c8e30bedef07e0903fa60dd4",
+        "defaultVariant": {
+          "name": "Step Size=4, Current Step=0",
+          "key": "7a455ba64e913e97c40303ba9454d987e71a191b"
+        },
+        "properties": {
+          "Step Size": {
+            "options": [
+              "4",
+              "3",
+              "2"
+            ],
+            "default": "4"
+          },
+          "Current Step": {
+            "options": [
+              "1",
+              "0",
+              "2",
+              "3",
+              "4"
+            ],
+            "default": "0"
+          }
+        },
+        "size": [
+          335,
+          4
+        ]
+      },
+      "parts": {
+        "track": {
+          "height": "4px",
+          "radius": "{radius.pill}",
+          "gap": "{spacing.4}"
+        },
+        "done": {
+          "bg": "{color.bg.accent}"
+        },
+        "todo": {
+          "bg": "{color.opacity.4}"
+        }
+      },
+      "code": {
+        "class": ".progress-bar",
+        "example": "layer-examples.html#progress-progress-bar"
+      }
+    },
+    "Tabs/Text Tabs": {
+      "use": "글자 탭 묶음(모바일 · 웹 공통, 왼쪽 정렬, 2~4칸). Size=18: 화면의 주요 구분(모바일 홈 · 상세, 웹 상세 패널 위), 탭 간격 {spacing.8}. Size=14: 웹 패널 · LNB 안, 탭 간격 {spacing.4}. 칸 수는 Show Tab 3 · 4, 아래 구분선은 Show Divider({color.border.divider}, 너비를 채울 때). 높이 40, 여백 없음 — 모바일 화면에서는 감싸는 프레임이 위 12 · 좌우 {spacing.screen-x}을 준다. 이름 · 선택 · 밑줄 유무(오전/오후는 Underline=Off)는 각 Text Tab Item에서.",
+      "avoid": "칸을 똑같이 나누면 Text Fixed Tabs, 목록 거르기는 Box Tabs, 같은 내용의 기준 전환은 Segmented Control.",
+      "figma": {
+        "nodeId": "407:6624",
+        "key": "0a2bf3f23c7bdcd363d049cf373286ae2d92f58b",
+        "defaultVariant": {
+          "name": "Size=18",
+          "key": "0a6bc42be7abb2786a9e8406ef261b491c70b327"
+        },
+        "properties": {
+          "Size": {
+            "options": [
+              "18",
+              "14"
+            ],
+            "default": "18"
+          },
+          "Show Tab 3": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Tab 3#407:0"
+          },
+          "Show Tab 4": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Tab 4#407:3"
+          },
+          "Show Divider": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Divider#407:6"
+          }
+        },
+        "size": [
+          168,
+          40
+        ]
+      },
+      "nested": [
+        {
+          "layer": "Tab 1 ~ Tab 4",
+          "component": "Tabs/Tab Item/Text Tab Item (Default)",
+          "set": {
+            "Title": "탭 이름",
+            "State": "Selected(고른 탭 하나) · Unselected"
+          }
+        }
+      ],
+      "parts": {
+        "container": {
+          "height": "40px",
+          "padding": "0",
+          "gap": "{spacing.8} (Size=14: {spacing.4})"
+        },
+        "tab": {
+          "typography": "{typography.subtitle.18-semibold} (Size=14: {typography.subtitle.14-semibold})",
+          "text": "{color.text.tertiary}",
+          "selected": "{color.text.primary} + 밑줄 2px {color.gray.900}"
+        },
+        "divider": "1px {color.border.divider}"
+      },
+      "code": {
+        "class": ".tabs (.tabs--sm · .tabs--outlined)",
+        "example": "layer-examples.html#tabs-text-tabs"
+      }
+    },
+    "Segmented Control": {
+      "use": "같은 내용을 보는 기준을 바꾸는 2~3칸 전환(예: 분석 결과 개인 · 팀). Gray 100 틀 안쪽 4 · 모서리 8, 칸은 위아래 6 · 좌우 12 · 모서리 6. 선택 칸 Gray 700 바탕 + 글자 Gray 100.",
+      "avoid": "내용 영역 자체를 나누면 Tabs, 목록을 거르면 Box Tabs · Chip.",
+      "figma": {
+        "nodeId": "400:6609",
+        "key": "75360c29b62c2164794f279730f833f889c36633",
+        "defaultVariant": {
+          "name": "Item=2",
+          "key": "bbf372baadb83faa8c4b1c4fa4fd13bf8bc1332f"
+        },
+        "properties": {
+          "Item": {
+            "options": [
+              "2",
+              "3"
+            ],
+            "default": "2"
+          }
+        },
+        "size": [
+          88,
+          37
+        ]
+      },
+      "parts": {
+        "container": {
+          "padding": "{spacing.4}",
+          "radius": "{radius.8}",
+          "bg": "{color.bg.secondary}"
+        },
+        "item": {
+          "typography": "{typography.body.12-semibold}",
+          "text": "{color.gray.700}",
+          "selected": "{color.gray.700} 바탕 + {color.gray.100} 글자",
+          "hover": "{color.gray.200}"
+        }
+      },
+      "code": {
+        "class": ".segmented > .segmented__item[aria-pressed]",
+        "example": "layer-examples.html#segmented-control"
+      }
+    },
+    "Segmented Control/Item": {
+      "partOf": "Segmented Control",
+      "note": "직접 쓰지 말고 Segmented Control를 쓴다.",
+      "figma": {
+        "nodeId": "400:6595",
+        "key": "f92b375317edfbbfa2e3ffed650c05952426ded9",
+        "properties": {
+          "State": {
+            "options": [
+              "Selected",
+              "Unselected",
+              "Hover"
+            ],
+            "default": "Selected"
+          },
+          "Label": {
+            "type": "text",
+            "default": "팀",
+            "propertyKey": "Label#400:0"
+          }
+        },
+        "size": [
+          45,
+          29
+        ]
+      },
+      "code": {
+        "class": ".segmented__item[aria-pressed]"
+      }
+    },
+    "Tabs/Text Fixed Tabs": {
+      "use": "화면 너비를 똑같이 나누는 글자 탭(2·3개). 바텀시트 A/B 전환.",
+      "figma": {
+        "nodeId": "1:1439",
+        "key": "492bbfdbad0f3208a7f778c12fede8bb015b5d03",
+        "defaultVariant": {
+          "name": "Item=3 Tabs, Outline=No Outlined",
+          "key": "be60de78e3e8f444d907e42e3f6ce0ce26160273"
+        },
+        "properties": {
+          "Item": {
+            "options": [
+              "2 Tabs",
+              "3 Tabs"
+            ],
+            "default": "3 Tabs"
+          },
+          "Outline": {
+            "options": [
+              "Outlined",
+              "No Outlined"
+            ],
+            "default": "No Outlined"
+          }
+        },
+        "size": [
+          375,
+          44
+        ]
+      },
+      "parts": {
+        "tab": {
+          "typography": "{typography.title.18-bold}"
+        }
+      },
+      "code": {
+        "class": ".tabs.tabs--fixed",
+        "example": "layer-examples.html#tabs-text-fixed-tabs"
+      }
+    },
+    "Tabs/Box Tabs": {
+      "use": "필터처럼 고르는 상자형 탭. 항목이 많으면 Scrollable.",
+      "figma": {
+        "nodeId": "1:1463",
+        "key": "29ebdd14936f85e6594515a25fa2f0e05e66639a",
+        "defaultVariant": {
+          "name": "Item=Scrollable",
+          "key": "c37aced0d36138972aae3f020dbfcb7781726fcb"
+        },
+        "properties": {
+          "Item": {
+            "options": [
+              "Scrollable",
+              "3 Tabs",
+              "2 Tabs"
+            ],
+            "default": "Scrollable"
+          }
+        },
+        "size": [
+          375,
+          74
+        ]
+      },
+      "parts": {
+        "container": {
+          "padding": "20px {spacing.screen-x} 16px",
+          "gap": "{spacing.8}"
+        },
+        "tab": {
+          "height": "38px",
+          "radius": "{radius.8}",
+          "bg": "{color.bg.secondary}",
+          "typography": "{typography.subtitle.14-semibold}"
+        },
+        "Selected": {
+          "bg": "{color.gray.800}",
+          "text": "{color.text.inverse}"
+        }
+      },
+      "code": {
+        "class": ".box-tabs (--scroll | --fixed)",
+        "example": "layer-examples.html#tabs-box-tabs"
+      }
+    },
+    "Bottom Sheet/Short": {
+      "use": "화면 하단에서 올라오는 짧은 시트. 내용 높이에 맞춤. Content × Button 조합.",
+      "avoid": "내용이 많거나 탭이 필요하면 Long.",
+      "figma": {
+        "nodeId": "1:1633",
+        "key": "7b618169c0d5ee4b30a35aa0aa1d81c906a14105",
+        "defaultVariant": {
+          "name": "Content=Default, Button=None",
+          "key": "8401311eddf5425ef0d2e9211b4899c166af6534"
+        },
+        "properties": {
+          "Illustration": {
+            "type": "instance-swap",
+            "default": "Retro/KPT",
+            "propertyKey": "Illustration#278:0"
+          },
+          "Show Title": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Title#474:6"
+          },
+          "Show Close": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Close#474:12"
+          },
+          "Content": {
+            "options": [
+              "Default",
+              "Chip Button",
+              "Illustration",
+              "Text Area"
+            ],
+            "default": "Default"
+          },
+          "Button": {
+            "options": [
+              "None",
+              "Single",
+              "Side by Side"
+            ],
+            "default": "None"
+          }
+        },
+        "size": [
+          375,
+          357
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "375px",
+          "bg": "{color.bg.surface}",
+          "radius": "{radius.modal} 위 모서리만",
+          "shadow": "{shadow.modal}"
+        },
+        "header": {
+          "height": "56px",
+          "title": "{typography.title.16-bold}"
+        },
+        "title": {
+          "typography": "{typography.title.20-bold}",
+          "text": "{color.text.primary}"
+        },
+        "body": {
+          "padding": "{spacing.24} {spacing.screen-x}"
+        },
+        "illustration": {
+          "size": "160px",
+          "swap": "Illustration 속성"
+        },
+        "backdrop": {
+          "bg": "{color.overlay.dim}"
+        }
+      },
+      "code": {
+        "class": ".bsheet, .bsheet-dim",
+        "example": "layer-examples.html#bottom-sheet-short"
+      },
+      "related": [
+        "Button/Button Group",
+        "Chip/Two Choice",
+        "Fields/Text Area"
+      ]
+    },
+    "Bottom Sheet/Long": {
+      "use": "내용이 많거나 탭·필터가 필요한 긴 시트(높이 670 고정, 본문 스크롤).",
+      "figma": {
+        "nodeId": "1:1739",
+        "key": "60881b7fdf235f1d15fab9343e4168e32cf3f470",
+        "defaultVariant": {
+          "name": "Content=Default",
+          "key": "c89307d03bedf9fb9e682206be2c89e89d3ecbae"
+        },
+        "properties": {
+          "Show Close": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Close#278:7"
+          },
+          "Show Title": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Title#474:18"
+          },
+          "Content": {
+            "options": [
+              "Default",
+              "Tab",
+              "Tab + Text Input",
+              "Tab + Filter"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          375,
+          670
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "670px"
+        },
+        "body": {
+          "padding": "20px {spacing.screen-x}",
+          "scroll": "Scroll Bar"
+        }
+      },
+      "code": {
+        "class": ".bsheet.bsheet--long",
+        "example": "layer-examples.html#bottom-sheet-long"
+      },
+      "related": [
+        "Tabs/Text Fixed Tabs",
+        "Tabs/Box Tabs",
+        "List/Checkbox List"
+      ]
+    },
+    "Date Time Picker": {
+      "use": "날짜와 시간을 함께 고르는 바텀시트. 둘 다 골라야 버튼 활성. 오늘 이전 날짜는 Disabled(지난 날짜는 고를 수 없음).",
+      "figma": {
+        "nodeId": "1:1811",
+        "key": "8a34b031cf310e801e1268eac8aaf07ecdb8d329",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "68bc7bdc3527f9f5961d3f419d46c8c34f80d915"
+        },
+        "properties": {
+          "State": {
+            "options": [
+              "Default",
+              "Date Selected",
+              "Time Selected (AM)",
+              "Time Selected (PM)"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          375,
+          670
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "670px",
+          "radius": "{radius.modal} 위 모서리만"
+        },
+        "hours": {
+          "component": "Chip/Multi Choice Size=38"
+        }
+      },
+      "code": {
+        "class": ".dtp",
+        "example": "layer-examples.html#date-time-picker"
+      }
+    },
+    "Date Picker/Day": {
+      "partOf": "Date Time Picker",
+      "note": "직접 쓰지 말고 Date Time Picker를 쓴다.",
+      "use": "달력 날짜 칸. Today는 {color.text.accent}, Selected는 {color.bg.accent}.",
+      "figma": {
+        "nodeId": "241:10075",
+        "key": "f42b2d4b8ef8b532fdc3f755dbd36c80a8fd4233",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "eccbadc80404cdc14aa2c759947e51bcfcd7f0d8"
+        },
+        "properties": {
+          "Day": {
+            "type": "text",
+            "default": "20",
+            "propertyKey": "Day#241:7"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed",
+              "Selected",
+              "Today",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          41,
+          41
+        ]
+      },
+      "code": {
+        "class": ".dtp__day"
+      }
+    },
+    "Fields/Select Field": {
+      "use": "목록에서 하나를 고르는 선택창(눌러서 바텀시트로 고름).",
+      "figma": {
+        "nodeId": "1:2315",
+        "key": "72cc32d93eac73a600ad948048f8ed3cbee8ddf7",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "2b0bd797de2ffab4253f9a2455a17cb24c65dc8a"
+        },
+        "properties": {
+          "Placeholder": {
+            "type": "text",
+            "default": "회고 마감일을 선택해 주세요",
+            "propertyKey": "Placeholder#444:8"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Selected",
+              "Disabled",
+              "Focus"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          335,
+          53
+        ]
+      },
+      "parts": {
+        "container": {
+          "radius": "{radius.field}",
+          "border": "{color.border.default}",
+          "bg": "{color.bg.surface}",
+          "padding": "15px 13px"
+        },
+        "placeholder": {
+          "text": "{color.text.tertiary}"
+        },
+        "Focus": {
+          "border": "{color.border.focus}"
+        }
+      },
+      "code": {
+        "class": ".select-field",
+        "example": "layer-examples.html#fields-select-field"
+      }
+    },
+    "Fields/Text Input": {
+      "use": "한 줄 글자 입력. Show Label, Char limit(글자 수).",
+      "avoid": "여러 줄은 Text Area.",
+      "figma": {
+        "nodeId": "1:2333",
+        "key": "64755c6ae7bff658893e31bc6f14f877847a5558",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "d55eae083b17d99479c3a0b61fe54d160d17adb8"
+        },
+        "properties": {
+          "Show Label": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Label#420:0"
+          },
+          "Placeholder": {
+            "type": "text",
+            "default": "Text",
+            "propertyKey": "Placeholder#444:0"
+          },
+          "Char limit": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Char limit#444:21"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Focus",
+              "Typing",
+              "Typed",
+              "OverTyping",
+              "Error",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          300,
+          81
+        ]
+      },
+      "parts": {
+        "label": {
+          "typography": "{typography.subtitle.14-semibold}"
+        },
+        "box": {
+          "radius": "{radius.field}",
+          "border": "{color.border.default}",
+          "padding": "15px 13px"
+        },
+        "input": {
+          "typography": "{typography.body.15-medium}",
+          "text": "{color.text.primary}",
+          "placeholder": "{color.text.tertiary}"
+        },
+        "Focus": {
+          "border": "{color.border.focus}"
+        },
+        "Error": {
+          "border": "{color.border.focus} (유지)",
+          "help": "{color.text.error} {typography.body.14-medium}"
+        },
+        "Disabled": {
+          "border": "{color.gray.200}",
+          "text": "{color.gray.300}"
+        }
+      },
+      "code": {
+        "class": ".field",
+        "markup": "<div class=\"field\"><label class=\"field__label\">회고 이름</label><div class=\"field__box\"><input class=\"field__input\" placeholder=\"이름을 입력해 주세요\"><span class=\"field__count\">0/20</span></div></div>",
+        "example": "layer-examples.html#fields-text-input"
+      }
+    },
+    "Fields/Text Area": {
+      "use": "여러 줄 글자 입력(회고 내용).",
+      "figma": {
+        "nodeId": "1:2389",
+        "key": "4942ced515be69593ba9c09cfabe6db7fabe241c",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "a3de067aafce2962e4a016503eee013d434e0569"
+        },
+        "properties": {
+          "Show Label": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Label#420:15"
+          },
+          "Placeholder": {
+            "type": "text",
+            "default": "Text",
+            "propertyKey": "Placeholder#444:13"
+          },
+          "Char limit": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Char limit#444:29"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Focus",
+              "Typing",
+              "Typed",
+              "Error",
+              "OverTyping",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          300,
+          102
+        ]
+      },
+      "parts": {
+        "box": {
+          "radius": "{radius.field}"
+        }
+      },
+      "code": {
+        "class": ".field.field--area",
+        "example": "layer-examples.html#fields-text-area"
+      }
+    },
+    "Controls/Checkbox": {
+      "use": "여러 개 고르기. 라벨 왼쪽·오른쪽.",
+      "figma": {
+        "nodeId": "1:2485",
+        "key": "19ae06c9480899cac383a45112f523baad5e0324",
+        "defaultVariant": {
+          "name": "Type=Default, State=Checked, Disable=False, Interaction=Default",
+          "key": "334a07b7d1a052a186dcc14405dd02bd8a9458cd"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "Default",
+              "Label Left",
+              "Label Right"
+            ],
+            "default": "Default"
+          },
+          "State": {
+            "options": [
+              "Checked",
+              "Unchecked"
+            ],
+            "default": "Checked"
+          },
+          "Disable": {
+            "options": [
+              "False",
+              "True"
+            ],
+            "default": "False"
+          },
+          "Interaction": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          24,
+          24
+        ]
+      },
+      "parts": {
+        "box": {
+          "size": "20px",
+          "radius": "{radius.checkbox}",
+          "border": "{color.gray.400}"
+        },
+        "Checked": {
+          "bg": "{color.bg.accent}"
+        },
+        "Disabled": {
+          "bg": "{color.gray.100}",
+          "checked": "{color.blue.400}"
+        }
+      },
+      "code": {
+        "class": ".control > .control__input[type=checkbox]",
+        "example": "layer-examples.html#controls-checkbox"
+      }
+    },
+    "Controls/Radio": {
+      "use": "하나만 고르기.",
+      "figma": {
+        "nodeId": "213:3411",
+        "key": "b6c38d3b2c1717d2e97c7f49d6a0b71543484cd9",
+        "defaultVariant": {
+          "name": "Type=Default, State=Checked, Disable=False, Interaction=Default",
+          "key": "d40f5d018b66a01a9f4f3b7ed2b93fac0dfde0fa"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "Default",
+              "Label Left",
+              "Label Right"
+            ],
+            "default": "Default"
+          },
+          "State": {
+            "options": [
+              "Checked",
+              "Unchecked"
+            ],
+            "default": "Checked"
+          },
+          "Disable": {
+            "options": [
+              "False",
+              "True"
+            ],
+            "default": "False"
+          },
+          "Interaction": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          24,
+          24
+        ]
+      },
+      "parts": {
+        "box": {
+          "size": "20px",
+          "radius": "{radius.pill}"
+        },
+        "Checked": {
+          "bg": "{color.bg.accent}",
+          "dot": "8px white"
+        }
+      },
+      "code": {
+        "class": ".control > .control__input[type=radio]",
+        "example": "layer-examples.html#controls-radio"
+      }
+    },
+    "List/Checkbox List": {
+      "use": "글자 + 체크박스 행(필터 목록).",
+      "figma": {
+        "nodeId": "1:2695",
+        "key": "4de38e4563e23dd80ff0b3eb598ea4218f536a28",
+        "defaultVariant": {
+          "name": "State=Unchecked",
+          "key": "dd015bc705aebdab4bdebd2e149c2d1195d5132d"
+        },
+        "properties": {
+          "State": {
+            "options": [
+              "Unchecked",
+              "Checked"
+            ],
+            "default": "Unchecked"
+          }
+        },
+        "size": [
+          375,
+          58
+        ]
+      },
+      "parts": {
+        "row": {
+          "height": "58px",
+          "padding": "0 {spacing.screen-x}",
+          "typography": "{typography.body.15-medium}"
+        }
+      },
+      "code": {
+        "class": ".list > li > .list-check",
+        "example": "layer-examples.html#list-checkbox-list"
+      }
+    },
+    "List/Icon List": {
+      "use": "카드형 질문 목록. Action=Reorder(순서 변경) · Delete(삭제) · None(고정 · 보기만), Marker=Number(번호) · Star(★ 고정 질문). None · Number는 템플릿 요약처럼 번호만 보여 줄 때. Number · Text 속성으로 번호와 문구를 바꾼다(Star는 ★ 고정, Number 속성 영향 없음).",
+      "figma": {
+        "nodeId": "219:3423",
+        "key": "ff013dc29cd554d711d3d3e435c4744350924179",
+        "defaultVariant": {
+          "name": "Action=Reorder, Marker=Number",
+          "key": "38db49c46a9c70de96c91b1cecdc791498d14e3c"
+        },
+        "properties": {
+          "Action": {
+            "options": [
+              "Reorder",
+              "Delete",
+              "None"
+            ],
+            "default": "Reorder"
+          },
+          "Marker": {
+            "options": [
+              "Number",
+              "Star"
+            ],
+            "default": "Number"
+          },
+          "Number": {
+            "type": "text",
+            "default": "1",
+            "propertyKey": "Number#426:0"
+          },
+          "Text": {
+            "type": "text",
+            "default": "Text",
+            "propertyKey": "Text#426:3"
+          }
+        },
+        "size": [
+          335,
+          50
+        ]
+      },
+      "parts": {
+        "card": {
+          "radius": "{radius.list-card}",
+          "bg": "{color.bg.secondary}",
+          "padding": "15px {spacing.12}"
+        },
+        "number": {
+          "size": "20px",
+          "bg": "{color.gray.800}",
+          "typography": "{typography.caption.10-bold}"
+        },
+        "delete": {
+          "bg": "{color.status.error}",
+          "radius": "{radius.4}"
+        },
+        "star": {
+          "bg": "{color.gray.700}",
+          "text": "{color.gray.700}"
+        }
+      },
+      "code": {
+        "class": ".list--cards > .list-card (고정: .list-card--fixed + .num-badge--star)",
+        "example": "layer-examples.html#list-icon-list"
+      }
+    },
+    "Accordion/Index Title": {
+      "use": "아코디언 목차를 여는 버튼.",
+      "figma": {
+        "nodeId": "1:2872",
+        "key": "c7389ea6eaed676615ea924d0218e4b4d7ccaafd",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "4764d1910edbc0c38a5f16c8936fd01c1f75e7b7"
+        },
+        "properties": {
+          "State": {
+            "options": [
+              "Hover",
+              "Pressed",
+              "Default"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          140,
+          40
+        ]
+      },
+      "parts": {
+        "container": {
+          "size": "140x40",
+          "radius": "{radius.card}",
+          "bg": "{color.bg.secondary}"
+        }
+      },
+      "code": {
+        "class": ".acc-title",
+        "example": "layer-examples.html#accordion-index-title"
+      },
+      "related": [
+        "Accordion/Index"
+      ]
+    },
+    "Accordion/Index": {
+      "use": "아코디언 목차 패널. 안에 Index Item.",
+      "figma": {
+        "nodeId": "1:2885",
+        "key": "73084cfc7eac508c5095fa7ca12398448287abf9",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "780881aa3caa032f663b9fe4e988dc62a283802c"
+        },
+        "properties": {
+          "State": {
+            "options": [
+              "Default"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          335,
+          296
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "335px",
+          "radius": "{radius.card}",
+          "bg": "{color.bg.secondary}"
+        }
+      },
+      "code": {
+        "class": ".acc-index",
+        "example": "layer-examples.html#accordion-index"
+      }
+    },
+    "Accordion/Index Item": {
+      "partOf": "Accordion/Index",
+      "note": "직접 쓰지 말고 Accordion/Index를 쓴다.",
+      "use": "목차 한 줄. Selected = {color.bg.selected}.",
+      "figma": {
+        "nodeId": "220:3442",
+        "key": "64199f935b5ab29f2c54f14f4fee1b472307536a",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "e61e5e2ad8c9db7aec7179397f0aecba536e57fc"
+        },
+        "properties": {
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed",
+              "Selected"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          335,
+          46
+        ]
+      },
+      "code": {
+        "class": ".acc-index__item"
+      }
+    },
+    "Accordion/Contents": {
+      "use": "접고 펼치는 내용 상자. 번호 + 제목, 펼치면 내용.",
+      "figma": {
+        "nodeId": "1:2986",
+        "key": "8a146103cc1f15ede25aa39180cb4f47ed970e06",
+        "defaultVariant": {
+          "name": "State=Default, Type=Fold",
+          "key": "2af53f93bcc522584be62ca7c3839098acbb7dac"
+        },
+        "properties": {
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed"
+            ],
+            "default": "Default"
+          },
+          "Type": {
+            "options": [
+              "Fold",
+              "Unfold"
+            ],
+            "default": "Fold"
+          }
+        },
+        "size": [
+          335,
+          62
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "335px",
+          "radius": "{radius.8}",
+          "bg": "{color.bg.secondary}",
+          "padding": "14px {spacing.20}"
+        },
+        "body": {
+          "text": "{color.text.secondary}",
+          "typography": "{typography.body.14-medium}"
+        }
+      },
+      "code": {
+        "class": ".acc",
+        "example": "layer-examples.html#accordion-contents"
+      }
+    },
+    "App Bar/Top App Bar": {
+      "use": "화면 맨 위. Home(큰 제목 + 프로필) · Sub (Black)(뒤로 + 가운데 제목 + 오른쪽 아이콘/텍스트 버튼) · Sub (White)(어두운 바탕).",
+      "figma": {
+        "nodeId": "1:3989",
+        "key": "c55397b877a1b58290d013a5e917744313fe2eae",
+        "defaultVariant": {
+          "name": "Style=Home",
+          "key": "6ded41e699adc80324d44f0dfcdc0b4fa3f5abce"
+        },
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "회고",
+            "propertyKey": "Title#313:6"
+          },
+          "Show Right": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Right#313:7"
+          },
+          "Show Left": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Left#313:8"
+          },
+          "Left Icon": {
+            "type": "instance-swap",
+            "default": "Icon/Assets/Arrow-left",
+            "propertyKey": "Left Icon#330:4"
+          },
+          "Show Title": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Title#330:8"
+          },
+          "Show Text Button": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Text Button#997:5"
+          },
+          "Style": {
+            "options": [
+              "Home",
+              "Sub (Black)",
+              "Sub (White)"
+            ],
+            "default": "Home"
+          }
+        },
+        "size": [
+          375,
+          58
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "58px",
+          "padding": "14px 22px 8px {spacing.20}"
+        },
+        "Home title": {
+          "typography": "{typography.heading.24-bold}"
+        },
+        "Sub title": {
+          "typography": "{typography.subtitle.18-semibold}"
+        },
+        "textButton": {
+          "text": "{color.text.accent}"
+        }
+      },
+      "code": {
+        "class": ".app-bar (--home | --sub | --inverse)",
+        "example": "layer-examples.html#app-bar-top-app-bar"
+      }
+    },
+    "App Bar/Navigation Bar": {
+      "use": "화면 맨 아래 탭 내비게이션(홈 · 실행 목표 · 분석). 메인 탭 화면에만.",
+      "avoid": "바텀시트·작성 흐름 화면에는 두지 말 것.",
+      "figma": {
+        "nodeId": "1:4016",
+        "key": "fc03f7f12e98e5c31c863bad8e41ae3d1678ff45",
+        "defaultVariant": {
+          "name": "On=Home",
+          "key": "ade6739daae44b1d88ea496bada41aae8a1c8244"
+        },
+        "properties": {
+          "Show SafeArea": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show SafeArea#330:0"
+          },
+          "On": {
+            "options": [
+              "Home",
+              "Action Item",
+              "Analysis"
+            ],
+            "default": "Home"
+          }
+        },
+        "size": [
+          375,
+          88
+        ]
+      },
+      "parts": {
+        "item": {
+          "icon": "24px",
+          "label": "{typography.caption.11-medium}"
+        },
+        "current": {
+          "text": "{color.gray.900}"
+        },
+        "other": {
+          "icon": "{color.gray.400}",
+          "label": "{color.gray.600}"
+        }
+      },
+      "code": {
+        "class": ".nav-bar .nav-item",
+        "example": "layer-examples.html#app-bar-navigation-bar"
+      }
+    },
+    "App Bar/OS Bar": {
+      "use": "시안용 OS 상태 바·홈 표시줄. iOS 14(✅)가 기준: 상태 바 375×44, 홈 표시줄 34.",
+      "avoid": "수정하지 말 것.",
+      "figma": {
+        "nodeId": "1:3954",
+        "key": "62dd42936f960c94944bdf2fed28628c9f394f86",
+        "defaultVariant": {
+          "name": "Category=Status Bar (iOS 18)",
+          "key": "41d9d609ccafaeba9240789344ae77d7192d8b42"
+        },
+        "properties": {
+          "Category": {
+            "options": [
+              "SafeArea (iOS 14) ✅",
+              "Status Bar (iOS 14) ✅",
+              "Status Bar (iOS 18)",
+              "SafeArea (iOS 18)",
+              "Safe Area (Android)",
+              "Status Bar (Android)"
+            ],
+            "default": "Status Bar (iOS 18)"
+          }
+        },
+        "size": [
+          393,
+          54
+        ]
+      },
+      "code": {
+        "class": ".os-status (위 44) · .os-home (아래 34)",
+        "note": "시안용. 실제 앱 코드에서는 넣지 않는다",
+        "example": "layer-examples.html#app-bar-os-bar"
+      }
+    },
+    "Profile": {
+      "use": "프로필 사진 원. Size=32(앱 바 Home 오른쪽) · 42(설정 화면 프로필 행) · 28(웹 LNB 아래 프로필, 펼침 · 접힘 모두). 사진이 없으면 UserIcon(Gray 400 바탕). 대표자는 Show Leader(오른쪽 아래 왕관, bg/inverse 동그라미 · 크기의 37.5%).",
+      "figma": {
+        "nodeId": "1:3978",
+        "key": "8b63846f93bcf9b010e3a84421efb12a07a47481",
+        "defaultVariant": {
+          "name": "Avartar=UserIcon, Size=32",
+          "key": "074ebbe683036785b25aa560a5e0a3b912dfe411"
+        },
+        "properties": {
+          "Avartar": {
+            "options": [
+              "Image",
+              "UserIcon"
+            ],
+            "default": "UserIcon"
+          },
+          "Size": {
+            "options": [
+              "32",
+              "42",
+              "28"
+            ],
+            "default": "32"
+          },
+          "Show Leader": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Leader#435:0"
+          }
+        },
+        "size": [
+          32,
+          32
+        ]
+      },
+      "parts": {
+        "container": {
+          "size": "32px",
+          "radius": "{radius.pill}"
+        }
+      },
+      "code": {
+        "class": ".avatar (.avatar--42 | .avatar--28) · 대표자 .avatar-leader > .avatar + .avatar-leader__badge",
+        "example": "layer-examples.html#profile"
+      }
+    },
+    "Modal (Web)": {
+      "use": "웹(1440) 모달(520 × 652). 위 제목(Title 22 Bold, Show Title) + 닫기 · 단계 막대(Show Progress) · 가운데 Content 슬롯(화면마다 질문 · 입력을 직접 넣음 — 인스턴스의 Content 슬롯에 프레임을 붙인다) · 아래 버튼 48 두 개(이전 Secondary · 다음 Primary, Show Prev / Show Footer). 한 단계 뒤로 가는 모달은 제목 앞 뒤로 가기(Show Back, Arrow-left 24). 단계형 입력: 제목 없이 단계 막대 + 버튼. 목록형(템플릿 리스트): 제목 + 버튼 없음, 바탕 Gray 100. 뒤에 overlay/dim.",
+      "avoid": "확인 · 선택만 받으면 Popup, 모바일 입력은 Bottom Sheet.",
+      "figma": {
+        "nodeId": "413:5747",
+        "key": "832bcabef1800ce76ccb7f3e94a95ebd19d9ccb9",
+        "properties": {
+          "Content": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Content#416:0"
+          },
+          "Show Progress": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Progress#413:1"
+          },
+          "Show Prev": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Prev#413:2"
+          },
+          "Title": {
+            "type": "text",
+            "default": "템플릿 리스트",
+            "propertyKey": "Title#419:0"
+          },
+          "Show Title": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Title#419:1"
+          },
+          "Show Footer": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Footer#419:2"
+          },
+          "Show Back": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Back#426:8"
+          }
+        },
+        "size": [
+          520,
+          652
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "520px",
+          "radius": "{radius.modal-lg}",
+          "bg": "{color.bg.surface}",
+          "shadow": "{shadow.modal}"
+        },
+        "body": {
+          "padding": "{spacing.24} {spacing.24} 0",
+          "gap": "{spacing.20}"
+        },
+        "footer": {
+          "padding": "{spacing.8} {spacing.24} {spacing.24}",
+          "buttons": "Button/Filled Button Size=48 Secondary + Primary, 간격 10"
+        },
+        "dim": "{color.overlay.dim}"
+      },
+      "code": {
+        "class": ".modal > .modal__body + .modal__foot",
+        "example": "layer-examples.html#modal-web"
+      }
+    },
+    "Popup": {
+      "use": "화면 가운데 확인·선택 모달. 한 번에 하나만.",
+      "avoid": "단순 결과 알림은 Toast, 여러 입력은 Bottom Sheet.",
+      "figma": {
+        "nodeId": "1:4704",
+        "key": "d7034c7fc95154409580d105dda6c8eb15efea02",
+        "defaultVariant": {
+          "name": "Type=Basic, Button=Single",
+          "key": "20b3ec069eadaf9b2879fd8832421df0eff70035"
+        },
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "Title",
+            "propertyKey": "Title#247:0"
+          },
+          "Sub Title": {
+            "type": "text",
+            "default": "Sub title",
+            "propertyKey": "Sub Title#247:7"
+          },
+          "Show Title": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Title#247:14"
+          },
+          "Show Sub Title": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Sub Title#247:21"
+          },
+          "Illustration": {
+            "type": "instance-swap",
+            "default": "Content/Recommend",
+            "propertyKey": "Illustration#257:0"
+          },
+          "Type": {
+            "options": [
+              "Basic",
+              "With Illustration"
+            ],
+            "default": "Basic"
+          },
+          "Button": {
+            "options": [
+              "Single",
+              "Side by Side",
+              "Stacked"
+            ],
+            "default": "Single"
+          }
+        },
+        "size": [
+          315,
+          185
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "315px",
+          "bg": "{color.bg.surface}",
+          "radius": "{radius.modal}",
+          "shadow": "{shadow.modal}",
+          "padding": "30px {spacing.20} {spacing.20}"
+        },
+        "title": {
+          "typography": "{typography.title.18-bold}",
+          "text": "{color.text.primary}"
+        },
+        "sub": {
+          "typography": "{typography.body.16-medium}",
+          "text": "{color.text.tertiary}"
+        },
+        "illustration": {
+          "size": "120px",
+          "swap": "Illustration 속성(기본 Content/Recommend)"
+        },
+        "backdrop": {
+          "bg": "{color.overlay.dim}"
+        }
+      },
+      "code": {
+        "class": ".popup-dim > .popup",
+        "markup": "<div class=\"popup-dim\"><div class=\"popup\" role=\"dialog\"><div class=\"popup__text\"><p class=\"popup__title\">작성을 그만둘까요?</p><p class=\"popup__sub\">지금 나가면 작성한 내용이 사라져요.</p></div><div class=\"popup__actions\"><button class=\"btn btn--secondary\">나가기</button><button class=\"btn btn--primary\">계속 쓰기</button></div></div></div>",
+        "example": "layer-examples.html#popup"
+      },
+      "related": [
+        "Button/Filled Button",
+        "Button/Ghost Button"
+      ]
+    },
+    "Toasts/Toast": {
+      "use": "행동 결과를 3초 동안 알림. 화면 아래쪽, 버튼 위.",
+      "avoid": "사용자가 결정해야 하면 Popup.",
+      "figma": {
+        "nodeId": "1:4917",
+        "key": "ed1c77a5663d37e934da22ac5dfe7d61b23beee4",
+        "defaultVariant": {
+          "name": "Type=Text",
+          "key": "b44bc1010043607de945070f440e885946bcab5f"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "Text",
+            "propertyKey": "Label#415:21"
+          },
+          "Type": {
+            "options": [
+              "Text",
+              "Info",
+              "Caution"
+            ],
+            "default": "Text"
+          }
+        },
+        "size": [
+          335,
+          58
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "335px",
+          "bg": "{color.bg.toast}",
+          "radius": "{radius.toast}",
+          "padding": "18px {spacing.20}"
+        },
+        "label": {
+          "typography": "{typography.body.16-medium}",
+          "text": "{color.text.inverse}"
+        }
+      },
+      "code": {
+        "class": ".toast (--info | --caution)",
+        "example": "layer-examples.html#toasts-toast"
+      }
+    },
+    "Tooltips/Function Tooltip": {
+      "use": "기능을 처음 알려 주는 말풍선. 대상을 누를 때까지 유지.",
+      "figma": {
+        "nodeId": "1:4927",
+        "key": "8f24617373e04e797238b9fe5a813b9fd536d141",
+        "defaultVariant": {
+          "name": "Arrow=Bottom-Left, Color=Blue",
+          "key": "f3923272ece4757f73502f4fd7c695487c570afb"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "툴팁 내 자세한 내용을 작성해주세요",
+            "propertyKey": "Label#415:24"
+          },
+          "Arrow": {
+            "options": [
+              "Bottom-Right",
+              "Bottom-Left",
+              "Top-Left",
+              "Top-Right",
+              "Bottom-Center"
+            ],
+            "default": "Bottom-Left"
+          },
+          "Color": {
+            "options": [
+              "Blue",
+              "Gray"
+            ],
+            "default": "Blue"
+          }
+        },
+        "size": [
+          195,
+          45
+        ]
+      },
+      "parts": {
+        "container": {
+          "radius": "{radius.tooltip}",
+          "bg": "{color.bg.accent} | {color.bg.inverse}",
+          "typography": "{typography.body.12-semibold}"
+        }
+      },
+      "code": {
+        "class": ".tooltip.tooltip--bottom-left …",
+        "example": "layer-examples.html#tooltips-function-tooltip"
+      }
+    },
+    "Tooltips/Hover Tooltip": {
+      "use": "웹에서 마우스를 올렸을 때 대상 8px 위 설명.",
+      "figma": {
+        "nodeId": "1:4946",
+        "key": "8122370b3e1507aacca3f949636269836e9a8831",
+        "defaultVariant": {
+          "name": "Align=Left",
+          "key": "d8e2569ca096458ebba57e839df825f51a175604"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "툴팁 내 자세한 내용을 작성해주세요",
+            "propertyKey": "Label#415:24"
+          },
+          "Align": {
+            "options": [
+              "Left"
+            ],
+            "default": "Left"
+          }
+        },
+        "size": [
+          191,
+          33
+        ]
+      },
+      "code": {
+        "class": ".tooltip.tooltip--hover",
+        "example": "layer-examples.html#tooltips-hover-tooltip"
+      }
+    },
+    "Template/Web": {
+      "use": "웹 화면의 틀(1440 × 900). Type으로 형태를 고른다. Type=List — 목록 · 대시보드(스페이스, 모달 · 팝오버 뒤 배경): 펼친 LNB 284 + Body(위 28, 좌우 layout.margin-list 40) 안 Content 슬롯. 카드 열 296 × n(사이 40) + 오른쪽 패널 306, 넓어진 본문은 열과 패널 사이로 흡수. Type=Work — 작성 · 분석(왼쪽 목록을 보며 오른쪽에서 작업): 접은 LNB 84 + List 슬롯(296, 좌우 layout.margin-work 20, 위 28) + Panel 슬롯(남은 너비, 오른쪽 끝에 붙는 흰 시트, 안쪽 좌우 layout.panel-padding 40, 위아래 24). 그리드 스타일 Layout/Web List · Layout/Web Work. 두 Type에 맞지 않는 새 웹 형태가 생기면 템플릿 밖에서 화면을 짜지 말고 Type을 추가한다.",
+      "avoid": "Type을 고른 뒤 LNB 상태 · 여백을 인스턴스에서 바꾸지 않는다(형태가 다르면 다른 Type).",
+      "figma": {
+        "nodeId": "449:6726",
+        "key": "4f0a97954b6b286cedcfa03d96712dee7b8f7927",
+        "defaultVariant": {
+          "name": "Type=List",
+          "key": "15987dab8169c98e21a2cea0ac52bea828cbcd00"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "List",
+              "Work"
+            ],
+            "default": "List"
+          },
+          "Content": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Content#449:12"
+          },
+          "List": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "List#449:13"
+          },
+          "Panel": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Panel#449:14"
+          }
+        },
+        "size": [
+          1440,
+          900
+        ]
+      },
+      "nested": [
+        {
+          "layer": "LNB",
+          "component": "LNB",
+          "set": {
+            "Current": "지금 위치(Home · Space)",
+            "Fold": "Type에 맞춰 고정(List=Off, Work=On) — 바꾸지 않음"
+          }
+        }
+      ],
+      "parts": {
+        "list": {
+          "lnb": "{layout.lnb}",
+          "margin": "{layout.margin-list}",
+          "column": "{layout.card-column}",
+          "panel": "{layout.side-panel}",
+          "bg": "{color.bg.secondary}"
+        },
+        "work": {
+          "lnb": "{layout.lnb-folded}",
+          "margin": "{layout.margin-work}",
+          "column": "{layout.card-column}",
+          "panel-padding": "{layout.panel-padding}",
+          "panel-bg": "{color.bg.surface}"
+        }
+      },
+      "code": {
+        "class": ".layout-web-list | .layout-web-work",
+        "example": "layer-examples.html#template-web"
+      }
+    },
+    "Template/Mobile": {
+      "use": "모바일 화면의 틀(375 × 812). 상태 바 44 → App Bar/Top App Bar(Show App Bar) → Content 슬롯(좌우 spacing.screen-x 20) → App Bar/Navigation Bar(Show Navigation Bar). 작성 흐름은 Navigation Bar를 끄고 Button Group을 Content 아래에 둔다. 그리드 스타일 Layout/Mobile 375. Background=Surface(흰 바탕, 기본) · Secondary(Gray 100 — 흰 카드를 쌓는 목록 화면: 실행목표 · 회고 홈 · 스페이스 상세).",
+      "figma": {
+        "nodeId": "487:33375",
+        "key": "10e28c1776630dbd1168a1874cac4f95420b0006",
+        "defaultVariant": {
+          "name": "Background=Surface",
+          "key": "eb0f29e5417c835c45fcb89ff7575977b034f3e0"
+        },
+        "properties": {
+          "Background": {
+            "options": [
+              "Surface",
+              "Secondary"
+            ],
+            "default": "Surface"
+          },
+          "Content": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Content#487:90"
+          },
+          "Show App Bar": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show App Bar#487:91"
+          },
+          "Show Navigation Bar": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Navigation Bar#487:92"
+          }
+        },
+        "size": [
+          375,
+          812
+        ]
+      },
+      "nested": [
+        {
+          "layer": "App Bar/Top App Bar",
+          "component": "App Bar/Top App Bar",
+          "set": {
+            "Style": "Home(메인 탭) · Sub(상세)",
+            "Title": "화면 제목",
+            "Show Left · Left Icon · Show Right · Show Text Button": "필요한 것만"
+          }
+        },
+        {
+          "layer": "App Bar/Navigation Bar",
+          "component": "App Bar/Navigation Bar",
+          "set": {
+            "On": "지금 탭(Home · Action Item · Analysis)"
+          }
+        }
+      ],
+      "parts": {
+        "width": "{layout.mobile-width}",
+        "margin": "{spacing.screen-x}",
+        "bg": "{color.bg.surface}"
+      },
+      "code": {
+        "class": ".layout-mobile",
+        "example": "layer-examples.html#template-mobile"
+      }
+    },
+    "Section Header": {
+      "use": "목록 · 열 위 제목 + 개수(예: 진행 중인 회고 4, 마감된 회고 8). Size=16(웹 열: Title 16 Bold + 개수 Title 16 Bold Gray 600) · 18(모바일: Title 18 Bold + Subtitle 18 SemiBold Gray 600), 사이 6. 개수 없으면 Show Count 끔. 아래 16 띄우고 카드 목록.",
+      "avoid": "개수를 Badge로 만들지 않는다.",
+      "figma": {
+        "nodeId": "487:33450",
+        "key": "0a6ed48e1342c99577cee0df7a32931d419bc67f",
+        "defaultVariant": {
+          "name": "Size=16",
+          "key": "861a4b2c86843d7d3afa252de0930fe16686dfb4"
+        },
+        "properties": {
+          "Size": {
+            "options": [
+              "16",
+              "18"
+            ],
+            "default": "16"
+          },
+          "Title": {
+            "type": "text",
+            "default": "진행 중인 회고",
+            "propertyKey": "Title#487:93"
+          },
+          "Count": {
+            "type": "text",
+            "default": "4",
+            "propertyKey": "Count#487:96"
+          },
+          "Show Count": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Count#487:99"
+          }
+        },
+        "size": [
+          120,
+          22
+        ]
+      },
+      "parts": {
+        "title": "{typography.title.16-bold} (18: {typography.title.18-bold})",
+        "count": "{color.gray.600}",
+        "gap": "6px"
+      },
+      "code": {
+        "class": ".section-header (+ .section-header--18) > .section-header__count",
+        "example": "layer-examples.html#section-header"
+      }
+    },
+    "Popover": {
+      "use": "버튼 아래 가볍게 뜨는 패널(예: 팀원 버튼 → 인원 목록). 280 너비, 흰 바탕 · 모서리 12 · Shadow 300 · 안쪽 20 · 사이 20. 머리 = Title(Title 16 Bold) + Count(Gray 600, Show Count) + 오른쪽 Text Button Neutral(Show Action, 예: 편집), 아래 Content 슬롯. 딤드 없이 그림자(Shadow 300)로만 띄운다 — 뒤 화면을 그대로 보이게.",
+      "avoid": "답을 받아야 흐름이 이어지면 Popup · Modal (Web)(overlay/dim 72%). 행동 몇 개만 고르면 Menu.",
+      "figma": {
+        "nodeId": "437:6315",
+        "key": "a869f771b080e1a78eb2bed2a374797771d979e8",
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "인원",
+            "propertyKey": "Title#437:9"
+          },
+          "Count": {
+            "type": "text",
+            "default": "4",
+            "propertyKey": "Count#437:10"
+          },
+          "Show Count": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Count#437:11"
+          },
+          "Show Action": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Action#437:12"
+          },
+          "Content": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Content#437:13"
+          }
+        },
+        "size": [
+          280,
+          114
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "280px",
+          "radius": "{radius.card}",
+          "bg": "{color.bg.surface}",
+          "shadow": "{shadow.300}",
+          "padding": "{spacing.20}",
+          "gap": "{spacing.20}"
+        },
+        "title": {
+          "typography": "{typography.title.16-bold}",
+          "text": "{color.text.primary}"
+        },
+        "count": {
+          "text": "{color.gray.600}"
+        }
+      },
+      "code": {
+        "class": ".popover (.popover__head · .popover__title · .popover__count) + .popover-dim",
+        "example": "layer-examples.html#popover"
+      }
+    },
+    "Menu": {
+      "use": "더보기(⋯) 등으로 여는 행동 목록. 165 너비(내용에 따라 넓어짐), 흰 바탕 · 모서리 8 · Shadow 300 · 위아래 6 · 줄 사이 4. Items 슬롯에 Menu/Menu Item을 넣는다. 딤드 없이 그림자로만 띄우고, 연 버튼(더보기 · 드롭다운) 바로 아래 오른쪽 끝을 맞춘다. 위험 행동(삭제)은 맨 아래 Danger.",
+      "avoid": "고르는 값이 화면에 남는 선택은 Dropdown · Select Field.",
+      "figma": {
+        "nodeId": "437:6308",
+        "key": "036cf9b03333c43c6bfb8d1dd5b3adad923804da",
+        "properties": {
+          "Items": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Items#437:8"
+          }
+        },
+        "size": [
+          165,
+          88
+        ]
+      },
+      "parts": {
+        "container": {
+          "radius": "{radius.8}",
+          "bg": "{color.bg.surface}",
+          "shadow": "{shadow.300}",
+          "padding": "6px 0",
+          "gap": "{spacing.4}"
+        }
+      },
+      "code": {
+        "class": ".menu",
+        "example": "layer-examples.html#menu"
+      }
+    },
+    "Menu/Menu Item": {
+      "partOf": "Menu",
+      "note": "직접 쓰지 말고 Menu를 쓴다.",
+      "use": "메뉴 한 줄. 높이 36, 좌우 20, Subtitle 14 SemiBold. Type=Default(Gray 800) · Danger(text/error Red 500, 삭제 · 내보내기처럼 되돌리기 어려운 행동). State=Hover는 Gray 100.",
+      "figma": {
+        "nodeId": "437:6306",
+        "key": "17d80de816b00afbe7c14f0c7f3f02073ff0c929",
+        "defaultVariant": {
+          "name": "Type=Default, State=Default",
+          "key": "c63aa8e5607375f3313a03910c20fa12e731886f"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "Default",
+              "Danger"
+            ],
+            "default": "Default"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover"
+            ],
+            "default": "Default"
+          },
+          "Label": {
+            "type": "text",
+            "default": "대표자 변경",
+            "propertyKey": "Label#437:3"
+          }
+        },
+        "size": [
+          165,
+          36
+        ]
+      },
+      "parts": {
+        "item": {
+          "height": "36px",
+          "padding": "0 {spacing.20}",
+          "typography": "{typography.subtitle.14-semibold}",
+          "text": "{color.gray.800}",
+          "danger": "{color.text.error}",
+          "hover-bg": "{color.bg.secondary}"
+        }
+      },
+      "code": {
+        "class": ".menu-item (--danger, .is-hover)"
+      }
+    },
+    "List/Member Item": {
+      "use": "팀원 목록 한 줄(Popover 안). Type=Add(Blue 100 동그라미 + Add 16, 팀원 추가 text/accent) · Member(Profile 32 + 이름). 높이 32 · 사이 12 · Body 15 Medium. 대표자는 안쪽 Profile의 Show Leader를 켠다.",
+      "figma": {
+        "nodeId": "437:6296",
+        "key": "b9ebe5ddde48495ed2c4ec84e66d668d9d0474bb",
+        "defaultVariant": {
+          "name": "Type=Add",
+          "key": "38effe2b54632a8af0e8f4dbbd2344dd7fc28457"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "Add",
+              "Member"
+            ],
+            "default": "Add"
+          },
+          "Name": {
+            "type": "text",
+            "default": "홍길동",
+            "propertyKey": "Name#437:0"
+          }
+        },
+        "size": [
+          240,
+          32
+        ]
+      },
+      "parts": {
+        "row": {
+          "height": "32px",
+          "gap": "{spacing.12}",
+          "typography": "{typography.body.15-medium}",
+          "text": "{color.text.primary}"
+        },
+        "add": {
+          "bg": "{color.bg.accent-secondary}",
+          "icon": "{color.text.accent}",
+          "text": "{color.text.accent}"
+        }
+      },
+      "code": {
+        "class": ".member-list > .member-item (--add)",
+        "example": "layer-examples.html#list-member-item"
+      }
+    },
+    "Info Banner": {
+      "use": "화면 · 모달 위쪽의 한 줄 안내(예: 카드를 클릭하면 자세한 내용을 확인할 수 있어요). Gray 200 바탕 · 모서리 8 · 위아래 8 좌우 12, Icon/Assets/Info_Filled 18(Icon으로 교체) + Body 12 Medium Gray 600.",
+      "avoid": "강조 팁은 Guide Tooltip(파랑).",
+      "figma": {
+        "nodeId": "419:5494",
+        "key": "7c61d90412f52f1ed7b6111a2a68e7e1ee1c2458",
+        "properties": {
+          "Message": {
+            "type": "text",
+            "default": "카드를 클릭하면 자세한 내용을 확인할 수 있어요",
+            "propertyKey": "Message#419:3"
+          },
+          "Icon": {
+            "type": "instance-swap",
+            "default": "Icon/Assets/Info_Filled",
+            "propertyKey": "Icon#421:0"
+          }
+        },
+        "size": [
+          472,
+          34
+        ]
+      },
+      "parts": {
+        "container": {
+          "bg": "{color.gray.200}",
+          "radius": "{radius.8}",
+          "padding": "{spacing.8} {spacing.12}",
+          "gap": "{spacing.8}"
+        },
+        "message": {
+          "typography": "{typography.body.12-medium}",
+          "text": "{color.gray.600}"
+        }
+      },
+      "code": {
+        "class": ".info-banner",
+        "example": "layer-examples.html#info-banner"
+      }
+    },
+    "Tooltips/Guide Tooltip": {
+      "use": "화면 안에 고정된 안내 상자(작성 방법).",
+      "figma": {
+        "nodeId": "1:4956",
+        "key": "49370ae4f0eb05f021dc6a615747733e06de2f7c",
+        "defaultVariant": {
+          "name": "Type=Guide",
+          "key": "1c76f0752434009dac56d340e9a22f8d365f696c"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "Guide"
+            ],
+            "default": "Guide"
+          }
+        },
+        "size": [
+          335,
+          66
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "335px",
+          "bg": "{color.bg.accent-secondary}",
+          "text": "{color.text.accent}",
+          "radius": "{radius.tooltip}"
+        }
+      },
+      "code": {
+        "class": ".guide-tip",
+        "example": "layer-examples.html#tooltips-guide-tooltip"
+      }
+    },
+    "Scroll Bar/Scroll Bar": {
+      "use": "스크롤 영역 막대. 평소 숨김, 올리거나 스크롤할 때 Opacity 22 → 32 → 48.",
+      "figma": {
+        "nodeId": "1:2516",
+        "key": "0d7e29305c2e67846799e8af6e5933a302cd046a",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "79e3266ca15190ba3faa85be8e267a53ced20b4b"
+        },
+        "properties": {
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          10,
+          280
+        ]
+      },
+      "code": {
+        "class": ".scroll-area",
+        "example": "layer-examples.html#scroll-bar-scroll-bar"
+      }
+    },
+    "Tabs/Tab Item/Text Tab Item (Default)": {
+      "partOf": "Tabs/Text Tabs",
+      "note": "직접 쓰지 말고 Tabs/Text Tabs를 쓴다.",
+      "use": "Text 탭 한 칸. Size=18(모바일, Subtitle 18 SemiBold) · 14(웹 패널 · LNB, Subtitle 14 SemiBold). 선택은 State로만 바꾸고 글자색을 덮어쓰지 않는다. 웹 묶음은 높이 40 · 간격 4 · 좌우 0.",
+      "figma": {
+        "nodeId": "1:1394",
+        "key": "04eb8b3c9b5c5067d1ae6e9b7a08897a17db358b",
+        "defaultVariant": {
+          "name": "Underline=On, State=Selected, Size=18",
+          "key": "8781a9b82aee752fbdd0c268610ac0702d782f20"
+        },
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "회고",
+            "propertyKey": "Title#405:0"
+          },
+          "Underline": {
+            "options": [
+              "On",
+              "Off"
+            ],
+            "default": "On"
+          },
+          "State": {
+            "options": [
+              "Selected",
+              "Unselected",
+              "Hover"
+            ],
+            "default": "Selected"
+          },
+          "Size": {
+            "options": [
+              "18",
+              "14"
+            ],
+            "default": "18"
+          }
+        },
+        "size": [
+          40,
+          40
+        ]
+      },
+      "code": {
+        "class": ".tab (웹: .tabs.tabs--web)"
+      }
+    },
+    "Tabs/Tab Item/Text Tab Item (Fixed)": {
+      "partOf": "Tabs/Text Fixed Tabs",
+      "note": "직접 쓰지 말고 Tabs/Text Fixed Tabs를 쓴다.",
+      "figma": {
+        "nodeId": "1:1432",
+        "key": "37b77496109b004305fa532e05fefd197cc5ad91",
+        "defaultVariant": {
+          "name": "State=Selected",
+          "key": "757e8efd140277226430c3cbfd58320f837e1801"
+        },
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "타이틀",
+            "propertyKey": "Title#415:0"
+          },
+          "State": {
+            "options": [
+              "Selected",
+              "Unselected",
+              "Hover"
+            ],
+            "default": "Selected"
+          }
+        },
+        "size": [
+          47,
+          44
+        ]
+      },
+      "code": {
+        "class": ".tabs--fixed > .tab"
+      }
+    },
+    "Tabs/Tab Item/Box Tab Item": {
+      "partOf": "Tabs/Box Tabs",
+      "note": "직접 쓰지 말고 Tabs/Box Tabs를 쓴다.",
+      "figma": {
+        "nodeId": "1:1458",
+        "key": "9b0379ef13dc7d66a12debbbc987089d543c1f18",
+        "defaultVariant": {
+          "name": "State=Selected",
+          "key": "cc084bd999aa3a8c011571c6fd087ae4295f5aec"
+        },
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "타이틀",
+            "propertyKey": "Title#415:3"
+          },
+          "State": {
+            "options": [
+              "Unselected",
+              "Selected",
+              "Hover"
+            ],
+            "default": "Selected"
+          }
+        },
+        "size": [
+          69,
+          38
+        ]
+      },
+      "code": {
+        "class": ".box-tab[aria-pressed]"
+      }
+    },
+    "Badge": {
+      "use": "상태·개수를 짧게 알리는 읽기 전용 라벨. 카드 제목 옆 \"진행 중 1\", D-day. Style=Outlined(22, Caption 11 SemiBold, 테두리 1px)는 웹 회고 카드의 진행 상태: Gray 작성 전 · Blue 작성 중 · Green 제출 완료 · Dark 분석 완료.",
+      "avoid": "누를 수 있으면 Chip. 긴 문장 금지.",
+      "figma": {
+        "nodeId": "332:4239",
+        "key": "e07fc8667d7e7aa58b624e83cbf07c39ae2be754",
+        "defaultVariant": {
+          "name": "Color=Blue, Size=22, Style=Filled",
+          "key": "edac933873eb9518a9cee6b88c6e069ff3845994"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "진행 중 1",
+            "propertyKey": "Label#332:1"
+          },
+          "Color": {
+            "options": [
+              "Blue",
+              "White",
+              "Gray",
+              "Green",
+              "Dark"
+            ],
+            "default": "Blue"
+          },
+          "Size": {
+            "options": [
+              "22",
+              "25"
+            ],
+            "default": "22"
+          },
+          "Style": {
+            "options": [
+              "Filled",
+              "Outlined"
+            ],
+            "default": "Filled"
+          }
+        },
+        "size": [
+          55,
+          22
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "22px",
+          "padding": "0 6px",
+          "radius": "{radius.4}",
+          "bg": "{color.blue.100}"
+        },
+        "label": {
+          "typography": "{typography.body.12-semibold}",
+          "text": "{color.blue.600}"
+        }
+      },
+      "code": {
+        "class": ".badge + .badge--blue | --white | --gray, 25 크기는 .badge--25, Outlined는 .badge--outlined + .badge--outlined-gray | -blue | -green | -dark",
+        "example": "layer-examples.html#badge"
+      }
+    },
+    "Button/Text Button": {
+      "use": "배경 없는 글자 버튼. Type=Accent(Subtitle 16 SemiBold, text/accent) — 앱 바 오른쪽 완료 · 마치기(Top App Bar의 Show Text Button). Type=Neutral(Body 14 Medium, Gray 500) — 목록 머리의 삭제 · 편집처럼 가벼운 보조 행동. State=Disabled(Gray 400)는 아직 누를 수 없을 때.",
+      "avoid": "화면의 주요 행동은 Filled Button.",
+      "figma": {
+        "nodeId": "349:4221",
+        "key": "15c13006e5fa536d61107d374d1916c50048a68f",
+        "defaultVariant": {
+          "name": "Type=Accent, State=Default",
+          "key": "23004bd3dfcffea32a31b268365c4bc29b4f0047"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "완료",
+            "propertyKey": "Label#349:0"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Disabled"
+            ],
+            "default": "Default"
+          },
+          "Type": {
+            "options": [
+              "Accent",
+              "Neutral"
+            ],
+            "default": "Accent"
+          }
+        },
+        "size": [
+          28,
+          22
+        ]
+      },
+      "parts": {
+        "accent": {
+          "typography": "{typography.subtitle.16-semibold}",
+          "text": "{color.text.accent}"
+        },
+        "neutral": {
+          "typography": "{typography.body.14-medium}",
+          "text": "{color.gray.500}"
+        },
+        "disabled": {
+          "text": "{color.text.disabled}"
+        }
+      },
+      "code": {
+        "class": ".text-button (--neutral, :disabled) · 앱 바 안은 .app-bar__text-button",
+        "example": "layer-examples.html#button-text-button"
+      }
+    },
+    "List/Menu Item": {
+      "use": "설정 목록 한 줄(335 × 48). Right=Chevron(다른 화면으로 이동) · Value(정보만, 예: 현재 버전) · None(바로 실행, 예: 로그아웃). 흰 카드(radius.card, Shadow 100, 위아래 12, 카드 사이 8) 안에 쌓는다. 그룹 제목은 Subtitle 14 SemiBold Gray 600.",
+      "avoid": "고르는 목록은 List/Checkbox List, 순서 바꾸기는 List/Icon List.",
+      "figma": {
+        "nodeId": "355:4391",
+        "key": "703b11f0c5ddeee164d478be568f740784e6ddab",
+        "defaultVariant": {
+          "name": "Right=Chevron",
+          "key": "de15487a0d566b4b8ce5d0924898d07e8c7ede6f"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "공지사항",
+            "propertyKey": "Label#355:0"
+          },
+          "Value": {
+            "type": "text",
+            "default": "1.0.0",
+            "propertyKey": "Value#355:4"
+          },
+          "Right": {
+            "options": [
+              "Chevron",
+              "Value",
+              "None"
+            ],
+            "default": "Chevron"
+          }
+        },
+        "size": [
+          335,
+          48
+        ]
+      },
+      "parts": {
+        "row": {
+          "height": "48px",
+          "padding": "0 {spacing.16} 0 {spacing.20}"
+        },
+        "label": {
+          "typography": "{typography.body.16-medium}",
+          "text": "{color.text.primary}"
+        },
+        "chevron": {
+          "size": "16px",
+          "color": "{color.gray.800}"
+        },
+        "value": {
+          "typography": "{typography.body.14-medium}",
+          "text": "{color.gray.600}"
+        }
+      },
+      "code": {
+        "class": ".menu-card > .menu-row (--value)",
+        "example": "layer-examples.html#list-menu-item"
+      }
+    },
+    "Empty State": {
+      "use": "보여 줄 내용이 없을 때 자리를 채우는 박스. Border=None(흰 섹션 카드가 이미 틀일 때) · Dashed(카드 안에 다른 내용과 함께 있어 빈 영역을 구분할 때). 안내 1~2줄(Body 15 Medium, text/tertiary) + 필요하면 아이콘 56(Show Icon · Icon). 부모 카드 안에서 가로 채움.",
+      "figma": {
+        "nodeId": "361:4414",
+        "key": "0836b05800439a3ecb615a3d6a8ee889f0ee3010",
+        "defaultVariant": {
+          "name": "Border=Dashed",
+          "key": "83434c5fc4100d49f7db1553a6bae737fa04dfd8"
+        },
+        "properties": {
+          "Message": {
+            "type": "text",
+            "default": "진행 중인 실행 목표가 없어요",
+            "propertyKey": "Message#361:0"
+          },
+          "Show Icon": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Icon#361:1"
+          },
+          "Icon": {
+            "type": "instance-swap",
+            "default": "Empty State/Icon/Goal",
+            "propertyKey": "Icon#361:2"
+          },
+          "Border": {
+            "options": [
+              "Dashed",
+              "None"
+            ],
+            "default": "Dashed"
+          }
+        },
+        "size": [
+          335,
+          176
+        ]
+      },
+      "parts": {
+        "box": {
+          "border": "Dashed만 1px dashed {color.opacity.12}",
+          "radius": "{radius.card}",
+          "padding": "{spacing.32} {spacing.20}",
+          "gap": "{spacing.12}"
+        },
+        "message": {
+          "typography": "{typography.body.15-medium}",
+          "text": "{color.text.tertiary}"
+        }
+      },
+      "code": {
+        "class": ".empty-state (.empty-state--dashed)",
+        "example": "layer-examples.html#empty-state"
+      }
+    },
+    "Logo": {
+      "use": "앱 화면의 Layer 로고. Type=Horizontal(64 × 21, 웹 LNB 펼침) · Symbol(20, 좁은 자리). 그림을 복사하지 말고 이 컴포넌트를 놓는다. 크기를 바꿀 때 비율 유지.",
+      "figma": {
+        "nodeId": "388:22120",
+        "key": "5fa0458d182ae5f01465a95561e8d14cd38ba180",
+        "defaultVariant": {
+          "name": "Type=Horizontal",
+          "key": "114fc22accadbb5b2276877eb17eee4579908c6f"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "Horizontal",
+              "Symbol"
+            ],
+            "default": "Horizontal"
+          }
+        },
+        "size": [
+          64,
+          21
+        ]
+      },
+      "parts": {
+        "arrow": "{color.blue.900}",
+        "L": "{color.blue.600}",
+        "overlap": "{color.blue.200}"
+      },
+      "code": {
+        "class": ".logo (Horizontal 64×21) · .logo.logo--symbol (20)",
+        "example": "layer-examples.html#logo"
+      }
+    },
+    "LNB": {
+      "use": "웹(1440) 왼쪽 메뉴. Fold=Off 펼침 284 · On 접힘 84(아이콘만). Current=Home · Space: 지금 보는 곳.",
+      "avoid": "모바일에서는 Navigation Bar.",
+      "figma": {
+        "nodeId": "324:68683",
+        "key": "ec0a24d62aaf4a243b7d41d2bc5d26863e1f9828",
+        "defaultVariant": {
+          "name": "Fold=Off, Current=Space",
+          "key": "9695e4767c8ead30f4a052dc4d22b3590949da9d"
+        },
+        "properties": {
+          "Fold": {
+            "options": [
+              "Off",
+              "On"
+            ],
+            "default": "Off"
+          },
+          "Current": {
+            "options": [
+              "Home",
+              "Space"
+            ],
+            "default": "Space"
+          }
+        },
+        "size": [
+          284,
+          900
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "284px / 84px",
+          "bg": "{color.bg.secondary}",
+          "padding": "{spacing.12}"
+        }
+      },
+      "code": {
+        "class": ".lnb (.lnb--folded) > .lnb__panel",
+        "note": "Template/Web 왼쪽. List는 .lnb, Work는 .lnb--folded. 지금 위치는 .lnb__home 또는 .lnb__space에 aria-current=\"page\"",
+        "example": "layer-examples.html#lnb"
+      }
+    },
+    "Card/Retro (Web)": {
+      "use": "웹 회고 스페이스의 회고 카드(296 × 138, 열마다 세로로 쌓음 간격 12). 왼쪽 위 배지 한 자리에 D-day 또는 상태 하나만: 작성 전 + 마감일 있음(Status=Before, Deadline=Set) → D-day(Badge Blue Filled, Label을 D-4처럼), 작성 전 + 마감일 없음 → 작성 전, 작성 중 → 작성 중, 제출 완료 → 제출 완료, 분석 완료 → 분석 완료. 설명이 없으면 Show Description 끔. Status=Before(작성 전) · Writing(작성 중) · Submitted(제출 완료) · Analyzed(분석 완료) × Deadline=Set(마감 예정 날짜) · Unset(모든 인원 제출 시 마감) · Closed(마감일, 마감된 회고 열). Selected=On: 지금 열어 둔(작성 중인) 회고, 테두리 Blue 400 + Shadow 100, 한 열에 하나만. 글자는 Title · Description · Date(마감일) · Count(제출 인원) · Total(전체) 속성으로 바꾼다. 변형마다 기본 인원이 따로 없으니 Count · Total은 항상 채운다(분석 완료면 10 / 10처럼). \"마감 예정 · 모든 인원 제출 시 마감 · 마감일\" 문구는 Deadline 변형이 정한다.",
+      "avoid": "모바일은 Card/Retro (Mobile).",
+      "figma": {
+        "nodeId": "324:69190",
+        "key": "807df9f974bcd631a3eee58f2dda4c8f7d7ef39f",
+        "defaultVariant": {
+          "name": "Status=Before, Deadline=Set, Selected=Off",
+          "key": "34b738de4f9d4f269faeece0445a1cf45f50e358"
+        },
+        "properties": {
+          "Status": {
+            "options": [
+              "Before",
+              "Writing",
+              "Submitted",
+              "Analyzed"
+            ],
+            "default": "Before"
+          },
+          "Deadline": {
+            "options": [
+              "Set",
+              "Unset",
+              "Closed"
+            ],
+            "default": "Set"
+          },
+          "Selected": {
+            "options": [
+              "Off",
+              "On"
+            ],
+            "default": "Off"
+          },
+          "Title": {
+            "type": "text",
+            "default": "중간발표 이후 회고",
+            "propertyKey": "Title#487:0"
+          },
+          "Description": {
+            "type": "text",
+            "default": "방향성 체크 및 팀 내 개선점 구축",
+            "propertyKey": "Description#487:15"
+          },
+          "Date": {
+            "type": "text",
+            "default": "2024.07.30 10:00",
+            "propertyKey": "Date#487:30"
+          },
+          "Count": {
+            "type": "text",
+            "default": "1",
+            "propertyKey": "Count#487:45"
+          },
+          "Total": {
+            "type": "text",
+            "default": "10",
+            "propertyKey": "Total#487:60"
+          },
+          "Show Description": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Description#499:0"
+          }
+        },
+        "size": [
+          296,
+          138
+        ]
+      },
+      "nested": [
+        {
+          "layer": "Badge",
+          "component": "Badge",
+          "set": {
+            "Label": "Status=Before · Deadline=Set일 때만 D-day(예: D-4). 나머지는 변형이 정한 상태 문구 그대로"
+          }
+        }
+      ],
+      "parts": {
+        "container": {
+          "padding": "18px",
+          "radius": "{radius.card}",
+          "bg": "{color.gray.0}",
+          "gap": "{spacing.8}"
+        },
+        "status": "D-day: Badge Blue Filled 22 · 상태: Badge Style=Outlined (Gray 작성 전 · Blue 작성 중 · Green 제출 완료 · Dark 분석 완료)",
+        "title": {
+          "typography": "{typography.title.15-bold}",
+          "text": "{color.gray.900}"
+        },
+        "description": {
+          "typography": "{typography.body.12-medium}",
+          "text": "{color.gray.800}"
+        },
+        "meta": {
+          "typography": "{typography.body.12-medium}",
+          "text": "{color.gray.500}"
+        },
+        "count": {
+          "typography": "{typography.body.12-semibold}",
+          "text": "제출 인원 진행 중 {color.blue.600} · 0명 {color.gray.500} · 마감 {color.gray.700}, \"/ 10\" {color.gray.500}"
+        }
+      },
+      "code": {
+        "class": ".retro-card-web (--selected)",
+        "markup": "배지 한 자리: D-day <span class=\"badge badge--blue\">D-4</span> 또는 상태 <span class=\"badge badge--outlined badge--outlined-blue\">작성 중</span>. 설명이 없으면 .retro-card-web__desc 줄을 뺀다",
+        "example": "layer-examples.html#card-retro-web"
+      }
+    },
+    "Card/Retro (Mobile)": {
+      "use": "모바일 회고 카드(335 × 160, 설명 없으면 136 — Show Description). 오른쪽 위 배지 한 자리에 D-day 또는 내 상태 하나만 — Progress=Before(작성 전): Badge White D-day, Writing: Badge Outlined Blue 작성 중, Submitted: Badge Outlined Green 제출 완료. 버튼 문구는 작성 전 · 작성 중 \"회고 작성\", 제출 완료 \"회고 확인\", 마감 \"분석 확인\". Status=Open(진행 중, 스페이스 화면): 연파랑 바탕, 오른쪽 위 배지 + More, 마감일(Calendar 16 + Deadline), 아래 인원 수(제출 인원 Blue + \"/ 10\" Gray) + Button 40 Blue(회고 작성 · 회고 확인). Status=Closed(마감, 회고 관리): Gray 100 바탕, D-day 없음, 기간(Period \"시작 ~ 마감\", 아이콘 없음), 인원 모두 Gray 500, Button 40 Primary(분석 확인). 버튼 문구는 Button Label로 바꾼다.",
+      "avoid": "웹은 Card/Retro (Web).",
+      "figma": {
+        "nodeId": "456:6410",
+        "key": "3f901914a59bc08e3d6995dadf4afe5892b80f23",
+        "defaultVariant": {
+          "name": "Status=Open, Progress=Before",
+          "key": "03bacfb580b29dfaa992f54e011c395d985b095f"
+        },
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "중간발표 이후 회고",
+            "propertyKey": "Title#456:1"
+          },
+          "Description": {
+            "type": "text",
+            "default": "방향성 체크 및 팀 내 개선점 구축",
+            "propertyKey": "Description#456:2"
+          },
+          "Deadline": {
+            "type": "text",
+            "default": "2024. 07. 30 오전 10:00",
+            "propertyKey": "Deadline#456:3"
+          },
+          "Show Deadline": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Deadline#456:4"
+          },
+          "Count": {
+            "type": "text",
+            "default": "1",
+            "propertyKey": "Count#456:5"
+          },
+          "Show Button": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Button#456:6"
+          },
+          "Total": {
+            "type": "text",
+            "default": "/ 10",
+            "propertyKey": "Total#456:7"
+          },
+          "Status": {
+            "options": [
+              "Open",
+              "Closed"
+            ],
+            "default": "Open"
+          },
+          "Show Description": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Description#456:8"
+          },
+          "Period": {
+            "type": "text",
+            "default": "2024. 07. 12 ~ 2024. 07. 28",
+            "propertyKey": "Period#456:9"
+          },
+          "Progress": {
+            "options": [
+              "Before",
+              "Writing",
+              "Submitted"
+            ],
+            "default": "Before"
+          }
+        },
+        "size": [
+          335,
+          160
+        ]
+      },
+      "nested": [
+        {
+          "layer": "Badge",
+          "component": "Badge",
+          "set": {
+            "Label": "Progress=Before일 때 D-day(예: D-4). Writing · Submitted는 상태 문구 그대로"
+          }
+        }
+      ],
+      "parts": {
+        "container": {
+          "padding": "{spacing.20}",
+          "radius": "{radius.card}",
+          "bg": "{color.blue.50}",
+          "gap": "10px"
+        },
+        "title": {
+          "typography": "{typography.title.16-bold}",
+          "text": "{color.gray.900}"
+        },
+        "description": {
+          "typography": "{typography.body.14-medium}",
+          "text": "{color.gray.800}"
+        },
+        "deadline": {
+          "typography": "{typography.body.14-medium}",
+          "text": "{color.gray.500}",
+          "icon": "Icon/Assets/Calendar 16"
+        },
+        "count": {
+          "typography": "{typography.body.16-medium}",
+          "text": "제출 인원(Count) {color.blue.600} + 전체(Total \"/ 10\") {color.gray.500}, 모두 제출하면 둘 다 {color.gray.500}",
+          "icon": "Icon/Graphic/Person 24"
+        },
+        "button": "Button/Filled Button Size=40 Blue"
+      },
+      "code": {
+        "class": ".retro-card (--closed)",
+        "markup": "배지 한 자리: D-day <span class=\"badge badge--white\">D-4</span> 또는 상태 <span class=\"badge badge--outlined badge--outlined-blue\">작성 중</span> · <span class=\"badge badge--outlined badge--outlined-green\">제출 완료</span>",
+        "example": "layer-examples.html#card-retro-mobile"
+      }
+    },
+    "Card/Space": {
+      "use": "모바일 홈의 회고 스페이스 카드(335). 그래픽 아이콘 원 40 + 제목(한 줄 말줄임) + Badge(진행 중 n) + 설명(한 줄) + 멤버·회고 수. 설명이 없으면 Show Description 끔(79).",
+      "figma": {
+        "nodeId": "365:4442",
+        "key": "3ac1e121660731474c3b8ba73c81a5ab5f955e51",
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "떡잎마을방범대",
+            "propertyKey": "Title#365:0"
+          },
+          "Description": {
+            "type": "text",
+            "default": "IT 연합동아리 디프만 15기의 프로젝트 방향성 체크 및 팀 내 개선점 구축",
+            "propertyKey": "Description#365:1"
+          },
+          "Meta": {
+            "type": "text",
+            "default": "멤버 11명 ∙ 회고 4개",
+            "propertyKey": "Meta#365:2"
+          },
+          "Show Description": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Description#365:3"
+          },
+          "Show Badge": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Badge#365:4"
+          },
+          "Icon": {
+            "type": "instance-swap",
+            "default": "Icon/Graphic/Development",
+            "propertyKey": "Icon#365:5"
+          }
+        },
+        "size": [
+          335,
+          103
+        ]
+      },
+      "parts": {
+        "container": {
+          "padding": "{spacing.16}",
+          "radius": "{radius.card}",
+          "bg": "{color.bg.surface}",
+          "gap": "{spacing.16}"
+        },
+        "thumb": {
+          "size": "40px",
+          "bg": "{color.gray.200}",
+          "icon": "Icon/Graphic/* 28"
+        },
+        "title": {
+          "typography": "{typography.title.16-bold}",
+          "text": "{color.text.primary}"
+        },
+        "description": {
+          "typography": "{typography.body.13-medium}",
+          "text": "{color.gray.600}"
+        },
+        "meta": {
+          "typography": "{typography.body.12-medium}",
+          "text": "{color.gray.600}"
+        }
+      },
+      "code": {
+        "class": ".space-card",
+        "example": "layer-examples.html#card-space"
+      }
+    },
+    "Card/Goal (Web)": {
+      "use": "웹 실행목표 패널(흰 카드 306, 위 제목 + 진행 중 · 지난 탭) 안에 회고별로 쌓는 목표 묶음(270). Badge=On: Badge Outlined Blue(실행 중) + Add · More 한 줄, 아래 제목 / Off: 제목이 Add · More와 한 줄. 목표는 3줄까지(Show Item 2 · 3), 목표가 없으면 Show Items를 끈다. 묶음 사이 간격 20 + 구분선 Gray 100.",
+      "figma": {
+        "nodeId": "372:21826",
+        "key": "fea66a8cd88e937dc35d1223fba9da89fa418d2b",
+        "properties": {
+          "Badge": {
+            "options": [
+              "On",
+              "Off"
+            ],
+            "default": "On"
+          },
+          "Title": {
+            "type": "text",
+            "default": "스프린트 1회차 이후 회고",
+            "propertyKey": "Title#372:0"
+          },
+          "Item 1": {
+            "type": "text",
+            "default": "긴 회의시간 줄이기",
+            "propertyKey": "Item 1#372:3"
+          },
+          "Item 2": {
+            "type": "text",
+            "default": "회의 후 내용 꼭 기록해두기",
+            "propertyKey": "Item 2#372:6"
+          },
+          "Item 3": {
+            "type": "text",
+            "default": "‘린 분석' 북 스터디 진행",
+            "propertyKey": "Item 3#372:9"
+          },
+          "Show Item 2": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Item 2#372:12"
+          },
+          "Show Item 3": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Item 3#372:15"
+          },
+          "Show Items": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Items#459:36"
+          }
+        },
+        "size": [
+          270,
+          169
+        ]
+      },
+      "nested": [
+        {
+          "layer": "Badge",
+          "component": "Badge",
+          "set": {
+            "Label": "상태 문구(기본 실행 중)"
+          }
+        }
+      ],
+      "parts": {
+        "title": {
+          "typography": "{typography.title.15-bold}",
+          "text": "{color.gray.900}"
+        },
+        "item": {
+          "height": "36px",
+          "typography": "{typography.body.14-medium}",
+          "text": "{color.gray.900}",
+          "bullet": "5px {color.gray.400}"
+        },
+        "divider": "{color.gray.100}"
+      },
+      "code": {
+        "class": ".goal-card",
+        "example": "layer-examples.html#card-goal-web"
+      }
+    },
+    "Question Tag": {
+      "use": "회고 작성 화면에서 지금 질문의 종류 · 번호(사전질문 1, 질문 2)를 알리는 읽기 전용 태그. 누를 수 없다.",
+      "avoid": "상태 · 개수는 Badge.",
+      "figma": {
+        "nodeId": "394:6646",
+        "key": "2ff03290a9007851c51453151e48dc17d946597e",
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "사전질문 1",
+            "propertyKey": "Label#394:0"
+          }
+        },
+        "size": [
+          91,
+          38
+        ]
+      },
+      "parts": {
+        "container": {
+          "padding": "{spacing.8} {spacing.12}",
+          "radius": "{radius.12}",
+          "bg": "{color.bg.secondary}"
+        },
+        "label": {
+          "typography": "{typography.subtitle.16-semibold}",
+          "text": "{color.text.primary}"
+        }
+      },
+      "code": {
+        "class": ".question-tag",
+        "example": "layer-examples.html#question-tag"
+      }
+    },
+    "Button/Pager": {
+      "use": "회고 작성 화면의 이전 · 다음 질문 이동(높이 32). 첫 질문의 이전 · 마지막 질문의 다음은 Disabled.",
+      "figma": {
+        "nodeId": "394:6673",
+        "key": "8f76e689c9893faf2aadca52fb8ecc4fc5ee8abb",
+        "defaultVariant": {
+          "name": "Direction=Prev, State=Default",
+          "key": "43a17b34bc620943d7d1d11fc019b9b17679adde"
+        },
+        "properties": {
+          "Direction": {
+            "options": [
+              "Prev",
+              "Next"
+            ],
+            "default": "Prev"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Disabled"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          62,
+          32
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "32px",
+          "radius": "{radius.button-xs}",
+          "bg": "{color.bg.secondary}",
+          "gap": "6px"
+        },
+        "label": {
+          "typography": "{typography.title.14-bold}",
+          "text": "{color.gray.800}",
+          "disabled": "{color.text.disabled}"
+        },
+        "icon": "Chevron-Left / Right 16"
+      },
+      "states": "Hover {color.gray.200}.",
+      "code": {
+        "class": ".question-pager > .pager-btn (--next)",
+        "example": "layer-examples.html#button-pager"
+      }
+    },
+    "Question Index (Web)": {
+      "use": "회고 작성 화면 오른쪽 질문 전체보기(294). 줄마다 Question Index Item: Unanswered(답 안 함, Gray 600) · Current(지금 질문, Blue 50 바탕) · Answered(답함, Gray 900). 머리에 작성 완료 n/m.",
+      "avoid": "모바일 질문 목록은 Accordion/Index.",
+      "figma": {
+        "nodeId": "394:6689",
+        "key": "297a4aac87fcca3da8a0069ebcd29d4a612d28b3",
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "질문 전체보기",
+            "propertyKey": "Title#394:9"
+          },
+          "Progress": {
+            "type": "text",
+            "default": "작성 완료 0/5",
+            "propertyKey": "Progress#394:10"
+          }
+        },
+        "size": [
+          294,
+          316
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "294px",
+          "radius": "{radius.card}",
+          "border": "1px {color.border.divider}",
+          "bg": "{color.bg.surface}"
+        },
+        "title": "{typography.subtitle.16-semibold}",
+        "progress": {
+          "typography": "{typography.body.12-medium}",
+          "text": "{color.gray.600}"
+        },
+        "item": {
+          "height": "52px",
+          "radius": "{radius.8}",
+          "typography": "{typography.body.14-medium}",
+          "marker": "{typography.body.15-medium}"
+        }
+      },
+      "code": {
+        "class": ".question-index",
+        "example": "layer-examples.html#question-index-web"
+      }
+    },
+    "Question Index Item": {
+      "partOf": "Question Index (Web)",
+      "note": "직접 쓰지 말고 Question Index (Web)를 쓴다.",
+      "figma": {
+        "nodeId": "394:6687",
+        "key": "e545f45a084ce0037a26bb9ac45de447206bc651",
+        "properties": {
+          "State": {
+            "options": [
+              "Unanswered",
+              "Current",
+              "Answered"
+            ],
+            "default": "Unanswered"
+          },
+          "Marker": {
+            "type": "text",
+            "default": "1.",
+            "propertyKey": "Marker#394:1"
+          },
+          "Question": {
+            "type": "text",
+            "default": "계속 유지하고 싶은 것은 무엇인가요?",
+            "propertyKey": "Question#394:5"
+          }
+        },
+        "size": [
+          278,
+          52
+        ]
+      },
+      "code": {
+        "class": ".question-index__item (aria-current · .is-answered)"
+      }
+    },
+    "Card/Goal (Mobile)": {
+      "use": "모바일 실행목표 화면에 회고별로 쌓는 흰 카드(335, 모서리 12, Shadow 100, 안쪽 20/20/16/20, 카드 사이 12). 구조는 Card/Goal (Web)과 같다 — Badge=On: Badge Outlined Blue 22(실행 중) + Add · More 24 한 줄, 아래 제목 / Off: 제목이 아이콘과 한 줄. 목표 3줄까지(Show Item 2 · 3), 목표가 아직 없으면 Show Items 끄고 Show Empty 켬(Empty State Border=None \"실행목표가 없어요\"), 제목만 있는 카드는 Show Items만 끔.",
+      "avoid": "웹은 Card/Goal (Web). 더보기는 More(세로 점) — More_hori 쓰지 않음.",
+      "figma": {
+        "nodeId": "459:6531",
+        "key": "b147e255d56fa8cf76471ea3bbfdb25592a33930",
+        "defaultVariant": {
+          "name": "Badge=On",
+          "key": "daf9e74745f409fd2118cb5bff9a8625e6fd306f"
+        },
+        "properties": {
+          "Badge": {
+            "options": [
+              "On",
+              "Off"
+            ],
+            "default": "On"
+          },
+          "Title": {
+            "type": "text",
+            "default": "스프린트 1회차 이후 회고",
+            "propertyKey": "Title#459:12"
+          },
+          "Item 1": {
+            "type": "text",
+            "default": "긴 회의시간 줄이기",
+            "propertyKey": "Item 1#459:15"
+          },
+          "Item 2": {
+            "type": "text",
+            "default": "회의 후 내용 꼭 기록해두기",
+            "propertyKey": "Item 2#459:18"
+          },
+          "Item 3": {
+            "type": "text",
+            "default": "'린 분석' 북 스터디 진행",
+            "propertyKey": "Item 3#459:21"
+          },
+          "Show Item 2": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Item 2#459:27"
+          },
+          "Show Item 3": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Item 3#459:30"
+          },
+          "Show Items": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Items#459:33"
+          },
+          "Show Empty": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Empty#459:9"
+          }
+        },
+        "size": [
+          335,
+          215
+        ]
+      },
+      "nested": [
+        {
+          "layer": "Badge",
+          "component": "Badge",
+          "set": {
+            "Label": "상태 문구(기본 실행 중)"
+          }
+        },
+        {
+          "layer": "Empty State",
+          "component": "Empty State",
+          "set": {
+            "Message": "빈 상태 문구(기본 실행목표가 없어요)"
+          }
+        }
+      ],
+      "parts": {
+        "container": {
+          "width": "335px",
+          "radius": "{radius.card}",
+          "bg": "{color.bg.surface}",
+          "shadow": "{shadow.100}",
+          "padding": "{spacing.20} {spacing.20} {spacing.16}",
+          "gap": "{spacing.16}"
+        },
+        "title": {
+          "typography": "{typography.title.18-bold}",
+          "text": "{color.gray.900}"
+        },
+        "item": {
+          "height": "46px",
+          "typography": "{typography.body.16-medium}",
+          "text": "{color.gray.900}",
+          "bullet": "6px {color.gray.400}"
+        }
+      },
+      "code": {
+        "class": ".goal-card.goal-card--mobile",
+        "example": "layer-examples.html#card-goal-mobile"
+      }
+    },
+    "Accordion/Section (Web)": {
+      "use": "웹 왼쪽 열에서 접고 펼치는 섹션(296). 회고 작성 패널이 열려 실행목표 패널 자리가 없을 때 실행목표를 여기에 접어 둔다. Expanded 안에는 Tabs/Text Tabs Size=14 + Card/Goal (Web).",
+      "figma": {
+        "nodeId": "394:6818",
+        "key": "55a94f53a1882e188a89604d2556c56c66aaa6ef",
+        "properties": {
+          "State": {
+            "options": [
+              "Collapsed",
+              "Expanded"
+            ],
+            "default": "Collapsed"
+          },
+          "Title": {
+            "type": "text",
+            "default": "실행목표",
+            "propertyKey": "Title#394:11"
+          }
+        },
+        "size": [
+          296,
+          37
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "296px",
+          "padding": "{spacing.8} {spacing.12}",
+          "radius": "{radius.8}",
+          "bg": "{color.bg.surface}"
+        },
+        "title": "{typography.title.14-bold}",
+        "divider": "{color.gray.100}"
+      },
+      "code": {
+        "class": ".section-accordion (.is-open)",
+        "example": "layer-examples.html#accordion-section-web"
+      }
+    },
+    "Card/Answer": {
+      "use": "팀원 답변 카드(높이는 내용에 맞춤). Platform=Mobile(335, 모서리 12, 안쪽 16/16/20/16, Shadow 100) · Web(308, 모서리 8, 안쪽 12/12/18/12, 그림자 없음 — Card/Question Group (Web) 회색 묶음 위). Type=Text(Body 15 Medium Long) · Emotion(Answer/Emotion Scale, 가운데) · Score(Answer/Score Bar). 위 Badge Gray 25 작성자 이름 — 내 답변(제출 전 확인)은 Show Name 끔.",
+      "figma": {
+        "nodeId": "463:88281",
+        "key": "5fdd5bd115208c64582c15fbc0aa8227d06ac132",
+        "defaultVariant": {
+          "name": "Platform=Mobile, Type=Text",
+          "key": "d53d4f729248a04246241301508812be433675f0"
+        },
+        "properties": {
+          "Platform": {
+            "options": [
+              "Mobile",
+              "Web"
+            ],
+            "default": "Mobile"
+          },
+          "Type": {
+            "options": [
+              "Text",
+              "Emotion",
+              "Score"
+            ],
+            "default": "Text"
+          },
+          "Answer": {
+            "type": "text",
+            "default": "가장 어려운 점은…",
+            "propertyKey": "Answer#463:1"
+          },
+          "Show Name": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Name#463:2"
+          }
+        },
+        "size": [
+          335,
+          343
+        ]
+      },
+      "parts": {
+        "mobile": {
+          "padding": "{spacing.16} {spacing.16} {spacing.20}",
+          "radius": "{radius.card}",
+          "bg": "{color.bg.surface}",
+          "shadow": "{shadow.100}",
+          "gap": "{spacing.12}"
+        },
+        "web": {
+          "padding": "{spacing.12} {spacing.12} 18px",
+          "radius": "{radius.8}",
+          "bg": "{color.bg.surface}"
+        },
+        "name": "Badge Gray 25",
+        "answer": {
+          "typography": "{typography.body.15-medium-long}",
+          "text": "{color.gray.800}"
+        }
+      },
+      "code": {
+        "class": ".answer-card (--web) > .badge + .answer-card__text | .emotion-scale | .score-bar",
+        "example": "layer-examples.html#card-answer"
+      }
+    },
+    "Answer/Emotion Scale": {
+      "partOf": "Card/Answer",
+      "note": "직접 쓰지 말고 Card/Answer를 쓴다.",
+      "use": "만족도 답(얼굴 5단계, 36, 사이 8). Value=Bad · Soso · Better · Good · Happy — 고른 얼굴만 색, 나머지는 Icon/Graphic/Emotion *_Disabled(회색). 분석 블록의 만족도 표시에도 같은 부품.",
+      "figma": {
+        "nodeId": "463:88131",
+        "key": "6a94171d389f7d9d7f9f86897e7b648694781bd3",
+        "properties": {
+          "Value": {
+            "options": [
+              "Bad",
+              "Soso",
+              "Better",
+              "Good",
+              "Happy"
+            ],
+            "default": "Bad"
+          }
+        },
+        "size": [
+          212,
+          36
+        ]
+      },
+      "parts": {
+        "icon": "Icon/Graphic/Emotion 36",
+        "gap": "{spacing.8}"
+      },
+      "code": {
+        "class": ".emotion-scale"
+      }
+    },
+    "Answer/Score Bar": {
+      "partOf": "Card/Answer",
+      "note": "직접 쓰지 말고 Card/Answer를 쓴다.",
+      "use": "0~100 점수 답(20 단위 5칸, 높이 16, 모서리 8, 칸 사이 2). Value=0 · 20 · 40 · 60 · 80 · 100 — 채운 칸 bg/accent, 빈 칸 Gray 200, 위 눈금 Caption 11 Medium Gray 500 · 고른 값 Caption 11 SemiBold text/accent.",
+      "figma": {
+        "nodeId": "463:88216",
+        "key": "e90d19277ce82cc611d1b6adde5ced58a7ce342d",
+        "properties": {
+          "Value": {
+            "options": [
+              "0",
+              "20",
+              "40",
+              "60",
+              "80",
+              "100"
+            ],
+            "default": "0"
+          }
+        },
+        "size": [
+          276,
+          40
+        ]
+      },
+      "parts": {
+        "track": {
+          "height": "16px",
+          "radius": "{radius.8}",
+          "on": "{color.bg.accent}",
+          "off": "{color.gray.200}"
+        },
+        "labels": {
+          "typography": "{typography.caption.11-medium}",
+          "current": "{typography.caption.11-semibold} {color.text.accent}"
+        }
+      },
+      "code": {
+        "class": ".score-bar"
+      }
+    },
+    "Card/Template": {
+      "use": "회고 템플릿 카드. Type=Default — 제목 2줄 + 방식 배지(Badge Gray) + 오른쪽 아래 Retro 일러스트(Illustration 속성), 고르는 화면이면 Show Button(Outlined 40 \"선택하기\"). Type=Custom — 제목 + More / 방식 배지 + 만든 날짜(Date), 그림 없음. Platform=Web(230, 테두리 Gray 100, 모서리 8, 안쪽 16, 템플릿 리스트 모달 2열) · Mobile(335, Shadow 100, 모서리 12, 안쪽 20).",
+      "avoid": "템플릿을 크게 소개하면 Card/Template Detail, 질문까지 보여 주면 Card/Template Summary.",
+      "figma": {
+        "nodeId": "467:6683",
+        "key": "7594e629b947ab5526aa7c51a1f21935cbf8e1f5",
+        "defaultVariant": {
+          "name": "Type=Default, Platform=Web",
+          "key": "7265912509a07b746dad6830e10fed1aad15a92f"
+        },
+        "properties": {
+          "Type": {
+            "options": [
+              "Default",
+              "Custom"
+            ],
+            "default": "Default"
+          },
+          "Platform": {
+            "options": [
+              "Web",
+              "Mobile"
+            ],
+            "default": "Web"
+          },
+          "Title": {
+            "type": "text",
+            "default": "차근차근, 단계적인 회고",
+            "propertyKey": "Title#467:0"
+          },
+          "Date": {
+            "type": "text",
+            "default": "2024. 07. 12",
+            "propertyKey": "Date#467:5"
+          },
+          "Show Button": {
+            "type": "boolean",
+            "default": false,
+            "propertyKey": "Show Button#467:10"
+          },
+          "Illustration": {
+            "type": "instance-swap",
+            "default": "Retro/KPT",
+            "propertyKey": "Illustration#467:15"
+          }
+        },
+        "size": [
+          230,
+          139
+        ]
+      },
+      "parts": {
+        "web": {
+          "width": "230px",
+          "border": "{color.gray.100}",
+          "radius": "{radius.8}",
+          "padding": "{spacing.16}"
+        },
+        "mobile": {
+          "width": "335px",
+          "radius": "{radius.card}",
+          "shadow": "{shadow.100}",
+          "padding": "{spacing.20}"
+        },
+        "title": {
+          "typography": "{typography.title.14-bold} (Mobile Default 16, Mobile Custom 18)",
+          "text": "{color.gray.800}"
+        },
+        "badge": "Badge Gray 22 (Mobile 25)",
+        "art": "Retro/* 86 (Mobile 100)",
+        "date": {
+          "typography": "{typography.body.12-medium} (Mobile 14)",
+          "text": "{color.gray.500}"
+        }
+      },
+      "code": {
+        "class": ".template-card (--mobile, --custom)",
+        "example": "layer-examples.html#card-template"
+      }
+    },
+    "Card/Template Detail": {
+      "use": "템플릿 소개 정사각형 카드(회고 생성의 템플릿 넘겨 보기). Size=335(Title 20 Bold · Badge 25 · 그림 160 · Ghost 48 \"더 알아보기\") · 240(Title 14 Bold · Badge 22 · 그림 115 · Ghost 40 \"회고 방식 알아보기\"). 흰 바탕, 모서리 12, Shadow 100.",
+      "figma": {
+        "nodeId": "468:6701",
+        "key": "3d464a3560cdd0d6b17f45305fdb85484ceab009",
+        "defaultVariant": {
+          "name": "Size=335",
+          "key": "15703465be570476a880b927ad6fce784c35c999"
+        },
+        "properties": {
+          "Size": {
+            "options": [
+              "335",
+              "240"
+            ],
+            "default": "335"
+          },
+          "Title": {
+            "type": "text",
+            "default": "차근차근, 단계적인 회고",
+            "propertyKey": "Title#468:19"
+          },
+          "Illustration": {
+            "type": "instance-swap",
+            "default": "Retro/KPT",
+            "propertyKey": "Illustration#468:22"
+          }
+        },
+        "size": [
+          335,
+          335
+        ]
+      },
+      "parts": {
+        "container": {
+          "radius": "{radius.card}",
+          "bg": "{color.bg.surface}",
+          "shadow": "{shadow.100}",
+          "padding": "{spacing.24} (240: {spacing.20})"
+        },
+        "title": "{typography.title.20-bold} (240: {typography.title.14-bold})",
+        "art": "Retro/* 160 (240: 115)",
+        "button": "Button/Ghost Button 48 (240: 40), 너비 채움"
+      },
+      "code": {
+        "class": ".template-detail (--240)",
+        "example": "layer-examples.html#card-template-detail"
+      }
+    },
+    "Analysis/Section Title": {
+      "use": "분석 화면 섹션 머리. Label(Title 14 Bold) + 세로선(Gray 300, 1 × 14) + Description(Body 14 Medium), 모두 Gray 800, 사이 7. 아래 9 띄우고 패널.",
+      "figma": {
+        "nodeId": "471:6721",
+        "key": "dd220a5dbe1392153e833cb4ae38a950d686b984",
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "진행상황",
+            "propertyKey": "Label#471:0"
+          },
+          "Description": {
+            "type": "text",
+            "default": "우리팀의 진행상황에 대해 이렇게 생각해요!",
+            "propertyKey": "Description#471:1"
+          }
+        },
+        "size": [
+          296,
+          20
+        ]
+      },
+      "parts": {
+        "label": "{typography.title.14-bold}",
+        "description": "{typography.body.14-medium}",
+        "text": "{color.gray.800}",
+        "divider": "{color.gray.300}"
+      },
+      "code": {
+        "class": ".analysis-title",
+        "example": "layer-examples.html#analysis-section-title"
+      }
+    },
+    "Analysis/Progress Panel": {
+      "use": "팀 진행상황 패널(웹 분석 · 웹 홈). Gray 100 · 모서리 12 · 안쪽 24/24/28 · 세로선으로 반 나눔. 왼쪽 제목(Subtitle 16 SemiBold, 강조 단어 text/accent — Satisfaction Title · Highlight) + Analysis/Satisfaction, 오른쪽 \"목표달성률은 평균 [Goal Rate]에요\" + Analysis/Goal Rate.",
+      "figma": {
+        "nodeId": "472:6797",
+        "key": "370d0ead91dc815e9b18cb826a5897d805ce89a4",
+        "properties": {
+          "Satisfaction Title": {
+            "type": "text",
+            "default": "진행상황에 대해 대부분",
+            "propertyKey": "Satisfaction Title#472:6"
+          },
+          "Satisfaction Highlight": {
+            "type": "text",
+            "default": "만족해요",
+            "propertyKey": "Satisfaction Highlight#472:7"
+          },
+          "Goal Rate": {
+            "type": "text",
+            "default": "78%",
+            "propertyKey": "Goal Rate#472:8"
+          }
+        },
+        "size": [
+          886,
+          240
+        ]
+      },
+      "parts": {
+        "container": {
+          "bg": "{color.bg.secondary}",
+          "radius": "{radius.card}",
+          "padding": "{spacing.24} {spacing.24} 28px"
+        },
+        "title": "{typography.subtitle.16-semibold}",
+        "highlight": "{color.text.accent}",
+        "divider": "{color.gray.300}"
+      },
+      "code": {
+        "class": ".analysis-panel > .analysis-panel__half",
+        "example": "layer-examples.html#analysis-progress-panel"
+      }
+    },
+    "Analysis/Satisfaction": {
+      "partOf": "Analysis/Progress Panel",
+      "note": "직접 쓰지 말고 Analysis/Progress Panel를 쓴다.",
+      "use": "만족도 도넛(138, 구멍 69) + 범례 5줄(Emotion 18 + 라벨 Body 12 Medium Gray 800 + 인원 Gray 500, 사이 6). 조각 색은 매우 만족 Blue 600 · 만족 Blue 500 · 보통 Blue 400 · 불만족 Blue 700 · 매우 불만족 Blue 800. Figma의 도넛 모양은 예시이고 실제 비율은 코드가 데이터로 그린다. 범례 인원은 속성(매우 만족 · 만족 · 보통 · 불만족 · 매우 불만족)으로 바꾼다.",
+      "figma": {
+        "nodeId": "472:6716",
+        "key": "f271ab632f28cd184da7c38ae1eaa9b85a847775",
+        "properties": {
+          "매우 만족": {
+            "type": "text",
+            "default": "8",
+            "propertyKey": "매우 만족#472:0"
+          },
+          "만족": {
+            "type": "text",
+            "default": "6",
+            "propertyKey": "만족#472:1"
+          },
+          "보통": {
+            "type": "text",
+            "default": "5",
+            "propertyKey": "보통#472:2"
+          },
+          "불만족": {
+            "type": "text",
+            "default": "4",
+            "propertyKey": "불만족#472:3"
+          },
+          "매우 불만족": {
+            "type": "text",
+            "default": "3",
+            "propertyKey": "매우 불만족#472:4"
+          }
+        },
+        "size": [
+          321,
+          138
+        ]
+      },
+      "parts": {
+        "chart": "138px, colors {color.blue.600} {color.blue.500} {color.blue.400} {color.blue.700} {color.blue.800}",
+        "legend": "{typography.body.12-medium}"
+      },
+      "code": {
+        "class": ".satisfaction (conic-gradient)"
+      }
+    },
+    "Analysis/Goal Rate": {
+      "partOf": "Analysis/Progress Panel",
+      "note": "직접 쓰지 말고 Analysis/Progress Panel를 쓴다.",
+      "use": "목표달성률 막대(311). 5칸 높이 30 · 칸 사이 3 · 양끝 둥긂, 채운 부분 bg/accent · 빈 칸 흰색(Gray 100 판 위), 위에 흰 말풍선(Person 18 + Rate, Body 12 SemiBold), 아래 0 · 100. 칸은 20 단위가 아니라 실제 비율로 채운다(Figma는 78% 예시). 답 입력용 0~100 점수는 Answer/Score Bar.",
+      "figma": {
+        "nodeId": "472:6778",
+        "key": "2a726790203cfc89caf51147d9e454177e4187aa",
+        "properties": {
+          "Rate": {
+            "type": "text",
+            "default": "78%",
+            "propertyKey": "Rate#472:5"
+          }
+        },
+        "size": [
+          311,
+          100
+        ]
+      },
+      "parts": {
+        "track": {
+          "height": "30px",
+          "on": "{color.bg.accent}",
+          "off": "{color.bg.surface}"
+        },
+        "tip": "{typography.body.12-semibold}",
+        "axis": "{typography.body.12-medium} {color.gray.500}"
+      },
+      "code": {
+        "class": ".goal-rate"
+      }
+    },
+    "Analysis/Keyword Group": {
+      "use": "회고 키워드 묶음(260). 제목(Subtitle 16 SemiBold) + Items 슬롯(Analysis/Keyword Item, 사이 8). 웹 분석에서 Gray 100 판 안에 잘 하고 있어요(Good) · 이런 점은 부족해요(Bad) · 개선이 필요해요(Improve) 3열.",
+      "figma": {
+        "nodeId": "471:6758",
+        "key": "317e7c137cc056230735e7e32a2938c595ed3d37",
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "잘 하고 있어요",
+            "propertyKey": "Title#471:23"
+          },
+          "Items": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Items#471:24"
+          }
+        },
+        "size": [
+          260,
+          190
+        ]
+      },
+      "parts": {
+        "title": "{typography.subtitle.16-semibold}",
+        "gap": "{spacing.20}"
+      },
+      "code": {
+        "class": ".keyword-group",
+        "example": "layer-examples.html#analysis-keyword-group"
+      }
+    },
+    "Analysis/Keyword Item": {
+      "use": "키워드 한 줄. Type=Good(Check_Filled Gray 800) · Bad(Minus_Filled status/error) · Improve(More_Filled bg/accent). Platform=Web: 흰 바탕 · 모서리 8 · 위아래 12 좌우 16 · 아이콘 16 · Subtitle 14 SemiBold · 인원 Body 12 Medium Gray 500. Mobile: Gray 100 바탕 · 위아래 15 좌우 12 · 아이콘 24 · Subtitle 16 SemiBold · 인원 Body 14 Medium Gray 600. 인원은 Show Count.",
+      "figma": {
+        "nodeId": "471:6756",
+        "key": "e87bb62f84b7fd4409a5dd297044c14f64906f1b",
+        "properties": {
+          "Type": {
+            "options": [
+              "Good",
+              "Bad",
+              "Improve"
+            ],
+            "default": "Good"
+          },
+          "Platform": {
+            "options": [
+              "Web",
+              "Mobile"
+            ],
+            "default": "Web"
+          },
+          "Keyword": {
+            "type": "text",
+            "default": "회의 내용 문서화",
+            "propertyKey": "Keyword#471:2"
+          },
+          "Count": {
+            "type": "text",
+            "default": "4명",
+            "propertyKey": "Count#471:9"
+          },
+          "Show Count": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Count#471:16"
+          }
+        },
+        "size": [
+          260,
+          44
+        ]
+      },
+      "parts": {
+        "web": {
+          "bg": "{color.bg.surface}",
+          "radius": "{radius.8}"
+        },
+        "mobile": {
+          "bg": "{color.bg.secondary}",
+          "radius": "{radius.8}"
+        }
+      },
+      "code": {
+        "class": ".keyword-item (--good | --bad | --improve, --mobile)",
+        "example": "layer-examples.html#analysis-keyword-item"
+      }
+    },
+    "Analysis/Highlight Title": {
+      "use": "모바일 개인 분석의 강조 문장. Name(\"이회고님은\") + Badge Outlined Blue 22(키워드) + Particle(\"를\" · \"외\") / 둘째 줄 Sentence(\"가장 잘 하고 있어요\"). Subtitle 16 SemiBold text/primary. 아래 Analysis/Keyword Item(Mobile) 목록.",
+      "figma": {
+        "nodeId": "472:6890",
+        "key": "acb08452c25b056bd87a3e4fd47bb772b6a61500",
+        "properties": {
+          "Name": {
+            "type": "text",
+            "default": "이회고님은",
+            "propertyKey": "Name#472:9"
+          },
+          "Particle": {
+            "type": "text",
+            "default": "를",
+            "propertyKey": "Particle#472:10"
+          },
+          "Sentence": {
+            "type": "text",
+            "default": "가장 잘 하고 있어요",
+            "propertyKey": "Sentence#472:11"
+          }
+        },
+        "size": [
+          200,
+          48
+        ]
+      },
+      "nested": [
+        {
+          "layer": "Badge",
+          "component": "Badge",
+          "set": {
+            "Label": "강조 키워드(블록마다 다름)"
+          }
+        }
+      ],
+      "parts": {
+        "text": "{typography.subtitle.16-semibold}",
+        "chip": "Badge Outlined Blue 22"
+      },
+      "code": {
+        "class": ".highlight-title",
+        "example": "layer-examples.html#analysis-highlight-title"
+      }
+    },
+    "Card/Template Summary": {
+      "use": "고른 템플릿 요약(웹 회고 생성 확인 단계). 472, 흰 바탕 · 테두리 border/default · 모서리 12 · 안쪽 20 · 사이 24. 머리 = 제목(Title 20 Bold) + Badge Gray 25, 오른쪽 Outlined Button 40(Write 아이콘, \"질문 수정\"). 아래 Questions 슬롯 — List/Icon List Action=None · Marker=Number, 사이 8.",
+      "figma": {
+        "nodeId": "468:6702",
+        "key": "ba596f964f42c01881bfdbfb97cd25703d716d09",
+        "properties": {
+          "Title": {
+            "type": "text",
+            "default": "차근차근, 단계적인 회고",
+            "propertyKey": "Title#468:25"
+          },
+          "Questions": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Questions#468:26"
+          }
+        },
+        "size": [
+          472,
+          265
+        ]
+      },
+      "parts": {
+        "container": {
+          "width": "472px",
+          "border": "{color.border.default}",
+          "radius": "{radius.card}",
+          "padding": "{spacing.20}",
+          "gap": "{spacing.24}"
+        },
+        "title": "{typography.title.20-bold}",
+        "question": "List/Icon List Action=None, Marker=Number"
+      },
+      "code": {
+        "class": ".template-summary",
+        "example": "layer-examples.html#card-template-summary"
+      }
+    },
+    "Card/Question Group (Web)": {
+      "use": "웹에서 질문 하나와 그 답들을 묶는 회색 카드. 회고 확인 · 질문별 보기의 열(팀원 답 여러 개)과 제출 전 확인(내 답 하나, Show Name 끔)에 쓴다. Gray 100 · 모서리 12 · 안쪽 16 · 사이 16, 위 Question(Title 15 Bold) + Content 슬롯(Card/Answer Platform=Web, 사이 12).",
+      "figma": {
+        "nodeId": "463:88328",
+        "key": "02fe3befae69e7aea82772460d30d805f986e555",
+        "properties": {
+          "Question": {
+            "type": "text",
+            "default": "1. 계속 유지하고 싶은 것은 무엇인가요?",
+            "propertyKey": "Question#463:3"
+          },
+          "Content": {
+            "type": "slot",
+            "default": "",
+            "propertyKey": "Content#463:4"
+          }
+        },
+        "size": [
+          340,
+          240
+        ]
+      },
+      "parts": {
+        "container": {
+          "bg": "{color.bg.secondary}",
+          "radius": "{radius.card}",
+          "padding": "{spacing.16}",
+          "gap": "{spacing.16}"
+        },
+        "question": {
+          "typography": "{typography.title.15-bold}",
+          "text": "{color.text.primary}"
+        },
+        "content-gap": "{spacing.12}"
+      },
+      "code": {
+        "class": ".question-group > .question-group__title + .question-group__content",
+        "example": "layer-examples.html#card-question-group-web"
+      }
+    },
+    "Dropdown": {
+      "use": "웹 상단의 필터 · 보기 전환(대표 템플릿 KPT, 팀원 11). 높이 36, 아이콘 20(선택) + 라벨 + Chevron 14.",
+      "avoid": "여러 개 고르는 필터는 Chip. 입력 양식 안의 선택은 Fields/Select Field.",
+      "figma": {
+        "nodeId": "363:30483",
+        "key": "95f6b6a39ff7e0018f7e8b35183181222fe77e50",
+        "defaultVariant": {
+          "name": "State=Default",
+          "key": "d7653067b40c112eba8b6e05a508236f1dd310ac"
+        },
+        "properties": {
+          "Label": {
+            "type": "text",
+            "default": "KPT",
+            "propertyKey": "Label#363:4"
+          },
+          "Show Icon": {
+            "type": "boolean",
+            "default": true,
+            "propertyKey": "Show Icon#363:8"
+          },
+          "Icon": {
+            "type": "instance-swap",
+            "default": "Icon/Graphic/Template",
+            "propertyKey": "Icon#363:12"
+          },
+          "State": {
+            "options": [
+              "Default",
+              "Hover",
+              "Pressed"
+            ],
+            "default": "Default"
+          }
+        },
+        "size": [
+          90,
+          40
+        ]
+      },
+      "parts": {
+        "container": {
+          "height": "36px",
+          "padding": "0 {spacing.16} 0 {spacing.12}",
+          "radius": "{radius.button-xs}",
+          "bg": "{color.bg.surface}",
+          "gap": "6px"
+        },
+        "label": {
+          "typography": "{typography.subtitle.14-semibold}",
+          "text": "{color.gray.600}"
+        }
+      },
+      "states": "Hover Gray 100 · Pressed Gray 200.",
+      "code": {
+        "class": ".dropdown",
+        "example": "layer-examples.html#dropdown"
+      }
+    }
+  },
+  "icons": {
+    "note": "선 아이콘 24 기준(버튼 안 18·16), 색은 놓이는 곳의 글자 색. 그래픽 아이콘은 State=Color(기본) · White(파란 바탕 위, 또는 Gray 200 원 40px 안의 썸네일 — 홈 스페이스 카드). 크기 기본 28, 카드 안 인원 수처럼 좁은 줄에서는 24.",
+    "items": {
+      "Icon/Graphic/Team": {
+        "key": "79cf01b66b108601d2d2a9de3a8e2656bdc5541f",
+        "nodeId": "1:3757",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Person": {
+        "key": "6518b13de59d8b3650c6868108a7ca60d10bfa06",
+        "nodeId": "1:3762",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Emotion": {
+        "key": "ab03b0d2841a3ab05928d095ede90517f90710b9",
+        "nodeId": "1:3767",
+        "variants": [
+          "Bad",
+          "Bad_Disabled",
+          "Soso",
+          "Soso_Disabled",
+          "Better",
+          "Better_Disabled",
+          "Good",
+          "Good_Disabled",
+          "Happy",
+          "Happy_Disabled"
+        ]
+      },
+      "Icon/Graphic/Planning": {
+        "key": "4c42c94294b10672269c9e1619016baa4ae49997",
+        "nodeId": "1:3828",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Management": {
+        "key": "c8224d9708f6d04deccc789c4db144319cb9157e",
+        "nodeId": "1:3833",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Research": {
+        "key": "bd5ac5966e07f52686ac7396ca355ba614a27cc5",
+        "nodeId": "1:3838",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Design": {
+        "key": "e4a656755de919a975be964ae7e71d16bf6c794c",
+        "nodeId": "1:3843",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Education": {
+        "key": "8993012a4569885b5f99309d697f03d28a8364b0",
+        "nodeId": "1:3848",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Data": {
+        "key": "1090f6865f8aafb6545f7d1731d0efe053e3873a",
+        "nodeId": "1:3853",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Marketing": {
+        "key": "9b38bfc59390027ac560af4bced3d7dfbbc54b8b",
+        "nodeId": "1:3858",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Development": {
+        "key": "970a247b817098fa1ebc366f50c1e4d82c96e4f9",
+        "nodeId": "1:3863",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Document": {
+        "key": "0e9cbf4641333ae6b899649bdbfa689e86c7ddbd",
+        "nodeId": "1:3868",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/List": {
+        "key": "7c1e2e473c3ff60d0478f74bc7cda4830dec0ab0",
+        "nodeId": "1:3877",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Recommend": {
+        "key": "1b1268de4dc9631383f2a6d91b6bda324e8ae22a",
+        "nodeId": "1:3882",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Regular": {
+        "key": "4eaf5912ceb09324cbf488057a146d723391f5a6",
+        "nodeId": "1:3887",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Graphic/Irregular": {
+        "key": "efdb19f71663bd8ea6635d5ef09cd9735b88ca48",
+        "nodeId": "1:3892",
+        "variants": [
+          "Color",
+          "White"
+        ]
+      },
+      "Icon/Nav/Home": {
+        "key": "4bad6dba57b0100c57cb28af1b252573edf88f82",
+        "nodeId": "1:3738"
+      },
+      "Icon/Nav/ActionItem": {
+        "key": "d64b23d4b7f9704aa0621a3aabde6bf431be0167",
+        "nodeId": "1:3740"
+      },
+      "Icon/Nav/Analysis": {
+        "key": "d93e45c37daf35557b474fef68bc0cf7dc7c946b",
+        "nodeId": "1:3746"
+      },
+      "Icon/Assets/Arrow-left": {
+        "key": "5fb4ab57b0a1c69b7b3abeede537548968fe8669",
+        "nodeId": "1:3753"
+      },
+      "Icon/Assets/Arrow-Right": {
+        "key": "43f7a039c1bf9b17f46444f563866f9e0509decd",
+        "nodeId": "1:3755"
+      },
+      "Icon/Assets/Close": {
+        "key": "94e38d2d137c7548f6660d6c89dd7348881a51bb",
+        "nodeId": "1:3897"
+      },
+      "Icon/Assets/Add": {
+        "key": "b62f20ccad112024974388416b81173e97d4a8f2",
+        "nodeId": "1:3899"
+      },
+      "Icon/Assets/Chevron-Down": {
+        "key": "8ffa8ce11958c215ac465e858116befdb5ae84a4",
+        "nodeId": "1:3901"
+      },
+      "Icon/Assets/Chevron-Right": {
+        "key": "876e0b3764b194065795a0b72cbb9e5a772da689",
+        "nodeId": "1:3903"
+      },
+      "Icon/Assets/Chevron-Left": {
+        "key": "12b353cf145eee4519e784b958c58d954df31a4c",
+        "nodeId": "1:3905"
+      },
+      "Icon/Assets/More": {
+        "key": "17bbe925fbe571427747f3903baa83d0ae145377",
+        "nodeId": "1:3907"
+      },
+      "Icon/Assets/More_hori": {
+        "key": "7bc0abcc5043d7b33713c715de4e00021158b263",
+        "nodeId": "1:3909"
+      },
+      "Icon/Assets/Calendar": {
+        "key": "a587d7746397a9854ebfcaa8258ac4a9a0514e66",
+        "nodeId": "1:3911"
+      },
+      "Icon/Assets/Camera_Filled": {
+        "key": "19426e8989880b6ef2b599a19d50d165c1c52c01",
+        "nodeId": "1:3913"
+      },
+      "Icon/Assets/Camera": {
+        "key": "75c3743add811aa05a0fb95d86beceb60ab846d5",
+        "nodeId": "1:3917"
+      },
+      "Icon/Assets/Chevron-Up": {
+        "key": "b8f9d45338becb22749846c1e831c350963acec6",
+        "nodeId": "1:3919"
+      },
+      "Icon/Assets/Drawer": {
+        "key": "f63fb0cca323ed75c2366623f7f87d55ffb0367a",
+        "nodeId": "1:3921"
+      },
+      "Icon/Assets/Info": {
+        "key": "0fc2a7a6db37eb5e3a719fa8d25ac2935c93b247",
+        "nodeId": "1:3923"
+      },
+      "Icon/Assets/Question": {
+        "key": "20213b44d7f48a626c39bce91b340e608d883c3e",
+        "nodeId": "1:3925"
+      },
+      "Icon/Assets/Caution": {
+        "key": "cce866a02c469d871a2445996fdc9b22d35e8386",
+        "nodeId": "1:3927"
+      },
+      "Icon/Assets/Caution_Filled": {
+        "key": "6f4b91fbf860f5eac9404ac720b9b75dd25b21cf",
+        "nodeId": "1:3929"
+      },
+      "Icon/Assets/Check": {
+        "key": "08b1d2305d733532010da380d95e7a1d8256d835",
+        "nodeId": "1:3935"
+      },
+      "Icon/Assets/Check_Filled": {
+        "key": "7084e483613218444b10782874f16e0729de8cd4",
+        "nodeId": "1:3937"
+      },
+      "Icon/Assets/Write": {
+        "key": "131bfbaa20f85548d030a88f441a32e24ce371a0",
+        "nodeId": "1:3939"
+      },
+      "Icon/Assets/Expand": {
+        "key": "4663d9427863f809633e656290d7a30ab0e8ba81",
+        "nodeId": "1:3941"
+      },
+      "Icon/Assets/Compress": {
+        "key": "637b2e2d9e1525bd333ddf492797065fa74baacb",
+        "nodeId": "1:3943"
+      },
+      "Icon/Assets/Unfold-Right": {
+        "key": "31d83e8412bd795e7e2950e7c0a500f9d0c5d806",
+        "nodeId": "1:3947"
+      },
+      "Icon/Assets/Unfold-Left": {
+        "key": "4a08139e6409d328051801707fd51f10130d7e98",
+        "nodeId": "1:3949"
+      },
+      "Icon/Assets/Fold": {
+        "key": "a0ab648c84d7aab943f99c8fba6a4dd0e54602d0",
+        "nodeId": "1:3951"
+      },
+      "Icon/Assets/Minus_Filled": {
+        "key": "ab7408e2a644201fa1c840a9cb81625fdea30050",
+        "nodeId": "400:6568"
+      },
+      "Icon/Assets/More_Filled": {
+        "key": "5a9b7ace487402de62ee488ac52eadfeadebf6a1",
+        "nodeId": "400:6574"
+      },
+      "Icon/Assets/Info_Filled": {
+        "key": "e58d11d371c738ad48477d8767e35788cdf40b00",
+        "nodeId": "423:6029"
+      }
+    }
+  },
+  "illustrations": {
+    "note": "원본 500 × 500(Banner/2:1은 1000 × 500). 크기 120(Popup) · 160(카드·바텀시트) · 200(빈 화면) · 280(스플래시). 인스턴스를 비율대로 줄여 쓴다. Popup·Bottom Sheet의 Illustration 속성으로 교체.",
+    "items": {
+      "Content/Space Empty": {
+        "key": "af24d5992aa9696f4debe46756ad023097b3f85e",
+        "nodeId": "257:4315"
+      },
+      "Content/Space": {
+        "key": "606458fc00d2b2d64f8b9cef2a74652a184add73",
+        "nodeId": "257:4316"
+      },
+      "Content/Recommend": {
+        "key": "1a73b04d458c5740ed94277734cc2c17bc84a7d0",
+        "nodeId": "257:4317"
+      },
+      "Content/Write": {
+        "key": "8e18fb38b8f3ef15865a00252a10757416e034df",
+        "nodeId": "257:4318"
+      },
+      "Content/Start": {
+        "key": "2a2714f2c8a9e43eb75727ce4f632cab34c2ab5f",
+        "nodeId": "257:4319"
+      },
+      "Content/Done": {
+        "key": "63121c85dda1a734c7be896a636b6e7d2134eebc",
+        "nodeId": "257:4320"
+      },
+      "Content/Invite": {
+        "key": "1d14d29c46830a5ebf8634655cbb8acaef9c5a28",
+        "nodeId": "257:4323"
+      },
+      "Banner/1:1": {
+        "key": "bd4f70cfbb0c56c030036673569b0430479f6440",
+        "nodeId": "257:4321"
+      },
+      "Banner/2:1": {
+        "key": "6f3c58b05a96a20777d2d62b5ca5399d03533c68",
+        "nodeId": "257:4322"
+      },
+      "Retro/Custom": {
+        "key": "3a1dcac796007811f585beb6695fc81f4fd31e0b",
+        "nodeId": "257:4324"
+      },
+      "Retro/Untitled": {
+        "key": "9a58cbf445675798ca27f20f8d51b3f2a5a5ba29",
+        "nodeId": "257:4325"
+      },
+      "Retro/SSC": {
+        "key": "f3f0b87541536ee1de8fcf35688009efd40ab141",
+        "nodeId": "257:4326"
+      },
+      "Retro/KPT": {
+        "key": "14b2d60c7499bc129c334c4a18e715120fde812b",
+        "nodeId": "257:4327"
+      },
+      "Retro/Mad Sad Glad": {
+        "key": "b2f1d677167d71b4e59112bf619e0dd33ac2447c",
+        "nodeId": "257:4328"
+      },
+      "Retro/PMI": {
+        "key": "6ad481e7bfc7bfbcbd1b94a8de04c8d1bcb90f26",
+        "nodeId": "257:4329"
+      },
+      "Retro/5F": {
+        "key": "5439ef49aa2e66fbc7ef6ceb1508b7609db2dfcb",
+        "nodeId": "257:4330"
+      },
+      "Splash/Step by Step": {
+        "key": "3a1b3eb8c705cc5b8ecd63b6f5275573d5b65e09",
+        "nodeId": "257:4331"
+      },
+      "Splash/Schedule": {
+        "key": "b8b7f9817a6409168a821d2465c355c0b0a6f56a",
+        "nodeId": "257:4332"
+      },
+      "Splash/Report": {
+        "key": "7ea73357dbde3f862181998a28c090a88aba9d86",
+        "nodeId": "257:4333"
+      },
+      "Splash/Goal": {
+        "key": "a6d8b9a4243d3ca361e9c123870ba0acc26cbbac",
+        "nodeId": "257:4334"
+      }
+    }
+  }
+}

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component — Fields</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>/* typography.css */
+/* ─────────────────────────────────────────────────────────────
+   Typography — derived from Figma "Foundation / Typography" (node 1:3589)
+   Values come only from that frame, not from the existing AI-made variables.
+
+   Layer 1: primitives  (what values exist)
+   Layer 2: text styles (which combinations are allowed)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Family */
+  --font-family-primary: "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  /* Weight — 3 used */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Size — 9 used */
+  --font-size-10: 10px;
+  --font-size-11: 11px;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-15: 15px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+
+  /* Line height — 2 used */
+  --line-height-140: 1.4;
+  --line-height-150: 1.5;
+
+  /* Letter spacing — every style uses 0 */
+  --letter-spacing-0: 0;
+}
+
+/* Shared base for every text style */
+[class^="text-"], [class*=" text-"] {
+  font-family: var(--font-family-primary);
+  letter-spacing: var(--letter-spacing-0);
+  font-feature-settings: "case" 1, "ss02" 1;
+  margin: 0;
+}
+
+/* ── Text styles (15) ── name = Role / Size Weight, same as Figma ── */
+
+/* Heading */
+.text-heading-24-bold    { font-size: var(--font-size-24); font-weight: var(--font-weight-bold);     line-height: var(--line-height-150); }
+
+/* Title */
+.text-title-20-bold      { font-size: var(--font-size-20); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+.text-title-18-bold      { font-size: var(--font-size-18); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 140% (2026-10-26) */
+.text-title-16-bold      { font-size: var(--font-size-16); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+
+/* Subtitle */
+.text-subtitle-18-semibold { font-size: var(--font-size-18); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-16-semibold { font-size: var(--font-size-16); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-14-semibold { font-size: var(--font-size-14); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+
+/* Body */
+.text-body-16-medium     { font-size: var(--font-size-16); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-15-medium     { font-size: var(--font-size-15); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-14-medium     { font-size: var(--font-size-14); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-12-semibold   { font-size: var(--font-size-12); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-body-12-medium     { font-size: var(--font-size-12); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+
+/* Caption */
+.text-caption-11-medium  { font-size: var(--font-size-11); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-caption-10-bold    { font-size: var(--font-size-10); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 10px (2026-10-26) */
+.text-caption-10-medium  { font-size: var(--font-size-10); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+</style>
+<style>/* icons.css */
+/* ─────────────────────────────────────────────────────────────
+   Icons — derived from Figma "Foundation / Icons" (node 1:3724)
+
+   Assets  : single-colour UI icons, 24px grid, drawn in currentColor
+   Nav     : navigation icons, 24px, currentColor + white details
+   Graphic : multi-colour illustrations, 28px, Color / White states
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Recommended Assets sizes (from the page description) */
+  --icon-size-24: 24px;
+  --icon-size-18: 18px;
+  --icon-size-16: 16px;
+  --icon-size-12: 12px;
+
+  /* Graphic icons are drawn on a 28px grid */
+  --icon-size-graphic: 28px;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-size-24);
+  height: var(--icon-size-24);
+  color: inherit;             /* Assets & Nav follow the text colour */
+  vertical-align: middle;
+}
+.icon svg { display: block; width: 100%; height: 100%; }
+
+.icon-24 { width: var(--icon-size-24); height: var(--icon-size-24); }
+.icon-18 { width: var(--icon-size-18); height: var(--icon-size-18); }
+.icon-16 { width: var(--icon-size-16); height: var(--icon-size-16); }
+.icon-12 { width: var(--icon-size-12); height: var(--icon-size-12); }
+.icon-graphic { width: var(--icon-size-graphic); height: var(--icon-size-graphic); }
+</style>
+<style>/* fields.css */
+/* ─────────────────────────────────────────────────────────────
+   Fields — derived from Figma "Fields" (node 1:2301)
+   Text Input · Text Area · Select Field
+   States: Default · Focus · Typing · Typed · Error · OverTyping · Disabled
+   (Focus/Typing come from :focus-within; Typed = has a value, not focused)
+   Error = invalid characters · OverTyping = over the length limit (count shows N/N)
+   Error keeps the Blue 600 border (agreed); only the help text is red.
+
+   Colours are the values read from the frame; comments name the palette step.
+   .is-focus / .is-error / .is-disabled force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+.field {
+  --field-border: #dfe3ea;               /* Gray 300 */
+  --field-text: #212329;                 /* Gray 900 */
+  --field-placeholder: #a9afbb;          /* Gray 500 */
+  --field-count: #a9afbb;                /* Gray 500 */
+  display: flex; flex-direction: column; gap: 8px; width: 100%;
+  font-family: var(--font-family-primary);
+  font-feature-settings: "case" 1, "ss02" 1;
+}
+.field__label {                          /* Subtitle 14 SemiBold */
+  margin: 0; font-size: 14px; font-weight: 600; line-height: 1.4; color: #212329;
+}
+.field__box {
+  display: flex; align-items: center; gap: 6px; box-sizing: border-box;
+  padding: 15px 13px; border: 1px solid var(--field-border); border-radius: 12px;   /* 16·14 incl. 1px inside stroke */
+  background: #ffffff;
+}
+.field__input {                          /* Body 15 Medium */
+  flex: 1 1 0; min-width: 0; margin: 0; padding: 0; border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 15px; font-weight: 500; line-height: 1.4; height: 21px;
+  color: var(--field-text); caret-color: #6c9cfa;                                      /* cursor: Blue 600 */
+}
+.field__input::placeholder { color: var(--field-placeholder); opacity: 1; }
+.field__count {                          /* Body 12 Medium */
+  flex: none; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--field-count); white-space: nowrap;
+}
+.field__count b { font-weight: 500; color: #6c9cfa; }                                  /* typed count: Blue 600 */
+.field__help {                           /* Body 14 Medium */
+  margin: 0; font-size: 14px; font-weight: 500; line-height: 1.4; color: #fb5c5c;     /* Red 400 */
+}
+
+/* Focus · Typing */
+.field__box:focus-within, .field.is-focus .field__box { --field-border: #6c9cfa; }    /* Blue 600 */
+/* Error · OverTyping (Figma keeps the Blue 600 focus border) */
+.field.is-error .field__box { --field-border: #6c9cfa; }
+/* Disabled */
+.field.is-disabled .field__box, .field__box:has(:disabled) {
+  --field-border: #edf0f4;                                                              /* Gray 200 */
+  --field-text: #dfe3ea; --field-placeholder: #dfe3ea; --field-count: #dfe3ea;          /* Gray 300 */
+}
+.field__input:disabled { cursor: not-allowed; -webkit-text-fill-color: currentColor; }
+
+/* Static caret for documentation specimens (the real caret is caret-color) */
+.field__caret { display: inline-block; width: 1.5px; height: 18px; background: #6c9cfa; vertical-align: -3px; }
+
+/* ── Text Area ───────────────────────────── */
+.field--area .field__box { flex-direction: column; align-items: stretch; gap: 4px; }
+.field--area .field__input { height: auto; min-height: 21px; resize: none; field-sizing: content; display: block; }
+.field--area .field__count { text-align: right; }
+
+/* ── Select Field ────────────────────────── */
+.select-field {
+  --field-border: #dfe3ea;
+  display: flex; align-items: center; gap: 8px; box-sizing: border-box; width: 100%;
+  padding: 15px 13px; border: 1px solid var(--field-border); border-radius: 12px;   /* 16·14 incl. 1px inside stroke */ background: #ffffff;
+  font-family: var(--font-family-primary); font-size: 15px; font-weight: 500; line-height: 1.4;
+  font-feature-settings: "case" 1, "ss02" 1; text-align: left; cursor: pointer;
+  color: #a9afbb;                                                                        /* placeholder: Gray 500 */
+}
+.select-field__text { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.select-field .icon { width: 20px; height: 20px; flex: none; color: #666b75; }          /* Gray 700 */
+.select-field:focus-visible, .select-field:active, .select-field.is-focus { outline: 0; --field-border: #6c9cfa; }
+.select-field:focus-visible .icon, .select-field:active .icon, .select-field.is-focus .icon { color: #454952; } /* Gray 800 */
+.select-field.is-selected { color: #212329; }                                            /* Gray 900 (same as typed text) */
+.select-field.is-selected .icon { color: #454952; }
+.select-field:disabled, .select-field.is-disabled { --field-border: #edf0f4; color: #dfe3ea; cursor: not-allowed; }
+.select-field:disabled .icon, .select-field.is-disabled .icon { color: #dfe3ea; }
+</style>
+<style>/* foundation-page.css */
+/* ─────────────────────────────────────────────────────────────
+   Shared layout for Foundation doc pages (Color, Typography, Elevation…).
+   Doc-site only: these values are not design tokens.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --page-bg: #edf0f4;
+  --surface: #ffffff;
+  --surface-muted: #f2f4f8;
+  --ink: #212329;
+  --ink-strong: #06080c;
+  --ink-muted: rgba(6, 8, 12, 0.48);
+  --rule: #edf0f4;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 40px 16px;
+  background: var(--page-bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Frame: 64px side padding, 32px radius */
+.foundation {
+  max-width: 1280px; margin: 0 auto;
+  background: var(--surface); border-radius: 32px; overflow: clip;
+  padding: 64px 64px 168px;
+}
+
+/* Header */
+.header { display: flex; flex-direction: column; gap: 32px; padding-bottom: 64px; }
+.heading { display: flex; flex-direction: column; gap: 18px; }
+.divider { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+/* Doc-only type: used on doc pages, not part of the 15 text styles */
+.doc-title, .doc-lead, .doc-section { font-family: var(--font-family-primary); margin: 0; }
+.doc-title   { font-weight: 700; font-size: 56px; line-height: 86px; letter-spacing: -0.5px; font-feature-settings: "ss02" 1, "case" 1; }
+.doc-lead    { font-weight: 500; font-size: 18px; line-height: 1.5; letter-spacing: -0.18px; min-height: 54px; font-feature-settings: "case" 1, "ss02" 1; }
+.doc-lead p  { margin: 0; }
+.doc-section { font-weight: 700; font-size: 24px; line-height: 1.3; letter-spacing: -0.24px; font-feature-settings: "ss10" 1; }
+
+/* First section sits 23px under the header */
+.section { margin-top: 23px; }
+
+@media (max-width: 900px) {
+  .foundation { padding: 40px 24px 80px; border-radius: 24px; }
+  .doc-title { font-size: 40px; line-height: 60px; }
+}
+
+/* Korean line breaking: wrap between words, not syllables */
+body { word-break: keep-all; overflow-wrap: break-word; }
+p, li, td, th, figcaption { text-wrap: pretty; }
+</style>
+<style>
+  .scroll { overflow-x: auto; max-width: 1820px; margin: 0 auto; border-radius: 32px; }
+  .foundation.board { position: relative; width: 1820px; max-width: none; height: 2304px; padding: 64px 64px 0; overflow: hidden; }
+  .heading { color: #212529; }
+  .doc-lead { font-weight: 400; white-space: pre-wrap; }
+  .spec { position: absolute; margin: 0; }
+  .set { position: absolute; border: 1px dashed #9747ff; border-radius: 5px; box-sizing: border-box; pointer-events: none; }
+  .lbl { color: rgba(6, 8, 12, 0.48); white-space: nowrap; }
+  .spec-static { pointer-events: none; }
+  .ph { color: var(--field-placeholder); position: relative; }
+  .caret-abs { position: absolute; left: 0; top: 1.5px; }
+  .caret-char { color: #6c9cfa; }
+</style>
+</head>
+<body>
+  <div class="scroll">
+  <main class="foundation board">
+    <header class="header">
+      <div class="heading">
+        <h1 class="doc-title">Fields</h1>
+        <div class="doc-lead"><p>필드는 사용자가 글자를 입력하거나 정해진 값을 고르는 요소입니다. 한 줄로 짧게 받는 회고 제목은 Text Input, 여러 줄로 받는 회고 설명은 Text Area, 회고 마감일처럼 목록이나 달력에서 고르는 값은 Select Field를 씁니다.</p></div>
+      </div>
+      <hr class="divider" />
+    </header>
+<h2 class="doc-section spec" style="left:64px;top:342px">Text Input</h2>
+<div class="set" style="left:64px;top:409px;width:1692px;height:487px"></div>
+<p class="lbl spec text-subtitle-16-semibold" style="left:369px;top:450px">Default</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:704px;top:450px">Focus</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:1031px;top:450px">Typing</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:1363px;top:450px">Typed</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:378px;top:674px">Error</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:683px;top:674px">OverTyping</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:1024px;top:674px">Disabled</p>
+<div class="spec" style="left:246px;top:503px;width:300px"><div class="field"><p class="field__label">Label</p><label class="field__box"><input class="field__input" type="text" placeholder="Text" maxlength="10" data-count><span class="field__count">0/10</span></label></div></div>
+<div class="spec" style="left:576px;top:503px;width:300px"><div class="field is-focus spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input ph"><span class="field__caret caret-abs"></span>Text</span><span class="field__count">0/10</span></label></div></div>
+<div class="spec" style="left:906px;top:503px;width:300px"><div class="field is-focus spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text<span class="field__caret"></span></span><span class="field__count"><b>4</b>/10</span></label></div></div>
+<div class="spec" style="left:1236px;top:503px;width:300px"><div class="field spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text</span><span class="field__count"><b>4</b>/10</span></label></div></div>
+<div class="spec" style="left:246px;top:720px;width:300px"><div class="field is-error spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text<span class="field__caret"></span></span><span class="field__count"><b>4</b>/10</span></label><p class="field__help">*특수문자는 입력이 불가해요</p></div></div>
+<div class="spec" style="left:576px;top:720px;width:300px"><div class="field is-error spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text<span class="field__caret"></span></span><span class="field__count"><b>10</b>/10</span></label><p class="field__help">*최대 10자까지 입력이 가능해요</p></div></div>
+<div class="spec" style="left:906px;top:720px;width:300px"><div class="field is-disabled spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input ph">Text</span><span class="field__count">0/10</span></label></div></div>
+<h2 class="doc-section spec" style="left:64px;top:1016px">Text Area</h2>
+<div class="set" style="left:64px;top:1083px;width:1692px;height:552px"></div>
+<p class="lbl spec text-subtitle-16-semibold" style="left:369px;top:1151px">Default</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:704px;top:1151px">Focus</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:1031px;top:1151px">Typing</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:1363px;top:1151px">Typed</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:378px;top:1375px">Error</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:683px;top:1375px">OverTyping</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:1024px;top:1375px">Disabled</p>
+<div class="spec" style="left:246px;top:1208px;width:300px"><div class="field field--area"><p class="field__label">Label</p><label class="field__box"><textarea class="field__input" rows="1" placeholder="Text" maxlength="20" data-count></textarea><span class="field__count">0/20</span></label></div></div>
+<div class="spec" style="left:576px;top:1208px;width:300px"><div class="field field--area is-focus spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input ph"><span class="field__caret caret-abs"></span>Text</span><span class="field__count">0/20</span></label></div></div>
+<div class="spec" style="left:906px;top:1208px;width:300px"><div class="field field--area is-focus spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text<span class="field__caret"></span></span><span class="field__count"><b>4</b>/20</span></label></div></div>
+<div class="spec" style="left:1236px;top:1208px;width:300px"><div class="field field--area spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text</span><span class="field__count"><b>6</b>/20</span></label></div></div>
+<div class="spec" style="left:246px;top:1421px;width:300px"><div class="field field--area is-error spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text<span class="field__caret"></span></span><span class="field__count"><b>4</b>/20</span></label><p class="field__help">*특수문자는 입력이 불가해요</p></div></div>
+<div class="spec" style="left:576px;top:1421px;width:300px"><div class="field field--area is-error spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input">Text<span class="field__caret"></span></span><span class="field__count"><b>20</b>/20</span></label><p class="field__help">*최대 20자까지 입력이 가능해요</p></div></div>
+<div class="spec" style="left:906px;top:1421px;width:300px"><div class="field field--area is-disabled spec-static"><p class="field__label">Label</p><label class="field__box"><span class="field__input ph">Text</span><span class="field__count">0/20</span></label></div></div>
+<h2 class="doc-section spec" style="left:64px;top:1755px">Select Field</h2>
+<div class="set" style="left:64px;top:1864px;width:1692px;height:186px"></div>
+<p class="lbl spec text-subtitle-16-semibold" style="left:187px;top:1822px">Default</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:562px;top:1822px">Focus/Pressed</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:937px;top:1822px">Selected</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:1312px;top:1822px">Disabled</p>
+<div class="spec" style="left:187px;top:1929px;width:335px"><button type="button" class="select-field"><span class="select-field__text">회고 마감일을 선택해 주세요</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 9.5C6.44772 9.5 6 9.94772 6 10.5C6 11.0523 6.44772 11.5 7 11.5H17C17.5523 11.5 18 11.0523 18 10.5C18 9.94772 17.5523 9.5 17 9.5H7Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9 3.5C9 2.94772 8.55228 2.5 8 2.5C7.44772 2.5 7 2.94772 7 3.5V4.5H6C4.34315 4.5 3 5.84315 3 7.5V18.5C3 20.1569 4.34315 21.5 6 21.5H18C19.6569 21.5 21 20.1569 21 18.5V7.5C21 5.84315 19.6569 4.5 18 4.5H17V3.5C17 2.94772 16.5523 2.5 16 2.5C15.4477 2.5 15 2.94772 15 3.5V4.5H9V3.5ZM6 6.5H7C7 7.05228 7.44772 7.5 8 7.5C8.55228 7.5 9 7.05228 9 6.5H15C15 7.05228 15.4477 7.5 16 7.5C16.5523 7.5 17 7.05228 17 6.5H18C18.5523 6.5 19 6.94772 19 7.5V18.5C19 19.0523 18.5523 19.5 18 19.5H6C5.44772 19.5 5 19.0523 5 18.5V7.5C5 6.94772 5.44772 6.5 6 6.5Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:562px;top:1929px;width:335px"><button type="button" class="select-field is-focus spec-static"><span class="select-field__text">회고 마감일을 선택해 주세요</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 9.5C6.44772 9.5 6 9.94772 6 10.5C6 11.0523 6.44772 11.5 7 11.5H17C17.5523 11.5 18 11.0523 18 10.5C18 9.94772 17.5523 9.5 17 9.5H7Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9 3.5C9 2.94772 8.55228 2.5 8 2.5C7.44772 2.5 7 2.94772 7 3.5V4.5H6C4.34315 4.5 3 5.84315 3 7.5V18.5C3 20.1569 4.34315 21.5 6 21.5H18C19.6569 21.5 21 20.1569 21 18.5V7.5C21 5.84315 19.6569 4.5 18 4.5H17V3.5C17 2.94772 16.5523 2.5 16 2.5C15.4477 2.5 15 2.94772 15 3.5V4.5H9V3.5ZM6 6.5H7C7 7.05228 7.44772 7.5 8 7.5C8.55228 7.5 9 7.05228 9 6.5H15C15 7.05228 15.4477 7.5 16 7.5C16.5523 7.5 17 7.05228 17 6.5H18C18.5523 6.5 19 6.94772 19 7.5V18.5C19 19.0523 18.5523 19.5 18 19.5H6C5.44772 19.5 5 19.0523 5 18.5V7.5C5 6.94772 5.44772 6.5 6 6.5Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:937px;top:1929px;width:335px"><button type="button" class="select-field is-selected spec-static"><span class="select-field__text">회고 마감일을 선택해 주세요</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 9.5C6.44772 9.5 6 9.94772 6 10.5C6 11.0523 6.44772 11.5 7 11.5H17C17.5523 11.5 18 11.0523 18 10.5C18 9.94772 17.5523 9.5 17 9.5H7Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9 3.5C9 2.94772 8.55228 2.5 8 2.5C7.44772 2.5 7 2.94772 7 3.5V4.5H6C4.34315 4.5 3 5.84315 3 7.5V18.5C3 20.1569 4.34315 21.5 6 21.5H18C19.6569 21.5 21 20.1569 21 18.5V7.5C21 5.84315 19.6569 4.5 18 4.5H17V3.5C17 2.94772 16.5523 2.5 16 2.5C15.4477 2.5 15 2.94772 15 3.5V4.5H9V3.5ZM6 6.5H7C7 7.05228 7.44772 7.5 8 7.5C8.55228 7.5 9 7.05228 9 6.5H15C15 7.05228 15.4477 7.5 16 7.5C16.5523 7.5 17 7.05228 17 6.5H18C18.5523 6.5 19 6.94772 19 7.5V18.5C19 19.0523 18.5523 19.5 18 19.5H6C5.44772 19.5 5 19.0523 5 18.5V7.5C5 6.94772 5.44772 6.5 6 6.5Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:1312px;top:1929px;width:335px"><button type="button" class="select-field is-disabled spec-static"><span class="select-field__text">회고 마감일을 선택해 주세요</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 9.5C6.44772 9.5 6 9.94772 6 10.5C6 11.0523 6.44772 11.5 7 11.5H17C17.5523 11.5 18 11.0523 18 10.5C18 9.94772 17.5523 9.5 17 9.5H7Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9 3.5C9 2.94772 8.55228 2.5 8 2.5C7.44772 2.5 7 2.94772 7 3.5V4.5H6C4.34315 4.5 3 5.84315 3 7.5V18.5C3 20.1569 4.34315 21.5 6 21.5H18C19.6569 21.5 21 20.1569 21 18.5V7.5C21 5.84315 19.6569 4.5 18 4.5H17V3.5C17 2.94772 16.5523 2.5 16 2.5C15.4477 2.5 15 2.94772 15 3.5V4.5H9V3.5ZM6 6.5H7C7 7.05228 7.44772 7.5 8 7.5C8.55228 7.5 9 7.05228 9 6.5H15C15 7.05228 15.4477 7.5 16 7.5C16.5523 7.5 17 7.05228 17 6.5H18C18.5523 6.5 19 6.94772 19 7.5V18.5C19 19.0523 18.5523 19.5 18 19.5H6C5.44772 19.5 5 19.0523 5 18.5V7.5C5 6.94772 5.44772 6.5 6 6.5Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:779px;top:-62px;width:164px"><div class="field spec-static"><p class="field__label">Label</p><div class="field__box" style="border-color:#edf0f4;width:164px"><span class="field__input ph">Text</span><span class="field__count" style="color:#ced2da">0/10</span></div></div></div>
+  </main>
+  </div>
+<script>
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    var c = el.parentNode.querySelector('.field__count'), max = el.getAttribute('maxlength');
+    function upd() { if (el.value.length > +max) el.value = el.value.slice(0, +max); var n = el.value.length; c.innerHTML = n ? '<b>' + n + '</b>/' + max : '0/' + max; }
+    el.addEventListener('input', function (e) { if (!e.isComposing) upd(); });
+    el.addEventListener('compositionend', upd);
+  });
+</script>
+</body>
+</html>

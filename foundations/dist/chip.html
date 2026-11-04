@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component — Chip Button / Progress Bar</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>/* typography.css */
+/* ─────────────────────────────────────────────────────────────
+   Typography — derived from Figma "Foundation / Typography" (node 1:3589)
+   Values come only from that frame, not from the existing AI-made variables.
+
+   Layer 1: primitives  (what values exist)
+   Layer 2: text styles (which combinations are allowed)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Family */
+  --font-family-primary: "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  /* Weight — 3 used */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Size — 9 used */
+  --font-size-10: 10px;
+  --font-size-11: 11px;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-15: 15px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+
+  /* Line height — 2 used */
+  --line-height-140: 1.4;
+  --line-height-150: 1.5;
+
+  /* Letter spacing — every style uses 0 */
+  --letter-spacing-0: 0;
+}
+
+/* Shared base for every text style */
+[class^="text-"], [class*=" text-"] {
+  font-family: var(--font-family-primary);
+  letter-spacing: var(--letter-spacing-0);
+  font-feature-settings: "case" 1, "ss02" 1;
+  margin: 0;
+}
+
+/* ── Text styles (15) ── name = Role / Size Weight, same as Figma ── */
+
+/* Heading */
+.text-heading-24-bold    { font-size: var(--font-size-24); font-weight: var(--font-weight-bold);     line-height: var(--line-height-150); }
+
+/* Title */
+.text-title-20-bold      { font-size: var(--font-size-20); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+.text-title-18-bold      { font-size: var(--font-size-18); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 140% (2026-10-26) */
+.text-title-16-bold      { font-size: var(--font-size-16); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+
+/* Subtitle */
+.text-subtitle-18-semibold { font-size: var(--font-size-18); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-16-semibold { font-size: var(--font-size-16); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-14-semibold { font-size: var(--font-size-14); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+
+/* Body */
+.text-body-16-medium     { font-size: var(--font-size-16); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-15-medium     { font-size: var(--font-size-15); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-14-medium     { font-size: var(--font-size-14); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-12-semibold   { font-size: var(--font-size-12); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-body-12-medium     { font-size: var(--font-size-12); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+
+/* Caption */
+.text-caption-11-medium  { font-size: var(--font-size-11); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-caption-10-bold    { font-size: var(--font-size-10); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 10px (2026-10-26) */
+.text-caption-10-medium  { font-size: var(--font-size-10); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+</style>
+<style>/* icons.css */
+/* ─────────────────────────────────────────────────────────────
+   Icons — derived from Figma "Foundation / Icons" (node 1:3724)
+
+   Assets  : single-colour UI icons, 24px grid, drawn in currentColor
+   Nav     : navigation icons, 24px, currentColor + white details
+   Graphic : multi-colour illustrations, 28px, Color / White states
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Recommended Assets sizes (from the page description) */
+  --icon-size-24: 24px;
+  --icon-size-18: 18px;
+  --icon-size-16: 16px;
+  --icon-size-12: 12px;
+
+  /* Graphic icons are drawn on a 28px grid */
+  --icon-size-graphic: 28px;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-size-24);
+  height: var(--icon-size-24);
+  color: inherit;             /* Assets & Nav follow the text colour */
+  vertical-align: middle;
+}
+.icon svg { display: block; width: 100%; height: 100%; }
+
+.icon-24 { width: var(--icon-size-24); height: var(--icon-size-24); }
+.icon-18 { width: var(--icon-size-18); height: var(--icon-size-18); }
+.icon-16 { width: var(--icon-size-16); height: var(--icon-size-16); }
+.icon-12 { width: var(--icon-size-12); height: var(--icon-size-12); }
+.icon-graphic { width: var(--icon-size-graphic); height: var(--icon-size-graphic); }
+</style>
+<style>/* chips.css */
+/* ─────────────────────────────────────────────────────────────
+   Chip Button / Progress Bar — derived from Figma node 1:1304
+   Chip: Multi Choice, Multi Choice with Icon, Two Choice
+   States: Default · Hover · Pressed/Selected · Disabled  (selection = aria-pressed="true")
+   Progress Bar: Step Size 4 · 3 · 2 × Current Step 0…n
+
+   Colours are the values read from the frame; comments name the palette step.
+   .is-hover / .is-selected force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Chip (Multi Choice) ─────────────────── */
+.chip-button {
+  --chip-bg: #f2f4f8;                    /* Gray 100 */
+  --chip-fg: #454952;                    /* Gray 800 */
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-sizing: border-box;
+  height: 48px; padding: 13px 20px; border: 0; border-radius: 8px;
+  background: var(--chip-bg); color: var(--chip-fg);
+  font-family: var(--font-family-primary); font-size: 16px; font-weight: 500; line-height: 1.4; /* Body 16 Medium */
+  font-feature-settings: "case" 1, "ss02" 1;
+  white-space: nowrap; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.chip-button:hover, .chip-button.is-hover { --chip-bg: #edf0f4; }                       /* Gray 200 */
+.chip-button:active, .chip-button.is-selected,
+.chip-button[aria-pressed="true"] { --chip-bg: #6c9cfa; --chip-fg: #ffffff; }          /* Blue 600 / Gray 0 */
+.chip-button:focus-visible { outline: 2px solid #415e96; outline-offset: 2px; }
+/* Disabled = Button disabled colours */
+.chip-button:disabled, .chip-button.is-disabled { --chip-bg: #f2f4f8; --chip-fg: #ced2da; cursor: not-allowed; } /* Gray 100 / Gray 400 */
+.chip-button:disabled .icon-graphic, .chip-button.is-disabled .icon-graphic { opacity: 0.4; }
+.chip-button:disabled .icon-off, .chip-button.is-disabled .icon-off { display: block; }
+.chip-button:disabled .icon-on,  .chip-button.is-disabled .icon-on  { display: none; }
+
+/* Graphic icon: colour version normally, white version when selected */
+.chip-button .icon-graphic { width: 28px; height: 28px; flex: none; }
+.chip-button .icon-graphic svg { display: block; width: 100%; height: 100%; }
+.chip-button .icon-on { display: none; }
+.chip-button:active .icon-off, .chip-button.is-selected .icon-off, .chip-button[aria-pressed="true"] .icon-off { display: none; }
+.chip-button:active .icon-on,  .chip-button.is-selected .icon-on,  .chip-button[aria-pressed="true"] .icon-on  { display: block; }
+
+/* ── Chip with Icon ──────────────────────── */
+.chip-button--icon { gap: 8px; padding: 13px 20px 13px 14px; }
+
+/* ── Two Choice (square card) ────────────── */
+.chip-button--card {
+  flex-direction: column; gap: 16px;
+  width: 100%; height: 163px; padding: 18px 38px; border-radius: 12px;   /* width follows the screen */
+  white-space: normal; text-align: center;
+}
+.chip-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }  /* two cards side by side */
+.chip-button--card .icon-graphic { width: 40px; height: 40px; }
+
+/* Rows of chips */
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ── Progress Bar ────────────────────────── */
+.progress-bar {
+  display: flex; align-items: center; box-sizing: border-box;
+  width: 100%; max-width: 375px; padding: 8px 20px 20px;
+}
+.progress-bar__track { display: flex; flex: 1 1 0; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.progress-bar__step {
+  flex: 1 1 0; min-width: 0; height: 4px; border-radius: 100px;
+  background: rgb(6 8 12 / 0.04);                                                       /* Opacity 4 */
+}
+.progress-bar__step.is-done { background: #6c9cfa; }                                    /* Blue 600 */
+</style>
+<style>/* foundation-page.css */
+/* ─────────────────────────────────────────────────────────────
+   Shared layout for Foundation doc pages (Color, Typography, Elevation…).
+   Doc-site only: these values are not design tokens.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --page-bg: #edf0f4;
+  --surface: #ffffff;
+  --surface-muted: #f2f4f8;
+  --ink: #212329;
+  --ink-strong: #06080c;
+  --ink-muted: rgba(6, 8, 12, 0.48);
+  --rule: #edf0f4;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 40px 16px;
+  background: var(--page-bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Frame: 64px side padding, 32px radius */
+.foundation {
+  max-width: 1280px; margin: 0 auto;
+  background: var(--surface); border-radius: 32px; overflow: clip;
+  padding: 64px 64px 168px;
+}
+
+/* Header */
+.header { display: flex; flex-direction: column; gap: 32px; padding-bottom: 64px; }
+.heading { display: flex; flex-direction: column; gap: 18px; }
+.divider { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+/* Doc-only type: used on doc pages, not part of the 15 text styles */
+.doc-title, .doc-lead, .doc-section { font-family: var(--font-family-primary); margin: 0; }
+.doc-title   { font-weight: 700; font-size: 56px; line-height: 86px; letter-spacing: -0.5px; font-feature-settings: "ss02" 1, "case" 1; }
+.doc-lead    { font-weight: 500; font-size: 18px; line-height: 1.5; letter-spacing: -0.18px; min-height: 54px; font-feature-settings: "case" 1, "ss02" 1; }
+.doc-lead p  { margin: 0; }
+.doc-section { font-weight: 700; font-size: 24px; line-height: 1.3; letter-spacing: -0.24px; font-feature-settings: "ss10" 1; }
+
+/* First section sits 23px under the header */
+.section { margin-top: 23px; }
+
+@media (max-width: 900px) {
+  .foundation { padding: 40px 24px 80px; border-radius: 24px; }
+  .doc-title { font-size: 40px; line-height: 60px; }
+}
+</style>
+<style>
+  .scroll { overflow-x: auto; max-width: 1440px; margin: 0 auto; border-radius: 32px; }
+  .foundation.board { position: relative; width: 1440px; max-width: none; height: 2106px; padding: 64px 64px 0; }
+  .heading { color: #212529; }
+  .doc-lead { font-weight: 400; }
+  .spec { position: absolute; }
+  .set { position: absolute; border: 1px dashed #9747ff; border-radius: 5px; box-sizing: border-box; pointer-events: none; }
+  .lbl { margin: 0; color: rgba(6, 8, 12, 0.48); white-space: nowrap; }
+  .spec-static { pointer-events: none; }
+</style>
+</head>
+<body>
+  <div class="scroll">
+  <main class="foundation board">
+    <header class="header">
+      <div class="heading">
+        <h1 class="doc-title">Chip Button/Progress Bar</h1>
+        <div class="doc-lead"><p>칩 버튼은 여러 보기 중에서 답을 고르게 하는 요소입니다. 하나만 고를 때는 아이콘이 큰 Two Choice를, 여러 개를 고를 때는 Multi Choice를 쓰며 선택된 칩은 Blue 600으로 표시합니다. 프로그레스 바는 여러 단계로 나뉜 과정에서 지금 몇 번째 단계인지 보여 줍니다.</p></div>
+      </div>
+      <hr class="divider" />
+    </header>
+<div class="spec" style="left:64px;top:342px"><h2 class="doc-section">Chip Buttons</h2></div>
+<div class="spec" style="left:319px;top:409px"><p class="lbl text-subtitle-16-semibold">Default</p></div>
+<div class="spec" style="left:556px;top:409px"><p class="lbl text-subtitle-16-semibold">Hover</p></div>
+<div class="spec" style="left:795px;top:409px"><p class="lbl text-subtitle-16-semibold">Pressed/Selected</p></div>
+<div class="spec" style="left:1034px;top:409px"><p class="lbl text-subtitle-16-semibold">Disabled</p></div>
+<div class="spec" style="left:64px;top:554px"><p class="lbl text-subtitle-16-semibold">Two Choices</p></div>
+<div class="spec" style="left:64px;top:735px"><p class="lbl text-subtitle-16-semibold">Multi Choice with Icon</p></div>
+<div class="spec" style="left:64px;top:848px"><p class="lbl text-subtitle-16-semibold">Multi Choices</p></div>
+<div class="set" style="left:258px;top:451px;width:998px;height:227px"></div>
+<div class="set" style="left:258px;top:702px;width:998px;height:88px"></div>
+<div class="set" style="left:258px;top:814px;width:998px;height:90px"></div>
+<div class="spec" style="left:317px;top:483px"><button type="button" class="chip-button chip-button--card" aria-pressed="false" style="width:163px"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#6C9CFA"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="#A7C4FC"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="#A7C4FC"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#E2EBFE"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="white"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="white"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#E2EBFE"/></svg></span></span><span>유형타이틀</span></button></div>
+<div class="spec" style="left:556px;top:483px"><button type="button" class="chip-button chip-button--card is-hover spec-static" aria-pressed="false" style="width:163px"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#6C9CFA"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="#A7C4FC"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="#A7C4FC"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#E2EBFE"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="white"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="white"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#E2EBFE"/></svg></span></span><span>유형타이틀</span></button></div>
+<div class="spec" style="left:795px;top:483px"><button type="button" class="chip-button chip-button--card is-selected spec-static" aria-pressed="true" style="width:163px"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#6C9CFA"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="#A7C4FC"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="#A7C4FC"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#E2EBFE"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="white"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="white"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#E2EBFE"/></svg></span></span><span>유형타이틀</span></button></div>
+<div class="spec" style="left:1034px;top:483px"><button type="button" class="chip-button chip-button--card spec-static" aria-pressed="false" disabled style="width:163px"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#6C9CFA"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="#A7C4FC"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="#A7C4FC"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#E2EBFE"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="white"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="white"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#E2EBFE"/></svg></span></span><span>유형타이틀</span></button></div>
+<div class="spec" style="left:317px;top:722px"><button type="button" class="chip-button chip-button--icon" aria-pressed="false"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="#6C9CFA"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="white"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="white"/></svg></span></span><span>타이틀</span></button></div>
+<div class="spec" style="left:556px;top:722px"><button type="button" class="chip-button chip-button--icon is-hover spec-static" aria-pressed="false"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="#6C9CFA"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="white"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="white"/></svg></span></span><span>타이틀</span></button></div>
+<div class="spec" style="left:795px;top:722px"><button type="button" class="chip-button chip-button--icon is-selected spec-static" aria-pressed="true"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="#6C9CFA"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="white"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="white"/></svg></span></span><span>타이틀</span></button></div>
+<div class="spec" style="left:1034px;top:722px"><button type="button" class="chip-button chip-button--icon spec-static" aria-pressed="false" disabled><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="#6C9CFA"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.3544 12.1275C20.3544 16.1055 17.1295 19.3304 13.1514 19.3304C9.17333 19.3304 5.94846 16.1055 5.94846 12.1275C5.94846 8.14937 9.17333 4.92449 13.1514 4.92449C17.1295 4.92449 20.3544 8.14937 20.3544 12.1275Z" fill="white"/><path d="M8.05803 17.2206C9.40884 18.5714 11.2411 19.3304 13.1514 19.3304C15.0618 19.3304 16.8937 18.5714 18.2446 17.2206C19.5954 15.8698 20.3544 14.0378 20.3544 12.1275C20.3544 10.2171 19.5954 8.3849 18.2446 7.03408L8.05803 17.2206Z" fill="#C4D7FD"/><path d="M21.2102 4.63357L20.5225 5.32131C22.0651 7.14578 22.9373 9.44925 22.9667 11.8317C22.9997 14.5034 21.9698 17.0557 20.1005 18.925C18.5287 20.4968 16.474 21.4751 14.2715 21.7271V23.3118H16.6515V24.2078H10.9955V23.3118H13.3755V21.7891C13.253 21.7921 13.1302 21.7928 13.0072 21.7913C10.6248 21.7619 8.32134 20.8897 6.49689 19.3472L5.65701 20.187L5.02344 19.5535L7.14442 17.4325L7.77799 18.0661L7.13288 18.7112C8.79164 20.0914 10.872 20.8689 13.0182 20.8953C15.4519 20.9254 17.7707 19.9876 19.4669 18.2915C21.1631 16.5953 22.1008 14.2764 22.0708 11.8428C22.0443 9.69647 21.2668 7.61608 19.8865 5.9573L19.0893 6.75455L18.4557 6.12099L20.5767 4L21.2102 4.63357Z" fill="white"/></svg></span></span><span>타이틀</span></button></div>
+<div class="spec" style="left:317px;top:834px"><button type="button" class="chip-button" aria-pressed="false"><span>타이틀</span></button></div>
+<div class="spec" style="left:556px;top:834px"><button type="button" class="chip-button is-hover spec-static" aria-pressed="false"><span>타이틀</span></button></div>
+<div class="spec" style="left:795px;top:834px"><button type="button" class="chip-button is-selected spec-static" aria-pressed="true"><span>타이틀</span></button></div>
+<div class="spec" style="left:1034px;top:834px"><button type="button" class="chip-button spec-static" aria-pressed="false" disabled><span>타이틀</span></button></div>
+<div class="spec" style="left:64px;top:1063px"><h2 class="doc-section">Progress Bar</h2></div>
+<div class="spec" style="left:879px;top:1063px"><h2 class="doc-section">Progress Bar Usage</h2></div>
+<div class="spec" style="left:879px;top:1144px"><p class="lbl text-subtitle-16-semibold">Default</p></div>
+<div class="spec" style="left:879px;top:1237px"><p class="lbl text-subtitle-16-semibold">Filled</p></div>
+<div class="spec" style="left:879px;top:1330px"><p class="lbl text-subtitle-16-semibold">Full-Filled</p></div>
+<div class="set" style="left:258px;top:1147px;width:471px;height:700px"></div>
+<div class="spec" style="left:64px;top:1172px"><p class="lbl text-subtitle-16-semibold">Step 4 · Current 0</p></div>
+<div class="spec" style="left:306px;top:1173px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1228px"><p class="lbl text-subtitle-16-semibold">Step 4 · Current 1</p></div>
+<div class="spec" style="left:306px;top:1229px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="1" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1284px"><p class="lbl text-subtitle-16-semibold">Step 4 · Current 2</p></div>
+<div class="spec" style="left:306px;top:1285px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1340px"><p class="lbl text-subtitle-16-semibold">Step 4 · Current 3</p></div>
+<div class="spec" style="left:306px;top:1341px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="3" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1396px"><p class="lbl text-subtitle-16-semibold">Step 4 · Current 4</p></div>
+<div class="spec" style="left:306px;top:1397px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="4" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1452px"><p class="lbl text-subtitle-16-semibold">Step 3 · Current 0</p></div>
+<div class="spec" style="left:306px;top:1453px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1508px"><p class="lbl text-subtitle-16-semibold">Step 3 · Current 1</p></div>
+<div class="spec" style="left:306px;top:1509px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1564px"><p class="lbl text-subtitle-16-semibold">Step 3 · Current 2</p></div>
+<div class="spec" style="left:306px;top:1565px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="2" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1620px"><p class="lbl text-subtitle-16-semibold">Step 3 · Current 3</p></div>
+<div class="spec" style="left:306px;top:1621px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="3" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1676px"><p class="lbl text-subtitle-16-semibold">Step 2 · Current 0</p></div>
+<div class="spec" style="left:306px;top:1677px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1732px"><p class="lbl text-subtitle-16-semibold">Step 2 · Current 1</p></div>
+<div class="spec" style="left:306px;top:1733px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="2" aria-valuenow="1" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:64px;top:1788px"><p class="lbl text-subtitle-16-semibold">Step 2 · Current 2</p></div>
+<div class="spec" style="left:306px;top:1789px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="2" aria-valuenow="2" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li></ol></div></div>
+<div class="spec" style="left:879px;top:1181px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:879px;top:1274px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="1" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li><li class="progress-bar__step"></li></ol></div></div>
+<div class="spec" style="left:879px;top:1367px"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="4" aria-label="진행 단계" style="width:375px"><ol class="progress-bar__track"><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li><li class="progress-bar__step is-done"></li></ol></div></div>
+  </main>
+  </div>
+<script>
+  document.querySelectorAll('.chip-button:not(.spec-static)').forEach(b => b.addEventListener('click', () =>
+    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true')));
+</script>
+</body>
+</html>

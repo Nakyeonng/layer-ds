@@ -1,0 +1,89 @@
+/* ─────────────────────────────────────────────────────────────
+   Tabs — derived from Figma "Tabs" (node 1:1374)
+   Text Tabs (left aligned, 2–4; No Underline variant) · Text Fixed Tabs (equal width, 2–3)
+   Box Tabs (Scrollable · Fixed 3 · Fixed 2) · Outline: No Outlined / Outlined
+   State: Unselected · Hover (unselected only) · Selected = aria-selected="true"
+
+   Colours are the values read from the frame; comments name the palette step.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Text Tabs ───────────────────────────── */
+.tabs {                                   /* Figma Tabs/Text Tabs Size=18 — 모바일 · 웹 공통 (2026-10-29 통합) */
+  display: flex; align-items: flex-end; gap: var(--spacing-8, 8px); box-sizing: border-box;
+  width: 100%; height: 40px; padding: 0; margin: 0;              /* 여백 없음: 화면 가장자리 여백(모바일 20)은 놓이는 곳이 맡는다 */
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+.tabs--outlined { box-shadow: inset 0 -1px 0 var(--color-border-divider, rgb(6 8 12 / 0.08)); }                   /* Opacity 8 divider */
+
+.tab {
+  position: relative; flex: none;
+  display: flex; flex-direction: column; align-items: center; box-sizing: border-box;
+  height: 40px; padding: 5px var(--spacing-4, 4px) 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 18px; font-weight: 600; line-height: 1.4;                  /* Subtitle 18 SemiBold */
+  color: var(--color-text-tertiary, #a9afbb); white-space: nowrap;                                                   /* Gray 500 */
+  -webkit-tap-highlight-color: transparent;
+}
+.tab:hover, .tab.is-hover { color: var(--color-gray-600, #8b909c); }                                             /* Gray 600 */
+.tab[aria-selected="true"] { color: var(--color-text-primary, #212329); }                                           /* Gray 900 */
+.tab[aria-selected="true"]::after {
+  content: ""; position: absolute; left: 4px; right: 4px; bottom: 0; height: 2px; background: var(--color-gray-900, #212329);
+}
+.tab:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: -2px; border-radius: var(--radius-6, 6px); }   /* Focus: Blue 600 */
+
+/* No Underline (added 2026-10-27, used by the Date Time Picker 오전/오후): hugs the text, no bar */
+.tabs--plain { height: auto; align-items: center; }
+.tabs--plain .tab { height: auto; padding: 0; }
+.tabs--plain .tab[aria-selected="true"]::after { display: none; }
+
+/* ── Text Fixed Tabs (equal width) ───────── */
+.tabs--fixed { gap: 0; height: 44px; justify-content: center; max-width: 375px; padding: 0 var(--spacing-screen-x, 20px); }
+.tabs--fixed .tab {
+  flex: 1 1 0; min-width: 0; height: 44px; padding: 7px 0 0;
+  font-weight: 700; line-height: 1.4;                                                    /* Title 18 Bold (140%) */
+}
+.tabs--fixed .tab[aria-selected="true"]::after { left: 0; right: 0; }
+
+/* ── Box Tabs ────────────────────────────── */
+.box-tabs {
+  display: flex; align-items: center; gap: var(--spacing-8, 8px); box-sizing: border-box;
+  width: 100%; max-width: 375px; padding: var(--spacing-20, 20px) var(--spacing-screen-x, 20px) var(--spacing-16, 16px); margin: 0;
+  overflow-x: auto; scrollbar-width: none;
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+.box-tabs::-webkit-scrollbar { display: none; }
+.box-tab {
+  flex: none; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center;
+  height: 38px; padding: 9px var(--spacing-16, 16px); border: 0; border-radius: var(--radius-8, 8px);
+  background: var(--color-bg-secondary, #f2f4f8); color: var(--color-gray-800, #454952);                                                   /* Gray 100 / Gray 800 */
+  font: inherit; font-size: 14px; font-weight: 600; line-height: 1.4;                    /* Subtitle 14 SemiBold */
+  white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.box-tab:hover, .box-tab.is-hover { background: var(--color-gray-200, #edf0f4); }                                /* Gray 200 */
+.box-tab[aria-selected="true"] { background: var(--color-gray-800, #454952); color: var(--color-text-inverse, #ffffff); }                 /* Gray 800 / Gray 0 */
+.box-tab:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: 2px; }   /* Focus: Blue 600 */
+.box-tabs--fixed .box-tab { flex: 1 1 0; min-width: 0; }
+
+/* Scrollable: tabs past the edge fade out; the fade on each side appears only when there is more to scroll.
+   A small script sets --fog-l / --fog-r from the scroll position (see the Tabs page). */
+.box-tabs--scroll {
+  --fog-l: 0px; --fog-r: 40px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--fog-l), #000 calc(100% - var(--fog-r)), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 var(--fog-l), #000 calc(100% - var(--fog-r)), transparent);
+  scroll-behavior: smooth;
+}
+
+/* Size=14 — 웹 패널 · LNB 안 (Figma Tabs/Text Tabs Size=14). .tabs--web은 예전 이름(같은 뜻) */
+.tabs--sm, .tabs--web { width: auto; gap: var(--spacing-4, 4px); }
+.tabs--sm .tab, .tabs--web .tab { padding: 0 var(--spacing-4, 4px) 10px; justify-content: flex-end; font-size: 14px; }   /* Subtitle 14 SemiBold, 글자 아래 8 + 밑줄 2 */
+
+/* ── Segmented Control — 같은 내용의 기준 전환(분석 개인 · 팀), Figma 400:6609 ── */
+.segmented { display: inline-flex; padding: var(--spacing-4, 4px); border-radius: var(--radius-8, 8px); background: var(--color-bg-secondary, #f2f4f8); }
+.segmented__item {
+  padding: 6px var(--spacing-12, 12px); border: 0; border-radius: var(--radius-6, 6px); background: none; cursor: pointer;
+  font: inherit; font-size: 12px; font-weight: 600; line-height: 1.4; color: var(--color-gray-700, #666b75);   /* Body 12 SemiBold */
+}
+.segmented__item:hover { background: var(--color-gray-200, #edf0f4); }
+.segmented__item[aria-pressed="true"] { background: var(--color-gray-700, #666b75); color: var(--color-gray-100, #f2f4f8); }

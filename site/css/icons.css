@@ -1,0 +1,34 @@
+/* ─────────────────────────────────────────────────────────────
+   Icons — derived from Figma "Foundation / Icons" (node 1:3724)
+
+   Assets  : single-colour UI icons, 24px grid, drawn in currentColor
+   Nav     : navigation icons, 24px, currentColor + white details
+   Graphic : multi-colour illustrations, 28px, Color / White states
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Recommended Assets sizes (from the page description) */
+  --icon-size-24: 24px;
+  --icon-size-18: 18px;
+  --icon-size-16: 16px;
+  --icon-size-12: 12px;
+
+  /* Graphic icons are drawn on a 28px grid */
+  --icon-size-graphic: 28px;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-size-24);
+  height: var(--icon-size-24);
+  color: inherit;             /* Assets & Nav follow the text colour */
+  vertical-align: middle;
+}
+.icon svg { display: block; width: 100%; height: 100%; }
+
+.icon-24 { width: var(--icon-size-24); height: var(--icon-size-24); }
+.icon-18 { width: var(--icon-size-18); height: var(--icon-size-18); }
+.icon-16 { width: var(--icon-size-16); height: var(--icon-size-16); }
+.icon-12 { width: var(--icon-size-12); height: var(--icon-size-12); }
+.icon-graphic { width: var(--icon-size-graphic); height: var(--icon-size-graphic); }

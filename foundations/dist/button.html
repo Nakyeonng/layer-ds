@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component — Button</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>/* typography.css */
+/* ─────────────────────────────────────────────────────────────
+   Typography — derived from Figma "Foundation / Typography" (node 1:3589)
+   Values come only from that frame, not from the existing AI-made variables.
+
+   Layer 1: primitives  (what values exist)
+   Layer 2: text styles (which combinations are allowed)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Family */
+  --font-family-primary: "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  /* Weight — 3 used */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Size — 9 used */
+  --font-size-10: 10px;
+  --font-size-11: 11px;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-15: 15px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+
+  /* Line height — 2 used */
+  --line-height-140: 1.4;
+  --line-height-150: 1.5;
+
+  /* Letter spacing — every style uses 0 */
+  --letter-spacing-0: 0;
+}
+
+/* Shared base for every text style */
+[class^="text-"], [class*=" text-"] {
+  font-family: var(--font-family-primary);
+  letter-spacing: var(--letter-spacing-0);
+  font-feature-settings: "case" 1, "ss02" 1;
+  margin: 0;
+}
+
+/* ── Text styles (15) ── name = Role / Size Weight, same as Figma ── */
+
+/* Heading */
+.text-heading-24-bold    { font-size: var(--font-size-24); font-weight: var(--font-weight-bold);     line-height: var(--line-height-150); }
+
+/* Title */
+.text-title-20-bold      { font-size: var(--font-size-20); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+.text-title-18-bold      { font-size: var(--font-size-18); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 140% (2026-10-26) */
+.text-title-16-bold      { font-size: var(--font-size-16); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+
+/* Subtitle */
+.text-subtitle-18-semibold { font-size: var(--font-size-18); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-16-semibold { font-size: var(--font-size-16); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-14-semibold { font-size: var(--font-size-14); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+
+/* Body */
+.text-body-16-medium     { font-size: var(--font-size-16); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-15-medium     { font-size: var(--font-size-15); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-14-medium     { font-size: var(--font-size-14); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-12-semibold   { font-size: var(--font-size-12); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-body-12-medium     { font-size: var(--font-size-12); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+
+/* Caption */
+.text-caption-11-medium  { font-size: var(--font-size-11); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-caption-10-bold    { font-size: var(--font-size-10); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 10px (2026-10-26) */
+.text-caption-10-medium  { font-size: var(--font-size-10); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+</style>
+<style>/* elevation.css */
+/* ─────────────────────────────────────────────────────────────
+   Elevation — derived from Figma "Foundation / Elevation" (node 1:4091)
+   Values come only from that frame's effect styles Shadow/100–400.
+
+   Layer 1: shadow levels  (what exists)
+   Layer 2: usage aliases  (where each level is used, from the frame's labels)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Every shadow is the same near-black, only the alpha changes */
+  --shadow-color: 6 8 12;            /* #06080C as RGB channels */
+
+  /* Levels — first shadow in each list is drawn on top */
+  --shadow-100: 0 4px 12px 0 rgb(var(--shadow-color) / 0.04);
+  --shadow-200: 0 4px 8px 0 rgb(var(--shadow-color) / 0.12),
+                0 1px 4px 0 rgb(var(--shadow-color) / 0.08);
+  --shadow-300: 0 4px 12px 0 rgb(var(--shadow-color) / 0.12),
+                0 4px 8px 0 rgb(var(--shadow-color) / 0.08);
+  --shadow-400: 0 4px 12px 0 rgb(var(--shadow-color) / 0.22),
+                0 4px 8px 0 rgb(var(--shadow-color) / 0.08);
+
+  /* Usage — name the job, not the strength */
+  --shadow-card: var(--shadow-100);
+  --shadow-floating-button: var(--shadow-200);
+  --shadow-layer: var(--shadow-300);
+  --shadow-modal: var(--shadow-400);        /* modal and bottom sheet */
+}
+
+.elevation-100 { box-shadow: var(--shadow-100); }
+.elevation-200 { box-shadow: var(--shadow-200); }
+.elevation-300 { box-shadow: var(--shadow-300); }
+.elevation-400 { box-shadow: var(--shadow-400); }
+</style>
+<style>/* icons.css */
+/* ─────────────────────────────────────────────────────────────
+   Icons — derived from Figma "Foundation / Icons" (node 1:3724)
+
+   Assets  : single-colour UI icons, 24px grid, drawn in currentColor
+   Nav     : navigation icons, 24px, currentColor + white details
+   Graphic : multi-colour illustrations, 28px, Color / White states
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Recommended Assets sizes (from the page description) */
+  --icon-size-24: 24px;
+  --icon-size-18: 18px;
+  --icon-size-16: 16px;
+  --icon-size-12: 12px;
+
+  /* Graphic icons are drawn on a 28px grid */
+  --icon-size-graphic: 28px;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-size-24);
+  height: var(--icon-size-24);
+  color: inherit;             /* Assets & Nav follow the text colour */
+  vertical-align: middle;
+}
+.icon svg { display: block; width: 100%; height: 100%; }
+
+.icon-24 { width: var(--icon-size-24); height: var(--icon-size-24); }
+.icon-18 { width: var(--icon-size-18); height: var(--icon-size-18); }
+.icon-16 { width: var(--icon-size-16); height: var(--icon-size-16); }
+.icon-12 { width: var(--icon-size-12); height: var(--icon-size-12); }
+.icon-graphic { width: var(--icon-size-graphic); height: var(--icon-size-graphic); }
+</style>
+<style>/* components.css */
+/* ─────────────────────────────────────────────────────────────
+   App Bar / Navigation Bar / Avatar
+   Derived from Figma "App Bar/Navigation Bar" (node 1:3953).
+   Typography comes from typography.css, icons from the Icons set.
+
+   Colors are read from this frame. Comments name the matching swatch
+   on the Color page; they become color tokens once Color is analysed.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --c-ink: #212329;            /* Gray/900  — active text & icons      */
+  --c-muted: #8b909c;          /* Gray/600  — inactive label, hover icon */
+  --c-faint: #ced2da;          /* Gray/400  — inactive icon, avatar bg   */
+  --c-surface: #ffffff;        /* Gray/0                                 */
+  --c-accent: #6c9cfa;         /* Blue/600  — app bar text button        */
+  --c-hairline: rgba(6, 8, 12, 0.04); /* Opacity/4 — nav bar top border  */
+}
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.avatar {
+  display: inline-block; flex: none;
+  width: 32px; height: 32px;
+  border-radius: 50%; overflow: hidden;
+  background: var(--c-faint);
+}
+.avatar svg, .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ── App Bar ────────────────────────────────────────────── */
+.app-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: 375px; height: 58px;
+  padding: 14px 22px 8px 20px;
+  color: var(--c-ink);
+}
+.app-bar__title { margin: 0; white-space: nowrap; }
+.app-bar__side  { display: flex; align-items: center; gap: 16px; }
+.app-bar__side--end { justify-content: flex-end; }
+.app-bar__button {
+  display: inline-flex; padding: 0; border: 0; background: none;
+  color: inherit; cursor: pointer;
+}
+.app-bar__text-button {
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--c-accent);
+}
+
+/* Home: page title on the left, avatar on the right */
+.app-bar--home .app-bar__title { /* uses .text-heading-24-bold */ }
+
+/* Sub: back icon, centred title, actions */
+.app-bar--sub .app-bar__contents {
+  position: relative; flex: 1 1 0; min-width: 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.app-bar--sub .app-bar__title {
+  position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Inverse: for dark backgrounds (Figma "Sub (White)") */
+.app-bar--inverse { color: var(--c-surface); }
+
+/* ── Navigation Bar ─────────────────────────────────────── */
+.nav-bar { width: 100%; max-width: 375px; display: flex; flex-direction: column; }
+.nav-bar__items {
+  display: flex; gap: 4px; align-items: flex-start;
+  padding: 6px 4px 4px;
+  background: var(--c-surface);
+  box-shadow: inset 0 1px 0 var(--c-hairline); /* inside stroke, like Figma */
+  margin: 0; list-style: none;
+}
+.nav-bar__items > li { flex: 1 1 0; min-width: 0; display: flex; }
+
+/* Nav item: Default → Hover → Pressed/Current */
+.nav-item {
+  flex: 1 1 0; min-width: 0; height: 44px;
+  display: flex; flex-direction: column; align-items: stretch;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--c-faint);                  /* icon colour (Default) */
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-item__icon {
+  flex: 1 1 0; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2px 8px;
+}
+.nav-item__icon .icon { width: 24px; height: 24px; }
+.nav-item__label { text-align: center; color: var(--c-muted); }
+
+.nav-item:hover, .nav-item.is-hover { color: var(--c-muted); }
+.nav-item:active, .nav-item.is-pressed,
+.nav-item[aria-current="page"] { color: var(--c-ink); }
+.nav-item:active .nav-item__label, .nav-item.is-pressed .nav-item__label,
+.nav-item[aria-current="page"] .nav-item__label { color: var(--c-ink); }
+.nav-item:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -2px; border-radius: 8px; }
+
+/* iOS home indicator area under the bar (Figma "Show Safe Area") */
+.safe-area { display: block; width: 100%; }
+.safe-area svg { display: block; width: 100%; height: auto; }
+</style>
+<style>/* buttons.css */
+/* ─────────────────────────────────────────────────────────────
+   Button — derived from Figma "Components / Button" (node 1:1123)
+   Filled (5 variants), Ghost (2), Outlined (2), Floating (1), Button Group (3)
+   Sizes:  48 (default) · 40 (.btn--sm)
+   States: Default · Hover (+1 step) · Pressed (+2 steps) · Disabled (one shared look)
+
+   Colours are the values read from the frame; comments name the palette step.
+   Real interaction uses :hover / :active / :disabled.
+   .is-hover / .is-pressed force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: #212329;
+  --btn-border: transparent;
+  --btn-overlay: transparent;          /* optional tint layer (unused by current rules) */
+
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-sizing: border-box;
+  height: 48px; padding: 13px 20px; border-radius: 12px;
+  border: 1px solid var(--btn-border);
+  background-color: var(--btn-bg);
+  background-image: linear-gradient(var(--btn-overlay), var(--btn-overlay));
+  color: var(--btn-fg);
+  font-family: var(--font-family-primary); font-size: 16px; font-weight: 600; line-height: 1.4;  /* Subtitle 16 SemiBold */
+  font-feature-settings: "case" 1, "ss02" 1;
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn .icon { width: 18px; height: 18px; }
+.btn:focus-visible { outline: 2px solid #415e96; outline-offset: 2px; }
+.btn:disabled, .btn.is-disabled { cursor: not-allowed; }
+.btn--block { width: 100%; }
+
+/* ── Size 40 ─────────────────────────────── */
+.btn--sm { height: 40px; padding: 10px 16px; gap: 8px; border-radius: 10px; font-size: 14px; } /* Subtitle 14 SemiBold */
+.btn--sm .icon { width: 16px; height: 16px; }
+
+/* ── Filled ──────────────────────────────── */
+.btn--primary   { --btn-bg: #212329; --btn-fg: #ffffff; }                                  /* Gray 900 */
+.btn--primary:hover,  .btn--primary.is-hover   { --btn-bg: #454952; }                      /* Gray 800 */
+.btn--primary:active, .btn--primary.is-pressed { --btn-bg: #666b75; }                      /* Gray 700 */
+
+.btn--secondary { --btn-bg: #dfe3ea; --btn-fg: #212329; }                                  /* Gray 300 */
+.btn--secondary:hover,  .btn--secondary.is-hover   { --btn-bg: #ced2da; }                  /* Gray 400 */
+.btn--secondary:active, .btn--secondary.is-pressed { --btn-bg: #a9afbb; }                  /* Gray 500 */
+
+.btn--white     { --btn-bg: #ffffff; --btn-fg: #212329; }                                  /* Gray 0 */
+.btn--white:hover,  .btn--white.is-hover   { --btn-bg: #f2f4f8; }                          /* Gray 100 */
+.btn--white:active, .btn--white.is-pressed { --btn-bg: #edf0f4; }                          /* Gray 200 */
+
+.btn--blue      { --btn-bg: #6c9cfa; --btn-fg: #ffffff; }                                  /* Blue 600 */
+.btn--blue:hover,  .btn--blue.is-hover   { --btn-bg: #415e96; }                            /* Blue 700 */
+.btn--blue:active, .btn--blue.is-pressed { --btn-bg: #2b3e64; }                            /* Blue 800 */
+
+.btn--light-blue { --btn-bg: #e9f0ff; --btn-fg: #6c9cfa; }                                 /* Blue 100 */
+.btn--light-blue:hover,  .btn--light-blue.is-hover   { --btn-bg: #e2ebfe; }                /* Blue 200 */
+.btn--light-blue:active, .btn--light-blue.is-pressed { --btn-bg: #c4d7fd; }                /* Blue 300 */
+
+.btn--primary:disabled, .btn--primary.is-disabled,
+.btn--secondary:disabled, .btn--secondary.is-disabled,
+.btn--white:disabled, .btn--white.is-disabled,
+.btn--blue:disabled, .btn--blue.is-disabled,
+.btn--light-blue:disabled, .btn--light-blue.is-disabled {
+  --btn-bg: #f2f4f8; --btn-fg: #ced2da; --btn-overlay: transparent;                        /* Gray 100 / Gray 400 */
+}
+
+/* ── Ghost ───────────────────────────────── */
+.btn--ghost { --btn-bg: #ffffff; --btn-fg: #212329; }                                      /* text Gray 900 */
+.btn--ghost:hover,  .btn--ghost.is-hover   { --btn-bg: #f2f4f8; }                          /* Gray 100 */
+.btn--ghost:active, .btn--ghost.is-pressed { --btn-bg: #edf0f4; }                          /* Gray 200 */
+.btn--ghost-blue { --btn-bg: #ffffff; --btn-fg: #6c9cfa; }                                 /* text Blue 600 */
+.btn--ghost-blue:hover,  .btn--ghost-blue.is-hover   { --btn-bg: #f1f6ff; }                /* Blue 50 */
+.btn--ghost-blue:active, .btn--ghost-blue.is-pressed { --btn-bg: #e9f0ff; }                /* Blue 100 */
+.btn--ghost:disabled, .btn--ghost.is-disabled,
+.btn--ghost-blue:disabled, .btn--ghost-blue.is-disabled { --btn-bg: #f2f4f8; --btn-fg: #ced2da; }  /* = Filled disabled */
+
+/* ── Outlined ────────────────────────────── */
+.btn--outlined { --btn-border: #dfe3ea; --btn-fg: #212329; }                               /* border Gray 300 */
+.btn--outlined:hover,  .btn--outlined.is-hover   { --btn-bg: #f2f4f8; }
+.btn--outlined:active, .btn--outlined.is-pressed { --btn-bg: #edf0f4; }
+.btn--outlined-blue { --btn-border: #c4d7fd; --btn-fg: #6c9cfa; }                          /* border Blue 300 */
+.btn--outlined-blue:hover,  .btn--outlined-blue.is-hover   { --btn-bg: #f1f6ff; }
+.btn--outlined-blue:active, .btn--outlined-blue.is-pressed { --btn-bg: #e9f0ff; }
+.btn--outlined:disabled, .btn--outlined.is-disabled,
+.btn--outlined-blue:disabled, .btn--outlined-blue.is-disabled { --btn-bg: #f2f4f8; --btn-fg: #ced2da; --btn-border: transparent; } /* = Filled disabled */
+
+/* ── Floating ────────────────────────────── */
+.btn--floating {
+  --btn-bg: #212329; --btn-fg: #ffffff;
+  gap: 4px; padding: 14px 18px; border-radius: 30px;
+  font-size: 14px;                                                                         /* Subtitle 14 SemiBold */
+  box-shadow: var(--shadow-floating-button);                                               /* Elevation: Shadow 200 */
+}
+.btn--floating:hover,  .btn--floating.is-hover   { --btn-bg: #454952; }                    /* Gray 800 */
+.btn--floating:active, .btn--floating.is-pressed { --btn-bg: #666b75; }                    /* Gray 700 */
+.btn--floating:disabled, .btn--floating.is-disabled { --btn-bg: #f2f4f8; --btn-fg: #ced2da; } /* = Filled disabled, keeps shadow */
+.btn--floating.btn--sm { padding: 10px 16px; gap: 4px; border-radius: 30px; }
+
+/* ── Button Group (bottom of a screen) ───── */
+.btn-group { display: flex; flex-direction: column; width: 100%; max-width: 375px; }
+.btn-group__buttons { display: flex; flex-direction: column; padding: 8px 20px 16px; }
+.btn-group__buttons > .btn { width: 100%; }
+.btn-group--vertical   .btn-group__buttons { gap: 4px; }
+.btn-group--horizontal .btn-group__buttons { flex-direction: row; gap: 8px; }
+.btn-group--horizontal .btn-group__buttons > .btn { flex: 1 1 0; min-width: 0; width: auto; }
+</style>
+<style>/* foundation-page.css */
+/* ─────────────────────────────────────────────────────────────
+   Shared layout for Foundation doc pages (Color, Typography, Elevation…).
+   Doc-site only: these values are not design tokens.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --page-bg: #edf0f4;
+  --surface: #ffffff;
+  --surface-muted: #f2f4f8;
+  --ink: #212329;
+  --ink-strong: #06080c;
+  --ink-muted: rgba(6, 8, 12, 0.48);
+  --rule: #edf0f4;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 40px 16px;
+  background: var(--page-bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Frame: 64px side padding, 32px radius */
+.foundation {
+  max-width: 1280px; margin: 0 auto;
+  background: var(--surface); border-radius: 32px; overflow: clip;
+  padding: 64px 64px 168px;
+}
+
+/* Header */
+.header { display: flex; flex-direction: column; gap: 32px; padding-bottom: 64px; }
+.heading { display: flex; flex-direction: column; gap: 18px; }
+.divider { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+/* Doc-only type: used on doc pages, not part of the 15 text styles */
+.doc-title, .doc-lead, .doc-section { font-family: var(--font-family-primary); margin: 0; }
+.doc-title   { font-weight: 700; font-size: 56px; line-height: 86px; letter-spacing: -0.5px; font-feature-settings: "ss02" 1, "case" 1; }
+.doc-lead    { font-weight: 500; font-size: 18px; line-height: 1.5; letter-spacing: -0.18px; min-height: 54px; font-feature-settings: "case" 1, "ss02" 1; }
+.doc-lead p  { margin: 0; }
+.doc-section { font-weight: 700; font-size: 24px; line-height: 1.3; letter-spacing: -0.24px; font-feature-settings: "ss10" 1; }
+
+/* First section sits 23px under the header */
+.section { margin-top: 23px; }
+
+@media (max-width: 900px) {
+  .foundation { padding: 40px 24px 80px; border-radius: 24px; }
+  .doc-title { font-size: 40px; line-height: 60px; }
+}
+
+/* Korean line breaking: wrap between words, not syllables */
+body { word-break: keep-all; overflow-wrap: break-word; }
+p, li, td, th, figcaption { text-wrap: pretty; }
+</style>
+<style>
+  .scroll { overflow-x: auto; max-width: 1440px; margin: 0 auto; border-radius: 32px; }
+  .foundation.board { position: relative; width: 1440px; max-width: none; height: 3738px; padding: 64px 64px 0; }
+  .heading { color: #212529; }
+  .doc-lead { font-weight: 400; }
+  .spec { position: absolute; }
+  .lbl { margin: 0; color: rgba(6, 8, 12, 0.48); white-space: nowrap; }
+  .memo { color: #f03e3e; }
+  .spec-static { pointer-events: none; }
+</style>
+</head>
+<body>
+  <div class="scroll">
+  <main class="foundation board">
+    <header class="header">
+      <div class="heading">
+        <h1 class="doc-title">Button</h1>
+        <div class="doc-lead"><p>버튼은 사용자가 원하는 동작을 실행하게 하는 요소입니다. 한 화면에서 가장 중요한 동작 하나에는 Filled Primary를 쓰고, 함께 놓이는 보조 동작은 Secondary·Ghost·Outlined로 위계를 나눕니다. 크기는 48px(기본)과 40px(좁은 영역·카드 안) 두 가지이며, 상태는 기본 → 호버(한 단계 진하게) → 눌림(두 단계 진하게) → 비활성으로 바뀝니다.</p></div>
+      </div>
+      <hr class="divider" />
+    </header>
+<div class="spec " style="left:64px;top:342px"><h2 class="doc-section">Filled Buttons</h2></div>
+<div class="spec " style="left:255px;top:409px"><p class="lbl text-subtitle-16-semibold">Default</p></div>
+<div class="spec " style="left:506px;top:409px"><p class="lbl text-subtitle-16-semibold">Hover</p></div>
+<div class="spec " style="left:749px;top:409px"><p class="lbl text-subtitle-16-semibold">Pressed</p></div>
+<div class="spec " style="left:1007px;top:409px"><p class="lbl text-subtitle-16-semibold">Disabled</p></div>
+<div class="spec " style="left:64px;top:480px"><p class="lbl text-subtitle-16-semibold">Primary · 48</p></div>
+<div class="spec " style="left:64px;top:960px"><p class="lbl text-subtitle-16-semibold">Primary · 40</p></div>
+<div class="spec " style="left:251px;top:467px"><button type="button" class="btn btn--primary" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:951px"><button type="button" class="btn btn--primary btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:467px"><button type="button" class="btn btn--primary is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:951px"><button type="button" class="btn btn--primary btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:467px"><button type="button" class="btn btn--primary is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:951px"><button type="button" class="btn btn--primary btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:467px"><button type="button" class="btn btn--primary spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:951px"><button type="button" class="btn btn--primary btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:64px;top:576px"><p class="lbl text-subtitle-16-semibold">Secondary · 48</p></div>
+<div class="spec " style="left:64px;top:1056px"><p class="lbl text-subtitle-16-semibold">Secondary · 40</p></div>
+<div class="spec " style="left:251px;top:563px"><button type="button" class="btn btn--secondary" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:1047px"><button type="button" class="btn btn--secondary btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:563px"><button type="button" class="btn btn--secondary is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:1047px"><button type="button" class="btn btn--secondary btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:563px"><button type="button" class="btn btn--secondary is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1047px"><button type="button" class="btn btn--secondary btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:563px"><button type="button" class="btn btn--secondary spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1047px"><button type="button" class="btn btn--secondary btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:64px;top:672px"><p class="lbl text-subtitle-16-semibold">Blue · 48</p></div>
+<div class="spec " style="left:64px;top:1152px"><p class="lbl text-subtitle-16-semibold">Blue · 40</p></div>
+<div class="spec " style="left:251px;top:659px"><button type="button" class="btn btn--blue" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:1143px"><button type="button" class="btn btn--blue btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:659px"><button type="button" class="btn btn--blue is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:1143px"><button type="button" class="btn btn--blue btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:659px"><button type="button" class="btn btn--blue is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1143px"><button type="button" class="btn btn--blue btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:659px"><button type="button" class="btn btn--blue spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1143px"><button type="button" class="btn btn--blue btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:64px;top:768px"><p class="lbl text-subtitle-16-semibold">Light Blue · 48</p></div>
+<div class="spec " style="left:64px;top:1248px"><p class="lbl text-subtitle-16-semibold">Light Blue · 40</p></div>
+<div class="spec " style="left:251px;top:755px"><button type="button" class="btn btn--light-blue" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:1239px"><button type="button" class="btn btn--light-blue btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:755px"><button type="button" class="btn btn--light-blue is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:1239px"><button type="button" class="btn btn--light-blue btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:755px"><button type="button" class="btn btn--light-blue is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1239px"><button type="button" class="btn btn--light-blue btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:755px"><button type="button" class="btn btn--light-blue spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1239px"><button type="button" class="btn btn--light-blue btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:64px;top:864px"><p class="lbl text-subtitle-16-semibold">White · 48</p></div>
+<div class="spec " style="left:64px;top:1344px"><p class="lbl text-subtitle-16-semibold">White · 40</p></div>
+<div class="spec " style="left:251px;top:851px"><button type="button" class="btn btn--white" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:1335px"><button type="button" class="btn btn--white btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:851px"><button type="button" class="btn btn--white is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:501px;top:1335px"><button type="button" class="btn btn--white btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:851px"><button type="button" class="btn btn--white is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1335px"><button type="button" class="btn btn--white btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:851px"><button type="button" class="btn btn--white spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1335px"><button type="button" class="btn btn--white btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:64px;top:1505px"><h2 class="doc-section">Ghost Buttons</h2></div>
+<div class="spec " style="left:255px;top:1572px"><p class="lbl text-subtitle-16-semibold">Default</p></div>
+<div class="spec " style="left:506px;top:1572px"><p class="lbl text-subtitle-16-semibold">Hover</p></div>
+<div class="spec " style="left:749px;top:1572px"><p class="lbl text-subtitle-16-semibold">Pressed</p></div>
+<div class="spec " style="left:1007px;top:1572px"><p class="lbl text-subtitle-16-semibold">Disabled</p></div>
+<div class="spec " style="left:64px;top:1643px"><p class="lbl text-subtitle-16-semibold">Primary · 48</p></div>
+<div class="spec " style="left:64px;top:1739px"><p class="lbl text-subtitle-16-semibold">Blue · 48</p></div>
+<div class="spec " style="left:64px;top:1835px"><p class="lbl text-subtitle-16-semibold">Primary · 40</p></div>
+<div class="spec " style="left:64px;top:1931px"><p class="lbl text-subtitle-16-semibold">Blue · 40</p></div>
+<div class="spec " style="left:251px;top:1630px"><button type="button" class="btn btn--ghost" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:1826px"><button type="button" class="btn btn--ghost btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:1630px"><button type="button" class="btn btn--ghost is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:1826px"><button type="button" class="btn btn--ghost btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1630px"><button type="button" class="btn btn--ghost is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1826px"><button type="button" class="btn btn--ghost btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1630px"><button type="button" class="btn btn--ghost spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1826px"><button type="button" class="btn btn--ghost btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:1726px"><button type="button" class="btn btn--ghost-blue" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:1922px"><button type="button" class="btn btn--ghost-blue btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:1726px"><button type="button" class="btn btn--ghost-blue is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:1922px"><button type="button" class="btn btn--ghost-blue btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1726px"><button type="button" class="btn btn--ghost-blue is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:1922px"><button type="button" class="btn btn--ghost-blue btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1726px"><button type="button" class="btn btn--ghost-blue spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:1922px"><button type="button" class="btn btn--ghost-blue btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:64px;top:2060px"><h2 class="doc-section">Outlined Buttons</h2></div>
+<div class="spec " style="left:255px;top:2127px"><p class="lbl text-subtitle-16-semibold">Default</p></div>
+<div class="spec " style="left:506px;top:2127px"><p class="lbl text-subtitle-16-semibold">Hover</p></div>
+<div class="spec " style="left:749px;top:2127px"><p class="lbl text-subtitle-16-semibold">Pressed</p></div>
+<div class="spec " style="left:1007px;top:2127px"><p class="lbl text-subtitle-16-semibold">Disabled</p></div>
+<div class="spec " style="left:64px;top:2198px"><p class="lbl text-subtitle-16-semibold">Primary · 48</p></div>
+<div class="spec " style="left:64px;top:2294px"><p class="lbl text-subtitle-16-semibold">Blue · 48</p></div>
+<div class="spec " style="left:64px;top:2390px"><p class="lbl text-subtitle-16-semibold">Primary · 40</p></div>
+<div class="spec " style="left:64px;top:2486px"><p class="lbl text-subtitle-16-semibold">Blue · 40</p></div>
+<div class="spec " style="left:251px;top:2185px"><button type="button" class="btn btn--outlined" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:2381px"><button type="button" class="btn btn--outlined btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:2185px"><button type="button" class="btn btn--outlined is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:2381px"><button type="button" class="btn btn--outlined btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:2185px"><button type="button" class="btn btn--outlined is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:2381px"><button type="button" class="btn btn--outlined btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:2185px"><button type="button" class="btn btn--outlined spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:2381px"><button type="button" class="btn btn--outlined btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:2281px"><button type="button" class="btn btn--outlined-blue" style="width:208px">버튼</button></div>
+<div class="spec " style="left:251px;top:2477px"><button type="button" class="btn btn--outlined-blue btn--sm" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:2281px"><button type="button" class="btn btn--outlined-blue is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:502px;top:2477px"><button type="button" class="btn btn--outlined-blue btn--sm is-hover spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:2281px"><button type="button" class="btn btn--outlined-blue is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:751px;top:2477px"><button type="button" class="btn btn--outlined-blue btn--sm is-pressed spec-static" style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:2281px"><button type="button" class="btn btn--outlined-blue spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:1001px;top:2477px"><button type="button" class="btn btn--outlined-blue btn--sm spec-static" disabled style="width:208px">버튼</button></div>
+<div class="spec " style="left:64px;top:2647px"><h2 class="doc-section">Floating Buttons</h2></div>
+<div class="spec " style="left:255px;top:2714px"><p class="lbl text-subtitle-16-semibold">Default</p></div>
+<div class="spec " style="left:506px;top:2714px"><p class="lbl text-subtitle-16-semibold">Hover</p></div>
+<div class="spec " style="left:749px;top:2714px"><p class="lbl text-subtitle-16-semibold">Pressed</p></div>
+<div class="spec " style="left:1007px;top:2714px"><p class="lbl text-subtitle-16-semibold">Disabled</p></div>
+<div class="spec " style="left:64px;top:2785px"><p class="lbl text-subtitle-16-semibold">Primary · 48</p></div>
+<div class="spec " style="left:64px;top:2881px"><p class="lbl text-subtitle-16-semibold">Primary · 40</p></div>
+<div class="spec " style="left:251px;top:2772px"><button type="button" class="btn btn--floating"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:251px;top:2872px"><button type="button" class="btn btn--floating btn--sm"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:501px;top:2772px"><button type="button" class="btn btn--floating is-hover spec-static"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:501px;top:2872px"><button type="button" class="btn btn--floating btn--sm is-hover spec-static"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:745px;top:2772px"><button type="button" class="btn btn--floating is-pressed spec-static"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:745px;top:2872px"><button type="button" class="btn btn--floating btn--sm is-pressed spec-static"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:1003px;top:2772px"><button type="button" class="btn btn--floating spec-static" disabled><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:1003px;top:2872px"><button type="button" class="btn btn--floating btn--sm spec-static" disabled><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.90569 17.6406H6.08028L8.00078 17.2832C8.87373 17.1045 9.65939 16.6577 10.2705 16.0322L18.2143 7.99014C18.7381 7.54336 19 6.82852 19 6.11367C19 5.39882 18.7381 4.77332 18.2143 4.23719C17.2541 3.25427 15.5955 3.25427 14.5479 4.23719L6.60405 12.1899C5.99299 12.8154 5.55651 13.6196 5.38192 14.5131L5.03274 16.5683C4.94544 16.8364 5.03274 17.1938 5.29462 17.3725C5.46921 17.5512 5.6438 17.6406 5.90569 17.6406ZM15.7701 5.57753C15.9447 5.39882 16.2065 5.30946 16.3811 5.30946C16.643 5.30946 16.8176 5.39882 16.9922 5.57753C17.1668 5.75624 17.2541 5.93495 17.2541 6.11367C17.2541 6.20302 17.2541 6.47109 16.9922 6.73916L16.643 7.09658L15.4209 5.93495L15.7701 5.57753ZM7.12783 14.9599C7.21512 14.4238 7.47701 13.977 7.91348 13.5302L14.1988 7.18594L15.4209 8.34757L9.13562 14.6919C8.78644 15.0493 8.26267 15.3173 7.73889 15.4067L7.04053 15.5854L7.12783 14.9599ZM18.127 18.7129H5.90569C5.38192 18.7129 5.03274 19.0703 5.03274 19.6064C5.03274 20.1426 5.38192 20.5 5.90569 20.5H18.127C18.6508 20.5 19 20.1426 19 19.6064C19 19.0703 18.6508 18.7129 18.127 18.7129Z" fill="currentColor"/></svg></span>버튼</button></div>
+<div class="spec " style="left:64px;top:3095px"><h2 class="doc-section">Button Group</h2></div>
+<div class="spec " style="left:255px;top:3162px"><p class="lbl text-subtitle-16-semibold">Single</p></div>
+<div class="spec " style="left:639px;top:3162px"><p class="lbl text-subtitle-16-semibold">Stacked</p></div>
+<div class="spec " style="left:1021px;top:3162px"><p class="lbl text-subtitle-16-semibold">Side by Side</p></div>
+<div class="spec " style="left:64px;top:3233px"><p class="lbl text-subtitle-16-semibold">Button</p></div>
+<div class="spec " style="left:251px;top:3229px"><div class="btn-group btn-group--one" style="width:375px"><div class="btn-group__buttons"><button type="button" class="btn btn--primary">버튼</button></div><span class="safe-area" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></span></div></div>
+<div class="spec " style="left:634px;top:3229px"><div class="btn-group btn-group--vertical" style="width:375px"><div class="btn-group__buttons"><button type="button" class="btn btn--primary">버튼</button><button type="button" class="btn btn--ghost">버튼</button></div><span class="safe-area" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></span></div></div>
+<div class="spec " style="left:1017px;top:3229px"><div class="btn-group btn-group--horizontal" style="width:375px"><div class="btn-group__buttons"><button type="button" class="btn btn--secondary">버튼</button><button type="button" class="btn btn--primary">버튼</button></div><span class="safe-area" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></span></div></div>
+  </main>
+  </div>
+</body>
+</html>

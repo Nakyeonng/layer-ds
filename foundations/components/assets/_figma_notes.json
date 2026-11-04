@@ -1,0 +1,175 @@
+{
+ "colors": {
+  "navDefault": [
+   "Icon/Nav/Home",
+   [
+    "#CED2DA"
+   ]
+  ],
+  "navHover": [
+   "Icon/Nav/Home",
+   [
+    "#8B909C"
+   ]
+  ],
+  "navPressed": [
+   "Icon/Nav/Home",
+   [
+    "#212329"
+   ]
+  ],
+  "barHome_home": [
+   "Icon/Nav/Home",
+   [
+    "#212329"
+   ]
+  ],
+  "barHome_action": [
+   "Icon/Nav/ActionItem",
+   [
+    "#CED2DA",
+    "#FFFFFF"
+   ]
+  ],
+  "barAction_home": [
+   "Icon/Nav/Home",
+   [
+    "#CED2DA"
+   ]
+  ],
+  "barAction_action": [
+   "Icon/Nav/ActionItem",
+   [
+    "#212329",
+    "#FFFFFF"
+   ]
+  ],
+  "barAnalysis_analysis": [
+   "Icon/Nav/Analysis",
+   [
+    "#212329",
+    "#FFFFFF"
+   ]
+  ],
+  "subWhiteLeft": [
+   "Icon",
+   [
+    "#FFFFFF"
+   ]
+  ],
+  "subWhiteDrawer": [
+   "Icon/Assets/Drawer",
+   [
+    "#FFFFFF"
+   ]
+  ],
+  "subWhiteMore": [
+   "Icon/Assets/More",
+   [
+    "#212329"
+   ]
+  ]
+ },
+ "frames": {
+  "1:3990": {
+   "name": "Style=Home",
+   "fills": [],
+   "strokes": [],
+   "strokeTop": 1,
+   "pad": [
+    14,
+    22,
+    8,
+    20
+   ],
+   "w": 375,
+   "h": 58
+  },
+  "1:3996": {
+   "name": "Style=Sub (Black)",
+   "fills": [],
+   "strokes": [],
+   "strokeTop": 1,
+   "pad": [
+    14,
+    22,
+    8,
+    20
+   ],
+   "w": 375,
+   "h": 58
+  },
+  "1:4006": {
+   "name": "Style=Sub (White)",
+   "fills": [],
+   "strokes": [],
+   "strokeTop": 1,
+   "pad": [
+    14,
+    22,
+    8,
+    20
+   ],
+   "w": 375,
+   "h": 58
+  },
+  "1:4018": {
+   "name": "Navigation",
+   "fills": [
+    "#FFFFFF"
+   ],
+   "strokes": [
+    "#06080C@0.03999999910593033"
+   ],
+   "strokeTop": 1,
+   "pad": [
+    6,
+    4,
+    4,
+    4
+   ],
+   "w": 375,
+   "h": 54
+  },
+  "1:4017": {
+   "name": "On=Home",
+   "fills": [],
+   "strokes": [],
+   "strokeTop": 1,
+   "pad": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "w": 375,
+   "h": 88
+  }
+ },
+ "bars": {
+  "status-bar-ios18": [
+   393,
+   54
+  ],
+  "safe-area-ios18": [
+   393,
+   21
+  ],
+  "status-bar-ios14": [
+   375,
+   44
+  ],
+  "safe-area-ios14": [
+   375,
+   34
+  ],
+  "status-bar-android": [
+   360,
+   40
+  ],
+  "safe-area-android": [
+   360,
+   24
+  ]
+ }
+}

@@ -1,0 +1,36 @@
+{
+  "$description": "Elevation tokens derived from Figma Foundation/Elevation (node 1:4091). Draft for review — W3C Design Tokens (DTCG) format.",
+  "shadow": {
+    "100": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "#06080C0A", "offsetX": "0px", "offsetY": "4px", "blur": "12px", "spread": "0px" }
+      ]
+    },
+    "200": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "#06080C1F", "offsetX": "0px", "offsetY": "4px", "blur": "8px", "spread": "0px" },
+        { "color": "#06080C14", "offsetX": "0px", "offsetY": "1px", "blur": "4px", "spread": "0px" }
+      ]
+    },
+    "300": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "#06080C1F", "offsetX": "0px", "offsetY": "4px", "blur": "12px", "spread": "0px" },
+        { "color": "#06080C14", "offsetX": "0px", "offsetY": "4px", "blur": "8px", "spread": "0px" }
+      ]
+    },
+    "400": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "#06080C38", "offsetX": "0px", "offsetY": "4px", "blur": "12px", "spread": "0px" },
+        { "color": "#06080C14", "offsetX": "0px", "offsetY": "4px", "blur": "8px", "spread": "0px" }
+      ]
+    },
+    "card":            { "$type": "shadow", "$value": "{shadow.100}" },
+    "floating-button": { "$type": "shadow", "$value": "{shadow.200}" },
+    "layer":           { "$type": "shadow", "$value": "{shadow.300}" },
+    "modal":           { "$type": "shadow", "$value": "{shadow.400}", "$description": "Modal and bottom sheet" }
+  }
+}

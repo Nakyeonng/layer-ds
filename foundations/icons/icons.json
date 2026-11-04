@@ -1,0 +1,319 @@
+{
+ "assets": [
+  {
+   "name": "Arrow-left",
+   "file": "assets/arrow-left.svg"
+  },
+  {
+   "name": "Arrow-Right",
+   "file": "assets/arrow-right.svg"
+  },
+  {
+   "name": "Close",
+   "file": "assets/close.svg"
+  },
+  {
+   "name": "Chevron-Down",
+   "file": "assets/chevron-down.svg"
+  },
+  {
+   "name": "Chevron-Up",
+   "file": "assets/chevron-up.svg"
+  },
+  {
+   "name": "Chevron-Right",
+   "file": "assets/chevron-right.svg"
+  },
+  {
+   "name": "Chevron-Left",
+   "file": "assets/chevron-left.svg"
+  },
+  {
+   "name": "Drawer",
+   "file": "assets/drawer.svg"
+  },
+  {
+   "name": "More",
+   "file": "assets/more.svg"
+  },
+  {
+   "name": "Add",
+   "file": "assets/add.svg"
+  },
+  {
+   "name": "Info",
+   "file": "assets/info.svg"
+  },
+  {
+   "name": "Question",
+   "file": "assets/question.svg"
+  },
+  {
+   "name": "More_hori",
+   "file": "assets/more-hori.svg"
+  },
+  {
+   "name": "Write",
+   "file": "assets/write.svg"
+  },
+  {
+   "name": "Calendar",
+   "file": "assets/calendar.svg"
+  },
+  {
+   "name": "Check",
+   "file": "assets/check.svg"
+  },
+  {
+   "name": "Check_Filled",
+   "file": "assets/check-filled.svg"
+  },
+  {
+   "name": "Caution",
+   "file": "assets/caution.svg"
+  },
+  {
+   "name": "Caution_Filled",
+   "file": "assets/caution-filled.svg"
+  },
+  {
+   "name": "Camera",
+   "file": "assets/camera.svg"
+  },
+  {
+   "name": "Camera_Filled",
+   "file": "assets/camera-filled.svg"
+  },
+  {
+   "name": "Expand",
+   "file": "assets/expand.svg"
+  },
+  {
+   "name": "Compress",
+   "file": "assets/compress.svg"
+  },
+  {
+   "name": "Unfold-Right",
+   "file": "assets/unfold-right.svg"
+  },
+  {
+   "name": "Fold",
+   "file": "assets/fold.svg"
+  },
+  {
+   "name": "Unfold-Left",
+   "file": "assets/unfold-left.svg"
+  }
+ ],
+ "nav": [
+  {
+   "name": "Home",
+   "file": "nav/home.svg"
+  },
+  {
+   "name": "ActionItem",
+   "file": "nav/actionitem.svg"
+  },
+  {
+   "name": "Analysis",
+   "file": "nav/analysis.svg"
+  }
+ ],
+ "graphic": [
+  {
+   "name": "Team",
+   "state": "Color",
+   "file": "graphic/team-color.svg"
+  },
+  {
+   "name": "Team",
+   "state": "White",
+   "file": "graphic/team-white.svg"
+  },
+  {
+   "name": "Person",
+   "state": "Color",
+   "file": "graphic/person-color.svg"
+  },
+  {
+   "name": "Person",
+   "state": "White",
+   "file": "graphic/person-white.svg"
+  },
+  {
+   "name": "Planning",
+   "state": "Color",
+   "file": "graphic/planning-color.svg"
+  },
+  {
+   "name": "Planning",
+   "state": "White",
+   "file": "graphic/planning-white.svg"
+  },
+  {
+   "name": "Management",
+   "state": "Color",
+   "file": "graphic/management-color.svg"
+  },
+  {
+   "name": "Management",
+   "state": "White",
+   "file": "graphic/management-white.svg"
+  },
+  {
+   "name": "Research",
+   "state": "Color",
+   "file": "graphic/research-color.svg"
+  },
+  {
+   "name": "Research",
+   "state": "White",
+   "file": "graphic/research-white.svg"
+  },
+  {
+   "name": "Design",
+   "state": "Color",
+   "file": "graphic/design-color.svg"
+  },
+  {
+   "name": "Design",
+   "state": "White",
+   "file": "graphic/design-white.svg"
+  },
+  {
+   "name": "Education",
+   "state": "Color",
+   "file": "graphic/education-color.svg"
+  },
+  {
+   "name": "Education",
+   "state": "White",
+   "file": "graphic/education-white.svg"
+  },
+  {
+   "name": "Data",
+   "state": "Color",
+   "file": "graphic/data-color.svg"
+  },
+  {
+   "name": "Data",
+   "state": "White",
+   "file": "graphic/data-white.svg"
+  },
+  {
+   "name": "Marketing",
+   "state": "Color",
+   "file": "graphic/marketing-color.svg"
+  },
+  {
+   "name": "Marketing",
+   "state": "White",
+   "file": "graphic/marketing-white.svg"
+  },
+  {
+   "name": "Development",
+   "state": "Color",
+   "file": "graphic/development-color.svg"
+  },
+  {
+   "name": "Development",
+   "state": "White",
+   "file": "graphic/development-white.svg"
+  },
+  {
+   "name": "Document",
+   "state": "Color",
+   "file": "graphic/document-color.svg"
+  },
+  {
+   "name": "Document",
+   "state": "White",
+   "file": "graphic/document-white.svg"
+  },
+  {
+   "name": "List",
+   "state": "Color",
+   "file": "graphic/list-color.svg"
+  },
+  {
+   "name": "List",
+   "state": "White",
+   "file": "graphic/list-white.svg"
+  },
+  {
+   "name": "Recommend",
+   "state": "Color",
+   "file": "graphic/recommend-color.svg"
+  },
+  {
+   "name": "Recommend",
+   "state": "White",
+   "file": "graphic/recommend-white.svg"
+  },
+  {
+   "name": "Regular",
+   "state": "Color",
+   "file": "graphic/regular-color.svg"
+  },
+  {
+   "name": "Regular",
+   "state": "White",
+   "file": "graphic/regular-white.svg"
+  },
+  {
+   "name": "Irregular",
+   "state": "Color",
+   "file": "graphic/irregular-color.svg"
+  },
+  {
+   "name": "Irregular",
+   "state": "White",
+   "file": "graphic/irregular-white.svg"
+  }
+ ],
+ "emotion": [
+  {
+   "name": "Bad",
+   "file": "graphic/emotion-bad.svg"
+  },
+  {
+   "name": "Bad_Disabled",
+   "file": "graphic/emotion-bad-disabled.svg"
+  },
+  {
+   "name": "Soso",
+   "file": "graphic/emotion-soso.svg"
+  },
+  {
+   "name": "Soso_Disabled",
+   "file": "graphic/emotion-soso-disabled.svg"
+  },
+  {
+   "name": "Better",
+   "file": "graphic/emotion-better.svg"
+  },
+  {
+   "name": "Better_Disabled",
+   "file": "graphic/emotion-better-disabled.svg"
+  },
+  {
+   "name": "Good",
+   "file": "graphic/emotion-good.svg"
+  },
+  {
+   "name": "Good_Disabled",
+   "file": "graphic/emotion-good-disabled.svg"
+  },
+  {
+   "name": "Happy",
+   "file": "graphic/emotion-happy.svg"
+  },
+  {
+   "name": "Happy_Disabled",
+   "file": "graphic/emotion-happy-disabled.svg"
+  }
+ ],
+ "notes": {
+  "emotion": "Better (Blue/400) is intentionally lighter than Good (Blue/500) — confirmed 2026-10-26"
+ }
+}

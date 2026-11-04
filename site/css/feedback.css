@@ -1,0 +1,84 @@
+/* ─────────────────────────────────────────────────────────────
+   Toasts / Tooltip — derived from Figma node 1:4875
+   Toast: Type = Text · Info · Caution — shown for 3 seconds, then it leaves by itself
+   Tooltip: Function (arrow · Blue or Gray; stays until the target is tapped or the screen changes) · Hover (no arrow, 8px above the target, left aligned) · Guide (light blue box)
+
+   Updated 2026-10-27: Caution icon text/error (Red 500 since 2026-10-29); Function tooltip gets a Gray 900 colour; Hover tooltip has its own section.
+
+   Colours are the values read from the frame; comments name the palette step.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+.toast, .tooltip, .guide-tip {
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+
+/* ── Toast ───────────────────────────────── */
+.toast {
+  display: flex; align-items: center; gap: var(--spacing-8, 8px); box-sizing: border-box;
+  width: 100%; max-width: 335px; min-height: 58px; padding: 18px var(--spacing-20, 20px); border-radius: var(--radius-toast, 12px);
+  background: var(--color-bg-toast, rgb(6 8 12 / 0.86)); color: var(--color-text-inverse, #ffffff);                                         /* Opacity 86 / Gray 0 */
+  font-size: 16px; font-weight: 500; line-height: 1.4;                                   /* Body 16 Medium */
+}
+.toast .icon { width: 22px; height: 22px; flex: none; }
+.toast--info .icon { color: var(--color-text-accent, #6c9cfa); }                                                    /* Blue 600 */
+.toast--caution .icon { color: var(--color-text-error, #f03e3e); }                                                 /* Red 500 */
+
+/* Appear / disappear: a script adds .is-shown and removes it after 3s */
+.toast-host { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); width: calc(100% - 40px); max-width: 335px; z-index: 50; pointer-events: none; }
+.toast-host .toast { opacity: 0; transform: translateY(8px); transition: opacity .2s, transform .2s; }
+.toast-host .toast.is-shown { opacity: 1; transform: none; }
+
+/* ── Tooltip (Function / Hover) ──────────── */
+.tooltip {
+  position: relative; display: inline-flex; box-sizing: border-box;
+  padding: 10px 14px; border-radius: var(--radius-tooltip, 8px); background: var(--color-bg-accent, #6c9cfa); color: var(--color-text-inverse, #ffffff);            /* Blue 600 */
+  font-size: 12px; font-weight: 600; line-height: 1.4; white-space: nowrap;              /* Body 12 SemiBold */
+}
+/* Arrow: 17 × 12 triangle, 16px in from the edge for every left/right variant (Center = centred), overlapping the box by 4px */
+.tooltip::after {
+  content: ""; position: absolute; width: 17px; height: 12px; background: inherit;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+.tooltip--bottom-left::after   { left: 16px;  top: 100%; margin-top: -4px; }
+.tooltip--bottom-right::after  { right: 16px; top: 100%; margin-top: -4px; }
+.tooltip--bottom-center::after { left: calc(50% - 8.5px); top: 100%; margin-top: -4px; }
+.tooltip--top-left::after      { left: 16px;  bottom: 100%; margin-bottom: -4px; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+.tooltip--top-right::after     { right: 16px; bottom: 100%; margin-bottom: -4px; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+
+.tooltip--gray { background: var(--color-bg-inverse, #212329); }                                                  /* Function · Color=Gray (Gray 900) */
+
+/* Hover: no arrow, 8px above the target, left edges aligned. Wrap the target in .tooltip-anchor. */
+.tooltip-anchor { position: relative; display: inline-flex; }
+.tooltip-anchor > .tooltip--hover { position: absolute; left: 0; bottom: calc(100% + 8px); z-index: 10;
+  opacity: 0; visibility: hidden; transition: opacity .12s; pointer-events: none; }
+.tooltip-anchor:hover > .tooltip--hover, .tooltip-anchor:focus-within > .tooltip--hover { opacity: 1; visibility: visible; }
+.tooltip--hover { padding: var(--spacing-8, 8px) var(--spacing-12, 12px); background: var(--color-bg-inverse, #212329); }                              /* Gray 900, no arrow */
+.tooltip--hover::after { display: none; }
+
+/* ── Guide Tooltip ───────────────────────── */
+.guide-tip {
+  display: flex; flex-direction: column; gap: var(--spacing-4, 4px); box-sizing: border-box;
+  width: 100%; max-width: 335px; padding: 14px 18px; border-radius: var(--radius-tooltip, 8px);
+  background: var(--color-bg-accent-secondary, #e9f0ff); color: var(--color-text-accent, #6c9cfa);                                                     /* Blue 100 / Blue 600 */
+  font-size: 12px; line-height: 1.4;
+}
+.guide-tip__label { margin: 0; font-weight: 600; }                                       /* Body 12 SemiBold */
+.guide-tip__text  { margin: 0; font-weight: 500; }                                       /* Body 12 Medium */
+
+/* ── Empty State — 보여 줄 내용이 없을 때 (Figma 359:85139) ──────── */
+.empty-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--spacing-12, 12px);
+  box-sizing: border-box; width: 100%; padding: var(--spacing-32, 32px) var(--spacing-20, 20px);
+  border-radius: var(--radius-card, 12px);                                                             /* Border=None (기본): 흰 카드가 틀 */
+  text-align: center; font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--color-text-tertiary, #a9afbb);   /* Body 15 Medium */
+}
+.empty-state--dashed { border: 1px dashed var(--color-opacity-12, rgb(6 8 12 / .12)); }   /* Border=Dashed: 카드 안에서 빈 영역 구분 (Opacity 12, 4/4) */
+.empty-state__icon { width: 56px; height: 56px; color: var(--color-gray-300, #dfe3ea); }
+.empty-state p { margin: 0; }
+
+/* ── Info Banner — 한 줄 안내 (Figma 419:5494) ── */
+.info-banner { display: flex; align-items: center; gap: var(--spacing-8, 8px); padding: var(--spacing-8, 8px) var(--spacing-12, 12px); border-radius: var(--radius-8, 8px);
+  background: var(--color-gray-200, #edf0f4); font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--color-gray-600, #8b909c); }   /* Body 12 Medium */
+.info-banner .icon { width: 18px; height: 18px; flex: none; }

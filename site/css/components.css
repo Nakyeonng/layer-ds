@@ -1,0 +1,124 @@
+/* ─────────────────────────────────────────────────────────────
+   App Bar / Navigation Bar / Avatar
+   Derived from Figma "App Bar/Navigation Bar" (node 1:3953).
+   Typography comes from typography.css, icons from the Icons set.
+
+   Colors are read from this frame. Comments name the matching swatch
+   on the Color page; they become color tokens once Color is analysed.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --c-ink: var(--color-text-primary, #212329);            /* Gray/900  — active text & icons      */
+  --c-muted: var(--color-gray-600, #8b909c);          /* Gray/600  — inactive label, hover icon */
+  --c-faint: var(--color-gray-400, #ced2da);          /* Gray/400  — inactive icon, avatar bg   */
+  --c-surface: var(--color-gray-0, #ffffff);        /* Gray/0                                 */
+  --c-accent: var(--color-text-accent, #6c9cfa);         /* Blue/600  — app bar text button        */
+  --c-hairline: rgba(6, 8, 12, 0.04); /* Opacity/4 — nav bar top border  */
+}
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.avatar {
+  display: inline-block; flex: none;
+  width: 32px; height: 32px;
+  border-radius: var(--radius-pill, 50%); overflow: hidden;
+  background: var(--c-faint);
+}
+.avatar svg, .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.avatar--42 { width: 42px; height: 42px; }   /* Size=42 — 설정 화면 프로필 행 */
+.avatar--28 { width: 28px; height: 28px; }   /* Size=28 — 웹 LNB 아래 프로필(펼침 · 접힘) */
+/* Show Leader — 대표자 왕관(오른쪽 아래, 크기의 37.5%: 32 → 12) */
+.avatar-leader { position: relative; display: inline-block; flex: none; line-height: 0; }
+.avatar-leader__badge { position: absolute; right: 0; bottom: 0; width: 37.5%; height: 37.5%; color: var(--color-bg-inverse, #212329); }
+.avatar-leader__badge svg { display: block; width: 100%; height: 100%; }
+
+/* ── App Bar ────────────────────────────────────────────── */
+.app-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: 375px; height: 58px;
+  padding: 14px 22px var(--spacing-8, 8px) var(--spacing-20, 20px);
+  color: var(--c-ink);
+}
+.app-bar__title { margin: 0; white-space: nowrap; }
+.app-bar__side  { display: flex; align-items: center; gap: var(--spacing-16, 16px); }
+.app-bar__side--end { justify-content: flex-end; }
+.app-bar__button {
+  display: inline-flex; padding: 0; border: 0; background: none;
+  color: inherit; cursor: pointer;
+}
+.app-bar__text-button {
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--c-accent);
+}
+.app-bar__text-button:disabled, .app-bar__text-button.is-disabled {   /* Figma Button/Text Button Type=Accent, State=Disabled */
+  color: var(--color-text-disabled, #ced2da); cursor: default;           /* Gray 400 — 아직 누를 수 없음(작성 전 "마치기") */
+}
+
+/* Home: page title on the left, avatar on the right */
+.app-bar--home .app-bar__title { /* uses .text-heading-24-bold */ }
+
+/* Sub: back icon, centred title, actions */
+.app-bar--sub .app-bar__contents {
+  position: relative; flex: 1 1 0; min-width: 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.app-bar--sub .app-bar__title {
+  position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Inverse: for dark backgrounds (Figma "Sub (White)") */
+.app-bar--inverse { color: var(--c-surface); }
+
+/* ── Navigation Bar ─────────────────────────────────────── */
+.nav-bar { width: 100%; max-width: 375px; display: flex; flex-direction: column; }
+.nav-bar__items {
+  display: flex; gap: var(--spacing-4, 4px); align-items: flex-start;
+  padding: 6px var(--spacing-4, 4px) var(--spacing-4, 4px);
+  background: var(--c-surface);
+  box-shadow: inset 0 1px 0 var(--c-hairline); /* inside stroke, like Figma */
+  margin: 0; list-style: none;
+}
+.nav-bar__items > li { flex: 1 1 0; min-width: 0; display: flex; }
+
+/* Nav item: Default → Hover → Pressed/Current */
+.nav-item {
+  flex: 1 1 0; min-width: 0; height: 44px;
+  display: flex; flex-direction: column; align-items: stretch;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--c-faint);                  /* icon colour (Default) */
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-item__icon {
+  flex: 1 1 0; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2px var(--spacing-8, 8px);
+}
+.nav-item__icon .icon { width: 24px; height: 24px; }
+.nav-item__label { text-align: center; color: var(--c-muted); }
+
+.nav-item:hover, .nav-item.is-hover { color: var(--c-muted); }
+.nav-item:active, .nav-item.is-pressed,
+.nav-item[aria-current="page"] { color: var(--c-ink); }
+.nav-item:active .nav-item__label, .nav-item.is-pressed .nav-item__label,
+.nav-item[aria-current="page"] .nav-item__label { color: var(--c-ink); }
+.nav-item:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -2px; border-radius: var(--radius-8, 8px); }
+
+/* iOS home indicator area under the bar (Figma "Show Safe Area") */
+.safe-area { display: block; width: 100%; }
+.safe-area svg { display: block; width: 100%; height: auto; }
+
+/* ── Dropdown — 웹 상단 필터 (Figma 363:30483) ─────────────────── */
+.dropdown {
+  display: inline-flex; align-items: center; gap: 6px; height: 36px; box-sizing: border-box;
+  padding: 0 var(--spacing-16, 16px) 0 var(--spacing-12, 12px); border: 0; border-radius: var(--radius-button-xs, 8px);   /* 좌 12 · 우 16: Chevron 쪽을 넓혀 시각 균형 */
+  background: var(--color-bg-surface, #fff); cursor: pointer;
+  font: inherit; font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--color-gray-600, #8b909c);  /* Subtitle 14 SemiBold */
+}
+.dropdown:hover, .dropdown.is-hover { background: var(--color-gray-100, #f2f4f8); }
+.dropdown:active, .dropdown.is-pressed { background: var(--color-gray-200, #edf0f4); }
+.dropdown__icon { width: 20px; height: 20px; flex: none; }
+.dropdown__icon svg { width: 100%; height: 100%; }
+.dropdown__chevron { width: 14px; height: 14px; flex: none; color: var(--color-gray-600, #8b909c); }

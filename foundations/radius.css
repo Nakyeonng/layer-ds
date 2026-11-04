@@ -1,0 +1,46 @@
+/* ─────────────────────────────────────────────────────────────
+   Radius — collected from the finished Layer components (2026-10-27).
+   There is no separate Figma board yet; every value below is one the components already use.
+
+   Layer 1: steps   (what exists)
+   Layer 2: usage   (which job each step does)
+   Rule of thumb: the bigger the surface, the rounder the corner.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Steps */
+  --radius-4: 4px;      /* checkbox */
+  --radius-6: 6px;      /* small chip and box tab (38) */
+  --radius-8: 8px;      /* chip and box tab (48), list card, tooltip, control hit area */
+  --radius-10: 10px;    /* button 40 */
+  --radius-12: 12px;    /* button 48, field, Two Choice card, toast, accordion */
+  --radius-16: 16px;
+  --radius-20: 20px;    /* web modal */    /* popup, bottom sheet (top corners only) */
+  --radius-full: 999px; /* pill and circle: floating button, avatar, radio, date cell, progress, scroll bar */
+
+  /* Usage — name the job, not the number */
+  --radius-checkbox: var(--radius-4);
+  --radius-chip-sm: var(--radius-6);
+  --radius-chip: var(--radius-8);
+  --radius-tooltip: var(--radius-8);
+  --radius-list-card: var(--radius-8);
+  --radius-button-sm: var(--radius-10);
+  --radius-button-xs: var(--radius-8);
+  --radius-modal-lg: var(--radius-20);   /* 웹 모달 Modal (Web) */   /* 버튼 36(웹), Dropdown */
+  --radius-button: var(--radius-12);
+  --radius-field: var(--radius-12);
+  --radius-card: var(--radius-12);
+  --radius-toast: var(--radius-12);
+  --radius-card-lg: var(--radius-16);      /* web: wide section card (928) — added 2026-10-29 */
+  --radius-modal: var(--radius-16);         /* popup; bottom sheet uses it on the top two corners */
+  --radius-pill: var(--radius-full);
+}
+
+.radius-4 { border-radius: var(--radius-4); }
+.radius-6 { border-radius: var(--radius-6); }
+.radius-8 { border-radius: var(--radius-8); }
+.radius-10 { border-radius: var(--radius-10); }
+.radius-12 { border-radius: var(--radius-12); }
+.radius-16 { border-radius: var(--radius-16); }
+.radius-16-top { border-radius: var(--radius-16) var(--radius-16) 0 0; }
+.radius-full { border-radius: var(--radius-full); }

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Foundation — Typography</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="typography.css" />
+<link rel="stylesheet" href="foundation-page.css" />
+<style>
+  .foundation { max-width: 1200px; }
+  .usage table { width: 100%; max-width: 1072px; border-collapse: collapse; margin-top: 70px; table-layout: fixed; }
+  .usage col.c-style  { width: 414px; }
+  .usage col.c-size   { width: 228px; }
+  .usage col.c-lh     { width: 232px; }
+  .usage col.c-weight { width: 198px; }
+  .usage th { text-align: left; padding: 0 0 42px; color: var(--ink-muted); }
+  .usage td { padding: 32px 0; vertical-align: middle; border-top: 1px solid var(--rule); }
+  .usage tbody tr:first-child td { border-top: 0; padding-top: 0; }
+  .usage tbody tr:last-child td { padding-bottom: 0; }
+  .usage td.meta { white-space: nowrap; }
+  @media (max-width: 900px) {
+    .table-scroll { overflow-x: auto; }
+    .usage table { min-width: 720px; }
+  }
+</style>
+</head>
+<body>
+  <main class="foundation">
+    <header class="header">
+      <div class="heading">
+        <h1 class="doc-title">Typography</h1>
+        <div class="doc-lead">
+          <p>레이어 앱에서는 ‘Pretendard’ 폰트를 사용하며, 해당 폰트로 국문, 영문, 숫자를 모두 사용합니다.</p>
+          <p>폰트 이용에 대해 지정된 스타일을 사용하되 커스텀 하지 않고 사용합니다.</p>
+        </div>
+      </div>
+      <hr class="divider" />
+    </header>
+
+    <section class="section usage">
+      <h2 class="doc-section">Typography Usage</h2>
+      <div class="table-scroll">
+        <table>
+          <colgroup><col class="c-style" /><col class="c-size" /><col class="c-lh" /><col class="c-weight" /></colgroup>
+          <thead>
+            <tr>
+              <th class="text-subtitle-16-semibold" scope="col">Style</th>
+              <th class="text-subtitle-16-semibold" scope="col">Size</th>
+              <th class="text-subtitle-16-semibold" scope="col">Line-height</th>
+              <th class="text-subtitle-16-semibold" scope="col">Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="text-heading-24-bold">Heading 24 Bold</td><td class="text-body-15-medium meta">24</td><td class="text-body-15-medium meta">150%</td><td class="text-body-15-medium meta">700 / Bold</td></tr>
+            <tr><td class="text-title-20-bold">Title 20 Bold</td><td class="text-body-15-medium meta">20</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">700 / Bold</td></tr>
+            <tr><td class="text-title-18-bold">Title 18 Bold</td><td class="text-body-15-medium meta">18</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">700 / Bold</td></tr>
+            <tr><td class="text-title-16-bold">Title 16 Bold</td><td class="text-body-15-medium meta">16</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">700 / Bold</td></tr>
+            <tr><td class="text-subtitle-18-semibold">Subtitle 18 SemiBold</td><td class="text-body-15-medium meta">18</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">600 / SemiBold</td></tr>
+            <tr><td class="text-subtitle-16-semibold">Subtitle 16 SemiBold</td><td class="text-body-15-medium meta">16</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">600 / SemiBold</td></tr>
+            <tr><td class="text-subtitle-14-semibold">Subtitle 14 SemiBold</td><td class="text-body-15-medium meta">14</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">600 / SemiBold</td></tr>
+            <tr><td class="text-body-16-medium">Body 16 Medium</td><td class="text-body-15-medium meta">16</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">500 / Medium</td></tr>
+            <tr><td class="text-body-15-medium">Body 15 Medium</td><td class="text-body-15-medium meta">15</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">500 / Medium</td></tr>
+            <tr><td class="text-body-14-medium">Body 14 Medium</td><td class="text-body-15-medium meta">14</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">500 / Medium</td></tr>
+            <tr><td class="text-body-12-semibold">Body 12 SemiBold</td><td class="text-body-15-medium meta">12</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">600 / SemiBold</td></tr>
+            <tr><td class="text-body-12-medium">Body 12 Medium</td><td class="text-body-15-medium meta">12</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">500 / Medium</td></tr>
+            <tr><td class="text-caption-11-medium">Caption 11 Medium</td><td class="text-body-15-medium meta">11</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">500 / Medium</td></tr>
+            <tr><td class="text-caption-10-bold">Caption 10 Bold</td><td class="text-body-15-medium meta">10</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">700 / Bold</td></tr>
+            <tr><td class="text-caption-10-medium">Caption 10 Medium</td><td class="text-body-15-medium meta">10</td><td class="text-body-15-medium meta">140%</td><td class="text-body-15-medium meta">500 / Medium</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

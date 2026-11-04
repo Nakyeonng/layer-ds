@@ -1,0 +1,79 @@
+/* ─────────────────────────────────────────────────────────────
+   Controls / Scroll Bar — derived from Figma node 1:2462
+   Checkbox · Radio (added in the checkbox format) · Scroll Bar (its own board since 2026-10-27)
+   Types: Default (box only) · Label Left · Label Right — label order follows the markup
+   States: Checked · Unchecked × Default · Hover (+1 step) · Pressed (+2 steps) · Disabled
+   Scroll Bar states: Default · Hover · Pressed
+
+   Colours are the values read from the frame; comments name the palette step.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Control with label ──────────────────── */
+.control {
+  display: inline-flex; align-items: center; gap: var(--spacing-8, 8px); padding: var(--spacing-4, 4px); border-radius: var(--radius-8, 8px);
+  background: var(--color-bg-surface, #ffffff); cursor: pointer;
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+  font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--color-text-primary, #212329);                  /* Body 15 Medium, Gray 900 */
+  -webkit-tap-highlight-color: transparent;
+}
+.control:has(:disabled) { cursor: not-allowed; }
+.control:has(.control__input:disabled:not(:checked)) .control__label { color: var(--color-text-disabled, #ced2da); } /* Gray 400 */
+
+/* ── Box: 24px slot, 20px shape ──────────── */
+.control__input {
+  -webkit-appearance: none; appearance: none; flex: none; margin: 2px; box-sizing: border-box;
+  width: 20px; height: 20px; border: 1px solid var(--color-gray-400, #ced2da); border-radius: var(--radius-checkbox, 4px);           /* Gray 400 */
+  background: var(--color-bg-surface, #ffffff) center / 24px 24px no-repeat; cursor: inherit;
+}
+.control__input:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: 2px; }   /* Focus: Blue 600 */
+/* Hover / Pressed (the whole control, label included, is the hit area) */
+.control:hover .control__input:not(:disabled):not(:checked), .control__input.is-hover:not(:checked)   { border-color: var(--color-gray-500, #a9afbb); } /* Gray 500 */
+.control:active .control__input:not(:disabled):not(:checked), .control__input.is-pressed:not(:checked) { border-color: var(--color-gray-600, #8b909c); } /* Gray 600 */
+
+/* Checkbox */
+.control__input[type="checkbox"]:checked {
+  border-color: transparent; background-color: var(--color-bg-accent, #6c9cfa);                                 /* Blue 600 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12 L10.5 16 L16.5 9' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+/* Radio: same box, circle, 8px white dot */
+.control__input[type="radio"] { border-radius: var(--radius-pill, 50%); }
+.control__input[type="radio"]:checked {
+  border-color: transparent; background-color: var(--color-bg-accent, #6c9cfa);
+  background-image: radial-gradient(circle, var(--color-bg-surface, #ffffff) 4px, transparent 4.5px); background-size: 100% 100%;
+}
+/* Checked: Hover / Pressed */
+.control:hover .control__input:not(:disabled):checked, .control__input.is-hover:checked   { background-color: var(--color-blue-700, #415e96); } /* Blue 700 */
+.control:active .control__input:not(:disabled):checked, .control__input.is-pressed:checked { background-color: var(--color-blue-800, #2b3e64); } /* Blue 800 */
+
+/* Disabled */
+.control__input:disabled { border-color: var(--color-gray-200, #edf0f4); background-color: var(--color-bg-secondary, #f2f4f8); }          /* Gray 200 / Gray 100 */
+.control__input:disabled:checked { border-color: transparent; background-color: var(--color-blue-400, #a7c4fc); } /* Blue 400 */
+
+/* ── Scroll Bar ──────────────────────────── */
+/* Track is invisible; 4px thumb with 3px side padding and 5px end padding.
+   The bar appears while the area is hovered (.is-hover) or being scrolled (.is-scrolling) — a small script
+   toggles both classes, because Chrome does not repaint the scrollbar on a parent :hover alone.
+   Then Default (Opacity 22) → Hover on the bar (32) → Pressed (48).
+   Chrome 121+ ignores ::-webkit-scrollbar when scrollbar-color/-width are set,
+   so the standard properties are used only where ::-webkit-scrollbar is unsupported (Firefox). */
+.scroll-area { overflow-y: auto; }
+.scroll-area::-webkit-scrollbar { width: 10px; height: 10px; }
+.scroll-area::-webkit-scrollbar-track { background: transparent; margin: 5px 0; }
+.scroll-area::-webkit-scrollbar-thumb {
+  border: 3px solid transparent; border-radius: var(--radius-pill, 99px); background-clip: padding-box;
+  background-color: transparent;
+}
+.scroll-area.is-hover::-webkit-scrollbar-thumb,
+.scroll-area.is-scrolling::-webkit-scrollbar-thumb { background-color: var(--color-opacity-22, rgb(6 8 12 / 0.22)); }          /* Opacity 22 */
+.scroll-area::-webkit-scrollbar-thumb:hover,
+.scroll-area.is-hover::-webkit-scrollbar-thumb:hover { background-color: var(--color-opacity-32, rgb(6 8 12 / 0.32)); }        /* Opacity 32 */
+.scroll-area::-webkit-scrollbar-thumb:active,
+.scroll-area.is-hover::-webkit-scrollbar-thumb:active,
+.scroll-area.is-scrolling::-webkit-scrollbar-thumb:active { background-color: var(--color-opacity-48, rgb(6 8 12 / 0.48)); }   /* Opacity 48 */
+
+@supports not selector(::-webkit-scrollbar) {
+  .scroll-area { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+  .scroll-area:hover, .scroll-area.is-scrolling { scrollbar-color: var(--color-opacity-22, rgb(6 8 12 / 0.22)) transparent; }
+}

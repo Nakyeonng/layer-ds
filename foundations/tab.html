@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component — Tabs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="typography.css" />
+<link rel="stylesheet" href="tabs.css" />
+<link rel="stylesheet" href="foundation-page.css" />
+<style>
+  .scroll { overflow-x: auto; max-width: 1440px; margin: 0 auto; border-radius: 32px; }
+  .foundation.board { position: relative; width: 1440px; max-width: none; height: 2106px; padding: 64px 64px 0; overflow: hidden; }
+  .heading { color: #212529; }
+  .doc-lead { font-weight: 400; }
+  .spec { position: absolute; margin: 0; }
+  .set { position: absolute; border: 1px dashed #9747ff; border-radius: 5px; box-sizing: border-box; pointer-events: none; }
+  .lbl { color: rgba(6, 8, 12, 0.48); white-space: nowrap; }
+  .static { pointer-events: none; }
+</style>
+</head>
+<body>
+  <div class="scroll">
+  <main class="foundation board">
+    <header class="header">
+      <div class="heading">
+        <h1 class="doc-title">Tabs</h1>
+        <div class="doc-lead"><p>탭은 같은 화면 안의 내용을 몇 갈래로 나눠 보여 주는 요소입니다. 밑줄로 선택을 표시하는 Text 탭은 화면의 주요 구분에, 칸 모양의 Box 탭은 목록을 거르는 보조 구분에 씁니다. 탭이 많아 화면을 넘치면 Scrollable로 옆으로 밀어서 봅니다.</p></div>
+      </div>
+      <hr class="divider" />
+    </header>
+<h2 class="doc-section spec" style="left:64px;top:342px">Text Type</h2>
+<h2 class="doc-section spec" style="left:64px;top:1113px">Box Type</h2>
+<h2 class="doc-section spec" style="left:64px;top:1580px">Tab Items</h2>
+<p class="lbl spec text-subtitle-16-semibold" style="left:288px;top:409px">No Outlined</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:684px;top:409px">Outlined</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:288px;top:788px">No Outlined</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:684px;top:788px">Outlined</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:488px">Default - 4 Tabs</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:571px">Default - 3 Tabs</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:652px">Default - 2 Tabs</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:867px">Fixed - 3 Tabs</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:951px">Fixed - 2 Tabs</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:1226px">Scrollable</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:1320px">Fixed - 3 Tabs</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:1414px">Fixed - 2 Tabs</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:288px;top:1631px">Selected</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:430px;top:1631px">Unselected</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:565px;top:1631px">Hover</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:1707px">Text Tab Item - Default</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:1808px">Text Tab Item - Fixed</p>
+<p class="lbl spec text-subtitle-16-semibold" style="left:64px;top:1909px">Box Tab Item</p>
+<div class="set" style="left:233px;top:443px;width:833px;height:273px"></div>
+<div class="set" style="left:233px;top:826px;width:833px;height:201px"></div>
+<div class="set" style="left:233px;top:1180px;width:532px;height:310px"></div>
+<div class="set" style="left:277px;top:1679px;width:392px;height:78px"></div>
+<div class="set" style="left:277px;top:1777px;width:390px;height:84px"></div>
+<div class="set" style="left:277px;top:1881px;width:380px;height:78px"></div>
+<div class="spec" style="left:264px;top:463px"><div role="tablist" class="tabs js-tabs" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:264px;top:538px"><div role="tablist" class="tabs static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:264px;top:619px"><div role="tablist" class="tabs static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:660px;top:462px"><div role="tablist" class="tabs tabs--outlined static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:660px;top:537px"><div role="tablist" class="tabs tabs--outlined static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:660px;top:618px"><div role="tablist" class="tabs tabs--outlined static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:263px;top:856px"><div role="tablist" class="tabs tabs--fixed js-tabs" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:263px;top:940px"><div role="tablist" class="tabs tabs--fixed static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:658px;top:856px"><div role="tablist" class="tabs tabs--fixed tabs--outlined static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:658px;top:940px"><div role="tablist" class="tabs tabs--fixed tabs--outlined static" style="width:375px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:269px;top:1200px"><div role="tablist" class="box-tabs box-tabs--scroll js-tabs" style="width:375px;max-width:none"><button type="button" role="tab" class="box-tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:269px;top:1294px"><div role="tablist" class="box-tabs box-tabs--fixed static" style="width:375px;max-width:none"><button type="button" role="tab" class="box-tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:269px;top:1388px"><div role="tablist" class="box-tabs box-tabs--fixed static" style="width:375px;max-width:none"><button type="button" role="tab" class="box-tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:301px;top:1699px"><div class="static"><button type="button" role="tab" class="tab" aria-selected="true">회고</button></div></div>
+<div class="spec" style="left:436px;top:1699px"><div class="static"><button type="button" role="tab" class="tab" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:305px;top:1797px;width:47px"><div class="tabs--fixed static" style="display:flex;padding:0;height:44px"><button type="button" role="tab" class="tab" aria-selected="true">타이틀</button></div></div>
+<div class="spec" style="left:439px;top:1797px;width:47px"><div class="tabs--fixed static" style="display:flex;padding:0;height:44px"><button type="button" role="tab" class="tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:304px;top:1901px"><div class="static"><button type="button" role="tab" class="box-tab" aria-selected="true">타이틀</button></div></div>
+<div class="spec" style="left:428px;top:1901px"><div class="static"><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:571px;top:1699px"><div class="static"><button type="button" role="tab" class="tab is-hover" aria-selected="false">회고</button></div></div>
+<div class="spec" style="left:573px;top:1797px;width:47px"><div class="tabs--fixed static" style="display:flex;padding:0;height:44px"><button type="button" role="tab" class="tab is-hover" aria-selected="false">타이틀</button></div></div>
+<div class="spec" style="left:552px;top:1901px"><div class="static"><button type="button" role="tab" class="box-tab is-hover" aria-selected="false">타이틀</button></div></div>
+  </main>
+  </div>
+<script>
+  document.querySelectorAll('.js-tabs').forEach(function (list) {
+    list.addEventListener('click', function (e) {
+      var t = e.target.closest('[role="tab"]'); if (!t) return;
+      list.querySelectorAll('[role="tab"]').forEach(function (b) { b.setAttribute('aria-selected', b === t ? 'true' : 'false'); });
+    });
+  });
+  document.querySelectorAll('.box-tabs--scroll').forEach(function (el) {
+    function fog() { var max = el.scrollWidth - el.clientWidth;
+      el.style.setProperty('--fog-l', el.scrollLeft > 1 ? '40px' : '0px');
+      el.style.setProperty('--fog-r', el.scrollLeft < max - 1 ? '40px' : '0px'); }
+    el.addEventListener('scroll', fog, { passive: true }); fog();
+  });
+</script>
+</body>
+</html>

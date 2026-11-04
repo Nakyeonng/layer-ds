@@ -1,0 +1,145 @@
+/* ─────────────────────────────────────────────────────────────
+   Lists / Accordion — derived from Figma "Lists/Accodion" (node 1:2532)
+   List: Checkbox row · Icon card (reorder / delete)
+   Accordion: Index Title (dropdown trigger) · Index (dropdown panel) · Contents (fold / unfold)
+
+   Updated 2026-10-27: checkbox rows use Controls/Checkbox; one Icon List with Action Reorder (Drawer icon) / Delete;
+   card background Gray 100; number badge radius 30; Index Item is its own component (Default/Hover/Pressed/Selected).
+   Colours are the values read from the frame; comments name the palette step.
+   .is-hover / .is-pressed / .is-selected force a state for documentation specimens.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+.list, .list-check, .list-card, .acc-index, .acc-index__item, .acc, .acc-title {
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+
+/* ── Checkbox list row ───────────────────── */
+.list { display: flex; flex-direction: column; width: 100%; max-width: 375px; margin: 0; padding: 0; list-style: none; }
+.list-check {
+  display: flex; align-items: center; gap: 3px; box-sizing: border-box;
+  height: 58px; padding: 0 var(--spacing-screen-x, 20px); background: var(--color-bg-surface, #ffffff); cursor: pointer;                  /* Gray 0 */
+  font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--color-text-primary, #212329);                  /* Body 15 Medium, Gray 900 */
+}
+.list-check__text { flex: 1 1 0; min-width: 0; }
+/* the box itself is .control__input from controls.css */
+
+/* ── Icon card ───────────────────────────── */
+.list--cards { gap: 15px; max-width: 335px; }
+.list-card {
+  display: flex; align-items: flex-start; gap: 15px; box-sizing: border-box;
+  padding: 15px var(--spacing-12, 12px); border-radius: var(--radius-list-card, 8px); background: var(--color-bg-secondary, #f2f4f8);                           /* Gray 100 */
+  font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--color-text-primary, #212329);                  /* Body 14 Medium */
+}
+.list-card__text { flex: 1 1 0; min-width: 0; }
+.list-card__action { flex: none; width: 18px; height: 18px; padding: 0; border: 0; background: none; cursor: grab; }
+.list-card__action--delete { cursor: pointer; }
+.list-card__action svg { display: block; width: 18px; height: 18px; }
+.list-card__action--reorder { color: var(--color-text-disabled, #ced2da); }                                           /* Drawer icon, Gray 400 */
+.list-card__action--delete { border-radius: var(--radius-4, 4px); background: var(--color-status-error, #f03e3e); color: var(--color-text-inverse, #ffffff); }   /* Red 500 + Close icon, Radius 4 */
+
+/* Number badge: radius 30 everywhere; list card text Caption 10 Bold, accordion text Body 12 SemiBold */
+.num-badge {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: var(--radius-pill, 30px); background: var(--color-gray-800, #454952);                   /* Gray 800 */
+  font-size: 10px; font-weight: 700; line-height: 1.4; color: var(--color-text-inverse, #ffffff);                   /* Caption 10 Bold */
+}
+.acc .num-badge { font-size: 12px; font-weight: 600; line-height: 1.4; }               /* Body 12 SemiBold */
+
+/* ── Accordion · Index Title (trigger) ───── */
+.acc-title {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-8, 8px); box-sizing: border-box;
+  width: 140px; height: 40px; padding: var(--spacing-8, 8px) 31px; border: 0; border-radius: var(--radius-card, 12px);
+  background: var(--color-bg-secondary, #f2f4f8); color: var(--color-text-secondary, #666b75); cursor: pointer;                                   /* Gray 100 / Gray 700 */
+  font-size: 16px; font-weight: 600; line-height: 1.4; white-space: nowrap;               /* Subtitle 16 SemiBold */
+}
+.acc-title .icon { width: 18px; height: 18px; color: var(--color-gray-600, #8b909c); }                          /* Gray 600 */
+.acc-title:hover, .acc-title.is-hover { background: var(--color-gray-200, #edf0f4); }                           /* Gray 200 */
+.acc-title:active, .acc-title.is-pressed { background: var(--color-gray-300, #dfe3ea); }                        /* Gray 300 */
+
+/* ── Accordion · Index (panel) ───────────── */
+.acc-index {
+  display: flex; flex-direction: column; gap: 6px; box-sizing: border-box;
+  width: 100%; max-width: 335px; padding-bottom: var(--spacing-12, 12px); border-radius: var(--radius-card, 12px); overflow: hidden;
+  background: var(--color-bg-secondary, #f2f4f8);                                                                     /* Gray 100 */
+}
+.acc-index__header {
+  display: flex; align-items: center; justify-content: center; gap: var(--spacing-8, 8px); height: 40px;
+  font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--color-text-primary, #212329);                   /* Subtitle 16 SemiBold, Gray 900 */
+}
+.acc-index__header .icon { width: 18px; height: 18px; }
+.acc-index__list { margin: 0; padding: 0; list-style: none; }
+.acc-index__item {
+  display: flex; align-items: center; gap: var(--spacing-16, 16px); width: 100%; box-sizing: border-box;
+  height: 46px; padding: 13px 28px; border: 0; background: transparent; cursor: pointer; text-align: left;
+  font: inherit; font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--color-text-primary, #212329);   /* Body 14 Medium */
+}
+.acc-index__item > span:not(.icon) { flex: 1 1 0; min-width: 0; }
+.acc-index__item .icon { flex: none; }
+.acc-index__item .icon { width: 18px; height: 18px; color: var(--color-text-secondary, #666b75); }                    /* Gray 700 */
+.acc-index__item:hover, .acc-index__item.is-hover { background: var(--color-gray-200, #edf0f4); }               /* Gray 200 */
+.acc-index__item:active, .acc-index__item.is-pressed { background: var(--color-gray-300, #dfe3ea); }            /* Gray 300 */
+.acc-index__item[aria-current="true"], .acc-index__item.is-selected { background: var(--color-bg-selected, #e2ebfe); } /* Blue 200 */
+
+/* ── Accordion · Contents (fold / unfold) ── */
+.acc {
+  display: flex; flex-direction: column; gap: 0; box-sizing: border-box;
+  width: 100%; max-width: 335px; padding: 14px var(--spacing-20, 20px); border-radius: var(--radius-8, 8px); overflow: hidden;
+  background: var(--color-bg-secondary, #f2f4f8);                                                                     /* Gray 100 */
+}
+.acc__head {
+  display: flex; align-items: center; gap: var(--spacing-12, 12px); width: 100%; height: 34px; padding: 0; border: 0;
+  background: none; cursor: pointer; text-align: left;
+  font: inherit; font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--color-text-primary, #212329);   /* Subtitle 16 SemiBold */
+}
+.acc__title { flex: 1 1 0; min-width: 0; }
+.acc__head .icon { width: 18px; height: 18px; color: var(--color-text-secondary, #666b75); }                          /* Gray 700 */
+.acc:hover, .acc.is-hover { background: var(--color-gray-200, #edf0f4); }                                        /* Gray 200 */
+.acc:has(.acc__head:active), .acc.is-pressed { background: var(--color-gray-300, #dfe3ea); }                     /* Gray 300 */
+.acc__body {
+  display: none; margin-top: var(--spacing-12, 12px); padding-top: 11px; border-top: 1px solid var(--color-gray-400, #ced2da);    /* Gray 400 divider */
+  font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--color-text-secondary, #666b75);                  /* Body 14 Medium, Gray 700 */
+}
+.acc.is-open .acc__body { display: block; }
+.acc .icon-up { display: none; }
+.acc.is-open .icon-up { display: block; }
+.acc.is-open .icon-down { display: none; }
+
+/* ── List/Menu Item — 설정 목록 한 줄 (Figma 355:4391) ─────────── */
+.menu-card {
+  width: 100%; max-width: 335px; box-sizing: border-box;
+  margin: 0; padding: var(--spacing-12, 12px) 0; list-style: none;
+  background: var(--color-bg-surface, #fff); border-radius: var(--radius-card, 12px);
+  box-shadow: var(--shadow-100, 0 4px 12px rgb(33 37 41 / .04));
+}
+.menu-card__title {                                    /* 그룹 제목: Subtitle 14 SemiBold Gray 600 */
+  margin: 0; padding: var(--spacing-8, 8px) var(--spacing-20, 20px);
+  font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--color-gray-600, #8b909c);
+}
+.menu-row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-12, 12px);
+  width: 100%; height: 48px; box-sizing: border-box; padding: 0 var(--spacing-16, 16px) 0 var(--spacing-20, 20px);
+  border: 0; background: none; text-align: left; cursor: pointer; text-decoration: none;
+  font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--color-text-primary, #212329);   /* Body 16 Medium */
+}
+.menu-row:hover { background: var(--color-gray-100, #f2f4f8); }
+.menu-row:active { background: var(--color-gray-200, #edf0f4); }
+.menu-row .icon { width: 16px; height: 16px; color: var(--color-gray-800, #454952); }              /* Right=Chevron */
+.menu-row__value {                                                                                  /* Right=Value */
+  font-size: 14px; font-weight: 500; color: var(--color-gray-600, #8b909c);
+}
+.menu-row--value { padding-right: var(--spacing-20, 20px); cursor: default; }
+.menu-row--value:hover, .menu-row--value:active { background: none; }
+
+/* Icon List · Action=None, Marker=Star — 고정 질문(사전 질문). 순서 변경 · 삭제 없음 (Figma List/Icon List) */
+.list-card--fixed { color: var(--color-gray-700, #5c616c); }                                                        /* Gray 700 */
+.num-badge--star { background: var(--color-gray-700, #5c616c); }                                                     /* ★ on Gray 700 */
+
+/* ── List/Member Item — 팀원 한 줄 (Figma 437:6296) ── */
+.member-list { display: flex; flex-direction: column; gap: var(--spacing-12, 12px); margin: 0; padding: 0; list-style: none; }
+.member-item { display: flex; align-items: center; gap: var(--spacing-12, 12px); min-height: 32px; padding: 0; border: 0; background: none; text-align: left;
+  font: inherit; font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--color-text-primary, #212329); }          /* Body 15 Medium */
+.member-item--add { color: var(--color-text-accent, #6c9cfa); cursor: pointer; }                                         /* Type=Add */
+.member-item__add { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--color-bg-accent-secondary, #e9f0ff); }
+.member-item__add .icon, .member-item__add svg { display: block; width: 16px; height: 16px; }

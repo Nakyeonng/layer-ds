@@ -1,0 +1,32 @@
+/* ─────────────────────────────────────────────────────────────
+   Elevation — derived from Figma "Foundation / Elevation" (node 1:4091)
+   Values come only from that frame's effect styles Shadow/100–400.
+
+   Layer 1: shadow levels  (what exists)
+   Layer 2: usage aliases  (where each level is used, from the frame's labels)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Every shadow is the same near-black, only the alpha changes */
+  --shadow-color: 6 8 12;            /* #06080C as RGB channels */
+
+  /* Levels — first shadow in each list is drawn on top */
+  --shadow-100: 0 4px 12px 0 rgb(var(--shadow-color) / 0.04);
+  --shadow-200: 0 4px 8px 0 rgb(var(--shadow-color) / 0.12),
+                0 1px 4px 0 rgb(var(--shadow-color) / 0.08);
+  --shadow-300: 0 4px 12px 0 rgb(var(--shadow-color) / 0.12),
+                0 4px 8px 0 rgb(var(--shadow-color) / 0.08);
+  --shadow-400: 0 4px 12px 0 rgb(var(--shadow-color) / 0.22),
+                0 4px 8px 0 rgb(var(--shadow-color) / 0.08);
+
+  /* Usage — name the job, not the strength */
+  --shadow-card: var(--shadow-100);
+  --shadow-floating-button: var(--shadow-200);
+  --shadow-layer: var(--shadow-300);
+  --shadow-modal: var(--shadow-400);        /* modal and bottom sheet */
+}
+
+.elevation-100 { box-shadow: var(--shadow-100); }
+.elevation-200 { box-shadow: var(--shadow-200); }
+.elevation-300 { box-shadow: var(--shadow-300); }
+.elevation-400 { box-shadow: var(--shadow-400); }

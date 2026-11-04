@@ -1,0 +1,58 @@
+{
+  "$description": "Typography tokens derived from Figma Foundation/Typography (node 1:3589). Draft for review — W3C Design Tokens (DTCG) format.",
+  "font": {
+    "family": {
+      "primary": { "$type": "fontFamily", "$value": ["Pretendard", "-apple-system", "BlinkMacSystemFont", "Apple SD Gothic Neo", "Malgun Gothic", "sans-serif"] }
+    },
+    "weight": {
+      "medium":   { "$type": "fontWeight", "$value": 500 },
+      "semibold": { "$type": "fontWeight", "$value": 600 },
+      "bold":     { "$type": "fontWeight", "$value": 700 }
+    },
+    "size": {
+      "10": { "$type": "dimension", "$value": "10px" },
+      "11": { "$type": "dimension", "$value": "11px" },
+      "12": { "$type": "dimension", "$value": "12px" },
+      "14": { "$type": "dimension", "$value": "14px" },
+      "15": { "$type": "dimension", "$value": "15px" },
+      "16": { "$type": "dimension", "$value": "16px" },
+      "18": { "$type": "dimension", "$value": "18px" },
+      "20": { "$type": "dimension", "$value": "20px" },
+      "24": { "$type": "dimension", "$value": "24px" }
+    },
+    "line-height": {
+      "140": { "$type": "number", "$value": 1.4 },
+      "150": { "$type": "number", "$value": 1.5 }
+    },
+    "letter-spacing": {
+      "0": { "$type": "dimension", "$value": "0px" }
+    }
+  },
+  "text": {
+    "heading": {
+      "24-bold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}", "fontSize": "{font.size.24}", "lineHeight": "{font.line-height.150}", "letterSpacing": "{font.letter-spacing.0}" } }
+    },
+    "title": {
+      "20-bold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}", "fontSize": "{font.size.20}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "18-bold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}", "fontSize": "{font.size.18}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "16-bold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}", "fontSize": "{font.size.16}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } }
+    },
+    "subtitle": {
+      "18-semibold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.18}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "16-semibold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.16}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "14-semibold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.14}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } }
+    },
+    "body": {
+      "16-medium":   { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",   "fontSize": "{font.size.16}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "15-medium":   { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",   "fontSize": "{font.size.15}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "14-medium":   { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",   "fontSize": "{font.size.14}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "12-semibold": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.12}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "12-medium":   { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}",   "fontSize": "{font.size.12}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } }
+    },
+    "caption": {
+      "11-medium": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}", "fontSize": "{font.size.11}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "10-bold":   { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.bold}",   "fontSize": "{font.size.10}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } },
+      "10-medium": { "$type": "typography", "$value": { "fontFamily": "{font.family.primary}", "fontWeight": "{font.weight.medium}", "fontSize": "{font.size.10}", "lineHeight": "{font.line-height.140}", "letterSpacing": "{font.letter-spacing.0}" } }
+    }
+  }
+}

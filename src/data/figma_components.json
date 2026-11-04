@@ -1,0 +1,3357 @@
+{
+ "sets": {
+  "Button/Filled Button": {
+   "id": "1:1165",
+   "key": "92d11233f64133175ddf40e89592c2f3ba8b3239",
+   "defaultVariant": {
+    "name": "Size=48, Variant=Primary, State=Default",
+    "key": "f4fc14cd4a77bfe31456cb685860ac491bcdd787"
+   },
+   "size": [
+    208,
+    48
+   ],
+   "props": {
+    "Show Icon": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Icon#316:0"
+    },
+    "Label": {
+     "type": "text",
+     "default": "버튼",
+     "key": "Label#316:21"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "48",
+      "40",
+      "36"
+     ],
+     "default": "48"
+    },
+    "Variant": {
+     "type": "variant",
+     "options": [
+      "Primary",
+      "Secondary",
+      "Blue",
+      "Light Blue",
+      "White"
+     ],
+     "default": "Primary"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed",
+      "Disabled"
+     ],
+     "default": "Default"
+    },
+    "Icon": {
+     "type": "instance-swap",
+     "default": "Icon/Assets/Arrow-left",
+     "key": "Icon#367:0"
+    },
+    "Show Label": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Label#426:9"
+    }
+   }
+  },
+  "Button/Ghost Button": {
+   "id": "1:1226",
+   "key": "0882056092139e84e8c2135e73495b0a305f3612",
+   "defaultVariant": {
+    "name": "Size=48, Variant=Primary, State=Default",
+    "key": "495863e297ac8fe89b010098ad01a4d128099abc"
+   },
+   "size": [
+    208,
+    48
+   ],
+   "props": {
+    "Show Icon": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Icon#316:51"
+    },
+    "Label": {
+     "type": "text",
+     "default": "버튼",
+     "key": "Label#316:60"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "48",
+      "40"
+     ],
+     "default": "48"
+    },
+    "Variant": {
+     "type": "variant",
+     "options": [
+      "Primary",
+      "Blue"
+     ],
+     "default": "Primary"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Button/Outlined Button": {
+   "id": "1:1251",
+   "key": "5f984b32c9d6173fe2fcb37d7dcc13bafcd0d9b8",
+   "defaultVariant": {
+    "name": "Size=48, Variant=Primary, State=Default",
+    "key": "7f8ae9a44cfc676222fe7e6f5c0af2f47988216f"
+   },
+   "size": [
+    208,
+    48
+   ],
+   "props": {
+    "Show Icon": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Icon#316:78"
+    },
+    "Label": {
+     "type": "text",
+     "default": "버튼",
+     "key": "Label#316:87"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "48",
+      "40"
+     ],
+     "default": "48"
+    },
+    "Variant": {
+     "type": "variant",
+     "options": [
+      "Primary",
+      "Blue"
+     ],
+     "default": "Primary"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed",
+      "Disabled"
+     ],
+     "default": "Default"
+    },
+    "Icon": {
+     "type": "instance-swap",
+     "default": "Icon/Assets/Arrow-left",
+     "key": "Icon#468:0"
+    }
+   }
+  },
+  "Button/Floating Button": {
+   "id": "1:1276",
+   "key": "20172bddeacd0624969a801304c66c52ee1afd83",
+   "defaultVariant": {
+    "name": "Size=48, Variant=Primary, State=Default",
+    "key": "42785dcd530a7c93f7d54958c31ebc8d0553e680"
+   },
+   "size": [
+    83,
+    48
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "버튼",
+     "key": "Label#316:96"
+    },
+    "Show Icon": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Icon#316:106"
+    },
+    "Show Text": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Text#997:9"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "48",
+      "40"
+     ],
+     "default": "48"
+    },
+    "Variant": {
+     "type": "variant",
+     "options": [
+      "Primary"
+     ],
+     "default": "Primary"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Button/Button Group": {
+   "id": "1:1289",
+   "key": "b101aba3fc7721d16e2a863787142507fa5604d6",
+   "defaultVariant": {
+    "name": "Button=Single",
+    "key": "f348dd9bd6cc5944b3e9be1ebee3ce0d16c4efb7"
+   },
+   "size": [
+    375,
+    106
+   ],
+   "props": {
+    "Show SafeArea": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show SafeArea#330:12"
+    },
+    "Button": {
+     "type": "variant",
+     "options": [
+      "Single",
+      "Stacked",
+      "Side by Side"
+     ],
+     "default": "Single"
+    }
+   }
+  },
+  "Chip/Two Choice": {
+   "id": "1:1325",
+   "key": "fba0a416ce59dd41de44943de3dc117db565ad91",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "62e9ceb5cb74faaf111d54578898b0bf58ed0bb6"
+   },
+   "size": [
+    163,
+    163
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "유형타이틀",
+     "key": "Label#383:0"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed/Selected",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Chip/Multi Choice with Icon": {
+   "id": "1:1338",
+   "key": "a048c254c9ba1030001c950fceba9b2581220069",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "6c6519f8cbffa18bb863c660e4582b9a51cd7943"
+   },
+   "size": [
+    112,
+    48
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "타이틀",
+     "key": "Label#383:4"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed/Selected",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Chip/Multi Choice": {
+   "id": "1:1348",
+   "key": "008f7abcaf5755188692597cf852afb58a6106f3",
+   "defaultVariant": {
+    "name": "Size=48, State=Default",
+    "key": "9ad8ba9efaa6ececc94edcd476dfd9a790a7394f"
+   },
+   "size": [
+    82,
+    48
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "타이틀",
+     "key": "Label#383:8"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "48",
+      "38"
+     ],
+     "default": "48"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Pressed/Selected",
+      "Default",
+      "Hover",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Progress/Progress Bar": {
+   "id": "1:1355",
+   "key": "0ab46d9cfce3f426c8e30bedef07e0903fa60dd4",
+   "defaultVariant": {
+    "name": "Step Size=4, Current Step=0",
+    "key": "7a455ba64e913e97c40303ba9454d987e71a191b"
+   },
+   "size": [
+    335,
+    4
+   ],
+   "props": {
+    "Step Size": {
+     "type": "variant",
+     "options": [
+      "4",
+      "3",
+      "2"
+     ],
+     "default": "4"
+    },
+    "Current Step": {
+     "type": "variant",
+     "options": [
+      "1",
+      "0",
+      "2",
+      "3",
+      "4"
+     ],
+     "default": "0"
+    }
+   }
+  },
+  "Tabs/Tab Item/Text Tab Item (Default)": {
+   "id": "1:1394",
+   "key": "04eb8b3c9b5c5067d1ae6e9b7a08897a17db358b",
+   "defaultVariant": {
+    "name": "Underline=On, State=Selected, Size=18",
+    "key": "8781a9b82aee752fbdd0c268610ac0702d782f20"
+   },
+   "size": [
+    40,
+    40
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "회고",
+     "key": "Title#405:0"
+    },
+    "Underline": {
+     "type": "variant",
+     "options": [
+      "On",
+      "Off"
+     ],
+     "default": "On"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Selected",
+      "Unselected",
+      "Hover"
+     ],
+     "default": "Selected"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "18",
+      "14"
+     ],
+     "default": "18"
+    }
+   }
+  },
+  "Tabs/Text Tabs": {
+   "id": "407:6624",
+   "key": "0a2bf3f23c7bdcd363d049cf373286ae2d92f58b",
+   "defaultVariant": {
+    "name": "Size=18",
+    "key": "0a6bc42be7abb2786a9e8406ef261b491c70b327"
+   },
+   "size": [
+    168,
+    40
+   ],
+   "props": {
+    "Size": {
+     "type": "variant",
+     "options": [
+      "18",
+      "14"
+     ],
+     "default": "18"
+    },
+    "Show Tab 3": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Tab 3#407:0"
+    },
+    "Show Tab 4": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Tab 4#407:3"
+    },
+    "Show Divider": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Divider#407:6"
+    }
+   }
+  },
+  "Tabs/Tab Item/Text Tab Item (Fixed)": {
+   "id": "1:1432",
+   "key": "37b77496109b004305fa532e05fefd197cc5ad91",
+   "defaultVariant": {
+    "name": "State=Selected",
+    "key": "757e8efd140277226430c3cbfd58320f837e1801"
+   },
+   "size": [
+    47,
+    44
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "타이틀",
+     "key": "Title#415:0"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Selected",
+      "Unselected",
+      "Hover"
+     ],
+     "default": "Selected"
+    }
+   }
+  },
+  "Tabs/Text Fixed Tabs": {
+   "id": "1:1439",
+   "key": "492bbfdbad0f3208a7f778c12fede8bb015b5d03",
+   "defaultVariant": {
+    "name": "Item=3 Tabs, Outline=No Outlined",
+    "key": "be60de78e3e8f444d907e42e3f6ce0ce26160273"
+   },
+   "size": [
+    375,
+    44
+   ],
+   "props": {
+    "Item": {
+     "type": "variant",
+     "options": [
+      "2 Tabs",
+      "3 Tabs"
+     ],
+     "default": "3 Tabs"
+    },
+    "Outline": {
+     "type": "variant",
+     "options": [
+      "Outlined",
+      "No Outlined"
+     ],
+     "default": "No Outlined"
+    }
+   }
+  },
+  "Tabs/Tab Item/Box Tab Item": {
+   "id": "1:1458",
+   "key": "9b0379ef13dc7d66a12debbbc987089d543c1f18",
+   "defaultVariant": {
+    "name": "State=Selected",
+    "key": "cc084bd999aa3a8c011571c6fd087ae4295f5aec"
+   },
+   "size": [
+    69,
+    38
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "타이틀",
+     "key": "Title#415:3"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Unselected",
+      "Selected",
+      "Hover"
+     ],
+     "default": "Selected"
+    }
+   }
+  },
+  "Tabs/Box Tabs": {
+   "id": "1:1463",
+   "key": "29ebdd14936f85e6594515a25fa2f0e05e66639a",
+   "defaultVariant": {
+    "name": "Item=Scrollable",
+    "key": "c37aced0d36138972aae3f020dbfcb7781726fcb"
+   },
+   "size": [
+    375,
+    74
+   ],
+   "props": {
+    "Item": {
+     "type": "variant",
+     "options": [
+      "Scrollable",
+      "3 Tabs",
+      "2 Tabs"
+     ],
+     "default": "Scrollable"
+    }
+   }
+  },
+  "Bottom Sheet/Short": {
+   "id": "1:1633",
+   "key": "7b618169c0d5ee4b30a35aa0aa1d81c906a14105",
+   "defaultVariant": {
+    "name": "Content=Default, Button=None",
+    "key": "8401311eddf5425ef0d2e9211b4899c166af6534"
+   },
+   "size": [
+    375,
+    357
+   ],
+   "props": {
+    "Illustration": {
+     "type": "instance-swap",
+     "default": "Retro/KPT",
+     "key": "Illustration#278:0"
+    },
+    "Show Title": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Title#474:6"
+    },
+    "Show Close": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Close#474:12"
+    },
+    "Content": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Chip Button",
+      "Illustration",
+      "Text Area"
+     ],
+     "default": "Default"
+    },
+    "Button": {
+     "type": "variant",
+     "options": [
+      "None",
+      "Single",
+      "Side by Side"
+     ],
+     "default": "None"
+    }
+   }
+  },
+  "Bottom Sheet/Long": {
+   "id": "1:1739",
+   "key": "60881b7fdf235f1d15fab9343e4168e32cf3f470",
+   "defaultVariant": {
+    "name": "Content=Default",
+    "key": "c89307d03bedf9fb9e682206be2c89e89d3ecbae"
+   },
+   "size": [
+    375,
+    670
+   ],
+   "props": {
+    "Show Close": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Close#278:7"
+    },
+    "Show Title": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Title#474:18"
+    },
+    "Content": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Tab",
+      "Tab + Text Input",
+      "Tab + Filter"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Date Time Picker": {
+   "id": "1:1811",
+   "key": "8a34b031cf310e801e1268eac8aaf07ecdb8d329",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "68bc7bdc3527f9f5961d3f419d46c8c34f80d915"
+   },
+   "size": [
+    375,
+    670
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Date Selected",
+      "Time Selected (AM)",
+      "Time Selected (PM)"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Date Picker/Day": {
+   "id": "241:10075",
+   "key": "f42b2d4b8ef8b532fdc3f755dbd36c80a8fd4233",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "eccbadc80404cdc14aa2c759947e51bcfcd7f0d8"
+   },
+   "size": [
+    41,
+    41
+   ],
+   "props": {
+    "Day": {
+     "type": "text",
+     "default": "20",
+     "key": "Day#241:7"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed",
+      "Selected",
+      "Today",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Fields/Select Field": {
+   "id": "1:2315",
+   "key": "72cc32d93eac73a600ad948048f8ed3cbee8ddf7",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "2b0bd797de2ffab4253f9a2455a17cb24c65dc8a"
+   },
+   "size": [
+    335,
+    53
+   ],
+   "props": {
+    "Placeholder": {
+     "type": "text",
+     "default": "회고 마감일을 선택해 주세요",
+     "key": "Placeholder#444:8"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Selected",
+      "Disabled",
+      "Focus"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Fields/Text Input": {
+   "id": "1:2333",
+   "key": "64755c6ae7bff658893e31bc6f14f877847a5558",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "d55eae083b17d99479c3a0b61fe54d160d17adb8"
+   },
+   "size": [
+    300,
+    81
+   ],
+   "props": {
+    "Show Label": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Label#420:0"
+    },
+    "Placeholder": {
+     "type": "text",
+     "default": "Text",
+     "key": "Placeholder#444:0"
+    },
+    "Char limit": {
+     "type": "boolean",
+     "default": true,
+     "key": "Char limit#444:21"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Focus",
+      "Typing",
+      "Typed",
+      "OverTyping",
+      "Error",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Fields/Text Area": {
+   "id": "1:2389",
+   "key": "4942ced515be69593ba9c09cfabe6db7fabe241c",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "a3de067aafce2962e4a016503eee013d434e0569"
+   },
+   "size": [
+    300,
+    102
+   ],
+   "props": {
+    "Show Label": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Label#420:15"
+    },
+    "Placeholder": {
+     "type": "text",
+     "default": "Text",
+     "key": "Placeholder#444:13"
+    },
+    "Char limit": {
+     "type": "boolean",
+     "default": true,
+     "key": "Char limit#444:29"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Focus",
+      "Typing",
+      "Typed",
+      "Error",
+      "OverTyping",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Controls/Checkbox": {
+   "id": "1:2485",
+   "key": "19ae06c9480899cac383a45112f523baad5e0324",
+   "defaultVariant": {
+    "name": "Type=Default, State=Checked, Disable=False, Interaction=Default",
+    "key": "334a07b7d1a052a186dcc14405dd02bd8a9458cd"
+   },
+   "size": [
+    24,
+    24
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Label Left",
+      "Label Right"
+     ],
+     "default": "Default"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Checked",
+      "Unchecked"
+     ],
+     "default": "Checked"
+    },
+    "Disable": {
+     "type": "variant",
+     "options": [
+      "False",
+      "True"
+     ],
+     "default": "False"
+    },
+    "Interaction": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Controls/Radio": {
+   "id": "213:3411",
+   "key": "b6c38d3b2c1717d2e97c7f49d6a0b71543484cd9",
+   "defaultVariant": {
+    "name": "Type=Default, State=Checked, Disable=False, Interaction=Default",
+    "key": "d40f5d018b66a01a9f4f3b7ed2b93fac0dfde0fa"
+   },
+   "size": [
+    24,
+    24
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Label Left",
+      "Label Right"
+     ],
+     "default": "Default"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Checked",
+      "Unchecked"
+     ],
+     "default": "Checked"
+    },
+    "Disable": {
+     "type": "variant",
+     "options": [
+      "False",
+      "True"
+     ],
+     "default": "False"
+    },
+    "Interaction": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "List/Checkbox List": {
+   "id": "1:2695",
+   "key": "4de38e4563e23dd80ff0b3eb598ea4218f536a28",
+   "defaultVariant": {
+    "name": "State=Unchecked",
+    "key": "dd015bc705aebdab4bdebd2e149c2d1195d5132d"
+   },
+   "size": [
+    375,
+    58
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Unchecked",
+      "Checked"
+     ],
+     "default": "Unchecked"
+    }
+   }
+  },
+  "Accordion/Index Title": {
+   "id": "1:2872",
+   "key": "c7389ea6eaed676615ea924d0218e4b4d7ccaafd",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "4764d1910edbc0c38a5f16c8936fd01c1f75e7b7"
+   },
+   "size": [
+    140,
+    40
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Hover",
+      "Pressed",
+      "Default"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Accordion/Index": {
+   "id": "1:2885",
+   "key": "73084cfc7eac508c5095fa7ca12398448287abf9",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "780881aa3caa032f663b9fe4e988dc62a283802c"
+   },
+   "size": [
+    335,
+    296
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Accordion/Contents": {
+   "id": "1:2986",
+   "key": "8a146103cc1f15ede25aa39180cb4f47ed970e06",
+   "defaultVariant": {
+    "name": "State=Default, Type=Fold",
+    "key": "2af53f93bcc522584be62ca7c3839098acbb7dac"
+   },
+   "size": [
+    335,
+    62
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed"
+     ],
+     "default": "Default"
+    },
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Fold",
+      "Unfold"
+     ],
+     "default": "Fold"
+    }
+   }
+  },
+  "List/Icon List": {
+   "id": "219:3423",
+   "key": "ff013dc29cd554d711d3d3e435c4744350924179",
+   "defaultVariant": {
+    "name": "Action=Reorder, Marker=Number",
+    "key": "38db49c46a9c70de96c91b1cecdc791498d14e3c"
+   },
+   "size": [
+    335,
+    50
+   ],
+   "props": {
+    "Action": {
+     "type": "variant",
+     "options": [
+      "Reorder",
+      "Delete",
+      "None"
+     ],
+     "default": "Reorder"
+    },
+    "Marker": {
+     "type": "variant",
+     "options": [
+      "Number",
+      "Star"
+     ],
+     "default": "Number"
+    },
+    "Number": {
+     "type": "text",
+     "default": "1",
+     "key": "Number#426:0"
+    },
+    "Text": {
+     "type": "text",
+     "default": "Text",
+     "key": "Text#426:3"
+    }
+   }
+  },
+  "Accordion/Index Item": {
+   "id": "220:3442",
+   "key": "64199f935b5ab29f2c54f14f4fee1b472307536a",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "e61e5e2ad8c9db7aec7179397f0aecba536e57fc"
+   },
+   "size": [
+    335,
+    46
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed",
+      "Selected"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "App Bar/OS Bar": {
+   "id": "1:3954",
+   "key": "62dd42936f960c94944bdf2fed28628c9f394f86",
+   "defaultVariant": {
+    "name": "Category=Status Bar (iOS 18)",
+    "key": "41d9d609ccafaeba9240789344ae77d7192d8b42"
+   },
+   "size": [
+    393,
+    54
+   ],
+   "props": {
+    "Category": {
+     "type": "variant",
+     "options": [
+      "SafeArea (iOS 14) ✅",
+      "Status Bar (iOS 14) ✅",
+      "Status Bar (iOS 18)",
+      "SafeArea (iOS 18)",
+      "Safe Area (Android)",
+      "Status Bar (Android)"
+     ],
+     "default": "Status Bar (iOS 18)"
+    }
+   }
+  },
+  "Profile": {
+   "id": "1:3978",
+   "key": "8b63846f93bcf9b010e3a84421efb12a07a47481",
+   "defaultVariant": {
+    "name": "Avartar=UserIcon, Size=32",
+    "key": "074ebbe683036785b25aa560a5e0a3b912dfe411"
+   },
+   "size": [
+    32,
+    32
+   ],
+   "props": {
+    "Avartar": {
+     "type": "variant",
+     "options": [
+      "Image",
+      "UserIcon"
+     ],
+     "default": "UserIcon"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "32",
+      "42",
+      "28"
+     ],
+     "default": "32"
+    },
+    "Show Leader": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Leader#435:0"
+    }
+   }
+  },
+  "App Bar/Top App Bar": {
+   "id": "1:3989",
+   "key": "c55397b877a1b58290d013a5e917744313fe2eae",
+   "defaultVariant": {
+    "name": "Style=Home",
+    "key": "6ded41e699adc80324d44f0dfcdc0b4fa3f5abce"
+   },
+   "size": [
+    375,
+    58
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "회고",
+     "key": "Title#313:6"
+    },
+    "Show Right": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Right#313:7"
+    },
+    "Show Left": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Left#313:8"
+    },
+    "Left Icon": {
+     "type": "instance-swap",
+     "default": "Icon/Assets/Arrow-left",
+     "key": "Left Icon#330:4"
+    },
+    "Show Title": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Title#330:8"
+    },
+    "Show Text Button": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Text Button#997:5"
+    },
+    "Style": {
+     "type": "variant",
+     "options": [
+      "Home",
+      "Sub (Black)",
+      "Sub (White)"
+     ],
+     "default": "Home"
+    }
+   }
+  },
+  "App Bar/Navigation Bar": {
+   "id": "1:4016",
+   "key": "fc03f7f12e98e5c31c863bad8e41ae3d1678ff45",
+   "defaultVariant": {
+    "name": "On=Home",
+    "key": "ade6739daae44b1d88ea496bada41aae8a1c8244"
+   },
+   "size": [
+    375,
+    88
+   ],
+   "props": {
+    "Show SafeArea": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show SafeArea#330:0"
+    },
+    "On": {
+     "type": "variant",
+     "options": [
+      "Home",
+      "Action Item",
+      "Analysis"
+     ],
+     "default": "Home"
+    }
+   }
+  },
+  "Popup": {
+   "id": "1:4704",
+   "key": "d7034c7fc95154409580d105dda6c8eb15efea02",
+   "defaultVariant": {
+    "name": "Type=Basic, Button=Single",
+    "key": "20b3ec069eadaf9b2879fd8832421df0eff70035"
+   },
+   "size": [
+    315,
+    185
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "Title",
+     "key": "Title#247:0"
+    },
+    "Sub Title": {
+     "type": "text",
+     "default": "Sub title",
+     "key": "Sub Title#247:7"
+    },
+    "Show Title": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Title#247:14"
+    },
+    "Show Sub Title": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Sub Title#247:21"
+    },
+    "Illustration": {
+     "type": "instance-swap",
+     "default": "Content/Recommend",
+     "key": "Illustration#257:0"
+    },
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Basic",
+      "With Illustration"
+     ],
+     "default": "Basic"
+    },
+    "Button": {
+     "type": "variant",
+     "options": [
+      "Single",
+      "Side by Side",
+      "Stacked"
+     ],
+     "default": "Single"
+    }
+   }
+  },
+  "Toasts/Toast": {
+   "id": "1:4917",
+   "key": "ed1c77a5663d37e934da22ac5dfe7d61b23beee4",
+   "defaultVariant": {
+    "name": "Type=Text",
+    "key": "b44bc1010043607de945070f440e885946bcab5f"
+   },
+   "size": [
+    335,
+    58
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "Text",
+     "key": "Label#415:21"
+    },
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Text",
+      "Info",
+      "Caution"
+     ],
+     "default": "Text"
+    }
+   }
+  },
+  "Tooltips/Function Tooltip": {
+   "id": "1:4927",
+   "key": "8f24617373e04e797238b9fe5a813b9fd536d141",
+   "defaultVariant": {
+    "name": "Arrow=Bottom-Left, Color=Blue",
+    "key": "f3923272ece4757f73502f4fd7c695487c570afb"
+   },
+   "size": [
+    195,
+    45
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "툴팁 내 자세한 내용을 작성해주세요",
+     "key": "Label#415:24"
+    },
+    "Arrow": {
+     "type": "variant",
+     "options": [
+      "Bottom-Right",
+      "Bottom-Left",
+      "Top-Left",
+      "Top-Right",
+      "Bottom-Center"
+     ],
+     "default": "Bottom-Left"
+    },
+    "Color": {
+     "type": "variant",
+     "options": [
+      "Blue",
+      "Gray"
+     ],
+     "default": "Blue"
+    }
+   }
+  },
+  "Tooltips/Hover Tooltip": {
+   "id": "1:4946",
+   "key": "8122370b3e1507aacca3f949636269836e9a8831",
+   "defaultVariant": {
+    "name": "Align=Left",
+    "key": "d8e2569ca096458ebba57e839df825f51a175604"
+   },
+   "size": [
+    191,
+    33
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "툴팁 내 자세한 내용을 작성해주세요",
+     "key": "Label#415:24"
+    },
+    "Align": {
+     "type": "variant",
+     "options": [
+      "Left"
+     ],
+     "default": "Left"
+    }
+   }
+  },
+  "Tooltips/Guide Tooltip": {
+   "id": "1:4956",
+   "key": "49370ae4f0eb05f021dc6a615747733e06de2f7c",
+   "defaultVariant": {
+    "name": "Type=Guide",
+    "key": "1c76f0752434009dac56d340e9a22f8d365f696c"
+   },
+   "size": [
+    335,
+    66
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Guide"
+     ],
+     "default": "Guide"
+    }
+   }
+  },
+  "Scroll Bar/Scroll Bar": {
+   "id": "1:2516",
+   "key": "0d7e29305c2e67846799e8af6e5933a302cd046a",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "79e3266ca15190ba3faa85be8e267a53ced20b4b"
+   },
+   "size": [
+    10,
+    280
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Badge": {
+   "id": "332:4239",
+   "key": "e07fc8667d7e7aa58b624e83cbf07c39ae2be754",
+   "defaultVariant": {
+    "name": "Color=Blue, Size=22, Style=Filled",
+    "key": "edac933873eb9518a9cee6b88c6e069ff3845994"
+   },
+   "size": [
+    55,
+    22
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "진행 중 1",
+     "key": "Label#332:1"
+    },
+    "Color": {
+     "type": "variant",
+     "options": [
+      "Blue",
+      "White",
+      "Gray",
+      "Green",
+      "Dark"
+     ],
+     "default": "Blue"
+    },
+    "Size": {
+     "type": "variant",
+     "options": [
+      "22",
+      "25"
+     ],
+     "default": "22"
+    },
+    "Style": {
+     "type": "variant",
+     "options": [
+      "Filled",
+      "Outlined"
+     ],
+     "default": "Filled"
+    }
+   }
+  },
+  "List/Menu Item": {
+   "id": "355:4391",
+   "key": "703b11f0c5ddeee164d478be568f740784e6ddab",
+   "defaultVariant": {
+    "name": "Right=Chevron",
+    "key": "de15487a0d566b4b8ce5d0924898d07e8c7ede6f"
+   },
+   "size": [
+    335,
+    48
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "공지사항",
+     "key": "Label#355:0"
+    },
+    "Value": {
+     "type": "text",
+     "default": "1.0.0",
+     "key": "Value#355:4"
+    },
+    "Right": {
+     "type": "variant",
+     "options": [
+      "Chevron",
+      "Value",
+      "None"
+     ],
+     "default": "Chevron"
+    }
+   }
+  },
+  "LNB": {
+   "id": "324:68683",
+   "key": "ec0a24d62aaf4a243b7d41d2bc5d26863e1f9828",
+   "defaultVariant": {
+    "name": "Fold=Off, Current=Space",
+    "key": "9695e4767c8ead30f4a052dc4d22b3590949da9d"
+   },
+   "size": [
+    284,
+    900
+   ],
+   "props": {
+    "Fold": {
+     "type": "variant",
+     "options": [
+      "Off",
+      "On"
+     ],
+     "default": "Off"
+    },
+    "Current": {
+     "type": "variant",
+     "options": [
+      "Home",
+      "Space"
+     ],
+     "default": "Space"
+    }
+   }
+  },
+  "Empty State": {
+   "id": "361:4414",
+   "key": "0836b05800439a3ecb615a3d6a8ee889f0ee3010",
+   "size": [
+    335,
+    176
+   ],
+   "props": {
+    "Message": {
+     "type": "text",
+     "default": "진행 중인 실행 목표가 없어요",
+     "key": "Message#361:0"
+    },
+    "Show Icon": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Icon#361:1"
+    },
+    "Icon": {
+     "type": "instance-swap",
+     "default": "Empty State/Icon/Goal",
+     "key": "Icon#361:2"
+    },
+    "Border": {
+     "type": "variant",
+     "options": [
+      "Dashed",
+      "None"
+     ],
+     "default": "Dashed"
+    }
+   },
+   "defaultVariant": {
+    "name": "Border=Dashed",
+    "key": "83434c5fc4100d49f7db1553a6bae737fa04dfd8"
+   }
+  },
+  "Card/Retro (Web)": {
+   "id": "324:69190",
+   "key": "807df9f974bcd631a3eee58f2dda4c8f7d7ef39f",
+   "defaultVariant": {
+    "name": "Status=Before, Deadline=Set, Selected=Off",
+    "key": "34b738de4f9d4f269faeece0445a1cf45f50e358"
+   },
+   "size": [
+    296,
+    138
+   ],
+   "props": {
+    "Status": {
+     "type": "variant",
+     "options": [
+      "Before",
+      "Writing",
+      "Submitted",
+      "Analyzed"
+     ],
+     "default": "Before"
+    },
+    "Deadline": {
+     "type": "variant",
+     "options": [
+      "Set",
+      "Unset",
+      "Closed"
+     ],
+     "default": "Set"
+    },
+    "Selected": {
+     "type": "variant",
+     "options": [
+      "Off",
+      "On"
+     ],
+     "default": "Off"
+    },
+    "Title": {
+     "type": "text",
+     "default": "중간발표 이후 회고",
+     "key": "Title#487:0"
+    },
+    "Description": {
+     "type": "text",
+     "default": "방향성 체크 및 팀 내 개선점 구축",
+     "key": "Description#487:15"
+    },
+    "Date": {
+     "type": "text",
+     "default": "2024.07.30 10:00",
+     "key": "Date#487:30"
+    },
+    "Count": {
+     "type": "text",
+     "default": "1",
+     "key": "Count#487:45"
+    },
+    "Total": {
+     "type": "text",
+     "default": "10",
+     "key": "Total#487:60"
+    },
+    "Show Description": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Description#499:0"
+    }
+   }
+  },
+  "Dropdown": {
+   "id": "363:30483",
+   "key": "95f6b6a39ff7e0018f7e8b35183181222fe77e50",
+   "defaultVariant": {
+    "name": "State=Default",
+    "key": "d7653067b40c112eba8b6e05a508236f1dd310ac"
+   },
+   "size": [
+    90,
+    40
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "KPT",
+     "key": "Label#363:4"
+    },
+    "Show Icon": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Icon#363:8"
+    },
+    "Icon": {
+     "type": "instance-swap",
+     "default": "Icon/Graphic/Template",
+     "key": "Icon#363:12"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Pressed"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Card/Goal (Web)": {
+   "id": "372:21826",
+   "key": "fea66a8cd88e937dc35d1223fba9da89fa418d2b",
+   "size": [
+    270,
+    169
+   ],
+   "props": {
+    "Badge": {
+     "type": "variant",
+     "options": [
+      "On",
+      "Off"
+     ],
+     "default": "On"
+    },
+    "Title": {
+     "type": "text",
+     "default": "스프린트 1회차 이후 회고",
+     "key": "Title#372:0"
+    },
+    "Item 1": {
+     "type": "text",
+     "default": "긴 회의시간 줄이기",
+     "key": "Item 1#372:3"
+    },
+    "Item 2": {
+     "type": "text",
+     "default": "회의 후 내용 꼭 기록해두기",
+     "key": "Item 2#372:6"
+    },
+    "Item 3": {
+     "type": "text",
+     "default": "‘린 분석' 북 스터디 진행",
+     "key": "Item 3#372:9"
+    },
+    "Show Item 2": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Item 2#372:12"
+    },
+    "Show Item 3": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Item 3#372:15"
+    },
+    "Show Items": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Items#459:36"
+    }
+   }
+  },
+  "Logo": {
+   "id": "388:22120",
+   "key": "5fa0458d182ae5f01465a95561e8d14cd38ba180",
+   "defaultVariant": {
+    "name": "Type=Horizontal",
+    "key": "114fc22accadbb5b2276877eb17eee4579908c6f"
+   },
+   "size": [
+    64,
+    21
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Horizontal",
+      "Symbol"
+     ],
+     "default": "Horizontal"
+    }
+   }
+  },
+  "Button/Pager": {
+   "id": "394:6673",
+   "key": "8f76e689c9893faf2aadca52fb8ecc4fc5ee8abb",
+   "defaultVariant": {
+    "name": "Direction=Prev, State=Default",
+    "key": "43a17b34bc620943d7d1d11fc019b9b17679adde"
+   },
+   "size": [
+    62,
+    32
+   ],
+   "props": {
+    "Direction": {
+     "type": "variant",
+     "options": [
+      "Prev",
+      "Next"
+     ],
+     "default": "Prev"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover",
+      "Disabled"
+     ],
+     "default": "Default"
+    }
+   }
+  },
+  "Question Index Item": {
+   "id": "394:6687",
+   "key": "e545f45a084ce0037a26bb9ac45de447206bc651",
+   "size": [
+    278,
+    52
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Unanswered",
+      "Current",
+      "Answered"
+     ],
+     "default": "Unanswered"
+    },
+    "Marker": {
+     "type": "text",
+     "default": "1.",
+     "key": "Marker#394:1"
+    },
+    "Question": {
+     "type": "text",
+     "default": "계속 유지하고 싶은 것은 무엇인가요?",
+     "key": "Question#394:5"
+    }
+   }
+  },
+  "Accordion/Section (Web)": {
+   "id": "394:6818",
+   "key": "55a94f53a1882e188a89604d2556c56c66aaa6ef",
+   "size": [
+    296,
+    37
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Collapsed",
+      "Expanded"
+     ],
+     "default": "Collapsed"
+    },
+    "Title": {
+     "type": "text",
+     "default": "실행목표",
+     "key": "Title#394:11"
+    }
+   }
+  },
+  "Segmented Control": {
+   "id": "400:6609",
+   "key": "75360c29b62c2164794f279730f833f889c36633",
+   "defaultVariant": {
+    "name": "Item=2",
+    "key": "bbf372baadb83faa8c4b1c4fa4fd13bf8bc1332f"
+   },
+   "size": [
+    88,
+    37
+   ],
+   "props": {
+    "Item": {
+     "type": "variant",
+     "options": [
+      "2",
+      "3"
+     ],
+     "default": "2"
+    }
+   }
+  },
+  "Segmented Control/Item": {
+   "id": "400:6595",
+   "key": "f92b375317edfbbfa2e3ffed650c05952426ded9",
+   "size": [
+    45,
+    29
+   ],
+   "props": {
+    "State": {
+     "type": "variant",
+     "options": [
+      "Selected",
+      "Unselected",
+      "Hover"
+     ],
+     "default": "Selected"
+    },
+    "Label": {
+     "type": "text",
+     "default": "팀",
+     "key": "Label#400:0"
+    }
+   }
+  },
+  "Button/Text Button": {
+   "id": "349:4221",
+   "key": "15c13006e5fa536d61107d374d1916c50048a68f",
+   "defaultVariant": {
+    "name": "Type=Accent, State=Default",
+    "key": "23004bd3dfcffea32a31b268365c4bc29b4f0047"
+   },
+   "size": [
+    28,
+    22
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "완료",
+     "key": "Label#349:0"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Disabled"
+     ],
+     "default": "Default"
+    },
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Accent",
+      "Neutral"
+     ],
+     "default": "Accent"
+    }
+   }
+  },
+  "List/Member Item": {
+   "id": "437:6296",
+   "key": "b9ebe5ddde48495ed2c4ec84e66d668d9d0474bb",
+   "defaultVariant": {
+    "name": "Type=Add",
+    "key": "38effe2b54632a8af0e8f4dbbd2344dd7fc28457"
+   },
+   "size": [
+    240,
+    32
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Add",
+      "Member"
+     ],
+     "default": "Add"
+    },
+    "Name": {
+     "type": "text",
+     "default": "홍길동",
+     "key": "Name#437:0"
+    }
+   }
+  },
+  "Menu/Menu Item": {
+   "id": "437:6306",
+   "key": "17d80de816b00afbe7c14f0c7f3f02073ff0c929",
+   "defaultVariant": {
+    "name": "Type=Default, State=Default",
+    "key": "c63aa8e5607375f3313a03910c20fa12e731886f"
+   },
+   "size": [
+    165,
+    36
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Danger"
+     ],
+     "default": "Default"
+    },
+    "State": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Hover"
+     ],
+     "default": "Default"
+    },
+    "Label": {
+     "type": "text",
+     "default": "대표자 변경",
+     "key": "Label#437:3"
+    }
+   }
+  },
+  "Template/Web": {
+   "id": "449:6726",
+   "key": "4f0a97954b6b286cedcfa03d96712dee7b8f7927",
+   "defaultVariant": {
+    "name": "Type=List",
+    "key": "15987dab8169c98e21a2cea0ac52bea828cbcd00"
+   },
+   "size": [
+    1440,
+    900
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "List",
+      "Work"
+     ],
+     "default": "List"
+    },
+    "Content": {
+     "type": "slot",
+     "default": "",
+     "key": "Content#449:12"
+    },
+    "List": {
+     "type": "slot",
+     "default": "",
+     "key": "List#449:13"
+    },
+    "Panel": {
+     "type": "slot",
+     "default": "",
+     "key": "Panel#449:14"
+    }
+   }
+  },
+  "Card/Retro (Mobile)": {
+   "id": "456:6410",
+   "key": "3f901914a59bc08e3d6995dadf4afe5892b80f23",
+   "defaultVariant": {
+    "name": "Status=Open, Progress=Before",
+    "key": "03bacfb580b29dfaa992f54e011c395d985b095f"
+   },
+   "size": [
+    335,
+    160
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "중간발표 이후 회고",
+     "key": "Title#456:1"
+    },
+    "Description": {
+     "type": "text",
+     "default": "방향성 체크 및 팀 내 개선점 구축",
+     "key": "Description#456:2"
+    },
+    "Deadline": {
+     "type": "text",
+     "default": "2024. 07. 30 오전 10:00",
+     "key": "Deadline#456:3"
+    },
+    "Show Deadline": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Deadline#456:4"
+    },
+    "Count": {
+     "type": "text",
+     "default": "1",
+     "key": "Count#456:5"
+    },
+    "Show Button": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Button#456:6"
+    },
+    "Total": {
+     "type": "text",
+     "default": "/ 10",
+     "key": "Total#456:7"
+    },
+    "Status": {
+     "type": "variant",
+     "options": [
+      "Open",
+      "Closed"
+     ],
+     "default": "Open"
+    },
+    "Show Description": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Description#456:8"
+    },
+    "Period": {
+     "type": "text",
+     "default": "2024. 07. 12 ~ 2024. 07. 28",
+     "key": "Period#456:9"
+    },
+    "Progress": {
+     "type": "variant",
+     "options": [
+      "Before",
+      "Writing",
+      "Submitted"
+     ],
+     "default": "Before"
+    }
+   }
+  },
+  "Card/Goal (Mobile)": {
+   "id": "459:6531",
+   "key": "b147e255d56fa8cf76471ea3bbfdb25592a33930",
+   "defaultVariant": {
+    "name": "Badge=On",
+    "key": "daf9e74745f409fd2118cb5bff9a8625e6fd306f"
+   },
+   "size": [
+    335,
+    215
+   ],
+   "props": {
+    "Badge": {
+     "type": "variant",
+     "options": [
+      "On",
+      "Off"
+     ],
+     "default": "On"
+    },
+    "Title": {
+     "type": "text",
+     "default": "스프린트 1회차 이후 회고",
+     "key": "Title#459:12"
+    },
+    "Item 1": {
+     "type": "text",
+     "default": "긴 회의시간 줄이기",
+     "key": "Item 1#459:15"
+    },
+    "Item 2": {
+     "type": "text",
+     "default": "회의 후 내용 꼭 기록해두기",
+     "key": "Item 2#459:18"
+    },
+    "Item 3": {
+     "type": "text",
+     "default": "'린 분석' 북 스터디 진행",
+     "key": "Item 3#459:21"
+    },
+    "Show Item 2": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Item 2#459:27"
+    },
+    "Show Item 3": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Item 3#459:30"
+    },
+    "Show Items": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Items#459:33"
+    },
+    "Show Empty": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Empty#459:9"
+    }
+   }
+  },
+  "Card/Answer": {
+   "id": "463:88281",
+   "key": "5fdd5bd115208c64582c15fbc0aa8227d06ac132",
+   "defaultVariant": {
+    "name": "Platform=Mobile, Type=Text",
+    "key": "d53d4f729248a04246241301508812be433675f0"
+   },
+   "size": [
+    335,
+    343
+   ],
+   "props": {
+    "Platform": {
+     "type": "variant",
+     "options": [
+      "Mobile",
+      "Web"
+     ],
+     "default": "Mobile"
+    },
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Text",
+      "Emotion",
+      "Score"
+     ],
+     "default": "Text"
+    },
+    "Answer": {
+     "type": "text",
+     "default": "가장 어려운 점은…",
+     "key": "Answer#463:1"
+    },
+    "Show Name": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Name#463:2"
+    }
+   }
+  },
+  "Answer/Emotion Scale": {
+   "id": "463:88131",
+   "key": "6a94171d389f7d9d7f9f86897e7b648694781bd3",
+   "size": [
+    212,
+    36
+   ],
+   "props": {
+    "Value": {
+     "type": "variant",
+     "options": [
+      "Bad",
+      "Soso",
+      "Better",
+      "Good",
+      "Happy"
+     ],
+     "default": "Bad"
+    }
+   }
+  },
+  "Answer/Score Bar": {
+   "id": "463:88216",
+   "key": "e90d19277ce82cc611d1b6adde5ced58a7ce342d",
+   "size": [
+    276,
+    40
+   ],
+   "props": {
+    "Value": {
+     "type": "variant",
+     "options": [
+      "0",
+      "20",
+      "40",
+      "60",
+      "80",
+      "100"
+     ],
+     "default": "0"
+    }
+   }
+  },
+  "Card/Template": {
+   "id": "467:6683",
+   "key": "7594e629b947ab5526aa7c51a1f21935cbf8e1f5",
+   "defaultVariant": {
+    "name": "Type=Default, Platform=Web",
+    "key": "7265912509a07b746dad6830e10fed1aad15a92f"
+   },
+   "size": [
+    230,
+    139
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Default",
+      "Custom"
+     ],
+     "default": "Default"
+    },
+    "Platform": {
+     "type": "variant",
+     "options": [
+      "Web",
+      "Mobile"
+     ],
+     "default": "Web"
+    },
+    "Title": {
+     "type": "text",
+     "default": "차근차근, 단계적인 회고",
+     "key": "Title#467:0"
+    },
+    "Date": {
+     "type": "text",
+     "default": "2024. 07. 12",
+     "key": "Date#467:5"
+    },
+    "Show Button": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Button#467:10"
+    },
+    "Illustration": {
+     "type": "instance-swap",
+     "default": "Retro/KPT",
+     "key": "Illustration#467:15"
+    }
+   }
+  },
+  "Card/Template Detail": {
+   "id": "468:6701",
+   "key": "3d464a3560cdd0d6b17f45305fdb85484ceab009",
+   "defaultVariant": {
+    "name": "Size=335",
+    "key": "15703465be570476a880b927ad6fce784c35c999"
+   },
+   "size": [
+    335,
+    335
+   ],
+   "props": {
+    "Size": {
+     "type": "variant",
+     "options": [
+      "335",
+      "240"
+     ],
+     "default": "335"
+    },
+    "Title": {
+     "type": "text",
+     "default": "차근차근, 단계적인 회고",
+     "key": "Title#468:19"
+    },
+    "Illustration": {
+     "type": "instance-swap",
+     "default": "Retro/KPT",
+     "key": "Illustration#468:22"
+    }
+   }
+  },
+  "Analysis/Keyword Item": {
+   "id": "471:6756",
+   "key": "e87bb62f84b7fd4409a5dd297044c14f64906f1b",
+   "size": [
+    260,
+    44
+   ],
+   "props": {
+    "Type": {
+     "type": "variant",
+     "options": [
+      "Good",
+      "Bad",
+      "Improve"
+     ],
+     "default": "Good"
+    },
+    "Platform": {
+     "type": "variant",
+     "options": [
+      "Web",
+      "Mobile"
+     ],
+     "default": "Web"
+    },
+    "Keyword": {
+     "type": "text",
+     "default": "회의 내용 문서화",
+     "key": "Keyword#471:2"
+    },
+    "Count": {
+     "type": "text",
+     "default": "4명",
+     "key": "Count#471:9"
+    },
+    "Show Count": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Count#471:16"
+    }
+   }
+  },
+  "Template/Mobile": {
+   "id": "487:33375",
+   "key": "10e28c1776630dbd1168a1874cac4f95420b0006",
+   "defaultVariant": {
+    "name": "Background=Surface",
+    "key": "eb0f29e5417c835c45fcb89ff7575977b034f3e0"
+   },
+   "size": [
+    375,
+    812
+   ],
+   "props": {
+    "Background": {
+     "type": "variant",
+     "options": [
+      "Surface",
+      "Secondary"
+     ],
+     "default": "Surface"
+    },
+    "Content": {
+     "type": "slot",
+     "default": "",
+     "key": "Content#487:90"
+    },
+    "Show App Bar": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show App Bar#487:91"
+    },
+    "Show Navigation Bar": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Navigation Bar#487:92"
+    }
+   }
+  },
+  "Section Header": {
+   "id": "487:33450",
+   "key": "0a6ed48e1342c99577cee0df7a32931d419bc67f",
+   "defaultVariant": {
+    "name": "Size=16",
+    "key": "861a4b2c86843d7d3afa252de0930fe16686dfb4"
+   },
+   "size": [
+    120,
+    22
+   ],
+   "props": {
+    "Size": {
+     "type": "variant",
+     "options": [
+      "16",
+      "18"
+     ],
+     "default": "16"
+    },
+    "Title": {
+     "type": "text",
+     "default": "진행 중인 회고",
+     "key": "Title#487:93"
+    },
+    "Count": {
+     "type": "text",
+     "default": "4",
+     "key": "Count#487:96"
+    },
+    "Show Count": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Count#487:99"
+    }
+   }
+  }
+ },
+ "single": {
+  "Icon/Graphic/Team": {
+   "id": "1:3757",
+   "key": "79cf01b66b108601d2d2a9de3a8e2656bdc5541f",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Person": {
+   "id": "1:3762",
+   "key": "6518b13de59d8b3650c6868108a7ca60d10bfa06",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Emotion": {
+   "id": "1:3767",
+   "key": "ab03b0d2841a3ab05928d095ede90517f90710b9",
+   "variants": [
+    "Bad",
+    "Bad_Disabled",
+    "Soso",
+    "Soso_Disabled",
+    "Better",
+    "Better_Disabled",
+    "Good",
+    "Good_Disabled",
+    "Happy",
+    "Happy_Disabled"
+   ]
+  },
+  "Icon/Graphic/Planning": {
+   "id": "1:3828",
+   "key": "4c42c94294b10672269c9e1619016baa4ae49997",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Management": {
+   "id": "1:3833",
+   "key": "c8224d9708f6d04deccc789c4db144319cb9157e",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Research": {
+   "id": "1:3838",
+   "key": "bd5ac5966e07f52686ac7396ca355ba614a27cc5",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Design": {
+   "id": "1:3843",
+   "key": "e4a656755de919a975be964ae7e71d16bf6c794c",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Education": {
+   "id": "1:3848",
+   "key": "8993012a4569885b5f99309d697f03d28a8364b0",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Data": {
+   "id": "1:3853",
+   "key": "1090f6865f8aafb6545f7d1731d0efe053e3873a",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Marketing": {
+   "id": "1:3858",
+   "key": "9b38bfc59390027ac560af4bced3d7dfbbc54b8b",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Development": {
+   "id": "1:3863",
+   "key": "970a247b817098fa1ebc366f50c1e4d82c96e4f9",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Document": {
+   "id": "1:3868",
+   "key": "0e9cbf4641333ae6b899649bdbfa689e86c7ddbd",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/List": {
+   "id": "1:3877",
+   "key": "7c1e2e473c3ff60d0478f74bc7cda4830dec0ab0",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Recommend": {
+   "id": "1:3882",
+   "key": "1b1268de4dc9631383f2a6d91b6bda324e8ae22a",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Regular": {
+   "id": "1:3887",
+   "key": "4eaf5912ceb09324cbf488057a146d723391f5a6",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Graphic/Irregular": {
+   "id": "1:3892",
+   "key": "efdb19f71663bd8ea6635d5ef09cd9735b88ca48",
+   "variants": [
+    "Color",
+    "White"
+   ]
+  },
+  "Icon/Nav/Home": {
+   "id": "1:3738",
+   "key": "4bad6dba57b0100c57cb28af1b252573edf88f82",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Nav/ActionItem": {
+   "id": "1:3740",
+   "key": "d64b23d4b7f9704aa0621a3aabde6bf431be0167",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Nav/Analysis": {
+   "id": "1:3746",
+   "key": "d93e45c37daf35557b474fef68bc0cf7dc7c946b",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Arrow-left": {
+   "id": "1:3753",
+   "key": "5fb4ab57b0a1c69b7b3abeede537548968fe8669",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Arrow-Right": {
+   "id": "1:3755",
+   "key": "43f7a039c1bf9b17f46444f563866f9e0509decd",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Close": {
+   "id": "1:3897",
+   "key": "94e38d2d137c7548f6660d6c89dd7348881a51bb",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Add": {
+   "id": "1:3899",
+   "key": "b62f20ccad112024974388416b81173e97d4a8f2",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Chevron-Down": {
+   "id": "1:3901",
+   "key": "8ffa8ce11958c215ac465e858116befdb5ae84a4",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Chevron-Right": {
+   "id": "1:3903",
+   "key": "876e0b3764b194065795a0b72cbb9e5a772da689",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Chevron-Left": {
+   "id": "1:3905",
+   "key": "12b353cf145eee4519e784b958c58d954df31a4c",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/More": {
+   "id": "1:3907",
+   "key": "17bbe925fbe571427747f3903baa83d0ae145377",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/More_hori": {
+   "id": "1:3909",
+   "key": "7bc0abcc5043d7b33713c715de4e00021158b263",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Calendar": {
+   "id": "1:3911",
+   "key": "a587d7746397a9854ebfcaa8258ac4a9a0514e66",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Camera_Filled": {
+   "id": "1:3913",
+   "key": "19426e8989880b6ef2b599a19d50d165c1c52c01",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Camera": {
+   "id": "1:3917",
+   "key": "75c3743add811aa05a0fb95d86beceb60ab846d5",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Chevron-Up": {
+   "id": "1:3919",
+   "key": "b8f9d45338becb22749846c1e831c350963acec6",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Drawer": {
+   "id": "1:3921",
+   "key": "f63fb0cca323ed75c2366623f7f87d55ffb0367a",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Info": {
+   "id": "1:3923",
+   "key": "0fc2a7a6db37eb5e3a719fa8d25ac2935c93b247",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Question": {
+   "id": "1:3925",
+   "key": "20213b44d7f48a626c39bce91b340e608d883c3e",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Caution": {
+   "id": "1:3927",
+   "key": "cce866a02c469d871a2445996fdc9b22d35e8386",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Caution_Filled": {
+   "id": "1:3929",
+   "key": "6f4b91fbf860f5eac9404ac720b9b75dd25b21cf",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Check": {
+   "id": "1:3935",
+   "key": "08b1d2305d733532010da380d95e7a1d8256d835",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Check_Filled": {
+   "id": "1:3937",
+   "key": "7084e483613218444b10782874f16e0729de8cd4",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Write": {
+   "id": "1:3939",
+   "key": "131bfbaa20f85548d030a88f441a32e24ce371a0",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Expand": {
+   "id": "1:3941",
+   "key": "4663d9427863f809633e656290d7a30ab0e8ba81",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Compress": {
+   "id": "1:3943",
+   "key": "637b2e2d9e1525bd333ddf492797065fa74baacb",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Unfold-Right": {
+   "id": "1:3947",
+   "key": "31d83e8412bd795e7e2950e7c0a500f9d0c5d806",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Unfold-Left": {
+   "id": "1:3949",
+   "key": "4a08139e6409d328051801707fd51f10130d7e98",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Icon/Assets/Fold": {
+   "id": "1:3951",
+   "key": "a0ab648c84d7aab943f99c8fba6a4dd0e54602d0",
+   "size": [
+    24,
+    24
+   ]
+  },
+  "Content/Space Empty": {
+   "id": "257:4315",
+   "key": "af24d5992aa9696f4debe46756ad023097b3f85e",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Content/Space": {
+   "id": "257:4316",
+   "key": "606458fc00d2b2d64f8b9cef2a74652a184add73",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Content/Recommend": {
+   "id": "257:4317",
+   "key": "1a73b04d458c5740ed94277734cc2c17bc84a7d0",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Content/Write": {
+   "id": "257:4318",
+   "key": "8e18fb38b8f3ef15865a00252a10757416e034df",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Content/Start": {
+   "id": "257:4319",
+   "key": "2a2714f2c8a9e43eb75727ce4f632cab34c2ab5f",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Content/Done": {
+   "id": "257:4320",
+   "key": "63121c85dda1a734c7be896a636b6e7d2134eebc",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Content/Invite": {
+   "id": "257:4323",
+   "key": "1d14d29c46830a5ebf8634655cbb8acaef9c5a28",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Banner/1:1": {
+   "id": "257:4321",
+   "key": "bd4f70cfbb0c56c030036673569b0430479f6440",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Banner/2:1": {
+   "id": "257:4322",
+   "key": "6f3c58b05a96a20777d2d62b5ca5399d03533c68",
+   "size": [
+    1000,
+    500
+   ]
+  },
+  "Retro/Custom": {
+   "id": "257:4324",
+   "key": "3a1dcac796007811f585beb6695fc81f4fd31e0b",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Retro/Untitled": {
+   "id": "257:4325",
+   "key": "9a58cbf445675798ca27f20f8d51b3f2a5a5ba29",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Retro/SSC": {
+   "id": "257:4326",
+   "key": "f3f0b87541536ee1de8fcf35688009efd40ab141",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Retro/KPT": {
+   "id": "257:4327",
+   "key": "14b2d60c7499bc129c334c4a18e715120fde812b",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Retro/Mad Sad Glad": {
+   "id": "257:4328",
+   "key": "b2f1d677167d71b4e59112bf619e0dd33ac2447c",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Retro/PMI": {
+   "id": "257:4329",
+   "key": "6ad481e7bfc7bfbcbd1b94a8de04c8d1bcb90f26",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Retro/5F": {
+   "id": "257:4330",
+   "key": "5439ef49aa2e66fbc7ef6ceb1508b7609db2dfcb",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Splash/Step by Step": {
+   "id": "257:4331",
+   "key": "3a1b3eb8c705cc5b8ecd63b6f5275573d5b65e09",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Splash/Schedule": {
+   "id": "257:4332",
+   "key": "b8b7f9817a6409168a821d2465c355c0b0a6f56a",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Splash/Report": {
+   "id": "257:4333",
+   "key": "7ea73357dbde3f862181998a28c090a88aba9d86",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Splash/Goal": {
+   "id": "257:4334",
+   "key": "a6d8b9a4243d3ca361e9c123870ba0acc26cbbac",
+   "size": [
+    500,
+    500
+   ]
+  },
+  "Card/Space": {
+   "id": "365:4442",
+   "key": "3ac1e121660731474c3b8ba73c81a5ab5f955e51",
+   "size": [
+    335,
+    103
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "떡잎마을방범대",
+     "key": "Title#365:0"
+    },
+    "Description": {
+     "type": "text",
+     "default": "IT 연합동아리 디프만 15기의 프로젝트 방향성 체크 및 팀 내 개선점 구축",
+     "key": "Description#365:1"
+    },
+    "Meta": {
+     "type": "text",
+     "default": "멤버 11명 ∙ 회고 4개",
+     "key": "Meta#365:2"
+    },
+    "Show Description": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Description#365:3"
+    },
+    "Show Badge": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Badge#365:4"
+    },
+    "Icon": {
+     "type": "instance-swap",
+     "default": "Icon/Graphic/Development",
+     "key": "Icon#365:5"
+    }
+   }
+  },
+  "Question Tag": {
+   "id": "394:6646",
+   "key": "2ff03290a9007851c51453151e48dc17d946597e",
+   "size": [
+    91,
+    38
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "사전질문 1",
+     "key": "Label#394:0"
+    }
+   }
+  },
+  "Question Index (Web)": {
+   "id": "394:6689",
+   "key": "297a4aac87fcca3da8a0069ebcd29d4a612d28b3",
+   "size": [
+    294,
+    316
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "질문 전체보기",
+     "key": "Title#394:9"
+    },
+    "Progress": {
+     "type": "text",
+     "default": "작성 완료 0/5",
+     "key": "Progress#394:10"
+    }
+   }
+  },
+  "Icon/Assets/Minus_Filled": {
+   "id": "400:6568",
+   "key": "ab7408e2a644201fa1c840a9cb81625fdea30050",
+   "size": [
+    24,
+    24
+   ],
+   "props": {}
+  },
+  "Icon/Assets/More_Filled": {
+   "id": "400:6574",
+   "key": "5a9b7ace487402de62ee488ac52eadfeadebf6a1",
+   "size": [
+    24,
+    24
+   ],
+   "props": {}
+  },
+  "Modal (Web)": {
+   "id": "413:5747",
+   "key": "832bcabef1800ce76ccb7f3e94a95ebd19d9ccb9",
+   "size": [
+    520,
+    652
+   ],
+   "props": {
+    "Content": {
+     "type": "slot",
+     "default": "",
+     "key": "Content#416:0"
+    },
+    "Show Progress": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Progress#413:1"
+    },
+    "Show Prev": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Prev#413:2"
+    },
+    "Title": {
+     "type": "text",
+     "default": "템플릿 리스트",
+     "key": "Title#419:0"
+    },
+    "Show Title": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Title#419:1"
+    },
+    "Show Footer": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Footer#419:2"
+    },
+    "Show Back": {
+     "type": "boolean",
+     "default": false,
+     "key": "Show Back#426:8"
+    }
+   }
+  },
+  "Info Banner": {
+   "id": "419:5494",
+   "key": "7c61d90412f52f1ed7b6111a2a68e7e1ee1c2458",
+   "size": [
+    472,
+    34
+   ],
+   "props": {
+    "Message": {
+     "type": "text",
+     "default": "카드를 클릭하면 자세한 내용을 확인할 수 있어요",
+     "key": "Message#419:3"
+    },
+    "Icon": {
+     "type": "instance-swap",
+     "default": "Icon/Assets/Info_Filled",
+     "key": "Icon#421:0"
+    }
+   }
+  },
+  "Icon/Assets/Info_Filled": {
+   "id": "423:6029",
+   "key": "e58d11d371c738ad48477d8767e35788cdf40b00",
+   "size": [
+    24,
+    24
+   ],
+   "props": {}
+  },
+  "Menu": {
+   "id": "437:6308",
+   "key": "036cf9b03333c43c6bfb8d1dd5b3adad923804da",
+   "size": [
+    165,
+    88
+   ],
+   "props": {
+    "Items": {
+     "type": "slot",
+     "default": "",
+     "key": "Items#437:8"
+    }
+   }
+  },
+  "Popover": {
+   "id": "437:6315",
+   "key": "a869f771b080e1a78eb2bed2a374797771d979e8",
+   "size": [
+    280,
+    114
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "인원",
+     "key": "Title#437:9"
+    },
+    "Count": {
+     "type": "text",
+     "default": "4",
+     "key": "Count#437:10"
+    },
+    "Show Count": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Count#437:11"
+    },
+    "Show Action": {
+     "type": "boolean",
+     "default": true,
+     "key": "Show Action#437:12"
+    },
+    "Content": {
+     "type": "slot",
+     "default": "",
+     "key": "Content#437:13"
+    }
+   }
+  },
+  "Card/Question Group (Web)": {
+   "id": "463:88328",
+   "key": "02fe3befae69e7aea82772460d30d805f986e555",
+   "size": [
+    340,
+    240
+   ],
+   "props": {
+    "Question": {
+     "type": "text",
+     "default": "1. 계속 유지하고 싶은 것은 무엇인가요?",
+     "key": "Question#463:3"
+    },
+    "Content": {
+     "type": "slot",
+     "default": "",
+     "key": "Content#463:4"
+    }
+   }
+  },
+  "Card/Template Summary": {
+   "id": "468:6702",
+   "key": "ba596f964f42c01881bfdbfb97cd25703d716d09",
+   "size": [
+    472,
+    265
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "차근차근, 단계적인 회고",
+     "key": "Title#468:25"
+    },
+    "Questions": {
+     "type": "slot",
+     "default": "",
+     "key": "Questions#468:26"
+    }
+   }
+  },
+  "Analysis/Section Title": {
+   "id": "471:6721",
+   "key": "dd220a5dbe1392153e833cb4ae38a950d686b984",
+   "size": [
+    296,
+    20
+   ],
+   "props": {
+    "Label": {
+     "type": "text",
+     "default": "진행상황",
+     "key": "Label#471:0"
+    },
+    "Description": {
+     "type": "text",
+     "default": "우리팀의 진행상황에 대해 이렇게 생각해요!",
+     "key": "Description#471:1"
+    }
+   }
+  },
+  "Analysis/Keyword Group": {
+   "id": "471:6758",
+   "key": "317e7c137cc056230735e7e32a2938c595ed3d37",
+   "size": [
+    260,
+    190
+   ],
+   "props": {
+    "Title": {
+     "type": "text",
+     "default": "잘 하고 있어요",
+     "key": "Title#471:23"
+    },
+    "Items": {
+     "type": "slot",
+     "default": "",
+     "key": "Items#471:24"
+    }
+   }
+  },
+  "Analysis/Satisfaction": {
+   "id": "472:6716",
+   "key": "f271ab632f28cd184da7c38ae1eaa9b85a847775",
+   "size": [
+    321,
+    138
+   ],
+   "props": {
+    "매우 만족": {
+     "type": "text",
+     "default": "8",
+     "key": "매우 만족#472:0"
+    },
+    "만족": {
+     "type": "text",
+     "default": "6",
+     "key": "만족#472:1"
+    },
+    "보통": {
+     "type": "text",
+     "default": "5",
+     "key": "보통#472:2"
+    },
+    "불만족": {
+     "type": "text",
+     "default": "4",
+     "key": "불만족#472:3"
+    },
+    "매우 불만족": {
+     "type": "text",
+     "default": "3",
+     "key": "매우 불만족#472:4"
+    }
+   }
+  },
+  "Analysis/Goal Rate": {
+   "id": "472:6778",
+   "key": "2a726790203cfc89caf51147d9e454177e4187aa",
+   "size": [
+    311,
+    100
+   ],
+   "props": {
+    "Rate": {
+     "type": "text",
+     "default": "78%",
+     "key": "Rate#472:5"
+    }
+   }
+  },
+  "Analysis/Progress Panel": {
+   "id": "472:6797",
+   "key": "370d0ead91dc815e9b18cb826a5897d805ce89a4",
+   "size": [
+    886,
+    240
+   ],
+   "props": {
+    "Satisfaction Title": {
+     "type": "text",
+     "default": "진행상황에 대해 대부분",
+     "key": "Satisfaction Title#472:6"
+    },
+    "Satisfaction Highlight": {
+     "type": "text",
+     "default": "만족해요",
+     "key": "Satisfaction Highlight#472:7"
+    },
+    "Goal Rate": {
+     "type": "text",
+     "default": "78%",
+     "key": "Goal Rate#472:8"
+    }
+   }
+  },
+  "Analysis/Highlight Title": {
+   "id": "472:6890",
+   "key": "acb08452c25b056bd87a3e4fd47bb772b6a61500",
+   "size": [
+    200,
+    48
+   ],
+   "props": {
+    "Name": {
+     "type": "text",
+     "default": "이회고님은",
+     "key": "Name#472:9"
+    },
+    "Particle": {
+     "type": "text",
+     "default": "를",
+     "key": "Particle#472:10"
+    },
+    "Sentence": {
+     "type": "text",
+     "default": "가장 잘 하고 있어요",
+     "key": "Sentence#472:11"
+    }
+   }
+  }
+ }
+}

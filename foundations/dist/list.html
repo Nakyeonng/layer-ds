@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component — Lists / Accordion</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>/* typography.css */
+/* ─────────────────────────────────────────────────────────────
+   Typography — derived from Figma "Foundation / Typography" (node 1:3589)
+   Values come only from that frame, not from the existing AI-made variables.
+
+   Layer 1: primitives  (what values exist)
+   Layer 2: text styles (which combinations are allowed)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Family */
+  --font-family-primary: "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  /* Weight — 3 used */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Size — 9 used */
+  --font-size-10: 10px;
+  --font-size-11: 11px;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-15: 15px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+
+  /* Line height — 2 used */
+  --line-height-140: 1.4;
+  --line-height-150: 1.5;
+
+  /* Letter spacing — every style uses 0 */
+  --letter-spacing-0: 0;
+}
+
+/* Shared base for every text style */
+[class^="text-"], [class*=" text-"] {
+  font-family: var(--font-family-primary);
+  letter-spacing: var(--letter-spacing-0);
+  font-feature-settings: "case" 1, "ss02" 1;
+  margin: 0;
+}
+
+/* ── Text styles (15) ── name = Role / Size Weight, same as Figma ── */
+
+/* Heading */
+.text-heading-24-bold    { font-size: var(--font-size-24); font-weight: var(--font-weight-bold);     line-height: var(--line-height-150); }
+
+/* Title */
+.text-title-20-bold      { font-size: var(--font-size-20); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+.text-title-18-bold      { font-size: var(--font-size-18); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 140% (2026-10-26) */
+.text-title-16-bold      { font-size: var(--font-size-16); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+
+/* Subtitle */
+.text-subtitle-18-semibold { font-size: var(--font-size-18); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-16-semibold { font-size: var(--font-size-16); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-14-semibold { font-size: var(--font-size-14); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+
+/* Body */
+.text-body-16-medium     { font-size: var(--font-size-16); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-15-medium     { font-size: var(--font-size-15); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-14-medium     { font-size: var(--font-size-14); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-12-semibold   { font-size: var(--font-size-12); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-body-12-medium     { font-size: var(--font-size-12); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+
+/* Caption */
+.text-caption-11-medium  { font-size: var(--font-size-11); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-caption-10-bold    { font-size: var(--font-size-10); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 10px (2026-10-26) */
+.text-caption-10-medium  { font-size: var(--font-size-10); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+</style>
+<style>/* icons.css */
+/* ─────────────────────────────────────────────────────────────
+   Icons — derived from Figma "Foundation / Icons" (node 1:3724)
+
+   Assets  : single-colour UI icons, 24px grid, drawn in currentColor
+   Nav     : navigation icons, 24px, currentColor + white details
+   Graphic : multi-colour illustrations, 28px, Color / White states
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Recommended Assets sizes (from the page description) */
+  --icon-size-24: 24px;
+  --icon-size-18: 18px;
+  --icon-size-16: 16px;
+  --icon-size-12: 12px;
+
+  /* Graphic icons are drawn on a 28px grid */
+  --icon-size-graphic: 28px;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-size-24);
+  height: var(--icon-size-24);
+  color: inherit;             /* Assets & Nav follow the text colour */
+  vertical-align: middle;
+}
+.icon svg { display: block; width: 100%; height: 100%; }
+
+.icon-24 { width: var(--icon-size-24); height: var(--icon-size-24); }
+.icon-18 { width: var(--icon-size-18); height: var(--icon-size-18); }
+.icon-16 { width: var(--icon-size-16); height: var(--icon-size-16); }
+.icon-12 { width: var(--icon-size-12); height: var(--icon-size-12); }
+.icon-graphic { width: var(--icon-size-graphic); height: var(--icon-size-graphic); }
+</style>
+<style>/* controls.css */
+/* ─────────────────────────────────────────────────────────────
+   Controls / Scroll Bar — derived from Figma node 1:2462
+   Checkbox · Radio (added in the checkbox format) · Scroll Bar (its own board since 2026-10-27)
+   Types: Default (box only) · Label Left · Label Right — label order follows the markup
+   States: Checked · Unchecked × Default · Hover (+1 step) · Pressed (+2 steps) · Disabled
+   Scroll Bar states: Default · Hover · Pressed
+
+   Colours are the values read from the frame; comments name the palette step.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Control with label ──────────────────── */
+.control {
+  display: inline-flex; align-items: center; gap: 8px; padding: 4px; border-radius: 8px;
+  background: #ffffff; cursor: pointer;
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+  font-size: 15px; font-weight: 500; line-height: 1.4; color: #212329;                  /* Body 15 Medium, Gray 900 */
+  -webkit-tap-highlight-color: transparent;
+}
+.control:has(:disabled) { cursor: not-allowed; }
+.control:has(.control__input:disabled:not(:checked)) .control__label { color: #ced2da; } /* Gray 400 */
+
+/* ── Box: 24px slot, 20px shape ──────────── */
+.control__input {
+  -webkit-appearance: none; appearance: none; flex: none; margin: 2px; box-sizing: border-box;
+  width: 20px; height: 20px; border: 1px solid #ced2da; border-radius: 4px;           /* Gray 400 */
+  background: #ffffff center / 24px 24px no-repeat; cursor: inherit;
+}
+.control__input:focus-visible { outline: 2px solid #415e96; outline-offset: 2px; }
+/* Hover / Pressed (the whole control, label included, is the hit area) */
+.control:hover .control__input:not(:disabled):not(:checked), .control__input.is-hover:not(:checked)   { border-color: #a9afbb; } /* Gray 500 */
+.control:active .control__input:not(:disabled):not(:checked), .control__input.is-pressed:not(:checked) { border-color: #8b909c; } /* Gray 600 */
+
+/* Checkbox */
+.control__input[type="checkbox"]:checked {
+  border-color: transparent; background-color: #6c9cfa;                                 /* Blue 600 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12 L10.5 16 L16.5 9' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+/* Radio: same box, circle, 8px white dot */
+.control__input[type="radio"] { border-radius: 50%; }
+.control__input[type="radio"]:checked {
+  border-color: transparent; background-color: #6c9cfa;
+  background-image: radial-gradient(circle, #ffffff 4px, transparent 4.5px); background-size: 100% 100%;
+}
+/* Checked: Hover / Pressed */
+.control:hover .control__input:not(:disabled):checked, .control__input.is-hover:checked   { background-color: #415e96; } /* Blue 700 */
+.control:active .control__input:not(:disabled):checked, .control__input.is-pressed:checked { background-color: #2b3e64; } /* Blue 800 */
+
+/* Disabled */
+.control__input:disabled { border-color: #edf0f4; background-color: #f2f4f8; }          /* Gray 200 / Gray 100 */
+.control__input:disabled:checked { border-color: transparent; background-color: #a7c4fc; } /* Blue 400 */
+
+/* ── Scroll Bar ──────────────────────────── */
+/* Track is invisible; 4px thumb with 3px side padding and 5px end padding.
+   The bar appears while the area is hovered (.is-hover) or being scrolled (.is-scrolling) — a small script
+   toggles both classes, because Chrome does not repaint the scrollbar on a parent :hover alone.
+   Then Default (Opacity 22) → Hover on the bar (32) → Pressed (48).
+   Chrome 121+ ignores ::-webkit-scrollbar when scrollbar-color/-width are set,
+   so the standard properties are used only where ::-webkit-scrollbar is unsupported (Firefox). */
+.scroll-area { overflow-y: auto; }
+.scroll-area::-webkit-scrollbar { width: 10px; height: 10px; }
+.scroll-area::-webkit-scrollbar-track { background: transparent; margin: 5px 0; }
+.scroll-area::-webkit-scrollbar-thumb {
+  border: 3px solid transparent; border-radius: 99px; background-clip: padding-box;
+  background-color: transparent;
+}
+.scroll-area.is-hover::-webkit-scrollbar-thumb,
+.scroll-area.is-scrolling::-webkit-scrollbar-thumb { background-color: rgb(6 8 12 / 0.22); }          /* Opacity 22 */
+.scroll-area::-webkit-scrollbar-thumb:hover,
+.scroll-area.is-hover::-webkit-scrollbar-thumb:hover { background-color: rgb(6 8 12 / 0.32); }        /* Opacity 32 */
+.scroll-area::-webkit-scrollbar-thumb:active,
+.scroll-area.is-hover::-webkit-scrollbar-thumb:active,
+.scroll-area.is-scrolling::-webkit-scrollbar-thumb:active { background-color: rgb(6 8 12 / 0.48); }   /* Opacity 48 */
+
+@supports not selector(::-webkit-scrollbar) {
+  .scroll-area { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+  .scroll-area:hover, .scroll-area.is-scrolling { scrollbar-color: rgb(6 8 12 / 0.22) transparent; }
+}
+</style>
+<style>/* lists.css */
+/* ─────────────────────────────────────────────────────────────
+   Lists / Accordion — derived from Figma "Lists/Accodion" (node 1:2532)
+   List: Checkbox row · Icon card (reorder / delete)
+   Accordion: Index Title (dropdown trigger) · Index (dropdown panel) · Contents (fold / unfold)
+
+   Updated 2026-10-27: checkbox rows use Controls/Checkbox; one Icon List with Action Reorder (Drawer icon) / Delete;
+   card background Gray 100; number badge radius 30; Index Item is its own component (Default/Hover/Pressed/Selected).
+   Colours are the values read from the frame; comments name the palette step.
+   .is-hover / .is-pressed / .is-selected force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+.list, .list-check, .list-card, .acc-index, .acc-index__item, .acc, .acc-title {
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+
+/* ── Checkbox list row ───────────────────── */
+.list { display: flex; flex-direction: column; width: 100%; max-width: 375px; margin: 0; padding: 0; list-style: none; }
+.list-check {
+  display: flex; align-items: center; gap: 3px; box-sizing: border-box;
+  height: 58px; padding: 0 20px; background: #ffffff; cursor: pointer;                  /* Gray 0 */
+  font-size: 15px; font-weight: 500; line-height: 1.4; color: #212329;                  /* Body 15 Medium, Gray 900 */
+}
+.list-check__text { flex: 1 1 0; min-width: 0; }
+/* the box itself is .control__input from controls.css */
+
+/* ── Icon card ───────────────────────────── */
+.list--cards { gap: 15px; max-width: 335px; }
+.list-card {
+  display: flex; align-items: flex-start; gap: 15px; box-sizing: border-box;
+  padding: 15px 12px; border-radius: 8px; background: #f2f4f8;                           /* Gray 100 */
+  font-size: 14px; font-weight: 500; line-height: 1.4; color: #212329;                  /* Body 14 Medium */
+}
+.list-card__text { flex: 1 1 0; min-width: 0; }
+.list-card__action { flex: none; width: 18px; height: 18px; padding: 0; border: 0; background: none; cursor: grab; }
+.list-card__action--delete { cursor: pointer; }
+.list-card__action svg { display: block; width: 18px; height: 18px; }
+.list-card__action--reorder { color: #ced2da; }                                           /* Drawer icon, Gray 400 */
+.list-card__action--delete { border-radius: 4px; background: #fb5c5c; color: #ffffff; }   /* Red 400 + Close icon, Radius 4 */
+
+/* Number badge: radius 30 everywhere; list card text Caption 10 Bold, accordion text Body 12 SemiBold */
+.num-badge {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 30px; background: #454952;                   /* Gray 800 */
+  font-size: 10px; font-weight: 700; line-height: 1.4; color: #ffffff;                   /* Caption 10 Bold */
+}
+.acc .num-badge { font-size: 12px; font-weight: 600; line-height: 1.4; }               /* Body 12 SemiBold */
+
+/* ── Accordion · Index Title (trigger) ───── */
+.acc-title {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box;
+  width: 140px; height: 40px; padding: 8px 31px; border: 0; border-radius: 12px;
+  background: #f2f4f8; color: #666b75; cursor: pointer;                                   /* Gray 100 / Gray 700 */
+  font-size: 16px; font-weight: 600; line-height: 1.4; white-space: nowrap;               /* Subtitle 16 SemiBold */
+}
+.acc-title .icon { width: 18px; height: 18px; color: #8b909c; }                          /* Gray 600 */
+.acc-title:hover, .acc-title.is-hover { background: #edf0f4; }                           /* Gray 200 */
+.acc-title:active, .acc-title.is-pressed { background: #dfe3ea; }                        /* Gray 300 */
+
+/* ── Accordion · Index (panel) ───────────── */
+.acc-index {
+  display: flex; flex-direction: column; gap: 6px; box-sizing: border-box;
+  width: 100%; max-width: 335px; padding-bottom: 12px; border-radius: 12px; overflow: hidden;
+  background: #f2f4f8;                                                                     /* Gray 100 */
+}
+.acc-index__header {
+  display: flex; align-items: center; justify-content: center; gap: 8px; height: 40px;
+  font-size: 16px; font-weight: 600; line-height: 1.4; color: #212329;                   /* Subtitle 16 SemiBold, Gray 900 */
+}
+.acc-index__header .icon { width: 18px; height: 18px; }
+.acc-index__list { margin: 0; padding: 0; list-style: none; }
+.acc-index__item {
+  display: flex; align-items: center; gap: 16px; width: 100%; box-sizing: border-box;
+  height: 46px; padding: 13px 28px; border: 0; background: transparent; cursor: pointer; text-align: left;
+  font: inherit; font-size: 14px; font-weight: 500; line-height: 1.4; color: #212329;   /* Body 14 Medium */
+}
+.acc-index__item > span:not(.icon) { flex: 1 1 0; min-width: 0; }
+.acc-index__item .icon { flex: none; }
+.acc-index__item .icon { width: 18px; height: 18px; color: #666b75; }                    /* Gray 700 */
+.acc-index__item:hover, .acc-index__item.is-hover { background: #edf0f4; }               /* Gray 200 */
+.acc-index__item:active, .acc-index__item.is-pressed { background: #dfe3ea; }            /* Gray 300 */
+.acc-index__item[aria-current="true"], .acc-index__item.is-selected { background: #e2ebfe; } /* Blue 200 */
+
+/* ── Accordion · Contents (fold / unfold) ── */
+.acc {
+  display: flex; flex-direction: column; gap: 0; box-sizing: border-box;
+  width: 100%; max-width: 335px; padding: 14px 20px; border-radius: 8px; overflow: hidden;
+  background: #f2f4f8;                                                                     /* Gray 100 */
+}
+.acc__head {
+  display: flex; align-items: center; gap: 12px; width: 100%; height: 34px; padding: 0; border: 0;
+  background: none; cursor: pointer; text-align: left;
+  font: inherit; font-size: 16px; font-weight: 600; line-height: 1.4; color: #212329;   /* Subtitle 16 SemiBold */
+}
+.acc__title { flex: 1 1 0; min-width: 0; }
+.acc__head .icon { width: 18px; height: 18px; color: #666b75; }                          /* Gray 700 */
+.acc:hover, .acc.is-hover { background: #edf0f4; }                                        /* Gray 200 */
+.acc:has(.acc__head:active), .acc.is-pressed { background: #dfe3ea; }                     /* Gray 300 */
+.acc__body {
+  display: none; margin-top: 12px; padding-top: 11px; border-top: 1px solid #ced2da;    /* Gray 400 divider */
+  font-size: 14px; font-weight: 500; line-height: 1.4; color: #666b75;                  /* Body 14 Medium, Gray 700 */
+}
+.acc.is-open .acc__body { display: block; }
+.acc .icon-up { display: none; }
+.acc.is-open .icon-up { display: block; }
+.acc.is-open .icon-down { display: none; }
+</style>
+<style>/* foundation-page.css */
+/* ─────────────────────────────────────────────────────────────
+   Shared layout for Foundation doc pages (Color, Typography, Elevation…).
+   Doc-site only: these values are not design tokens.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --page-bg: #edf0f4;
+  --surface: #ffffff;
+  --surface-muted: #f2f4f8;
+  --ink: #212329;
+  --ink-strong: #06080c;
+  --ink-muted: rgba(6, 8, 12, 0.48);
+  --rule: #edf0f4;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 40px 16px;
+  background: var(--page-bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Frame: 64px side padding, 32px radius */
+.foundation {
+  max-width: 1280px; margin: 0 auto;
+  background: var(--surface); border-radius: 32px; overflow: clip;
+  padding: 64px 64px 168px;
+}
+
+/* Header */
+.header { display: flex; flex-direction: column; gap: 32px; padding-bottom: 64px; }
+.heading { display: flex; flex-direction: column; gap: 18px; }
+.divider { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+/* Doc-only type: used on doc pages, not part of the 15 text styles */
+.doc-title, .doc-lead, .doc-section { font-family: var(--font-family-primary); margin: 0; }
+.doc-title   { font-weight: 700; font-size: 56px; line-height: 86px; letter-spacing: -0.5px; font-feature-settings: "ss02" 1, "case" 1; }
+.doc-lead    { font-weight: 500; font-size: 18px; line-height: 1.5; letter-spacing: -0.18px; min-height: 54px; font-feature-settings: "case" 1, "ss02" 1; }
+.doc-lead p  { margin: 0; }
+.doc-section { font-weight: 700; font-size: 24px; line-height: 1.3; letter-spacing: -0.24px; font-feature-settings: "ss10" 1; }
+
+/* First section sits 23px under the header */
+.section { margin-top: 23px; }
+
+@media (max-width: 900px) {
+  .foundation { padding: 40px 24px 80px; border-radius: 24px; }
+  .doc-title { font-size: 40px; line-height: 60px; }
+}
+
+/* Korean line breaking: wrap between words, not syllables */
+body { word-break: keep-all; overflow-wrap: break-word; }
+p, li, td, th, figcaption { text-wrap: pretty; }
+</style>
+<style>
+  .scroll { overflow-x: auto; max-width: 1675px; margin: 0 auto; border-radius: 32px; }
+  .foundation.board { position: relative; width: 1675px; max-width: none; height: 4071px; padding: 60px 64px 0; overflow: hidden; }
+  .heading { color: #212529; }
+  .doc-lead { font-weight: 400; }
+  .spec { position: absolute; margin: 0; }
+  .set { position: absolute; border: 1px dashed #9747ff; border-radius: 5px; box-sizing: border-box; pointer-events: none; }
+  .static { pointer-events: none; }
+  .h-sec { font: 700 24px/1.3 var(--font-family-primary); letter-spacing: -0.24px; color: #212529; }
+  .h-sub { font: 700 16px/1.3 var(--font-family-primary); letter-spacing: -0.16px; color: #212529; }
+  .lab { font: 500 18px/28px var(--font-family-primary); color: #3d3d3d; }
+  .note { font: 500 15px/20px var(--font-family-primary); white-space: nowrap; }
+  .note.sm { font-size: 14px; }
+  .w { color: #ffffff; }
+  .brk { width: 7px; height: 14px; border: 1px solid #fff; border-left: 0; }
+  .pos { width: 1319px; height: 734px; background: #f2f2f3; border-radius: 20px; overflow: hidden; }
+  .pos-l { position: absolute; margin: 0; font: 400 16px/20px var(--font-family-primary); color: #212329; }
+  .pv { position: absolute; width: 375px; background: #fff; overflow: hidden; }
+  .sbar { position: absolute; left: 0; top: 0; width: 375px; height: 44px; }
+  .sbar svg { display: block; }
+  .pv-top { position: absolute; left: 0; top: 44px; width: 375px; height: 64px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+  .pv-x .icon { width: 24px; height: 24px; }
+  .pv-q { position: absolute; left: 21px; top: 125px; width: 267px; margin: 0; font: 700 18px/1.4 var(--font-family-primary); color: #212329; }
+  .pv-dim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); }
+  .pv-h { position: absolute; left: 20px; top: 57px; margin: 0; font: 700 18px/26px var(--font-family-primary); color: #212329; }
+</style>
+</head>
+<body>
+  <div class="scroll">
+  <main class="foundation board">
+    <header class="header">
+      <div class="heading">
+        <h1 class="doc-title">Lists/Accordion</h1>
+        <div class="doc-lead"><p>리스트는 같은 종류의 항목을 세로로 나열하고, 아코디언은 내용을 접어 두었다가 펼쳐 보여 주는 요소입니다.</p></div>
+      </div>
+      <hr class="divider" />
+    </header>
+<div class="spec" style="left:0px;top:223px;width:1558px;height:102px;background:#f2f2f3;border-radius:0px"></div>
+<div class="spec" style="left:0px;top:858px;width:1558px;height:102px;background:#f2f2f3;border-radius:0px"></div>
+<div class="spec" style="left:74px;top:377px;width:550px;height:280px;background:#f2f2f3;border-radius:0px"></div>
+<div class="spec" style="left:677px;top:377px;width:550px;height:331px;background:#f2f2f3;border-radius:0px"></div>
+<div class="spec" style="left:80px;top:1012px;width:513px;height:448px;background:#525050;border-radius:0px"></div>
+<div class="spec" style="left:639px;top:1012px;width:550px;height:448px;background:#525050;border-radius:0px"></div>
+<p class="spec h-sec" style="left:64px;top:259px">Checkbox List</p>
+<p class="spec h-sub" style="left:112px;top:397px">Anatomy</p>
+<p class="spec h-sub" style="left:710px;top:397px">List</p>
+<p class="spec h-sec" style="left:64px;top:894px">Icon List</p>
+<p class="spec h-sub w" style="left:112px;top:1035px">Anatomy</p>
+<p class="spec h-sub w" style="left:677px;top:1042px">List</p>
+<p class="spec note w" style="left:144px;top:1189px">• 질문 순서 변경 아이콘</p>
+<p class="spec note w" style="left:139px;top:1347px">• 질문 삭제 버튼</p>
+<p class="spec note w sm" style="left:1088px;top:1167px">15px</p>
+<p class="spec note w sm" style="left:1088px;top:1232px">15px</p>
+<p class="spec note w sm" style="left:1088px;top:1297px">15px</p>
+<div class="spec brk" style="left:1070px;top:1172px"></div>
+<div class="spec brk" style="left:1070px;top:1237px"></div>
+<div class="spec brk" style="left:1070px;top:1302px"></div>
+<div class="set" style="left:139px;top:446px;width:415px;height:170px"></div>
+<div class="spec" style="left:159px;top:466px;width:375px"><label class="list-check static"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></div>
+<div class="spec" style="left:159px;top:538px;width:375px"><label class="list-check static"><span class="list-check__text">Text</span><input class="control__input" type="checkbox" checked></label></div>
+<div class="spec" style="left:778px;top:427px;width:375px"><div class="list"><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox" checked></label><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></div></div>
+<div class="spec" style="left:733px;top:1122px;width:335px"><div class="list list--cards"><div class="list-card"><span class="num-badge">1</span><span class="list-card__text">Text</span><span class="list-card__action list-card__action--reorder"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6C3 5.44772 3.36631 5 3.81818 5H20.1818C20.6337 5 21 5.44772 21 6C21 6.55228 20.6337 7 20.1818 7H3.81818C3.36631 7 3 6.55228 3 6Z" fill="currentColor"/><path d="M3 12C3 11.4477 3.36631 11 3.81818 11H20.1818C20.6337 11 21 11.4477 21 12C21 12.5523 20.6337 13 20.1818 13H3.81818C3.36631 13 3 12.5523 3 12Z" fill="currentColor"/><path d="M3.81818 17C3.36631 17 3 17.4477 3 18C3 18.5523 3.36631 19 3.81818 19H20.1818C20.6337 19 21 18.5523 21 18C21 17.4477 20.6337 17 20.1818 17H3.81818Z" fill="currentColor"/></svg></span></span></div><div class="list-card"><span class="num-badge">2</span><span class="list-card__text">Text</span><span class="list-card__action list-card__action--reorder"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6C3 5.44772 3.36631 5 3.81818 5H20.1818C20.6337 5 21 5.44772 21 6C21 6.55228 20.6337 7 20.1818 7H3.81818C3.36631 7 3 6.55228 3 6Z" fill="currentColor"/><path d="M3 12C3 11.4477 3.36631 11 3.81818 11H20.1818C20.6337 11 21 11.4477 21 12C21 12.5523 20.6337 13 20.1818 13H3.81818C3.36631 13 3 12.5523 3 12Z" fill="currentColor"/><path d="M3.81818 17C3.36631 17 3 17.4477 3 18C3 18.5523 3.36631 19 3.81818 19H20.1818C20.6337 19 21 18.5523 21 18C21 17.4477 20.6337 17 20.1818 17H3.81818Z" fill="currentColor"/></svg></span></span></div><div class="list-card"><span class="num-badge">3</span><span class="list-card__text">Text</span><span class="list-card__action list-card__action--reorder"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6C3 5.44772 3.36631 5 3.81818 5H20.1818C20.6337 5 21 5.44772 21 6C21 6.55228 20.6337 7 20.1818 7H3.81818C3.36631 7 3 6.55228 3 6Z" fill="currentColor"/><path d="M3 12C3 11.4477 3.36631 11 3.81818 11H20.1818C20.6337 11 21 11.4477 21 12C21 12.5523 20.6337 13 20.1818 13H3.81818C3.36631 13 3 12.5523 3 12Z" fill="currentColor"/><path d="M3.81818 17C3.36631 17 3 17.4477 3 18C3 18.5523 3.36631 19 3.81818 19H20.1818C20.6337 19 21 18.5523 21 18C21 17.4477 20.6337 17 20.1818 17H3.81818Z" fill="currentColor"/></svg></span></span></div></div></div>
+<div class="set" style="left:139px;top:1096px;width:335px;height:216px"></div>
+<div class="spec" style="left:139px;top:1096px;width:335px"><div class="list-card"><span class="num-badge">1</span><span class="list-card__text">Text</span><span class="list-card__action list-card__action--reorder"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6C3 5.44772 3.36631 5 3.81818 5H20.1818C20.6337 5 21 5.44772 21 6C21 6.55228 20.6337 7 20.1818 7H3.81818C3.36631 7 3 6.55228 3 6Z" fill="currentColor"/><path d="M3 12C3 11.4477 3.36631 11 3.81818 11H20.1818C20.6337 11 21 11.4477 21 12C21 12.5523 20.6337 13 20.1818 13H3.81818C3.36631 13 3 12.5523 3 12Z" fill="currentColor"/><path d="M3.81818 17C3.36631 17 3 17.4477 3 18C3 18.5523 3.36631 19 3.81818 19H20.1818C20.6337 19 21 18.5523 21 18C21 17.4477 20.6337 17 20.1818 17H3.81818Z" fill="currentColor"/></svg></span></span></div></div>
+<div class="spec" style="left:139px;top:1262px;width:335px"><div class="list-card"><span class="num-badge">1</span><span class="list-card__text">Text</span><span class="list-card__action list-card__action--delete"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></span></div></div>
+<p class="spec h-sec" style="left:71px;top:1500px">Accordion</p>
+<p class="spec lab" style="left:69px;top:1611px">Default</p>
+<p class="spec lab" style="left:261px;top:1611px">Hover</p>
+<p class="spec lab" style="left:455px;top:1611px">Pressed</p>
+<div class="set" style="left:64px;top:1645px;width:641px;height:95px"></div>
+<div class="spec" style="left:86px;top:1672px"><button type="button" class="acc-title static">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:273px;top:1672px"><button type="button" class="acc-title is-hover static">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:460px;top:1672px"><button type="button" class="acc-title is-pressed static">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span></button></div>
+<p class="spec lab" style="left:85px;top:1798px">Default</p>
+<p class="spec lab" style="left:438px;top:1798px">Hover</p>
+<p class="spec lab" style="left:792px;top:1798px">Pressed</p>
+<p class="spec lab" style="left:1148px;top:1798px">Selected</p>
+<div class="set" style="left:64px;top:1842px;width:375px;height:351px"></div>
+<div class="spec" style="left:84px;top:1870px;width:335px"><div class="acc-index" style="height:296px"><div class="acc-index__header">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></div><ul class="acc-index__list"><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li></ul></div></div>
+<div class="spec" style="left:437px;top:1870px;width:335px"><div class="acc-index" style="height:296px"><div class="acc-index__header">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></div><ul class="acc-index__list"><li><button type="button" class="acc-index__item is-hover static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li></ul></div></div>
+<div class="spec" style="left:790px;top:1870px;width:335px"><div class="acc-index" style="height:296px"><div class="acc-index__header">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></div><ul class="acc-index__list"><li><button type="button" class="acc-index__item is-pressed static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li></ul></div></div>
+<div class="spec" style="left:1152px;top:1870px;width:335px"><div class="acc-index" style="height:296px"><div class="acc-index__header">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></div><ul class="acc-index__list"><li><button type="button" class="acc-index__item is-selected static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li></ul></div></div>
+<p class="spec lab" style="left:64px;top:2197px">Index Item</p>
+<div class="set" style="left:64px;top:2233px;width:1440px;height:86px"></div>
+<div class="spec" style="left:84px;top:2253px;width:335px"><button type="button" class="acc-index__item static" style="width:335px"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:439px;top:2253px;width:335px"><button type="button" class="acc-index__item is-hover static" style="width:335px"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:794px;top:2253px;width:335px"><button type="button" class="acc-index__item is-pressed static" style="width:335px"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></div>
+<div class="spec" style="left:1149px;top:2253px;width:335px"><button type="button" class="acc-index__item is-selected static" style="width:335px"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></div>
+<p class="spec lab" style="left:72px;top:2505px">Default</p>
+<p class="spec lab" style="left:480px;top:2505px">Hover</p>
+<p class="spec lab" style="left:878px;top:2505px">Pressed</p>
+<div class="set" style="left:64px;top:2571px;width:1214px;height:281px"></div>
+<div class="spec" style="left:97px;top:2604px;width:335px"><div class="acc"><button type="button" class="acc__head" aria-expanded="false"><span class="num-badge">2</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div>
+<div class="spec" style="left:97px;top:2713px;width:335px"><div class="acc is-open"><button type="button" class="acc__head" aria-expanded="true"><span class="num-badge">2</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div>
+<div class="spec" style="left:503px;top:2604px;width:335px"><div class="acc is-hover static"><button type="button" class="acc__head" aria-expanded="false"><span class="num-badge">2</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div>
+<div class="spec" style="left:503px;top:2713px;width:335px"><div class="acc is-hover is-open static"><button type="button" class="acc__head" aria-expanded="true"><span class="num-badge">2</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div>
+<div class="spec" style="left:909px;top:2604px;width:335px"><div class="acc is-pressed static"><button type="button" class="acc__head" aria-expanded="false"><span class="num-badge">2</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div>
+<div class="spec" style="left:909px;top:2713px;width:335px"><div class="acc is-pressed is-open static"><button type="button" class="acc__head" aria-expanded="true"><span class="num-badge">2</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div>
+<p class="spec h-sec" style="left:73px;top:3080px">Position</p>
+<div class="spec pos" style="left:73px;top:3131px">
+  <p class="pos-l" style="left:43px;top:44px">Top</p><p class="pos-l" style="left:709px;top:44px">Contents</p>
+  <div class="pv" style="left:184px;top:44px;height:179px"><div class="sbar"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="44" fill="white"/><path opacity="0.35" d="M338.667 17.8333H355.333C356.53 17.8333 357.5 18.8036 357.5 20.0002V26.0002C357.5 27.1967 356.53 28.1663 355.333 28.1663H338.667C337.47 28.1663 336.5 27.1967 336.5 26.0002V20.0002L336.511 19.7786C336.622 18.6859 337.545 17.8333 338.667 17.8333Z" stroke="black"/><path opacity="0.4" d="M359 21V25C359.805 24.6612 360.328 23.8731 360.328 23C360.328 22.1269 359.805 21.3388 359 21Z" fill="black"/><path d="M338 20.6666C338 19.9302 338.597 19.3333 339.333 19.3333H354.667C355.403 19.3333 356 19.9302 356 20.6666V25.3333C356 26.0696 355.403 26.6666 354.667 26.6666H339.333C338.597 26.6666 338 26.0696 338 25.3333V20.6666Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M321.121 25.7311C322.397 24.6522 324.265 24.6522 325.541 25.7311C325.605 25.7892 325.642 25.8713 325.644 25.9577C325.645 26.0442 325.612 26.1276 325.55 26.1882L323.553 28.2038C323.494 28.263 323.414 28.2965 323.331 28.2966C323.248 28.2966 323.168 28.263 323.109 28.2038L321.111 26.1882C321.05 26.1276 321.016 26.0441 321.018 25.9577C321.019 25.8712 321.057 25.7891 321.121 25.7311ZM318.456 23.0417C321.204 20.4856 325.46 20.4857 328.208 23.0417C328.27 23.1015 328.306 23.1841 328.307 23.2702C328.308 23.3564 328.274 23.4395 328.213 23.5007L327.059 24.6677C326.94 24.7868 326.747 24.7894 326.625 24.6735C325.723 23.8563 324.549 23.4039 323.331 23.404C322.114 23.4045 320.941 23.8568 320.039 24.6735C319.917 24.7893 319.724 24.7867 319.605 24.6677L318.451 23.5007C318.391 23.4396 318.357 23.3563 318.357 23.2702C318.358 23.1841 318.394 23.1015 318.456 23.0417ZM315.791 20.36C320.006 16.3209 326.656 16.3206 330.871 20.36C330.932 20.42 330.966 20.5021 330.967 20.5876C330.967 20.6731 330.933 20.7554 330.873 20.8161L329.717 21.9831C329.598 22.1026 329.405 22.1038 329.284 21.986C327.678 20.4593 325.547 19.6082 323.331 19.6081C321.115 19.6081 318.983 20.4591 317.377 21.986C317.256 22.104 317.063 22.1028 316.944 21.9831L315.788 20.8161C315.728 20.7553 315.694 20.6732 315.694 20.5876C315.695 20.5021 315.73 20.42 315.791 20.36Z" fill="black"/><path d="M295.667 24.3335C296.219 24.3335 296.667 24.7812 296.667 25.3335V27.3335C296.667 27.8856 296.219 28.3335 295.667 28.3335H294.667C294.115 28.3335 293.667 27.8856 293.667 27.3335V25.3335C293.667 24.7812 294.115 24.3335 294.667 24.3335H295.667ZM300.334 22.3335C300.886 22.3337 301.334 22.7813 301.334 23.3335V27.3335C301.334 27.8855 300.886 28.3333 300.334 28.3335H299.334C298.782 28.3335 298.334 27.8856 298.334 27.3335V23.3335C298.334 22.7812 298.782 22.3335 299.334 22.3335H300.334ZM305 19.9995C305.552 19.9995 306 20.4474 306 20.9995V27.3335C306 27.8856 305.552 28.3335 305 28.3335H304C303.448 28.3333 303 27.8855 303 27.3335V20.9995C303 20.4475 303.448 19.9997 304 19.9995H305ZM309.667 17.6665C310.219 17.6665 310.667 18.1142 310.667 18.6665V27.3335C310.667 27.8856 310.219 28.3335 309.667 28.3335H308.667C308.115 28.3335 307.667 27.8856 307.667 27.3335V18.6665C307.667 18.1142 308.115 17.6665 308.667 17.6665H309.667Z" fill="black"/><path d="M37.3203 28.2563C40.0083 28.2563 41.605 26.1543 41.605 22.5947C41.605 21.2544 41.3486 20.1265 40.8579 19.2549C40.1475 17.8999 38.9243 17.1675 37.3789 17.1675C35.0791 17.1675 33.4531 18.7129 33.4531 20.8809C33.4531 22.917 34.918 24.3965 36.9321 24.3965C38.1699 24.3965 39.1733 23.8179 39.6714 22.8145H39.6934C39.6934 22.8145 39.7227 22.8145 39.73 22.8145C39.7446 22.8145 39.7959 22.8145 39.7959 22.8145C39.7959 25.2314 38.8804 26.6743 37.335 26.6743C36.4268 26.6743 35.7236 26.1763 35.4819 25.3779H33.5996C33.9146 27.1138 35.3867 28.2563 37.3203 28.2563ZM37.3862 22.895C36.1704 22.895 35.3062 22.0308 35.3062 20.8223C35.3062 19.6431 36.2144 18.7422 37.3936 18.7422C38.5728 18.7422 39.481 19.6577 39.481 20.8516C39.481 22.0308 38.5947 22.895 37.3862 22.895Z" fill="black"/><path d="M44.6961 28.1538C45.3919 28.1538 45.868 27.6558 45.868 26.9966C45.868 26.3301 45.3919 25.8394 44.6961 25.8394C44.0076 25.8394 43.5242 26.3301 43.5242 26.9966C43.5242 27.6558 44.0076 28.1538 44.6961 28.1538ZM44.6961 22.6606C45.3919 22.6606 45.868 22.1699 45.868 21.5107C45.868 20.8442 45.3919 20.3535 44.6961 20.3535C44.0076 20.3535 43.5242 20.8442 43.5242 21.5107C43.5242 22.1699 44.0076 22.6606 44.6961 22.6606Z" fill="black"/><path d="M52.7237 28H54.5328V26.0298H55.961V24.4331H54.5328V17.4312H51.8668C49.9991 20.2437 48.5123 22.5947 47.5602 24.3452V26.0298H52.7237V28ZM49.3106 24.3672C50.5411 22.1992 51.6397 20.4634 52.6505 18.9692H52.753V24.4771H49.3106V24.3672Z" fill="black"/><path d="M59.9896 28H61.8793V17.4312H59.997L57.2357 19.3647V21.1812L59.8651 19.3354H59.9896V28Z" fill="black"/></svg></div>
+    <div class="pv-top"><span class="pv-x"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></span><button type="button" class="acc-title static">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span></button><span style="width:42px"></span></div></div>
+  <div class="pv" style="left:185px;top:272px;height:401px"><div class="sbar"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="44" fill="white"/><path opacity="0.35" d="M338.667 17.8333H355.333C356.53 17.8333 357.5 18.8036 357.5 20.0002V26.0002C357.5 27.1967 356.53 28.1663 355.333 28.1663H338.667C337.47 28.1663 336.5 27.1967 336.5 26.0002V20.0002L336.511 19.7786C336.622 18.6859 337.545 17.8333 338.667 17.8333Z" stroke="black"/><path opacity="0.4" d="M359 21V25C359.805 24.6612 360.328 23.8731 360.328 23C360.328 22.1269 359.805 21.3388 359 21Z" fill="black"/><path d="M338 20.6666C338 19.9302 338.597 19.3333 339.333 19.3333H354.667C355.403 19.3333 356 19.9302 356 20.6666V25.3333C356 26.0696 355.403 26.6666 354.667 26.6666H339.333C338.597 26.6666 338 26.0696 338 25.3333V20.6666Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M321.121 25.7311C322.397 24.6522 324.265 24.6522 325.541 25.7311C325.605 25.7892 325.642 25.8713 325.644 25.9577C325.645 26.0442 325.612 26.1276 325.55 26.1882L323.553 28.2038C323.494 28.263 323.414 28.2965 323.331 28.2966C323.248 28.2966 323.168 28.263 323.109 28.2038L321.111 26.1882C321.05 26.1276 321.016 26.0441 321.018 25.9577C321.019 25.8712 321.057 25.7891 321.121 25.7311ZM318.456 23.0417C321.204 20.4856 325.46 20.4857 328.208 23.0417C328.27 23.1015 328.306 23.1841 328.307 23.2702C328.308 23.3564 328.274 23.4395 328.213 23.5007L327.059 24.6677C326.94 24.7868 326.747 24.7894 326.625 24.6735C325.723 23.8563 324.549 23.4039 323.331 23.404C322.114 23.4045 320.941 23.8568 320.039 24.6735C319.917 24.7893 319.724 24.7867 319.605 24.6677L318.451 23.5007C318.391 23.4396 318.357 23.3563 318.357 23.2702C318.358 23.1841 318.394 23.1015 318.456 23.0417ZM315.791 20.36C320.006 16.3209 326.656 16.3206 330.871 20.36C330.932 20.42 330.966 20.5021 330.967 20.5876C330.967 20.6731 330.933 20.7554 330.873 20.8161L329.717 21.9831C329.598 22.1026 329.405 22.1038 329.284 21.986C327.678 20.4593 325.547 19.6082 323.331 19.6081C321.115 19.6081 318.983 20.4591 317.377 21.986C317.256 22.104 317.063 22.1028 316.944 21.9831L315.788 20.8161C315.728 20.7553 315.694 20.6732 315.694 20.5876C315.695 20.5021 315.73 20.42 315.791 20.36Z" fill="black"/><path d="M295.667 24.3335C296.219 24.3335 296.667 24.7812 296.667 25.3335V27.3335C296.667 27.8856 296.219 28.3335 295.667 28.3335H294.667C294.115 28.3335 293.667 27.8856 293.667 27.3335V25.3335C293.667 24.7812 294.115 24.3335 294.667 24.3335H295.667ZM300.334 22.3335C300.886 22.3337 301.334 22.7813 301.334 23.3335V27.3335C301.334 27.8855 300.886 28.3333 300.334 28.3335H299.334C298.782 28.3335 298.334 27.8856 298.334 27.3335V23.3335C298.334 22.7812 298.782 22.3335 299.334 22.3335H300.334ZM305 19.9995C305.552 19.9995 306 20.4474 306 20.9995V27.3335C306 27.8856 305.552 28.3335 305 28.3335H304C303.448 28.3333 303 27.8855 303 27.3335V20.9995C303 20.4475 303.448 19.9997 304 19.9995H305ZM309.667 17.6665C310.219 17.6665 310.667 18.1142 310.667 18.6665V27.3335C310.667 27.8856 310.219 28.3335 309.667 28.3335H308.667C308.115 28.3335 307.667 27.8856 307.667 27.3335V18.6665C307.667 18.1142 308.115 17.6665 308.667 17.6665H309.667Z" fill="black"/><path d="M37.3203 28.2563C40.0083 28.2563 41.605 26.1543 41.605 22.5947C41.605 21.2544 41.3486 20.1265 40.8579 19.2549C40.1475 17.8999 38.9243 17.1675 37.3789 17.1675C35.0791 17.1675 33.4531 18.7129 33.4531 20.8809C33.4531 22.917 34.918 24.3965 36.9321 24.3965C38.1699 24.3965 39.1733 23.8179 39.6714 22.8145H39.6934C39.6934 22.8145 39.7227 22.8145 39.73 22.8145C39.7446 22.8145 39.7959 22.8145 39.7959 22.8145C39.7959 25.2314 38.8804 26.6743 37.335 26.6743C36.4268 26.6743 35.7236 26.1763 35.4819 25.3779H33.5996C33.9146 27.1138 35.3867 28.2563 37.3203 28.2563ZM37.3862 22.895C36.1704 22.895 35.3062 22.0308 35.3062 20.8223C35.3062 19.6431 36.2144 18.7422 37.3936 18.7422C38.5728 18.7422 39.481 19.6577 39.481 20.8516C39.481 22.0308 38.5947 22.895 37.3862 22.895Z" fill="black"/><path d="M44.6961 28.1538C45.3919 28.1538 45.868 27.6558 45.868 26.9966C45.868 26.3301 45.3919 25.8394 44.6961 25.8394C44.0076 25.8394 43.5242 26.3301 43.5242 26.9966C43.5242 27.6558 44.0076 28.1538 44.6961 28.1538ZM44.6961 22.6606C45.3919 22.6606 45.868 22.1699 45.868 21.5107C45.868 20.8442 45.3919 20.3535 44.6961 20.3535C44.0076 20.3535 43.5242 20.8442 43.5242 21.5107C43.5242 22.1699 44.0076 22.6606 44.6961 22.6606Z" fill="black"/><path d="M52.7237 28H54.5328V26.0298H55.961V24.4331H54.5328V17.4312H51.8668C49.9991 20.2437 48.5123 22.5947 47.5602 24.3452V26.0298H52.7237V28ZM49.3106 24.3672C50.5411 22.1992 51.6397 20.4634 52.6505 18.9692H52.753V24.4771H49.3106V24.3672Z" fill="black"/><path d="M59.9896 28H61.8793V17.4312H59.997L57.2357 19.3647V21.1812L59.8651 19.3354H59.9896V28Z" fill="black"/></svg></div>
+    <p class="pv-q">계속 유지하고 싶은 것은 무엇인가요?</p><div class="pv-dim"></div>
+    <div style="position:absolute;left:20px;top:56px;width:335px"><div class="acc-index" style="height:296px"><div class="acc-index__header">Header<span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></div><ul class="acc-index__list"><li><button type="button" class="acc-index__item is-selected static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li><li><button type="button" class="acc-index__item static"><span>Text</span><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.69328 20.7071C7.30276 20.3166 7.30276 19.6834 7.69328 19.2929L14.9862 12L7.69328 4.70711C7.30276 4.31658 7.30276 3.68342 7.69328 3.29289C8.08381 2.90237 8.71697 2.90237 9.1075 3.29289L17.1075 11.2929C17.498 11.6834 17.498 12.3166 17.1075 12.7071L9.1075 20.7071C8.71697 21.0976 8.08381 21.0976 7.69328 20.7071Z" fill="currentColor"/></svg></span></button></li></ul></div></div></div>
+  <div class="pv" style="left:826px;top:44px;height:444px"><p class="pv-h">Header</p>
+    <div style="position:absolute;left:20px;top:112px;width:335px"><div class="acc static"><button type="button" class="acc__head" aria-expanded="false"><span class="num-badge">1</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div>
+    <div style="position:absolute;left:20px;top:204px;width:335px"><div class="acc is-open static"><button type="button" class="acc__head" aria-expanded="true"><span class="num-badge">2</span><span class="acc__title">Title</span><span class="icon icon-down"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 8.02623C3.68342 7.63571 4.31658 7.63571 4.70711 8.02623L12 15.3191L19.2929 8.02623C19.6834 7.63571 20.3166 7.63571 20.7071 8.02623C21.0976 8.41675 21.0976 9.04992 20.7071 9.44044L12.7071 17.4404C12.3166 17.831 11.6834 17.831 11.2929 17.4404L3.29289 9.44044C2.90237 9.04992 2.90237 8.41675 3.29289 8.02623Z" fill="currentColor"/></svg></span><span class="icon icon-up"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7071 16.5071C20.3166 16.8976 19.6834 16.8976 19.2929 16.5071L12 9.2142L4.70711 16.5071C4.31658 16.8976 3.68342 16.8976 3.29289 16.5071C2.90237 16.1166 2.90237 15.4834 3.29289 15.0929L11.2929 7.09288C11.6834 6.70236 12.3166 6.70236 12.7071 7.09288L20.7071 15.0929C21.0976 15.4834 21.0976 16.1166 20.7071 16.5071Z" fill="currentColor"/></svg></span></button><div class="acc__body">Text</div></div></div></div>
+</div>
+  </main>
+  </div>
+<script>
+  document.querySelectorAll('.acc:not(.static) .acc__head').forEach(function (h) {
+    h.addEventListener('click', function () { var a = h.closest('.acc'); var o = a.classList.toggle('is-open'); h.setAttribute('aria-expanded', o); });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component — Bottom Sheet</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>/* typography.css */
+/* ─────────────────────────────────────────────────────────────
+   Typography — derived from Figma "Foundation / Typography" (node 1:3589)
+   Values come only from that frame, not from the existing AI-made variables.
+
+   Layer 1: primitives  (what values exist)
+   Layer 2: text styles (which combinations are allowed)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Family */
+  --font-family-primary: "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  /* Weight — 3 used */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Size — 9 used */
+  --font-size-10: 10px;
+  --font-size-11: 11px;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-15: 15px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+
+  /* Line height — 2 used */
+  --line-height-140: 1.4;
+  --line-height-150: 1.5;
+
+  /* Letter spacing — every style uses 0 */
+  --letter-spacing-0: 0;
+}
+
+/* Shared base for every text style */
+[class^="text-"], [class*=" text-"] {
+  font-family: var(--font-family-primary);
+  letter-spacing: var(--letter-spacing-0);
+  font-feature-settings: "case" 1, "ss02" 1;
+  margin: 0;
+}
+
+/* ── Text styles (15) ── name = Role / Size Weight, same as Figma ── */
+
+/* Heading */
+.text-heading-24-bold    { font-size: var(--font-size-24); font-weight: var(--font-weight-bold);     line-height: var(--line-height-150); }
+
+/* Title */
+.text-title-20-bold      { font-size: var(--font-size-20); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+.text-title-18-bold      { font-size: var(--font-size-18); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 140% (2026-10-26) */
+.text-title-16-bold      { font-size: var(--font-size-16); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); }
+
+/* Subtitle */
+.text-subtitle-18-semibold { font-size: var(--font-size-18); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-16-semibold { font-size: var(--font-size-16); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-subtitle-14-semibold { font-size: var(--font-size-14); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+
+/* Body */
+.text-body-16-medium     { font-size: var(--font-size-16); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-15-medium     { font-size: var(--font-size-15); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-14-medium     { font-size: var(--font-size-14); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-body-12-semibold   { font-size: var(--font-size-12); font-weight: var(--font-weight-semibold); line-height: var(--line-height-140); }
+.text-body-12-medium     { font-size: var(--font-size-12); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+
+/* Caption */
+.text-caption-11-medium  { font-size: var(--font-size-11); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+.text-caption-10-bold    { font-size: var(--font-size-10); font-weight: var(--font-weight-bold);     line-height: var(--line-height-140); } /* confirmed 10px (2026-10-26) */
+.text-caption-10-medium  { font-size: var(--font-size-10); font-weight: var(--font-weight-medium);   line-height: var(--line-height-140); }
+</style>
+<style>/* icons.css */
+/* ─────────────────────────────────────────────────────────────
+   Icons — derived from Figma "Foundation / Icons" (node 1:3724)
+
+   Assets  : single-colour UI icons, 24px grid, drawn in currentColor
+   Nav     : navigation icons, 24px, currentColor + white details
+   Graphic : multi-colour illustrations, 28px, Color / White states
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Recommended Assets sizes (from the page description) */
+  --icon-size-24: 24px;
+  --icon-size-18: 18px;
+  --icon-size-16: 16px;
+  --icon-size-12: 12px;
+
+  /* Graphic icons are drawn on a 28px grid */
+  --icon-size-graphic: 28px;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-size-24);
+  height: var(--icon-size-24);
+  color: inherit;             /* Assets & Nav follow the text colour */
+  vertical-align: middle;
+}
+.icon svg { display: block; width: 100%; height: 100%; }
+
+.icon-24 { width: var(--icon-size-24); height: var(--icon-size-24); }
+.icon-18 { width: var(--icon-size-18); height: var(--icon-size-18); }
+.icon-16 { width: var(--icon-size-16); height: var(--icon-size-16); }
+.icon-12 { width: var(--icon-size-12); height: var(--icon-size-12); }
+.icon-graphic { width: var(--icon-size-graphic); height: var(--icon-size-graphic); }
+</style>
+<style>/* buttons.css */
+/* ─────────────────────────────────────────────────────────────
+   Button — derived from Figma "Components / Button" (node 1:1123)
+   Filled (5 variants), Ghost (2), Outlined (2), Floating (1), Button Group (3)
+   Sizes:  48 (default) · 40 (.btn--sm)
+   States: Default · Hover (+1 step) · Pressed (+2 steps) · Disabled (one shared look)
+
+   Colours are the values read from the frame; comments name the palette step.
+   Real interaction uses :hover / :active / :disabled.
+   .is-hover / .is-pressed force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: #212329;
+  --btn-border: transparent;
+  --btn-overlay: transparent;          /* optional tint layer (unused by current rules) */
+
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-sizing: border-box;
+  height: 48px; padding: 13px 20px; border-radius: 12px;
+  border: 1px solid var(--btn-border);
+  background-color: var(--btn-bg);
+  background-image: linear-gradient(var(--btn-overlay), var(--btn-overlay));
+  color: var(--btn-fg);
+  font-family: var(--font-family-primary); font-size: 16px; font-weight: 600; line-height: 1.4;  /* Subtitle 16 SemiBold */
+  font-feature-settings: "case" 1, "ss02" 1;
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn .icon { width: 18px; height: 18px; }
+.btn:focus-visible { outline: 2px solid #415e96; outline-offset: 2px; }
+.btn:disabled, .btn.is-disabled { cursor: not-allowed; }
+.btn--block { width: 100%; }
+
+/* ── Size 40 ─────────────────────────────── */
+.btn--sm { height: 40px; padding: 10px 16px; gap: 8px; border-radius: 10px; font-size: 14px; } /* Subtitle 14 SemiBold */
+.btn--sm .icon { width: 16px; height: 16px; }
+
+/* ── Filled ──────────────────────────────── */
+.btn--primary   { --btn-bg: #212329; --btn-fg: #ffffff; }                                  /* Gray 900 */
+.btn--primary:hover,  .btn--primary.is-hover   { --btn-bg: #454952; }                      /* Gray 800 */
+.btn--primary:active, .btn--primary.is-pressed { --btn-bg: #666b75; }                      /* Gray 700 */
+
+.btn--secondary { --btn-bg: #dfe3ea; --btn-fg: #212329; }                                  /* Gray 300 */
+.btn--secondary:hover,  .btn--secondary.is-hover   { --btn-bg: #ced2da; }                  /* Gray 400 */
+.btn--secondary:active, .btn--secondary.is-pressed { --btn-bg: #a9afbb; }                  /* Gray 500 */
+
+.btn--white     { --btn-bg: #ffffff; --btn-fg: #212329; }                                  /* Gray 0 */
+.btn--white:hover,  .btn--white.is-hover   { --btn-bg: #f2f4f8; }                          /* Gray 100 */
+.btn--white:active, .btn--white.is-pressed { --btn-bg: #edf0f4; }                          /* Gray 200 */
+
+.btn--blue      { --btn-bg: #6c9cfa; --btn-fg: #ffffff; }                                  /* Blue 600 */
+.btn--blue:hover,  .btn--blue.is-hover   { --btn-bg: #415e96; }                            /* Blue 700 */
+.btn--blue:active, .btn--blue.is-pressed { --btn-bg: #2b3e64; }                            /* Blue 800 */
+
+.btn--light-blue { --btn-bg: #e9f0ff; --btn-fg: #6c9cfa; }                                 /* Blue 100 */
+.btn--light-blue:hover,  .btn--light-blue.is-hover   { --btn-bg: #e2ebfe; }                /* Blue 200 */
+.btn--light-blue:active, .btn--light-blue.is-pressed { --btn-bg: #c4d7fd; }                /* Blue 300 */
+
+.btn--primary:disabled, .btn--primary.is-disabled,
+.btn--secondary:disabled, .btn--secondary.is-disabled,
+.btn--white:disabled, .btn--white.is-disabled,
+.btn--blue:disabled, .btn--blue.is-disabled,
+.btn--light-blue:disabled, .btn--light-blue.is-disabled {
+  --btn-bg: #f2f4f8; --btn-fg: #ced2da; --btn-overlay: transparent;                        /* Gray 100 / Gray 400 */
+}
+
+/* ── Ghost ───────────────────────────────── */
+.btn--ghost { --btn-bg: #ffffff; --btn-fg: #212329; }                                      /* text Gray 900 */
+.btn--ghost:hover,  .btn--ghost.is-hover   { --btn-bg: #f2f4f8; }                          /* Gray 100 */
+.btn--ghost:active, .btn--ghost.is-pressed { --btn-bg: #edf0f4; }                          /* Gray 200 */
+.btn--ghost-blue { --btn-bg: #ffffff; --btn-fg: #6c9cfa; }                                 /* text Blue 600 */
+.btn--ghost-blue:hover,  .btn--ghost-blue.is-hover   { --btn-bg: #f1f6ff; }                /* Blue 50 */
+.btn--ghost-blue:active, .btn--ghost-blue.is-pressed { --btn-bg: #e9f0ff; }                /* Blue 100 */
+.btn--ghost:disabled, .btn--ghost.is-disabled,
+.btn--ghost-blue:disabled, .btn--ghost-blue.is-disabled { --btn-bg: #f2f4f8; --btn-fg: #ced2da; }  /* = Filled disabled */
+
+/* ── Outlined ────────────────────────────── */
+.btn--outlined { --btn-border: #dfe3ea; --btn-fg: #212329; }                               /* border Gray 300 */
+.btn--outlined:hover,  .btn--outlined.is-hover   { --btn-bg: #f2f4f8; }
+.btn--outlined:active, .btn--outlined.is-pressed { --btn-bg: #edf0f4; }
+.btn--outlined-blue { --btn-border: #c4d7fd; --btn-fg: #6c9cfa; }                          /* border Blue 300 */
+.btn--outlined-blue:hover,  .btn--outlined-blue.is-hover   { --btn-bg: #f1f6ff; }
+.btn--outlined-blue:active, .btn--outlined-blue.is-pressed { --btn-bg: #e9f0ff; }
+.btn--outlined:disabled, .btn--outlined.is-disabled,
+.btn--outlined-blue:disabled, .btn--outlined-blue.is-disabled { --btn-bg: #f2f4f8; --btn-fg: #ced2da; --btn-border: transparent; } /* = Filled disabled */
+
+/* ── Floating ────────────────────────────── */
+.btn--floating {
+  --btn-bg: #212329; --btn-fg: #ffffff;
+  gap: 4px; padding: 14px 18px; border-radius: 30px;
+  font-size: 14px;                                                                         /* Subtitle 14 SemiBold */
+  box-shadow: var(--shadow-floating-button);                                               /* Elevation: Shadow 200 */
+}
+.btn--floating:hover,  .btn--floating.is-hover   { --btn-bg: #454952; }                    /* Gray 800 */
+.btn--floating:active, .btn--floating.is-pressed { --btn-bg: #666b75; }                    /* Gray 700 */
+.btn--floating:disabled, .btn--floating.is-disabled { --btn-bg: #f2f4f8; --btn-fg: #ced2da; } /* = Filled disabled, keeps shadow */
+.btn--floating.btn--sm { padding: 10px 16px; gap: 4px; border-radius: 30px; }
+
+/* ── Button Group (bottom of a screen) ───── */
+.btn-group { display: flex; flex-direction: column; width: 100%; max-width: 375px; }
+.btn-group__buttons { display: flex; flex-direction: column; padding: 8px 20px 16px; }
+.btn-group__buttons > .btn { width: 100%; }
+.btn-group--vertical   .btn-group__buttons { gap: 4px; }
+.btn-group--horizontal .btn-group__buttons { flex-direction: row; gap: 8px; }
+.btn-group--horizontal .btn-group__buttons > .btn { flex: 1 1 0; min-width: 0; width: auto; }
+</style>
+<style>/* chips.css */
+/* ─────────────────────────────────────────────────────────────
+   Chip Button / Progress Bar — derived from Figma node 1:1304
+   Chip: Multi Choice (Size 48 · 38), Multi Choice with Icon, Two Choice
+   States: Default · Hover · Pressed/Selected · Disabled  (selection = aria-pressed="true")
+   Progress Bar: Step Size 4 · 3 · 2 × Current Step 0…n
+
+   Colours are the values read from the frame; comments name the palette step.
+   .is-hover / .is-selected force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Chip (Multi Choice) ─────────────────── */
+.chip-button {
+  --chip-bg: #f2f4f8;                    /* Gray 100 */
+  --chip-fg: #454952;                    /* Gray 800 */
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-sizing: border-box;
+  height: 48px; padding: 13px 20px; border: 0; border-radius: 8px;
+  background: var(--chip-bg); color: var(--chip-fg);
+  font-family: var(--font-family-primary); font-size: 16px; font-weight: 500; line-height: 1.4; /* Body 16 Medium */
+  font-feature-settings: "case" 1, "ss02" 1;
+  white-space: nowrap; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.chip-button:hover, .chip-button.is-hover { --chip-bg: #edf0f4; }                       /* Gray 200 */
+.chip-button:active, .chip-button.is-selected,
+.chip-button[aria-pressed="true"] { --chip-bg: #6c9cfa; --chip-fg: #ffffff; }          /* Blue 600 / Gray 0 */
+.chip-button:focus-visible { outline: 2px solid #415e96; outline-offset: 2px; }
+/* Disabled = Button disabled colours */
+.chip-button:disabled, .chip-button.is-disabled { --chip-bg: #f2f4f8; --chip-fg: #ced2da; cursor: not-allowed; } /* Gray 100 / Gray 400 */
+.chip-button:disabled .icon-graphic, .chip-button.is-disabled .icon-graphic { opacity: 0.4; }
+.chip-button:disabled .icon-off, .chip-button.is-disabled .icon-off { display: block; }
+.chip-button:disabled .icon-on,  .chip-button.is-disabled .icon-on  { display: none; }
+
+/* Graphic icon: colour version normally, white version when selected */
+.chip-button .icon-graphic { width: 28px; height: 28px; flex: none; }
+.chip-button .icon-graphic svg { display: block; width: 100%; height: 100%; }
+.chip-button .icon-on { display: none; }
+.chip-button:active .icon-off, .chip-button.is-selected .icon-off, .chip-button[aria-pressed="true"] .icon-off { display: none; }
+.chip-button:active .icon-on,  .chip-button.is-selected .icon-on,  .chip-button[aria-pressed="true"] .icon-on  { display: block; }
+
+/* Size 38 (added 2026-10-27, used by the Date Time Picker hours): radius 6, Subtitle 14 SemiBold */
+.chip-button--38 { height: 38px; padding: 9px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* ── Chip with Icon ──────────────────────── */
+.chip-button--icon { gap: 8px; padding: 13px 20px 13px 14px; }
+
+/* ── Two Choice (square card) ────────────── */
+.chip-button--card {
+  flex-direction: column; gap: 16px;
+  width: 100%; height: 163px; padding: 18px 38px; border-radius: 12px;   /* width follows the screen */
+  white-space: normal; text-align: center;
+}
+.chip-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }  /* two cards side by side */
+.chip-button--card .icon-graphic { width: 40px; height: 40px; }
+
+/* Rows of chips */
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ── Progress Bar ────────────────────────── */
+.progress-bar {
+  display: flex; align-items: center; box-sizing: border-box;
+  width: 100%; max-width: 375px; padding: 8px 20px 20px;
+}
+.progress-bar__track { display: flex; flex: 1 1 0; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.progress-bar__step {
+  flex: 1 1 0; min-width: 0; height: 4px; border-radius: 100px;
+  background: rgb(6 8 12 / 0.04);                                                       /* Opacity 4 */
+}
+.progress-bar__step.is-done { background: #6c9cfa; }                                    /* Blue 600 */
+</style>
+<style>/* fields.css */
+/* ─────────────────────────────────────────────────────────────
+   Fields — derived from Figma "Fields" (node 1:2301)
+   Text Input · Text Area · Select Field
+   States: Default · Focus · Typing · Typed · Error · OverTyping · Disabled
+   (Focus/Typing come from :focus-within; Typed = has a value, not focused)
+   Error = invalid characters · OverTyping = over the length limit (count shows N/N)
+   Error keeps the Blue 600 border (agreed); only the help text is red.
+
+   Colours are the values read from the frame; comments name the palette step.
+   .is-focus / .is-error / .is-disabled force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+.field {
+  --field-border: #dfe3ea;               /* Gray 300 */
+  --field-text: #212329;                 /* Gray 900 */
+  --field-placeholder: #a9afbb;          /* Gray 500 */
+  --field-count: #a9afbb;                /* Gray 500 */
+  display: flex; flex-direction: column; gap: 8px; width: 100%;
+  font-family: var(--font-family-primary);
+  font-feature-settings: "case" 1, "ss02" 1;
+}
+.field__label {                          /* Subtitle 14 SemiBold */
+  margin: 0; font-size: 14px; font-weight: 600; line-height: 1.4; color: #212329;
+}
+.field__box {
+  display: flex; align-items: center; gap: 6px; box-sizing: border-box;
+  padding: 15px 13px; border: 1px solid var(--field-border); border-radius: 12px;   /* 16·14 incl. 1px inside stroke */
+  background: #ffffff;
+}
+.field__input {                          /* Body 15 Medium */
+  flex: 1 1 0; min-width: 0; margin: 0; padding: 0; border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 15px; font-weight: 500; line-height: 1.4; height: 21px;
+  color: var(--field-text); caret-color: #6c9cfa;                                      /* cursor: Blue 600 */
+}
+.field__input::placeholder { color: var(--field-placeholder); opacity: 1; }
+.field__count {                          /* Body 12 Medium */
+  flex: none; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--field-count); white-space: nowrap;
+}
+.field__count b { font-weight: 500; color: #6c9cfa; }                                  /* typed count: Blue 600 */
+.field__help {                           /* Body 14 Medium */
+  margin: 0; font-size: 14px; font-weight: 500; line-height: 1.4; color: #fb5c5c;     /* Red 400 */
+}
+
+/* Focus · Typing */
+.field__box:focus-within, .field.is-focus .field__box { --field-border: #6c9cfa; }    /* Blue 600 */
+/* Error · OverTyping (Figma keeps the Blue 600 focus border) */
+.field.is-error .field__box { --field-border: #6c9cfa; }
+/* Disabled */
+.field.is-disabled .field__box, .field__box:has(:disabled) {
+  --field-border: #edf0f4;                                                              /* Gray 200 */
+  --field-text: #dfe3ea; --field-placeholder: #dfe3ea; --field-count: #dfe3ea;          /* Gray 300 */
+}
+.field__input:disabled { cursor: not-allowed; -webkit-text-fill-color: currentColor; }
+
+/* Static caret for documentation specimens (the real caret is caret-color) */
+.field__caret { display: inline-block; width: 1.5px; height: 18px; background: #6c9cfa; vertical-align: -3px; }
+
+/* ── Text Area ───────────────────────────── */
+.field--area .field__box { flex-direction: column; align-items: stretch; gap: 4px; }
+.field--area .field__input { height: auto; min-height: 21px; resize: none; field-sizing: content; display: block; }
+.field--area .field__count { text-align: right; }
+
+/* ── Select Field ────────────────────────── */
+.select-field {
+  --field-border: #dfe3ea;
+  display: flex; align-items: center; gap: 8px; box-sizing: border-box; width: 100%;
+  padding: 15px 13px; border: 1px solid var(--field-border); border-radius: 12px;   /* 16·14 incl. 1px inside stroke */ background: #ffffff;
+  font-family: var(--font-family-primary); font-size: 15px; font-weight: 500; line-height: 1.4;
+  font-feature-settings: "case" 1, "ss02" 1; text-align: left; cursor: pointer;
+  color: #a9afbb;                                                                        /* placeholder: Gray 500 */
+}
+.select-field__text { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.select-field .icon { width: 20px; height: 20px; flex: none; color: #666b75; }          /* Gray 700 */
+.select-field:focus-visible, .select-field:active, .select-field.is-focus { outline: 0; --field-border: #6c9cfa; }
+.select-field:focus-visible .icon, .select-field:active .icon, .select-field.is-focus .icon { color: #454952; } /* Gray 800 */
+.select-field.is-selected { color: #212329; }                                            /* Gray 900 (same as typed text) */
+.select-field.is-selected .icon { color: #454952; }
+.select-field:disabled, .select-field.is-disabled { --field-border: #edf0f4; color: #dfe3ea; cursor: not-allowed; }
+.select-field:disabled .icon, .select-field.is-disabled .icon { color: #dfe3ea; }
+</style>
+<style>/* tabs.css */
+/* ─────────────────────────────────────────────────────────────
+   Tabs — derived from Figma "Tabs" (node 1:1374)
+   Text Tabs (left aligned, 2–4; No Underline variant) · Text Fixed Tabs (equal width, 2–3)
+   Box Tabs (Scrollable · Fixed 3 · Fixed 2) · Outline: No Outlined / Outlined
+   State: Unselected · Hover (unselected only) · Selected = aria-selected="true"
+
+   Colours are the values read from the frame; comments name the palette step.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Text Tabs ───────────────────────────── */
+.tabs {
+  display: flex; align-items: flex-end; gap: 12px; box-sizing: border-box;
+  width: 100%; max-width: 375px; height: 52px; padding: 0 20px; margin: 0;
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+.tabs--outlined { box-shadow: inset 0 -1px 0 rgb(6 8 12 / 0.08); }                   /* Opacity 8 divider */
+
+.tab {
+  position: relative; flex: none;
+  display: flex; flex-direction: column; align-items: center; box-sizing: border-box;
+  height: 40px; padding: 5px 4px 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 18px; font-weight: 600; line-height: 1.4;                  /* Subtitle 18 SemiBold */
+  color: #a9afbb; white-space: nowrap;                                                   /* Gray 500 */
+  -webkit-tap-highlight-color: transparent;
+}
+.tab:hover, .tab.is-hover { color: #8b909c; }                                             /* Gray 600 */
+.tab[aria-selected="true"] { color: #212329; }                                           /* Gray 900 */
+.tab[aria-selected="true"]::after {
+  content: ""; position: absolute; left: 4px; right: 4px; bottom: 0; height: 2px; background: #212329;
+}
+.tab:focus-visible { outline: 2px solid #415e96; outline-offset: -2px; border-radius: 6px; }
+
+/* No Underline (added 2026-10-27, used by the Date Time Picker 오전/오후): hugs the text, no bar */
+.tabs--plain { height: auto; align-items: center; }
+.tabs--plain .tab { height: auto; padding: 0; }
+.tabs--plain .tab[aria-selected="true"]::after { display: none; }
+
+/* ── Text Fixed Tabs (equal width) ───────── */
+.tabs--fixed { gap: 0; height: 44px; justify-content: center; }
+.tabs--fixed .tab {
+  flex: 1 1 0; min-width: 0; height: 44px; padding: 7px 0 0;
+  font-weight: 700; line-height: 1.4;                                                    /* Title 18 Bold (140%) */
+}
+.tabs--fixed .tab[aria-selected="true"]::after { left: 0; right: 0; }
+
+/* ── Box Tabs ────────────────────────────── */
+.box-tabs {
+  display: flex; align-items: center; gap: 8px; box-sizing: border-box;
+  width: 100%; max-width: 375px; padding: 20px 20px 16px; margin: 0;
+  overflow-x: auto; scrollbar-width: none;
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+.box-tabs::-webkit-scrollbar { display: none; }
+.box-tab {
+  flex: none; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center;
+  height: 38px; padding: 9px 16px; border: 0; border-radius: 8px;
+  background: #f2f4f8; color: #454952;                                                   /* Gray 100 / Gray 800 */
+  font: inherit; font-size: 14px; font-weight: 600; line-height: 1.4;                    /* Subtitle 14 SemiBold */
+  white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.box-tab:hover, .box-tab.is-hover { background: #edf0f4; }                                /* Gray 200 */
+.box-tab[aria-selected="true"] { background: #454952; color: #ffffff; }                 /* Gray 800 / Gray 0 */
+.box-tab:focus-visible { outline: 2px solid #415e96; outline-offset: 2px; }
+.box-tabs--fixed .box-tab { flex: 1 1 0; min-width: 0; }
+
+/* Scrollable: tabs past the edge fade out; the fade on each side appears only when there is more to scroll.
+   A small script sets --fog-l / --fog-r from the scroll position (see the Tabs page). */
+.box-tabs--scroll {
+  --fog-l: 0px; --fog-r: 40px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--fog-l), #000 calc(100% - var(--fog-r)), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 var(--fog-l), #000 calc(100% - var(--fog-r)), transparent);
+  scroll-behavior: smooth;
+}
+</style>
+<style>/* controls.css */
+/* ─────────────────────────────────────────────────────────────
+   Controls / Scroll Bar — derived from Figma node 1:2462
+   Checkbox · Radio (added in the checkbox format) · Scroll Bar (its own board since 2026-10-27)
+   Types: Default (box only) · Label Left · Label Right — label order follows the markup
+   States: Checked · Unchecked × Default · Hover (+1 step) · Pressed (+2 steps) · Disabled
+   Scroll Bar states: Default · Hover · Pressed
+
+   Colours are the values read from the frame; comments name the palette step.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Control with label ──────────────────── */
+.control {
+  display: inline-flex; align-items: center; gap: 8px; padding: 4px; border-radius: 8px;
+  background: #ffffff; cursor: pointer;
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+  font-size: 15px; font-weight: 500; line-height: 1.4; color: #212329;                  /* Body 15 Medium, Gray 900 */
+  -webkit-tap-highlight-color: transparent;
+}
+.control:has(:disabled) { cursor: not-allowed; }
+.control:has(.control__input:disabled:not(:checked)) .control__label { color: #ced2da; } /* Gray 400 */
+
+/* ── Box: 24px slot, 20px shape ──────────── */
+.control__input {
+  -webkit-appearance: none; appearance: none; flex: none; margin: 2px; box-sizing: border-box;
+  width: 20px; height: 20px; border: 1px solid #ced2da; border-radius: 4px;           /* Gray 400 */
+  background: #ffffff center / 24px 24px no-repeat; cursor: inherit;
+}
+.control__input:focus-visible { outline: 2px solid #415e96; outline-offset: 2px; }
+/* Hover / Pressed (the whole control, label included, is the hit area) */
+.control:hover .control__input:not(:disabled):not(:checked), .control__input.is-hover:not(:checked)   { border-color: #a9afbb; } /* Gray 500 */
+.control:active .control__input:not(:disabled):not(:checked), .control__input.is-pressed:not(:checked) { border-color: #8b909c; } /* Gray 600 */
+
+/* Checkbox */
+.control__input[type="checkbox"]:checked {
+  border-color: transparent; background-color: #6c9cfa;                                 /* Blue 600 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12 L10.5 16 L16.5 9' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+/* Radio: same box, circle, 8px white dot */
+.control__input[type="radio"] { border-radius: 50%; }
+.control__input[type="radio"]:checked {
+  border-color: transparent; background-color: #6c9cfa;
+  background-image: radial-gradient(circle, #ffffff 4px, transparent 4.5px); background-size: 100% 100%;
+}
+/* Checked: Hover / Pressed */
+.control:hover .control__input:not(:disabled):checked, .control__input.is-hover:checked   { background-color: #415e96; } /* Blue 700 */
+.control:active .control__input:not(:disabled):checked, .control__input.is-pressed:checked { background-color: #2b3e64; } /* Blue 800 */
+
+/* Disabled */
+.control__input:disabled { border-color: #edf0f4; background-color: #f2f4f8; }          /* Gray 200 / Gray 100 */
+.control__input:disabled:checked { border-color: transparent; background-color: #a7c4fc; } /* Blue 400 */
+
+/* ── Scroll Bar ──────────────────────────── */
+/* Track is invisible; 4px thumb with 3px side padding and 5px end padding.
+   The bar appears while the area is hovered (.is-hover) or being scrolled (.is-scrolling) — a small script
+   toggles both classes, because Chrome does not repaint the scrollbar on a parent :hover alone.
+   Then Default (Opacity 22) → Hover on the bar (32) → Pressed (48).
+   Chrome 121+ ignores ::-webkit-scrollbar when scrollbar-color/-width are set,
+   so the standard properties are used only where ::-webkit-scrollbar is unsupported (Firefox). */
+.scroll-area { overflow-y: auto; }
+.scroll-area::-webkit-scrollbar { width: 10px; height: 10px; }
+.scroll-area::-webkit-scrollbar-track { background: transparent; margin: 5px 0; }
+.scroll-area::-webkit-scrollbar-thumb {
+  border: 3px solid transparent; border-radius: 99px; background-clip: padding-box;
+  background-color: transparent;
+}
+.scroll-area.is-hover::-webkit-scrollbar-thumb,
+.scroll-area.is-scrolling::-webkit-scrollbar-thumb { background-color: rgb(6 8 12 / 0.22); }          /* Opacity 22 */
+.scroll-area::-webkit-scrollbar-thumb:hover,
+.scroll-area.is-hover::-webkit-scrollbar-thumb:hover { background-color: rgb(6 8 12 / 0.32); }        /* Opacity 32 */
+.scroll-area::-webkit-scrollbar-thumb:active,
+.scroll-area.is-hover::-webkit-scrollbar-thumb:active,
+.scroll-area.is-scrolling::-webkit-scrollbar-thumb:active { background-color: rgb(6 8 12 / 0.48); }   /* Opacity 48 */
+
+@supports not selector(::-webkit-scrollbar) {
+  .scroll-area { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+  .scroll-area:hover, .scroll-area.is-scrolling { scrollbar-color: rgb(6 8 12 / 0.22) transparent; }
+}
+</style>
+<style>/* lists.css */
+/* ─────────────────────────────────────────────────────────────
+   Lists / Accordion — derived from Figma "Lists/Accodion" (node 1:2532)
+   List: Checkbox row · Icon card (reorder / delete)
+   Accordion: Index Title (dropdown trigger) · Index (dropdown panel) · Contents (fold / unfold)
+
+   Updated 2026-10-27: checkbox rows use Controls/Checkbox; one Icon List with Action Reorder (Drawer icon) / Delete;
+   card background Gray 100; number badge radius 30; Index Item is its own component (Default/Hover/Pressed/Selected).
+   Colours are the values read from the frame; comments name the palette step.
+   .is-hover / .is-pressed / .is-selected force a state for documentation specimens.
+   ───────────────────────────────────────────────────────────── */
+
+.list, .list-check, .list-card, .acc-index, .acc-index__item, .acc, .acc-title {
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1;
+}
+
+/* ── Checkbox list row ───────────────────── */
+.list { display: flex; flex-direction: column; width: 100%; max-width: 375px; margin: 0; padding: 0; list-style: none; }
+.list-check {
+  display: flex; align-items: center; gap: 3px; box-sizing: border-box;
+  height: 58px; padding: 0 20px; background: #ffffff; cursor: pointer;                  /* Gray 0 */
+  font-size: 15px; font-weight: 500; line-height: 1.4; color: #212329;                  /* Body 15 Medium, Gray 900 */
+}
+.list-check__text { flex: 1 1 0; min-width: 0; }
+/* the box itself is .control__input from controls.css */
+
+/* ── Icon card ───────────────────────────── */
+.list--cards { gap: 15px; max-width: 335px; }
+.list-card {
+  display: flex; align-items: flex-start; gap: 15px; box-sizing: border-box;
+  padding: 15px 12px; border-radius: 8px; background: #f2f4f8;                           /* Gray 100 */
+  font-size: 14px; font-weight: 500; line-height: 1.4; color: #212329;                  /* Body 14 Medium */
+}
+.list-card__text { flex: 1 1 0; min-width: 0; }
+.list-card__action { flex: none; width: 18px; height: 18px; padding: 0; border: 0; background: none; cursor: grab; }
+.list-card__action--delete { cursor: pointer; }
+.list-card__action svg { display: block; width: 18px; height: 18px; }
+.list-card__action--reorder { color: #ced2da; }                                           /* Drawer icon, Gray 400 */
+.list-card__action--delete { border-radius: 3.6px; background: #fb5c5c; color: #ffffff; } /* Red 400 + Close icon */
+
+/* Number badge: radius 30 everywhere; list card text Caption 10 Bold, accordion text Body 12 SemiBold */
+.num-badge {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 30px; background: #454952;                   /* Gray 800 */
+  font-size: 10px; font-weight: 700; line-height: 1.4; color: #ffffff;                   /* Caption 10 Bold */
+}
+.acc .num-badge { font-size: 12px; font-weight: 600; line-height: 1.4; }               /* Body 12 SemiBold */
+
+/* ── Accordion · Index Title (trigger) ───── */
+.acc-title {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box;
+  width: 140px; height: 40px; padding: 8px 31px; border: 0; border-radius: 12px;
+  background: #f2f4f8; color: #666b75; cursor: pointer;                                   /* Gray 100 / Gray 700 */
+  font-size: 16px; font-weight: 600; line-height: 1.4; white-space: nowrap;               /* Subtitle 16 SemiBold */
+}
+.acc-title .icon { width: 18px; height: 18px; color: #8b909c; }                          /* Gray 600 */
+.acc-title:hover, .acc-title.is-hover { background: #edf0f4; }                           /* Gray 200 */
+.acc-title:active, .acc-title.is-pressed { background: #dfe3ea; }                        /* Gray 300 */
+
+/* ── Accordion · Index (panel) ───────────── */
+.acc-index {
+  display: flex; flex-direction: column; gap: 6px; box-sizing: border-box;
+  width: 100%; max-width: 335px; padding-bottom: 12px; border-radius: 12px; overflow: hidden;
+  background: #f2f4f8;                                                                     /* Gray 100 */
+}
+.acc-index__header {
+  display: flex; align-items: center; justify-content: center; gap: 8px; height: 40px;
+  font-size: 16px; font-weight: 600; line-height: 1.4; color: #212329;                   /* Subtitle 16 SemiBold, Gray 900 */
+}
+.acc-index__header .icon { width: 18px; height: 18px; }
+.acc-index__list { margin: 0; padding: 0; list-style: none; }
+.acc-index__item {
+  display: flex; align-items: center; gap: 16px; width: 100%; box-sizing: border-box;
+  height: 46px; padding: 13px 28px; border: 0; background: transparent; cursor: pointer; text-align: left;
+  font: inherit; font-size: 14px; font-weight: 500; line-height: 1.4; color: #212329;   /* Body 14 Medium */
+}
+.acc-index__item > span:not(.icon) { flex: 1 1 0; min-width: 0; }
+.acc-index__item .icon { flex: none; }
+.acc-index__item .icon { width: 18px; height: 18px; color: #666b75; }                    /* Gray 700 */
+.acc-index__item:hover, .acc-index__item.is-hover { background: #edf0f4; }               /* Gray 200 */
+.acc-index__item:active, .acc-index__item.is-pressed { background: #dfe3ea; }            /* Gray 300 */
+.acc-index__item[aria-current="true"], .acc-index__item.is-selected { background: #e2ebfe; } /* Blue 200 */
+
+/* ── Accordion · Contents (fold / unfold) ── */
+.acc {
+  display: flex; flex-direction: column; gap: 0; box-sizing: border-box;
+  width: 100%; max-width: 335px; padding: 14px 20px; border-radius: 8px; overflow: hidden;
+  background: #f2f4f8;                                                                     /* Gray 100 */
+}
+.acc__head {
+  display: flex; align-items: center; gap: 12px; width: 100%; height: 34px; padding: 0; border: 0;
+  background: none; cursor: pointer; text-align: left;
+  font: inherit; font-size: 16px; font-weight: 600; line-height: 1.4; color: #212329;   /* Subtitle 16 SemiBold */
+}
+.acc__title { flex: 1 1 0; min-width: 0; }
+.acc__head .icon { width: 18px; height: 18px; color: #666b75; }                          /* Gray 700 */
+.acc:hover, .acc.is-hover { background: #edf0f4; }                                        /* Gray 200 */
+.acc:has(.acc__head:active), .acc.is-pressed { background: #dfe3ea; }                     /* Gray 300 */
+.acc__body {
+  display: none; margin-top: 12px; padding-top: 11px; border-top: 1px solid #ced2da;    /* Gray 400 divider */
+  font-size: 14px; font-weight: 500; line-height: 1.4; color: #666b75;                  /* Body 14 Medium, Gray 700 */
+}
+.acc.is-open .acc__body { display: block; }
+.acc .icon-up { display: none; }
+.acc.is-open .icon-up { display: block; }
+.acc.is-open .icon-down { display: none; }
+</style>
+<style>/* illustration.css */
+/* ─────────────────────────────────────────────────────────────
+   Illustration — derived from Figma "image" board (node 236:5486)
+   Brand illustrations exported from Figma as SVG files (illustrations/*.svg).
+   Kinds: Spot 500 (빈 화면 · 회고 단계 · 회고 방식) · Banner (1:1, 2:1) · Splash 280 · Invite (envelope)
+   Colours inside the SVGs are the Blue / Gray palette values from color.css.
+
+   Use as an image. Decorative illustrations get alt="" (the text next to them carries the meaning).
+   ───────────────────────────────────────────────────────────── */
+
+.illust { display: block; flex: none; max-width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; }
+.illust--banner-wide { aspect-ratio: 2 / 1; }
+
+/* Sizes — the source art is 500 (spot), 280 (splash) or 1000 × 500 (banner); scale down, never up */
+.illust--120 { width: 120px; }   /* Popup · With Illustration */
+.illust--160 { width: 160px; }   /* empty state inside a list or card */
+.illust--200 { width: 200px; }   /* empty state on a full screen */
+.illust--280 { width: 280px; }   /* onboarding / splash */
+</style>
+<style>/* bottom-sheet.css */
+/* ─────────────────────────────────────────────────────────────
+   Bottom Sheet — derived from Figma "Bottom Sheet" (node 1:1511)
+   Bottom Sheet/Short (hugs its content): Content = Default · Chip Button · Illustration · Text Area,
+                                          Button = None · Single · Side by Side
+   Bottom Sheet/Long (fixed 670):         Content = Default · Tab · Tab + Text Input · Tab + Filter
+   Order: Header → (Title | Tabs) → Body → Footer (button group with safe area, or home indicator only).
+   No handle bar; the sheet cannot be resized. Close button or the dimmed area closes it.
+
+   Builds on: buttons.css (.btn-group), chips.css, fields.css, tabs.css, lists.css, illustration.css.
+   Colours are the values read from the frame; comments name the palette step.
+   ───────────────────────────────────────────────────────────── */
+
+.bsheet {
+  position: relative; display: flex; flex-direction: column; box-sizing: border-box;
+  width: 100%; max-width: 375px; overflow: hidden;
+  background: #ffffff;                                                                 /* Gray 0 */
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 4px 8px rgb(6 8 12 / 0.08), 0 4px 12px rgb(6 8 12 / 0.22);          /* Shadow 400 */
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1; color: #212329;
+}
+.bsheet--long { height: 670px; }
+
+/* ① Header area: title in the middle, close button on the right (56) */
+.bsheet__header { position: relative; display: flex; align-items: center; justify-content: center; flex: none; height: 56px; padding: 8px 52px; box-sizing: border-box; }
+.bsheet__header-title { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; text-align: center; }   /* Title 16 Bold, Gray 900 */
+.bsheet__close {
+  position: absolute; top: 8px; right: 12px; display: inline-flex; width: 40px; height: 40px; padding: 8px; box-sizing: border-box;
+  border: 0; background: none; color: #212329; cursor: pointer;
+}
+.bsheet__close .icon, .bsheet__close svg { display: block; width: 24px; height: 24px; }
+
+/* ② Title area: up to two lines */
+.bsheet__title {
+  margin: 0; padding: 0 20px; flex: none;
+  font-size: 20px; font-weight: 700; line-height: 1.4; text-align: center; color: #212329;    /* Title 20 Bold, Gray 900 */
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ③ Contents area — add .scroll-area (controls.css) so overflow uses the DS Scroll Bar, not the system one */
+.bsheet__body { flex: 1 1 auto; min-height: 0; padding: 24px 20px; overflow-y: auto; }   /* 24 after the title */
+.bsheet__header + .bsheet__body,
+.bsheet__tabs + .bsheet__body { padding-top: 20px; }                                     /* 20 after header or tabs */
+.bsheet--long .bsheet__body { padding-bottom: 20px; }
+.bsheet__body--flush { padding-left: 0; padding-right: 0; }
+.bsheet__illust { display: flex; justify-content: center; }
+.bsheet__illust .illust { width: 160px; }                                              /* Illustration instance, swappable */
+
+/* Toggle area: text tabs right under the header; Filter adds scrollable box tabs below */
+.bsheet__tabs { flex: none; }
+.bsheet__tabs .box-tabs { padding-left: 20px; padding-right: 20px; }
+
+/* ④ Button area — reuse .btn-group; without buttons only the home indicator remains */
+.bsheet__footer { flex: none; margin-top: auto; }
+.bsheet__safe svg { display: block; width: 100%; height: auto; }
+
+/* Parts that cap themselves at 375 on their own pages fill the sheet's full width here */
+.bsheet .tabs, .bsheet .box-tabs, .bsheet .list, .bsheet .btn-group { max-width: none; }
+
+/* Dimmed backdrop (Opacity 72) */
+.bsheet-dim { position: fixed; inset: 0; display: flex; align-items: flex-end; justify-content: center; background: rgb(6 8 12 / 0.72); z-index: 40; }
+.bsheet-dim[hidden] { display: none; }
+</style>
+<style>/* foundation-page.css */
+/* ─────────────────────────────────────────────────────────────
+   Shared layout for Foundation doc pages (Color, Typography, Elevation…).
+   Doc-site only: these values are not design tokens.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --page-bg: #edf0f4;
+  --surface: #ffffff;
+  --surface-muted: #f2f4f8;
+  --ink: #212329;
+  --ink-strong: #06080c;
+  --ink-muted: rgba(6, 8, 12, 0.48);
+  --rule: #edf0f4;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 40px 16px;
+  background: var(--page-bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Frame: 64px side padding, 32px radius */
+.foundation {
+  max-width: 1280px; margin: 0 auto;
+  background: var(--surface); border-radius: 32px; overflow: clip;
+  padding: 64px 64px 168px;
+}
+
+/* Header */
+.header { display: flex; flex-direction: column; gap: 32px; padding-bottom: 64px; }
+.heading { display: flex; flex-direction: column; gap: 18px; }
+.divider { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+/* Doc-only type: used on doc pages, not part of the 15 text styles */
+.doc-title, .doc-lead, .doc-section { font-family: var(--font-family-primary); margin: 0; }
+.doc-title   { font-weight: 700; font-size: 56px; line-height: 86px; letter-spacing: -0.5px; font-feature-settings: "ss02" 1, "case" 1; }
+.doc-lead    { font-weight: 500; font-size: 18px; line-height: 1.5; letter-spacing: -0.18px; min-height: 54px; font-feature-settings: "case" 1, "ss02" 1; }
+.doc-lead p  { margin: 0; }
+.doc-section { font-weight: 700; font-size: 24px; line-height: 1.3; letter-spacing: -0.24px; font-feature-settings: "ss10" 1; }
+
+/* First section sits 23px under the header */
+.section { margin-top: 23px; }
+
+@media (max-width: 900px) {
+  .foundation { padding: 40px 24px 80px; border-radius: 24px; }
+  .doc-title { font-size: 40px; line-height: 60px; }
+}
+
+/* Korean line breaking: wrap between words, not syllables */
+body { word-break: keep-all; overflow-wrap: break-word; }
+p, li, td, th, figcaption { text-wrap: pretty; }
+</style>
+<style>
+  .scroll { overflow-x: auto; max-width: 2507px; margin: 0 auto; border-radius: 32px; }
+  .foundation.board { position: relative; width: 2507px; max-width: none; height: 5999px; padding: 64px 64px 0; overflow: hidden; }
+  .heading { color: #212529; }
+  .doc-lead { font-weight: 400; }
+  .spec { position: absolute; margin: 0; }
+  .set { position: absolute; border: 1px dashed #9747ff; border-radius: 5px; box-sizing: border-box; pointer-events: none; }
+  .h-sec { font: 700 24px/1.3 var(--font-family-primary); letter-spacing: -0.24px; color: #212529; }
+  .lab { font: 400 16px/20px var(--font-family-primary); letter-spacing: -0.16px; color: #212529; }
+  .note { font: 400 18px/1.6 var(--font-family-primary); letter-spacing: -0.18px; color: #666b75; }
+  .pv { width: 375px; background: #fff; overflow: hidden; }
+  .abs { position: absolute; }
+  .abs svg { display: block; }
+  .dim { inset: 0; background: rgb(6 8 12 / .72); }
+  .sheet-blank { background: #fff; border-radius: 16px 16px 0 0; }
+  .hl { box-sizing: border-box; border: 2px solid #212529; }
+  .badge { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #212329; color: #fff; font: 600 16px/1 var(--font-family-primary); }
+  .badge.sm { width: 20px; height: 20px; font-size: 11px; }
+  .lg { display: flex; flex-direction: column; gap: 20px; }
+  .lg-h { display: flex; align-items: center; gap: 6px; font: 600 16px/20px var(--font-family-primary); color: #212329; }
+  .lg p { margin: 12px 0 0; font: 400 18px/1.6 var(--font-family-primary); letter-spacing: -0.18px; color: #666b75; }
+  .ph { display: flex; align-items: center; justify-content: center; height: 100%; background: #f2f4f8; font: 500 15px/1.4 var(--font-family-primary); color: #a9afbb; }
+  .il-svg svg { display: block; width: 100%; height: 100%; }
+  .bs-list { list-style: none; margin: 0; padding: 0; }
+  .bsheet { pointer-events: none; }
+  .sb-light svg [fill="black"], .sb-light svg [fill="#000000"], .sb-light svg [fill="#212329"] { fill: #fff; }
+  .sb-light svg [stroke="black"] { stroke: #fff; }
+  .sb-light svg rect[fill="white"] { fill: none; }
+</style>
+</head>
+<body>
+  <div class="scroll">
+  <main class="foundation board">
+    <header class="header">
+      <div class="heading">
+        <h1 class="doc-title">Bottom Sheet</h1>
+        <div class="doc-lead"><p>화면 하단에 고정되어 있으며, 현재 화면과 관련된 작업을 수행하거나 완료하는데 필요한 정보를 제공합니다.</p></div>
+      </div>
+      <hr class="divider" />
+    </header>
+<p class="spec h-sec" style="left:64px;top:344px">Short Type</p>
+<p class="spec h-sec" style="left:64px;top:1074px">Long Type</p>
+<div class="set" style="left:64px;top:458px;width:2390px;height:466px"></div>
+<div class="set" style="left:64px;top:1210px;width:1600px;height:710px"></div>
+<p class="spec lab" style="left:84px;top:419px">Default</p>
+<div class="spec" style="left:84px;top:478px;width:375px"><section class="bsheet" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><h2 class="bsheet__title">Title<br>(최대 2줄)</h2><div class="bsheet__body"><div style="height:163px"></div></div><div class="bsheet__footer"><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:479px;top:419px">Chip Button</p>
+<div class="spec" style="left:479px;top:478px;width:375px"><section class="bsheet" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><h2 class="bsheet__title">Title<br>(최대 2줄)</h2><div class="bsheet__body"><div class="chip-pair"><button type="button" class="chip-button chip-button--card" aria-pressed="false"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#6C9CFA"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="#A7C4FC"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="#A7C4FC"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#E2EBFE"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="white"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="white"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#E2EBFE"/></svg></span></span><span>유형타이틀</span></button><button type="button" class="chip-button chip-button--card" aria-pressed="false"><span class="icon-graphic"><span class="icon-off"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#6C9CFA"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="#A7C4FC"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="#A7C4FC"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#6C9CFA"/></svg></span><span class="icon-on"><svg aria-hidden="true" focusable="false" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 9C13 11.2091 11.2091 13 9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9Z" fill="#E2EBFE"/><path d="M2 17C2 15.3431 3.34315 14 5 14H13C14.6569 14 16 15.3431 16 17V22C16 22.5523 15.5523 23 15 23H3C2.44772 23 2 22.5523 2 22V17Z" fill="white"/><path d="M23 9C23 11.2091 21.2091 13 19 13C16.7909 13 15 11.2091 15 9C15 6.79086 16.7909 5 19 5C21.2091 5 23 6.79086 23 9Z" fill="white"/><path d="M12 17C12 15.3431 13.3431 14 15 14H23C24.6569 14 26 15.3431 26 17V22C26 22.5523 25.5523 23 25 23H13C12.4477 23 12 22.5523 12 22V17Z" fill="#E2EBFE"/></svg></span></span><span>유형타이틀</span></button></div></div><div class="bsheet__footer"><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:874px;top:419px">Illustration</p>
+<div class="spec" style="left:874px;top:478px;width:375px"><section class="bsheet" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><h2 class="bsheet__title">Title<br>(최대 2줄)</h2><div class="bsheet__body"><div class="bsheet__illust"><span class="illust il-svg"><svg aria-hidden="true" focusable="false" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M311 255C317.627 255 323 260.373 323 267L323 369.019C323 375.646 317.627 381.019 311 381.019L207.517 381.019C200.889 381.019 195.517 375.646 195.517 369.019L195.517 267C195.517 260.373 200.889 255 207.517 255L311 255Z" fill="#6C9CFA"/>
+<path d="M420 313.661C426.627 313.661 432 319.034 432 325.661V369.645C432 376.272 426.627 381.645 420 381.645H334.968C328.341 381.645 322.968 376.272 322.968 369.645L322.968 325.661C322.968 319.034 328.341 313.661 334.968 313.661L420 313.661Z" fill="#CED2DA"/>
+<path d="M68 267C68 260.373 73.3726 255 80 255H183.483C190.111 255 195.483 260.373 195.483 267V369.019C195.483 375.646 190.111 381.019 183.483 381.019H80C73.3726 381.019 68 375.646 68 369.019V267Z" fill="#A7C4FC"/>
+<path d="M163.861 343L100 343L100 331.665L129.372 331.665L129.372 330.793L100 306.118L100 292.254L128.667 316.668L163.861 291.993L163.861 305.682L136.429 324.603L144.808 331.665L163.861 331.665L163.861 343Z" fill="white"/>
+<path d="M237 349.127V286H260.992C275.634 286 283.484 294.806 283.484 306.926C283.484 319.046 275.546 327.765 260.815 327.765H248.467V349.127H237ZM248.467 318.435H259.228C267.872 318.435 271.753 313.64 271.753 306.926C271.753 300.125 267.872 295.504 259.228 295.504H248.467V318.435Z" fill="white"/>
+<path d="M311 130C317.627 130 323 135.373 323 142V244.019C323 250.646 317.627 256.019 311 256.019H207.517C200.889 256.019 195.517 250.646 195.517 244.019V142C195.517 135.373 200.889 130 207.517 130H311ZM235 161V170.504H254.758V224.127H266.225V170.504H285.895V161H235Z" fill="#415E96"/>
+<path d="M93.1616 248.018C93.1616 245.808 94.9525 244.018 97.1616 244.018H116C118.209 244.018 120 245.808 120 248.018V255.625H93.1616V248.018Z" fill="#A7C4FC"/>
+<path d="M338.064 306.055C338.064 303.846 339.855 302.055 342.064 302.055H360.903C363.112 302.055 364.903 303.846 364.903 306.055V313.662H338.064V306.055Z" fill="#CED2DA"/>
+<path d="M220.644 123C220.644 120.791 222.435 119 224.644 119H243.483C245.692 119 247.483 120.791 247.483 123V130.607H220.644V123Z" fill="#415E96"/>
+<path d="M141.805 248.018C141.805 245.808 143.596 244.018 145.805 244.018H164.643C166.852 244.018 168.643 245.808 168.643 248.018V255.625H141.805V248.018Z" fill="#A7C4FC"/>
+<path d="M386.708 306.053C386.708 303.844 388.498 302.053 390.708 302.053H409.546C411.755 302.053 413.546 303.844 413.546 306.053V313.66H386.708V306.053Z" fill="#CED2DA"/>
+<path d="M269.29 123C269.29 120.791 271.08 119 273.29 119H292.128C294.337 119 296.128 120.791 296.128 123V130.607H269.29V123Z" fill="#415E96"/>
+</svg></span></div></div><div class="bsheet__footer"><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:1269px;top:419px">Illustration + Single Button</p>
+<div class="spec" style="left:1269px;top:478px;width:375px"><section class="bsheet" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><h2 class="bsheet__title">Title<br>(최대 2줄)</h2><div class="bsheet__body"><div class="bsheet__illust"><span class="illust il-svg"><svg aria-hidden="true" focusable="false" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M311 255C317.627 255 323 260.373 323 267L323 369.019C323 375.646 317.627 381.019 311 381.019L207.517 381.019C200.889 381.019 195.517 375.646 195.517 369.019L195.517 267C195.517 260.373 200.889 255 207.517 255L311 255Z" fill="#6C9CFA"/>
+<path d="M420 313.661C426.627 313.661 432 319.034 432 325.661V369.645C432 376.272 426.627 381.645 420 381.645H334.968C328.341 381.645 322.968 376.272 322.968 369.645L322.968 325.661C322.968 319.034 328.341 313.661 334.968 313.661L420 313.661Z" fill="#CED2DA"/>
+<path d="M68 267C68 260.373 73.3726 255 80 255H183.483C190.111 255 195.483 260.373 195.483 267V369.019C195.483 375.646 190.111 381.019 183.483 381.019H80C73.3726 381.019 68 375.646 68 369.019V267Z" fill="#A7C4FC"/>
+<path d="M163.861 343L100 343L100 331.665L129.372 331.665L129.372 330.793L100 306.118L100 292.254L128.667 316.668L163.861 291.993L163.861 305.682L136.429 324.603L144.808 331.665L163.861 331.665L163.861 343Z" fill="white"/>
+<path d="M237 349.127V286H260.992C275.634 286 283.484 294.806 283.484 306.926C283.484 319.046 275.546 327.765 260.815 327.765H248.467V349.127H237ZM248.467 318.435H259.228C267.872 318.435 271.753 313.64 271.753 306.926C271.753 300.125 267.872 295.504 259.228 295.504H248.467V318.435Z" fill="white"/>
+<path d="M311 130C317.627 130 323 135.373 323 142V244.019C323 250.646 317.627 256.019 311 256.019H207.517C200.889 256.019 195.517 250.646 195.517 244.019V142C195.517 135.373 200.889 130 207.517 130H311ZM235 161V170.504H254.758V224.127H266.225V170.504H285.895V161H235Z" fill="#415E96"/>
+<path d="M93.1616 248.018C93.1616 245.808 94.9525 244.018 97.1616 244.018H116C118.209 244.018 120 245.808 120 248.018V255.625H93.1616V248.018Z" fill="#A7C4FC"/>
+<path d="M338.064 306.055C338.064 303.846 339.855 302.055 342.064 302.055H360.903C363.112 302.055 364.903 303.846 364.903 306.055V313.662H338.064V306.055Z" fill="#CED2DA"/>
+<path d="M220.644 123C220.644 120.791 222.435 119 224.644 119H243.483C245.692 119 247.483 120.791 247.483 123V130.607H220.644V123Z" fill="#415E96"/>
+<path d="M141.805 248.018C141.805 245.808 143.596 244.018 145.805 244.018H164.643C166.852 244.018 168.643 245.808 168.643 248.018V255.625H141.805V248.018Z" fill="#A7C4FC"/>
+<path d="M386.708 306.053C386.708 303.844 388.498 302.053 390.708 302.053H409.546C411.755 302.053 413.546 303.844 413.546 306.053V313.66H386.708V306.053Z" fill="#CED2DA"/>
+<path d="M269.29 123C269.29 120.791 271.08 119 273.29 119H292.128C294.337 119 296.128 120.791 296.128 123V130.607H269.29V123Z" fill="#415E96"/>
+</svg></span></div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:1664px;top:419px">Illustration + Side by Side Button</p>
+<div class="spec" style="left:1664px;top:478px;width:375px"><section class="bsheet" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><h2 class="bsheet__title">Title<br>(최대 2줄)</h2><div class="bsheet__body"><div class="bsheet__illust"><span class="illust il-svg"><svg aria-hidden="true" focusable="false" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M311 255C317.627 255 323 260.373 323 267L323 369.019C323 375.646 317.627 381.019 311 381.019L207.517 381.019C200.889 381.019 195.517 375.646 195.517 369.019L195.517 267C195.517 260.373 200.889 255 207.517 255L311 255Z" fill="#6C9CFA"/>
+<path d="M420 313.661C426.627 313.661 432 319.034 432 325.661V369.645C432 376.272 426.627 381.645 420 381.645H334.968C328.341 381.645 322.968 376.272 322.968 369.645L322.968 325.661C322.968 319.034 328.341 313.661 334.968 313.661L420 313.661Z" fill="#CED2DA"/>
+<path d="M68 267C68 260.373 73.3726 255 80 255H183.483C190.111 255 195.483 260.373 195.483 267V369.019C195.483 375.646 190.111 381.019 183.483 381.019H80C73.3726 381.019 68 375.646 68 369.019V267Z" fill="#A7C4FC"/>
+<path d="M163.861 343L100 343L100 331.665L129.372 331.665L129.372 330.793L100 306.118L100 292.254L128.667 316.668L163.861 291.993L163.861 305.682L136.429 324.603L144.808 331.665L163.861 331.665L163.861 343Z" fill="white"/>
+<path d="M237 349.127V286H260.992C275.634 286 283.484 294.806 283.484 306.926C283.484 319.046 275.546 327.765 260.815 327.765H248.467V349.127H237ZM248.467 318.435H259.228C267.872 318.435 271.753 313.64 271.753 306.926C271.753 300.125 267.872 295.504 259.228 295.504H248.467V318.435Z" fill="white"/>
+<path d="M311 130C317.627 130 323 135.373 323 142V244.019C323 250.646 317.627 256.019 311 256.019H207.517C200.889 256.019 195.517 250.646 195.517 244.019V142C195.517 135.373 200.889 130 207.517 130H311ZM235 161V170.504H254.758V224.127H266.225V170.504H285.895V161H235Z" fill="#415E96"/>
+<path d="M93.1616 248.018C93.1616 245.808 94.9525 244.018 97.1616 244.018H116C118.209 244.018 120 245.808 120 248.018V255.625H93.1616V248.018Z" fill="#A7C4FC"/>
+<path d="M338.064 306.055C338.064 303.846 339.855 302.055 342.064 302.055H360.903C363.112 302.055 364.903 303.846 364.903 306.055V313.662H338.064V306.055Z" fill="#CED2DA"/>
+<path d="M220.644 123C220.644 120.791 222.435 119 224.644 119H243.483C245.692 119 247.483 120.791 247.483 123V130.607H220.644V123Z" fill="#415E96"/>
+<path d="M141.805 248.018C141.805 245.808 143.596 244.018 145.805 244.018H164.643C166.852 244.018 168.643 245.808 168.643 248.018V255.625H141.805V248.018Z" fill="#A7C4FC"/>
+<path d="M386.708 306.053C386.708 303.844 388.498 302.053 390.708 302.053H409.546C411.755 302.053 413.546 303.844 413.546 306.053V313.66H386.708V306.053Z" fill="#CED2DA"/>
+<path d="M269.29 123C269.29 120.791 271.08 119 273.29 119H292.128C294.337 119 296.128 120.791 296.128 123V130.607H269.29V123Z" fill="#415E96"/>
+</svg></span></div></div><div class="bsheet__footer"><div class="btn-group btn-group--horizontal"><div class="btn-group__buttons"><button type="button" class="btn btn--secondary btn--block">버튼</button><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:2059px;top:419px">Text Area + Single Button</p>
+<div class="spec" style="left:2059px;top:478px;width:375px"><section class="bsheet" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__body"><div class="field field--area"><label class="field__box"><textarea class="field__input" rows="3" placeholder="Text"></textarea><span class="field__count">0/20</span></label></div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:84px;top:1171px">Default</p>
+<div class="spec" style="left:84px;top:1230px;width:375px"><section class="bsheet bsheet--long" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__body"><div class="ph">콘텐츠 영역</div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:479px;top:1171px">Tab</p>
+<div class="spec" style="left:479px;top:1230px;width:375px"><section class="bsheet bsheet--long" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__tabs"><div role="tablist" class="tabs tabs--fixed"><button type="button" role="tab" class="tab" aria-selected="true">A</button><button type="button" role="tab" class="tab" aria-selected="false">B</button></div></div><div class="bsheet__body"><div class="ph">콘텐츠 영역</div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:874px;top:1171px">Tab + Text Input</p>
+<div class="spec" style="left:874px;top:1230px;width:375px"><section class="bsheet bsheet--long" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__tabs"><div role="tablist" class="tabs tabs--fixed"><button type="button" role="tab" class="tab" aria-selected="true">A</button><button type="button" role="tab" class="tab" aria-selected="false">B</button></div></div><div class="bsheet__body"><div class="field"><label class="field__box"><input class="field__input" type="text" placeholder="Text"><span class="field__count">0/10</span></label></div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec lab" style="left:1269px;top:1171px">Tab + Filter</p>
+<div class="spec" style="left:1269px;top:1230px;width:375px"><section class="bsheet bsheet--long" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__tabs"><div role="tablist" class="tabs tabs--fixed"><button type="button" role="tab" class="tab" aria-selected="true">A</button><button type="button" role="tab" class="tab" aria-selected="false">B</button></div><div role="tablist" class="box-tabs box-tabs--scroll"><button type="button" role="tab" class="box-tab" aria-selected="true">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button><button type="button" role="tab" class="box-tab" aria-selected="false">타이틀</button></div></div><div class="bsheet__body bsheet__body--flush"><ul class="list bs-list"><li><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></li><li><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></li><li><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></li><li><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></li><li><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></li><li><label class="list-check"><span class="list-check__text">Text</span><input class="control__input" type="checkbox"></label></li></ul></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<p class="spec h-sec" style="left:64px;top:2041px">Anatomy</p>
+<div class="spec" style="left:64px;top:2112px;width:1981px;height:980px;background:#f2f4f8;border-radius:20px"></div>
+<p class="spec lab" style="left:314px;top:2166px">Short</p>
+<p class="spec lab" style="left:889px;top:2166px">Long</p>
+<div class="spec pv" style="left:314px;top:2226px;height:812px"><div class="abs" style="left:0;top:778px"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div><div class="abs dim"></div><div class="abs sb-light" style="left:0;top:0;width:375px"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="44" fill="white"/><path opacity="0.35" d="M338.667 17.8333H355.333C356.53 17.8333 357.5 18.8036 357.5 20.0002V26.0002C357.5 27.1967 356.53 28.1663 355.333 28.1663H338.667C337.47 28.1663 336.5 27.1967 336.5 26.0002V20.0002L336.511 19.7786C336.622 18.6859 337.545 17.8333 338.667 17.8333Z" stroke="black"/><path opacity="0.4" d="M359 21V25C359.805 24.6612 360.328 23.8731 360.328 23C360.328 22.1269 359.805 21.3388 359 21Z" fill="black"/><path d="M338 20.6666C338 19.9302 338.597 19.3333 339.333 19.3333H354.667C355.403 19.3333 356 19.9302 356 20.6666V25.3333C356 26.0696 355.403 26.6666 354.667 26.6666H339.333C338.597 26.6666 338 26.0696 338 25.3333V20.6666Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M321.121 25.7311C322.397 24.6522 324.265 24.6522 325.541 25.7311C325.605 25.7892 325.642 25.8713 325.644 25.9577C325.645 26.0442 325.612 26.1276 325.55 26.1882L323.553 28.2038C323.494 28.263 323.414 28.2965 323.331 28.2966C323.248 28.2966 323.168 28.263 323.109 28.2038L321.111 26.1882C321.05 26.1276 321.016 26.0441 321.018 25.9577C321.019 25.8712 321.057 25.7891 321.121 25.7311ZM318.456 23.0417C321.204 20.4856 325.46 20.4857 328.208 23.0417C328.27 23.1015 328.306 23.1841 328.307 23.2702C328.308 23.3564 328.274 23.4395 328.213 23.5007L327.059 24.6677C326.94 24.7868 326.747 24.7894 326.625 24.6735C325.723 23.8563 324.549 23.4039 323.331 23.404C322.114 23.4045 320.941 23.8568 320.039 24.6735C319.917 24.7893 319.724 24.7867 319.605 24.6677L318.451 23.5007C318.391 23.4396 318.357 23.3563 318.357 23.2702C318.358 23.1841 318.394 23.1015 318.456 23.0417ZM315.791 20.36C320.006 16.3209 326.656 16.3206 330.871 20.36C330.932 20.42 330.966 20.5021 330.967 20.5876C330.967 20.6731 330.933 20.7554 330.873 20.8161L329.717 21.9831C329.598 22.1026 329.405 22.1038 329.284 21.986C327.678 20.4593 325.547 19.6082 323.331 19.6081C321.115 19.6081 318.983 20.4591 317.377 21.986C317.256 22.104 317.063 22.1028 316.944 21.9831L315.788 20.8161C315.728 20.7553 315.694 20.6732 315.694 20.5876C315.695 20.5021 315.73 20.42 315.791 20.36Z" fill="black"/><path d="M295.667 24.3335C296.219 24.3335 296.667 24.7812 296.667 25.3335V27.3335C296.667 27.8856 296.219 28.3335 295.667 28.3335H294.667C294.115 28.3335 293.667 27.8856 293.667 27.3335V25.3335C293.667 24.7812 294.115 24.3335 294.667 24.3335H295.667ZM300.334 22.3335C300.886 22.3337 301.334 22.7813 301.334 23.3335V27.3335C301.334 27.8855 300.886 28.3333 300.334 28.3335H299.334C298.782 28.3335 298.334 27.8856 298.334 27.3335V23.3335C298.334 22.7812 298.782 22.3335 299.334 22.3335H300.334ZM305 19.9995C305.552 19.9995 306 20.4474 306 20.9995V27.3335C306 27.8856 305.552 28.3335 305 28.3335H304C303.448 28.3333 303 27.8855 303 27.3335V20.9995C303 20.4475 303.448 19.9997 304 19.9995H305ZM309.667 17.6665C310.219 17.6665 310.667 18.1142 310.667 18.6665V27.3335C310.667 27.8856 310.219 28.3335 309.667 28.3335H308.667C308.115 28.3335 307.667 27.8856 307.667 27.3335V18.6665C307.667 18.1142 308.115 17.6665 308.667 17.6665H309.667Z" fill="black"/><path d="M37.3203 28.2563C40.0083 28.2563 41.605 26.1543 41.605 22.5947C41.605 21.2544 41.3486 20.1265 40.8579 19.2549C40.1475 17.8999 38.9243 17.1675 37.3789 17.1675C35.0791 17.1675 33.4531 18.7129 33.4531 20.8809C33.4531 22.917 34.918 24.3965 36.9321 24.3965C38.1699 24.3965 39.1733 23.8179 39.6714 22.8145H39.6934C39.6934 22.8145 39.7227 22.8145 39.73 22.8145C39.7446 22.8145 39.7959 22.8145 39.7959 22.8145C39.7959 25.2314 38.8804 26.6743 37.335 26.6743C36.4268 26.6743 35.7236 26.1763 35.4819 25.3779H33.5996C33.9146 27.1138 35.3867 28.2563 37.3203 28.2563ZM37.3862 22.895C36.1704 22.895 35.3062 22.0308 35.3062 20.8223C35.3062 19.6431 36.2144 18.7422 37.3936 18.7422C38.5728 18.7422 39.481 19.6577 39.481 20.8516C39.481 22.0308 38.5947 22.895 37.3862 22.895Z" fill="black"/><path d="M44.6961 28.1538C45.3919 28.1538 45.868 27.6558 45.868 26.9966C45.868 26.3301 45.3919 25.8394 44.6961 25.8394C44.0076 25.8394 43.5242 26.3301 43.5242 26.9966C43.5242 27.6558 44.0076 28.1538 44.6961 28.1538ZM44.6961 22.6606C45.3919 22.6606 45.868 22.1699 45.868 21.5107C45.868 20.8442 45.3919 20.3535 44.6961 20.3535C44.0076 20.3535 43.5242 20.8442 43.5242 21.5107C43.5242 22.1699 44.0076 22.6606 44.6961 22.6606Z" fill="black"/><path d="M52.7237 28H54.5328V26.0298H55.961V24.4331H54.5328V17.4312H51.8668C49.9991 20.2437 48.5123 22.5947 47.5602 24.3452V26.0298H52.7237V28ZM49.3106 24.3672C50.5411 22.1992 51.6397 20.4634 52.6505 18.9692H52.753V24.4771H49.3106V24.3672Z" fill="black"/><path d="M59.9896 28H61.8793V17.4312H59.997L57.2357 19.3647V21.1812L59.8651 19.3354H59.9896V28Z" fill="black"/></svg></div><div class="abs" style="left:0;top:455px;width:375px"><section class="bsheet" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><h2 class="bsheet__title">Title<br>(최대 2줄)</h2><div class="bsheet__body"><div style="height:163px"></div></div><div class="bsheet__footer"><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div><div class="abs hl" style="left:0px;top:455px;width:375px;height:56px"></div><div class="abs hl" style="left:0px;top:511px;width:375px;height:56px"></div><div class="abs hl" style="left:0px;top:567px;width:375px;height:211px"></div><span class="abs badge" style="left:172.5px;top:234.5px">1</span></div>
+<div class="spec pv" style="left:889px;top:2226px;height:812px"><div class="abs" style="left:0;top:778px"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div><div class="abs dim"></div><div class="abs sb-light" style="left:0;top:0;width:375px"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="44" fill="white"/><path opacity="0.35" d="M338.667 17.8333H355.333C356.53 17.8333 357.5 18.8036 357.5 20.0002V26.0002C357.5 27.1967 356.53 28.1663 355.333 28.1663H338.667C337.47 28.1663 336.5 27.1967 336.5 26.0002V20.0002L336.511 19.7786C336.622 18.6859 337.545 17.8333 338.667 17.8333Z" stroke="black"/><path opacity="0.4" d="M359 21V25C359.805 24.6612 360.328 23.8731 360.328 23C360.328 22.1269 359.805 21.3388 359 21Z" fill="black"/><path d="M338 20.6666C338 19.9302 338.597 19.3333 339.333 19.3333H354.667C355.403 19.3333 356 19.9302 356 20.6666V25.3333C356 26.0696 355.403 26.6666 354.667 26.6666H339.333C338.597 26.6666 338 26.0696 338 25.3333V20.6666Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M321.121 25.7311C322.397 24.6522 324.265 24.6522 325.541 25.7311C325.605 25.7892 325.642 25.8713 325.644 25.9577C325.645 26.0442 325.612 26.1276 325.55 26.1882L323.553 28.2038C323.494 28.263 323.414 28.2965 323.331 28.2966C323.248 28.2966 323.168 28.263 323.109 28.2038L321.111 26.1882C321.05 26.1276 321.016 26.0441 321.018 25.9577C321.019 25.8712 321.057 25.7891 321.121 25.7311ZM318.456 23.0417C321.204 20.4856 325.46 20.4857 328.208 23.0417C328.27 23.1015 328.306 23.1841 328.307 23.2702C328.308 23.3564 328.274 23.4395 328.213 23.5007L327.059 24.6677C326.94 24.7868 326.747 24.7894 326.625 24.6735C325.723 23.8563 324.549 23.4039 323.331 23.404C322.114 23.4045 320.941 23.8568 320.039 24.6735C319.917 24.7893 319.724 24.7867 319.605 24.6677L318.451 23.5007C318.391 23.4396 318.357 23.3563 318.357 23.2702C318.358 23.1841 318.394 23.1015 318.456 23.0417ZM315.791 20.36C320.006 16.3209 326.656 16.3206 330.871 20.36C330.932 20.42 330.966 20.5021 330.967 20.5876C330.967 20.6731 330.933 20.7554 330.873 20.8161L329.717 21.9831C329.598 22.1026 329.405 22.1038 329.284 21.986C327.678 20.4593 325.547 19.6082 323.331 19.6081C321.115 19.6081 318.983 20.4591 317.377 21.986C317.256 22.104 317.063 22.1028 316.944 21.9831L315.788 20.8161C315.728 20.7553 315.694 20.6732 315.694 20.5876C315.695 20.5021 315.73 20.42 315.791 20.36Z" fill="black"/><path d="M295.667 24.3335C296.219 24.3335 296.667 24.7812 296.667 25.3335V27.3335C296.667 27.8856 296.219 28.3335 295.667 28.3335H294.667C294.115 28.3335 293.667 27.8856 293.667 27.3335V25.3335C293.667 24.7812 294.115 24.3335 294.667 24.3335H295.667ZM300.334 22.3335C300.886 22.3337 301.334 22.7813 301.334 23.3335V27.3335C301.334 27.8855 300.886 28.3333 300.334 28.3335H299.334C298.782 28.3335 298.334 27.8856 298.334 27.3335V23.3335C298.334 22.7812 298.782 22.3335 299.334 22.3335H300.334ZM305 19.9995C305.552 19.9995 306 20.4474 306 20.9995V27.3335C306 27.8856 305.552 28.3335 305 28.3335H304C303.448 28.3333 303 27.8855 303 27.3335V20.9995C303 20.4475 303.448 19.9997 304 19.9995H305ZM309.667 17.6665C310.219 17.6665 310.667 18.1142 310.667 18.6665V27.3335C310.667 27.8856 310.219 28.3335 309.667 28.3335H308.667C308.115 28.3335 307.667 27.8856 307.667 27.3335V18.6665C307.667 18.1142 308.115 17.6665 308.667 17.6665H309.667Z" fill="black"/><path d="M37.3203 28.2563C40.0083 28.2563 41.605 26.1543 41.605 22.5947C41.605 21.2544 41.3486 20.1265 40.8579 19.2549C40.1475 17.8999 38.9243 17.1675 37.3789 17.1675C35.0791 17.1675 33.4531 18.7129 33.4531 20.8809C33.4531 22.917 34.918 24.3965 36.9321 24.3965C38.1699 24.3965 39.1733 23.8179 39.6714 22.8145H39.6934C39.6934 22.8145 39.7227 22.8145 39.73 22.8145C39.7446 22.8145 39.7959 22.8145 39.7959 22.8145C39.7959 25.2314 38.8804 26.6743 37.335 26.6743C36.4268 26.6743 35.7236 26.1763 35.4819 25.3779H33.5996C33.9146 27.1138 35.3867 28.2563 37.3203 28.2563ZM37.3862 22.895C36.1704 22.895 35.3062 22.0308 35.3062 20.8223C35.3062 19.6431 36.2144 18.7422 37.3936 18.7422C38.5728 18.7422 39.481 19.6577 39.481 20.8516C39.481 22.0308 38.5947 22.895 37.3862 22.895Z" fill="black"/><path d="M44.6961 28.1538C45.3919 28.1538 45.868 27.6558 45.868 26.9966C45.868 26.3301 45.3919 25.8394 44.6961 25.8394C44.0076 25.8394 43.5242 26.3301 43.5242 26.9966C43.5242 27.6558 44.0076 28.1538 44.6961 28.1538ZM44.6961 22.6606C45.3919 22.6606 45.868 22.1699 45.868 21.5107C45.868 20.8442 45.3919 20.3535 44.6961 20.3535C44.0076 20.3535 43.5242 20.8442 43.5242 21.5107C43.5242 22.1699 44.0076 22.6606 44.6961 22.6606Z" fill="black"/><path d="M52.7237 28H54.5328V26.0298H55.961V24.4331H54.5328V17.4312H51.8668C49.9991 20.2437 48.5123 22.5947 47.5602 24.3452V26.0298H52.7237V28ZM49.3106 24.3672C50.5411 22.1992 51.6397 20.4634 52.6505 18.9692H52.753V24.4771H49.3106V24.3672Z" fill="black"/><path d="M59.9896 28H61.8793V17.4312H59.997L57.2357 19.3647V21.1812L59.8651 19.3354H59.9896V28Z" fill="black"/></svg></div><div class="abs" style="left:0;top:142px;width:375px"><section class="bsheet bsheet--long" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__tabs"><div role="tablist" class="tabs tabs--fixed"><button type="button" role="tab" class="tab" aria-selected="true">A</button><button type="button" role="tab" class="tab" aria-selected="false">B</button></div></div><div class="bsheet__body"><div class="ph">콘텐츠 영역</div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div><div class="abs hl" style="left:0px;top:142px;width:375px;height:56px"></div><div class="abs hl" style="left:0px;top:198px;width:375px;height:52px"></div><div class="abs hl" style="left:0px;top:250px;width:375px;height:456px"></div><div class="abs hl" style="left:0px;top:706px;width:375px;height:106px"></div></div>
+<div class="spec" style="left:0;top:0"><span class="abs badge" style="left:268px;top:2694.0px">2</span><span class="abs badge" style="left:268px;top:2750.0px">3</span><span class="abs badge" style="left:268px;top:2883.5px">4</span><span class="abs badge" style="left:843px;top:2381.0px">2</span><span class="abs badge" style="left:843px;top:2435.0px">5</span><span class="abs badge" style="left:843px;top:2689.0px">4</span><span class="abs badge" style="left:843px;top:2970.0px">6</span></div>
+<div class="spec lg" style="left:74px;top:3144px;width:719px"><div class="lg-item"><div class="lg-h"><span class="badge sm">1</span>Sheet</div><p>이전 화면과 관련된 콘텐츠를 담고 있는 표면으로 모달창이 생성될 때 딤드(Opacity / 72)를 진행합니다.</p></div><div class="lg-item"><div class="lg-h"><span class="badge sm">2</span>Header area</div><p>해당 영역에서는 모달창을 닫을 수 있는 닫기 버튼이 우측에 존재합니다.</p></div><div class="lg-item"><div class="lg-h"><span class="badge sm">3</span>Title area</div><p>해당 바텀시트의 타이틀을 작성하는 공간으로 최대 2줄까지 노출 가능합니다.</p></div><div class="lg-item"><div class="lg-h"><span class="badge sm">4</span>Contents area</div><p>자유롭게 구성할 수 있으며 내용이 시트 높이를 초과하면 일정 영역에 한해 스크롤이 가능합니다.</p></div><div class="lg-item"><div class="lg-h"><span class="badge sm">5</span>Toggle area</div><p>토글 등과 같이 시트 내에서 다양한 정보로 이동할 수 있도록 돕는 영역입니다.</p></div><div class="lg-item"><div class="lg-h"><span class="badge sm">6</span>Button area (Optional)</div><p>CTA버튼을 표시할 수 있는 영역입니다.</p></div></div>
+<p class="spec h-sec" style="left:64px;top:3751px">Usage</p>
+<div class="spec" style="left:64px;top:3822px;width:1981px;height:853px;background:#f2f4f8;border-radius:20px"></div>
+<p class="spec lab" style="left:127px;top:3876px">with CTA</p>
+<p class="spec lab" style="left:582px;top:3876px">With Keyboard</p>
+<div class="spec" style="left:127px;top:3936px;width:375px"><section class="bsheet bsheet--long" aria-label="바텀시트"><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__tabs"><div role="tablist" class="tabs tabs--fixed"><button type="button" role="tab" class="tab" aria-selected="true">A</button><button type="button" role="tab" class="tab" aria-selected="false">B</button></div></div><div class="bsheet__body"><div class="ph">콘텐츠 영역</div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div><div class="bsheet__safe"><svg aria-hidden="true" focusable="false" viewBox="0 0 375 34" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="375" height="34" fill="white"/><rect x="121" y="21" width="134" height="5" rx="2.5" fill="black"/></svg></div></div></section></div>
+<div class="spec" style="left:582px;top:3936px;width:375px"><div style="display:flex;flex-direction:column;height:670px"><section class="bsheet bsheet--long" aria-label="바텀시트" style=height:393px><div class="bsheet__header"><p class="bsheet__header-title">Title</p><button type="button" class="bsheet__close" aria-label="닫기"><span class="icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.29289C5.31658 3.90237 4.68342 3.90237 4.29289 4.29289C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071Z" fill="currentColor"/></svg></span></button></div><div class="bsheet__tabs"><div role="tablist" class="tabs tabs--fixed"><button type="button" role="tab" class="tab" aria-selected="true">A</button><button type="button" role="tab" class="tab" aria-selected="false">B</button></div></div><div class="bsheet__body"><div class="field"><label class="field__box"><input class="field__input" type="text" placeholder="Text"><span class="field__count">0/10</span></label></div></div><div class="bsheet__footer"><div class="btn-group btn-group--one"><div class="btn-group__buttons"><button type="button" class="btn btn--primary btn--block">버튼</button></div></div></div></section><img src="components/assets/keyboard-ios.png" alt="" style="display:block;width:375px;height:277px"></div></div>
+<p class="spec note" style="left:582px;top:4622px">• 다른 요소가 추가되어도 바텀시트 영역의 크기는 유지됩니다.</p>
+<p class="spec note" style="left:64px;top:4750px;width:750px">모든 바텀시트에는 핸들바가 포함되지 않는 형태로 진행되며, 영역을 별도로 줄이거나 확장할 수 없습니다.<br>닫기 버튼 혹은 상단 배경을 클릭함으로 바텀시트를 닫을 수 있습니다.</p>
+  </main>
+  </div>
+</body>
+</html>
