@@ -2505,6 +2505,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
+        ['2026-11-04', '문서 사이트', 'GitHub Pages로도 공개 — <a href="https://nakyeonng.github.io/layer-ds/" target="_blank" rel="noopener">nakyeonng.github.io/layer-ds</a>(로그인 없이 열리는 고정 주소, llms.txt 포함). README에 링크', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#skill-call">AI로 화면 만들기</a>', 'Skill 업로드 화면 캡처 · 넣는 순서를 실제 메뉴(사용자 지정 → Skills → Skill 업로드)로 고침. Skill 부르기(/layer-design-system) 안내 추가. 탐색 모드에 실제 결과(해외여행 보험 시안 3개) 예시 추가', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#explore">AI로 화면 만들기</a> · Skill', '탐색 모드 추가 — 정확 모드(기본, 규칙 전부)와 탐색 모드(토큰 · 기본 컴포넌트 · 해요체 · 접근성만 지키고 레이아웃 · 조합 · 새 묶음 · 일러스트는 자유, 서로 다른 시안 3개 + 벗어난 부분 표시). 회고가 아닌 주제는 자동으로 탐색 모드, 회고 전용 요소 제외. Skill · DESIGN.md · AI 안내문 · 검수 체크리스트에 반영', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#skill">AI로 화면 만들기</a> · Skill', 'Layer Skill(layer-design-system.zip) 추가 — Claude 설정 → 기능 → Skills에 한 번 올리면 프로젝트 없이 아무 채팅에서 Layer 화면 만들기. 작업 순서(준비 → 설계 → 그리기 → 검수 → 알려 주기)와 검수 체크리스트(틀 · 컴포넌트 · 버튼 · 겹침 · 색 · 내용 · 웹 스타일 빠짐 · Figma) 포함. AI 안내문에도 검수 단계 추가. GitHub skill/ 폴더', '코드'],
@@ -3042,6 +3043,8 @@ def main():
                 'iconography': p_iconography, 'app-bar': p_app_bar, 'navigation-bar': p_nav, 'avatar': p_avatar, 'badge': p_badge, 'empty-state': p_empty, 'cards': p_cards, 'dropdown': p_dropdown, 'popover': p_popover, 'analysis': p_analysis, 'writing-panel': p_writing, 'button': p_button, 'chip-button': p_chip, 'progress-bar': p_progress, 'fields': p_fields, 'tabs': p_tabs, 'controls': p_controls, 'scroll-bar': p_scrollbar, 'lists': p_lists, 'accordion': p_accordion, 'date-picker': p_datepicker, 'popup': p_popup, 'bottom-sheet': p_bsheet, 'toast': p_toast, 'tooltip': p_tooltip}
     for pid, fn in builders.items():
         (R / f'{pid}.html').write_text(shell(pid, titles[pid], sentence_breaks(fn()), wrapped=(pid == 'index')))
+        if pid == 'index':  # full document for GitHub Pages (the artifact publishes the wrapped one)
+            pathlib.Path('build').mkdir(exist_ok=True); (pathlib.Path('build') / 'index-pages.html').write_text(shell(pid, titles[pid], sentence_breaks(fn()), wrapped=False))
     print('built', len(builders), 'pages')
 
 main()

@@ -3,6 +3,8 @@
 팀 회고 서비스 **레이어**의 디자인 시스템입니다. 모바일(375) · 웹(1440), 라이트 모드.
 디자이너 · 개발자 · AI가 같은 이름으로 같은 값을 쓰도록 만든 토큰 · 컴포넌트 · 화면 틀과 AI용 파일을 담았습니다.
 
+- **문서 사이트**: https://nakyeonng.github.io/layer-ds/ (GitHub Pages)
+- **AI용 목차**: https://nakyeonng.github.io/layer-ds/llms.txt
 - **Figma 커뮤니티 파일**: https://www.figma.com/community/file/1699490552460986431/layer-ds
 - **사용 조건**: [LICENSE.md](LICENSE.md) — 쓰기는 허용, 재배포 · 판매 금지
 
@@ -44,5 +46,6 @@ VERSION=0.2.1 ./build_all.sh
 1. Figma 원본 파일을 고친다 → 커뮤니티 파일 **Publish update**
 2. 컴포넌트 속성이 바뀌었으면 `src/data/figma_components.json`을 갱신한다
 3. `VERSION=x.y.z ./build_all.sh` — AI 파일 · 웹 키트 · 사이트 · llms.txt를 다시 만든다
+4. `./deploy_pages.sh` — 문서 사이트를 GitHub Pages(gh-pages 가지)로 다시 배포한다
 4. 커밋 → 태그 `vx.y.z` 푸시 → jsDelivr 주소의 버전을 올린다
 5. 문서 사이트를 다시 게시한다
