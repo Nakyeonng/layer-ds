@@ -433,7 +433,7 @@ ZIP 하나로 받는 것을 추천합니다(웹페이지용 web 폴더는 ZIP에
 | layer-components-v0.2.1.json | 쓸 수 있는 컴포넌트 82개의 목록 — 언제 쓰는지, 바꿀 수 있는 값, Figma 위치, 웹 마크업 위치 | 다운로드 |
 | layer-tokens-v0.2.1.json | 색 · 간격 · 모서리 · 글자 크기 값 151개 | 다운로드 |
 | AI 안내문 | Claude가 어떻게 그릴지 정해 둔 글. 프로젝트 지침 에 복사해서 붙여넣습니다(2단계) | 다운로드 |
-| web 폴더 | 웹페이지로 만들 때 쓰는 부품 — layer.css (스타일 전부) · layer-icons.js (아이콘) · layer-examples.html (컴포넌트 72개의 실제 HTML) · 로고 · 일러스트 · 폰트. ZIP에만 들어 있어요 | ZIP에 포함 |
+| web 폴더 | 웹페이지로 만들 때 쓰는 부품 — layer.js (한 줄로 스타일 + 아이콘) · layer.css (스타일 전부) · layer-icons.js (아이콘) · layer-examples.html (컴포넌트 72개의 실제 HTML) · 로고 · 일러스트 · 폰트. ZIP에만 들어 있어요 | ZIP에 포함 |
 
 ## 2단계 · Claude 프로젝트에 올리기
 
