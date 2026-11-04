@@ -24,6 +24,7 @@ HTML 파일 · 사이트용입니다. Claude 채팅 아티팩트처럼 외부 �
 | 폴더 | 내용 |
 |---|---|
 | `kit/` | 웹 키트 — layer-inline.css(붙여 넣기용) · layer.js · layer.css · layer-icons.js · layer-examples.html · logo · illustrations · fonts |
+| `skill/` | Claude Skill — layer-design-system(SKILL.md · 검수 체크리스트 · 자료). 폴더째 ZIP으로 묶어 Claude 설정 → 기능 → Skills에 올린다 |
 | `site/` | 문서 사이트(정적 HTML)와 `downloads/`(DESIGN.md · components.json · tokens.json · AI 안내문) |
 | `foundations/` | 토큰 · CSS 원본, 아이콘 · 로고 · 일러스트 원본 |
 | `src/` | 위 파일을 만드는 스크립트, `src/data/figma_components.json`(Figma 컴포넌트 목록 스냅샷) |

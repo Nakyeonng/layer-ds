@@ -2270,7 +2270,7 @@ def p_ai_guide():
     content = page_head('시작하기', 'AI로 화면 만들기', 'Claude에게 디자인 시스템 파일을 주고 말로 부탁하면, 우리 컴포넌트로 화면을 만들어 줍니다. Figma에 그리게 할 수도 있고, 바로 열어 보는 웹페이지(HTML)로 받을 수도 있습니다. 준비는 처음 한 번만 하면 됩니다.', status=('ok', 'v0.2.1'))
     strip = ('<ol class="aig-steps">'
         '<li><b>1</b><strong>파일 받기</strong><span>ZIP 하나로</span></li>'
-        '<li><b>2</b><strong>프로젝트에 올리기</strong><span>지침 · 컨텍스트에 한 번만</span></li>'
+        '<li><b>2</b><strong>Claude에 알려 주기</strong><span>Skill 추가(추천) 또는 프로젝트</span></li>'
         '<li><b>3</b><strong>받을 곳 정하기</strong><span>Figma(복제본) 또는 웹페이지</span></li>'
         '<li><b>4</b><strong>부탁하기</strong><span>채팅창에 말로</span></li></ol>')
     def dl(path, name):
@@ -2283,8 +2283,8 @@ def p_ai_guide():
         ['<strong>web 폴더</strong>', '웹페이지로 만들 때 쓰는 부품 — <code>layer-inline.css</code>(채팅 미리보기에 붙여 넣는 스타일) · <code>layer.js</code>(HTML 파일용, 한 줄로 스타일 + 아이콘) · <code>layer.css</code>(스타일 전부) · <code>layer-icons.js</code>(아이콘) · <code>layer-examples.html</code>(컴포넌트 72개의 실제 HTML) · 로고 · 일러스트 · 폰트. ZIP에만 들어 있어요', '<span class="tk-note">ZIP에 포함</span>']])
     kit = ('<div class="aig-kit"><div><strong>한 번에 받기 · layer-ai-kit-v0.2.1.zip</strong>'
         '<span>아래 파일 4개와 web 폴더가 한 폴더에 들어 있어요. 압축을 푼 폴더를 2단계에서 그대로 씁니다.</span></div>'
-        '<button type="button" class="btn btn--primary btn--sm" data-dl="" data-dl-name="layer-ai-kit-v0.2.1.zip" data-zip="layer-ai-kit-v0.2.1|downloads/DESIGN-v0.2.1.md=DESIGN.md,downloads/layer-components-v0.2.1.json=layer-components-v0.2.1.json,downloads/layer-tokens-v0.2.1.json=layer-tokens-v0.2.1.json,downloads/ai-instructions.md=ai-instructions.md,kit/layer-inline.css=web/layer-inline.css,kit/layer.js=web/layer.js,kit/layer.css=web/layer.css,kit/layer-icons.js=web/layer-icons.js,kit/layer-examples.html=web/layer-examples.html,fonts/PretendardVariable.woff2=web/fonts/PretendardVariable.woff2,fonts/OFL.txt=web/fonts/OFL.txt,kit/logo/favicon-basic.svg=web/logo/favicon-basic.svg,kit/logo/favicon-blue.svg=web/logo/favicon-blue.svg,kit/logo/favicon-dark-blue.svg=web/logo/favicon-dark-blue.svg,kit/logo/logo-horizontal-basic.svg=web/logo/logo-horizontal-basic.svg,kit/logo/logo-horizontal-on-dark.svg=web/logo/logo-horizontal-on-dark.svg,kit/logo/symbol-single-color.svg=web/logo/symbol-single-color.svg,kit/logo/symbol-three-colors.svg=web/logo/symbol-three-colors.svg,kit/illustrations/banner-1x1.svg=web/illustrations/banner-1x1.svg,kit/illustrations/banner-2x1.svg=web/illustrations/banner-2x1.svg,kit/illustrations/content-done.svg=web/illustrations/content-done.svg,kit/illustrations/content-invite.svg=web/illustrations/content-invite.svg,kit/illustrations/content-recommend.svg=web/illustrations/content-recommend.svg,kit/illustrations/content-space-empty.svg=web/illustrations/content-space-empty.svg,kit/illustrations/content-space.svg=web/illustrations/content-space.svg,kit/illustrations/content-start.svg=web/illustrations/content-start.svg,kit/illustrations/content-write.svg=web/illustrations/content-write.svg,kit/illustrations/retro-5f.svg=web/illustrations/retro-5f.svg,kit/illustrations/retro-custom.svg=web/illustrations/retro-custom.svg,kit/illustrations/retro-kpt.svg=web/illustrations/retro-kpt.svg,kit/illustrations/retro-mad-sad-glad.svg=web/illustrations/retro-mad-sad-glad.svg,kit/illustrations/retro-pmi.svg=web/illustrations/retro-pmi.svg,kit/illustrations/retro-ssc.svg=web/illustrations/retro-ssc.svg,kit/illustrations/retro-untitled.svg=web/illustrations/retro-untitled.svg,kit/illustrations/splash-goal.svg=web/illustrations/splash-goal.svg,kit/illustrations/splash-report.svg=web/illustrations/splash-report.svg,kit/illustrations/splash-schedule.svg=web/illustrations/splash-schedule.svg,kit/illustrations/splash-step-by-step.svg=web/illustrations/splash-step-by-step.svg">ZIP 다운로드</button></div>')
-    s1 = ('<section class="section"><h2>1단계 · 파일 받기</h2><p>ZIP 하나로 받는 것을 추천합니다(웹페이지용 web 폴더는 ZIP에만 있어요). 아래 표에서 하나씩 받을 수도 있습니다. 파일 이름은 바꾸지 않아도 됩니다. 열어 볼 필요도 없습니다 — 읽는 건 AI입니다.</p>'
+        '<button type="button" class="btn btn--primary btn--sm" data-dl="" data-dl-name="layer-ai-kit-v0.2.1.zip" data-zip="layer-ai-kit-v0.2.1|downloads/DESIGN-v0.2.1.md=DESIGN.md,downloads/layer-components-v0.2.1.json=layer-components-v0.2.1.json,downloads/layer-tokens-v0.2.1.json=layer-tokens-v0.2.1.json,downloads/ai-instructions.md=ai-instructions.md,downloads/skill/checklist.md=checklist.md,kit/layer-inline.css=web/layer-inline.css,kit/layer.js=web/layer.js,kit/layer.css=web/layer.css,kit/layer-icons.js=web/layer-icons.js,kit/layer-examples.html=web/layer-examples.html,fonts/PretendardVariable.woff2=web/fonts/PretendardVariable.woff2,fonts/OFL.txt=web/fonts/OFL.txt,kit/logo/favicon-basic.svg=web/logo/favicon-basic.svg,kit/logo/favicon-blue.svg=web/logo/favicon-blue.svg,kit/logo/favicon-dark-blue.svg=web/logo/favicon-dark-blue.svg,kit/logo/logo-horizontal-basic.svg=web/logo/logo-horizontal-basic.svg,kit/logo/logo-horizontal-on-dark.svg=web/logo/logo-horizontal-on-dark.svg,kit/logo/symbol-single-color.svg=web/logo/symbol-single-color.svg,kit/logo/symbol-three-colors.svg=web/logo/symbol-three-colors.svg,kit/illustrations/banner-1x1.svg=web/illustrations/banner-1x1.svg,kit/illustrations/banner-2x1.svg=web/illustrations/banner-2x1.svg,kit/illustrations/content-done.svg=web/illustrations/content-done.svg,kit/illustrations/content-invite.svg=web/illustrations/content-invite.svg,kit/illustrations/content-recommend.svg=web/illustrations/content-recommend.svg,kit/illustrations/content-space-empty.svg=web/illustrations/content-space-empty.svg,kit/illustrations/content-space.svg=web/illustrations/content-space.svg,kit/illustrations/content-start.svg=web/illustrations/content-start.svg,kit/illustrations/content-write.svg=web/illustrations/content-write.svg,kit/illustrations/retro-5f.svg=web/illustrations/retro-5f.svg,kit/illustrations/retro-custom.svg=web/illustrations/retro-custom.svg,kit/illustrations/retro-kpt.svg=web/illustrations/retro-kpt.svg,kit/illustrations/retro-mad-sad-glad.svg=web/illustrations/retro-mad-sad-glad.svg,kit/illustrations/retro-pmi.svg=web/illustrations/retro-pmi.svg,kit/illustrations/retro-ssc.svg=web/illustrations/retro-ssc.svg,kit/illustrations/retro-untitled.svg=web/illustrations/retro-untitled.svg,kit/illustrations/splash-goal.svg=web/illustrations/splash-goal.svg,kit/illustrations/splash-report.svg=web/illustrations/splash-report.svg,kit/illustrations/splash-schedule.svg=web/illustrations/splash-schedule.svg,kit/illustrations/splash-step-by-step.svg=web/illustrations/splash-step-by-step.svg">ZIP 다운로드</button></div>')
+    s1 = ('<section class="section"><h2>1단계 · 파일 받기 <span class="tk-note">Skill을 못 쓸 때</span></h2><p>ZIP 하나로 받는 것을 추천합니다(웹페이지용 web 폴더는 ZIP에만 있어요). 아래 표에서 하나씩 받을 수도 있습니다. 파일 이름은 바꾸지 않아도 됩니다. 열어 볼 필요도 없습니다 — 읽는 건 AI입니다.</p>'
         + kit + files + '<p id="tk-msg" class="note" aria-live="polite"></p></section>')
     s2 = ('<section class="section"><h2>2단계 · Claude 프로젝트에 올리기</h2>'
         '<p>Claude의 <strong>프로젝트</strong>는 자료와 지시문을 넣어 두는 폴더입니다. 한 번 올려 두면 그 안에서 여는 모든 채팅이 파일을 이미 읽은 상태로 시작해서, 매번 첨부할 필요가 없습니다.</p>'
@@ -2325,7 +2325,7 @@ def p_ai_guide():
         ['5', '<strong>열려 있는 것</strong> — 메뉴, 팝업, 바텀시트', '무엇을 눌러서 열렸는지 쓰면 위치까지 맞춰 그립니다']])
     ex = ''.join(f'<h3>{t}</h3><p>{d}</p>' + code(c) for t, d, c in AI_EXAMPLES)
     s4 = ('<section class="section"><h2>4단계 · 부탁하기</h2>'
-        '<p>프로젝트 안에서 새 채팅을 열고, 어디에 만들지와 어떤 화면인지를 씁니다. 첫 문장은 둘 중 하나로 시작하면 됩니다.</p>'
+        '<p>Layer Skill을 추가했다면 아무 채팅에서나, 프로젝트 방식이면 프로젝트 안에서 새 채팅을 열고, 어디에 만들지와 어떤 화면인지를 씁니다. 첫 문장은 둘 중 하나로 시작하면 됩니다.</p>'
         + code(AI_FIRST) + code(AI_FIRST_WEB)
         + '<h3>"회고 화면 만들어줘"만 써도 되나요?</h3><p>됩니다. 다만 적은 만큼만 정확해집니다.</p>' + levels
         + '<h3>좋은 요청에 들어가는 다섯 가지</h3><p>전부 쓸 필요는 없지만, 많이 쓸수록 다시 고칠 일이 줄어듭니다. 특히 <strong>3번 문구</strong>가 결과를 가장 크게 바꿉니다.</p>' + checklist
@@ -2341,7 +2341,7 @@ def p_ai_guide():
         + table(['질문', '답'], [
             ['Figma 파일은 어디서 받나요?', '<a href="figma-file.html">Figma 파일 쓰기</a> — 커뮤니티 파일을 내 파일로 복제해서 씁니다. Figma에 그리게 할 때도 이 복제본에 그립니다.'],
             ['Claude 말고 다른 AI도 되나요?', '파일은 일반 텍스트라 다른 AI에게도 줄 수 있습니다. 다만 Figma에 바로 그리려면 그 도구가 Figma 연결을 지원해야 합니다.'],
-            ['디자인 시스템이 업데이트되면?', '<a href="updates.html">업데이트</a> 페이지에서 새 버전 파일을 받아, 컨텍스트(또는 프로젝트 지식)의 예전 파일을 새 파일로 바꿉니다.'],
+            ['디자인 시스템이 업데이트되면?', '<a href="updates.html">업데이트</a> 페이지에서 새 버전 파일을 받아, 컨텍스트(또는 프로젝트 지식)의 예전 파일을 새 파일로 바꿉니다. Skill을 쓰면 Skill ZIP을 다시 받아 올립니다.'],
             ['웹과 모바일을 한 번에 부탁해도 되나요?', '됩니다. "같은 내용으로 웹 화면도 그려 줘"라고 이어서 말하면 됩니다.'],
             ['웹페이지 결과를 개발에 그대로 써도 되나요?', '시안 · 프로토타입용입니다. 모양과 클래스는 디자인 시스템과 같지만, 실제 앱 코드(데이터 연결, 동작)는 개발에서 따로 만듭니다.'],
             ['웹페이지가 비슷하지만 조금 달라 보여요', 'Claude에게 "layer-examples.html의 마크업을 그대로 쓰고 컴포넌트 CSS를 새로 쓰지 마"라고 다시 말해 주세요. 부품 모양은 예시 페이지(ZIP 안 web/layer-examples.html)와 같아야 합니다.'],
@@ -2369,7 +2369,32 @@ def p_ai_guide():
         + '<div class="aig-shots"><figure><img src="img/ai-web-mobile.png" alt="AI가 만든 모바일 회고 목록 웹페이지" loading="lazy"><figcaption>모바일 · 스페이스 회고 목록</figcaption></figure><figure><img src="img/ai-web-web.png" alt="AI가 만든 웹 회고 관리 웹페이지, 첫 카드 메뉴 열림" loading="lazy"><figcaption>웹 · 회고 관리(메뉴 열림)</figcaption></figure></div>'
         + webres
         + '<h3>Figma · 2026-11-02</h3><p>파일 3개와 요청서만 주고 모바일 실행목표 · 웹 회고 관리 · 모바일 개인 분석 화면을 설계하게 했습니다. 결과는 손대지 않고 Figma에 옮겼습니다(Figma Page 1 "AI 생성 테스트" · "2차" 섹션).</p>' + result + '</section>')
-    return content + strip + s1 + s2 + s3 + s4 + s5 + faq + s6
+    import os
+    sk_files = ['downloads/skill/SKILL.md=SKILL.md', 'downloads/skill/checklist.md=references/checklist.md',
+        'downloads/DESIGN-v0.2.1.md=references/DESIGN.md', 'downloads/layer-components-v0.2.1.json=references/components.json',
+        'downloads/layer-tokens-v0.2.1.json=references/tokens.json', 'kit/layer-inline.css=references/web/layer-inline.css',
+        'kit/layer-examples.html=references/web/layer-examples.html', 'kit/layer-icons.js=references/web/layer-icons.js']
+    for d in ('logo', 'illustrations'):
+        sk_files += [f'kit/{d}/{f}=references/web/{d}/{f}' for f in sorted(os.listdir(R / 'kit' / d))]
+    sk = ('<section class="section" id="skill"><h2>가장 쉬운 방법 · Layer Skill 추가하기 <span class="chip chip--ok">추천</span></h2>'
+        '<p><strong>Skill</strong>은 Claude에 한 번 넣어 두는 "작업 안내서 + 자료 묶음"이에요. Layer Skill을 추가하면 프로젝트를 만들거나 파일을 올리지 않아도, '
+        '<strong>아무 채팅에서나</strong> "레이어 회고 화면 만들어 줘"라고 하면 Claude가 알아서 Layer 규칙 · 컴포넌트 · 웹 키트를 꺼내 써요. '
+        '다 만든 뒤에는 <strong>검수 체크리스트</strong>(틀 · 컴포넌트 · 버튼 · 색 · 문구 · 웹 스타일 빠짐)로 스스로 점검하고 고친 것을 알려 줘요.</p>'
+        '<div class="aig-kit"><div><strong>layer-design-system.zip</strong>'
+        '<span>SKILL.md(작업 순서) · 검수 체크리스트 · DESIGN.md · components.json · tokens.json · 웹 키트가 들어 있어요. 압축을 풀지 말고 그대로 올립니다.</span></div>'
+        '<button type="button" class="btn btn--primary btn--sm" data-dl="" data-dl-name="layer-design-system.zip" data-zip="layer-design-system|' + ','.join(sk_files) + '">Skill 받기</button></div>'
+        '<ol class="aig-list">'
+        '<li>Claude <strong>설정 → 기능(Capabilities)</strong>에서 <strong>코드 실행 및 파일 생성</strong>이 켜져 있는지 확인합니다. Skill은 이 기능 위에서 돌아가요.</li>'
+        '<li>같은 화면 아래 <strong>Skills</strong>에서 <strong>스킬 업로드(Upload skill)</strong>를 누르고, 받은 <strong>layer-design-system.zip</strong>을 고릅니다.</li>'
+        '<li>목록에 <strong>layer-design-system</strong>이 생기고 켜져 있으면 끝. 이제 아래 <a href="#s3">3단계</a>로 가서 받을 곳을 정하고 부탁하면 됩니다(1 · 2단계는 건너뜀).</li></ol>'
+        + table(['확인할 것', '내용'], [
+            ['플랜', 'Pro · Max · Team · Enterprise에서 쓸 수 있어요. Enterprise는 관리자가 Skills를 켜 둬야 해요.'],
+            ['팀원과 함께 쓰기', 'Skill은 내 계정에만 들어가요. 팀원은 각자 같은 ZIP을 올리면 됩니다(Team · Enterprise 관리자는 조직 전체에 한 번에 넣을 수 있어요).'],
+            ['업데이트', '새 버전이 나오면 Skill을 다시 받아 같은 방법으로 올립니다. Skill 안에 자료가 없을 때는 GitHub 최신본을 읽도록 되어 있어요.'],
+            ['프로젝트와 같이 써도 되나요?', '네. 다만 같은 자료가 두 번 들어가니 Skill을 쓰면 프로젝트의 Layer 파일은 빼도 돼요.']])
+        + '<p class="note">Claude 도움말: <a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" target="_blank" rel="noopener">Using Skills in Claude</a> · Skill을 못 쓰는 환경이면 아래 1 · 2단계(프로젝트 방식)로 하세요.</p></section>')
+    s3 = s3.replace('<section class="section"><h2>3단계', '<section class="section" id="s3"><h2>3단계', 1)
+    return content + strip + sk + s1 + s2 + s3 + s4 + s5 + faq + s6
 
 def p_figma_file():
     COMM = "https://www.figma.com/community/file/1699490552460986431/layer-ds"
@@ -2421,6 +2446,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
+        ['2026-11-04', '<a href="ai-guide.html#skill">AI로 화면 만들기</a> · Skill', 'Layer Skill(layer-design-system.zip) 추가 — Claude 설정 → 기능 → Skills에 한 번 올리면 프로젝트 없이 아무 채팅에서 Layer 화면 만들기. 작업 순서(준비 → 설계 → 그리기 → 검수 → 알려 주기)와 검수 체크리스트(틀 · 컴포넌트 · 버튼 · 겹침 · 색 · 내용 · 웹 스타일 빠짐 · Figma) 포함. AI 안내문에도 검수 단계 추가. GitHub skill/ 폴더', '코드'],
         ['2026-11-04', '<a href="ai-guide.html">AI로 화면 만들기</a> · 웹 키트', 'Claude 채팅 미리보기가 외부 스크립트(jsDelivr)를 막아 스타일이 빠지던 문제 대응: 붙여 넣기용 <code>layer-inline.css</code> 추가(기본 + 클래스 이름별 부품, 압축). AI는 화면에 쓴 부품만 &lt;style&gt;에 넣고 아이콘 · 로고는 SVG를 직접 넣음. layer.js 한 줄은 HTML 파일 · 사이트용으로. 프로젝트에는 layer.js · layer.css를 빼고 올리도록 안내', '코드'],
         ['2026-11-04', '<a href="ai-guide.html">AI로 화면 만들기</a> · GitHub', '웹 키트를 GitHub(Nakyeonng/layer-ds) + jsDelivr 고정 주소로 공개 — 채팅 미리보기 · 공유용 HTML에서도 레이어 스타일이 그대로 적용. AI 안내문 · DESIGN.md · components.json에 고정 주소, 저장소에 다시 만드는 스크립트(build_all.sh) · 사용 조건(LICENSE.md). 보안 정리: 예시 이름을 가상 이름으로, 공개 파일에서 원본 Figma 파일 주소 삭제, Pretendard 라이선스(OFL) 동봉', '코드'],
         ['2026-11-04', '<a href="popover.html">Popover · Menu</a> · <a href="lists.html">Lists</a>', 'List/Member Item "팀원 추가"의 + 아이콘이 동그라미 왼쪽 위로 치우치던 문제 수정(아이콘 칸 24 → 16, 가운데 정렬). 웹 키트 layer.css에도 반영', '코드'],

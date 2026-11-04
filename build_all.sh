@@ -13,4 +13,5 @@ python3 src/build_site.py                 # site/*.html
 python3 src/build_webkit.py               # site/kit/* — 예시 마크업을 site/*.html에서 가져오므로 사이트 다음에
 python3 src/build_llms.py                 # site/llms.txt · llms-full.txt
 rm -rf kit && cp -r site/kit kit          # jsDelivr로 배포하는 웹 키트
+python3 src/build_skill.py                # skill/layer-design-system — Claude Skill(SKILL.md + references)
 echo "done v${VERSION}"

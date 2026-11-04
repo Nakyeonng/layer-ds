@@ -53,6 +53,7 @@ AI가 화면을 만들 때: DESIGN.md를 먼저 읽고, components.json에 있�
 - [components.json](downloads/layer-components-v0.2.1.json): 컴포넌트 82개 — 쓰임 · 속성 · Figma 키 · 코드 클래스 · 예시 위치
 - [tokens.json](downloads/layer-tokens-v0.2.1.json): 토큰 151개(DTCG)
 - [AI 안내문](downloads/ai-instructions.md): 프로젝트 지침에 붙여넣는 글
+- [Layer Skill](downloads/skill/SKILL.md) · [검수 체크리스트](downloads/skill/checklist.md): Claude Skill(GitHub skill/layer-design-system)
 - [layer-inline.css](kit/layer-inline.css)(채팅 미리보기에 붙여 넣는 스타일) · [layer.css](kit/layer.css) · [layer-icons.js](kit/layer-icons.js) · [layer-examples.html](kit/layer-examples.html): 웹 키트
 - [llms-full.txt](llms-full.txt): 문서 전체 텍스트
 - 웹 키트 고정 주소: <script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script> (HTML 파일 · 사이트용, 스타일 + 아이콘 한 줄)
