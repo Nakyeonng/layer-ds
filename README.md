@@ -19,6 +19,11 @@ HTML 파일 · 사이트용입니다. Claude 채팅 아티팩트처럼 외부 �
 - 아이콘: `<span class="icon icon-24" data-icon="add"></span>`
 - 화면 뼈대: `.layout-mobile` · `.layout-web-list` · `.layout-web-work`
 
+## Claude Skill
+
+- Claude 앱(claude.ai · 데스크톱): 문서 사이트 **AI로 화면 만들기 → Skill 받기**로 `layer-design-system.zip`을 받아 설정 → 기능 → Skills에 업로드
+- Claude Code · Cursor · Codex 등 터미널 AI: `npx skills add Nakyeonng/layer-ds --skill layer-design-system`
+
 ## 폴더
 
 | 폴더 | 내용 |

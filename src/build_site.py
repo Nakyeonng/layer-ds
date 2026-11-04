@@ -2391,6 +2391,7 @@ def p_ai_guide():
             ['플랜', 'Pro · Max · Team · Enterprise에서 쓸 수 있어요. Enterprise는 관리자가 Skills를 켜 둬야 해요.'],
             ['팀원과 함께 쓰기', 'Skill은 내 계정에만 들어가요. 팀원은 각자 같은 ZIP을 올리면 됩니다(Team · Enterprise 관리자는 조직 전체에 한 번에 넣을 수 있어요).'],
             ['업데이트', '새 버전이 나오면 Skill을 다시 받아 같은 방법으로 올립니다. Skill 안에 자료가 없을 때는 GitHub 최신본을 읽도록 되어 있어요.'],
+            ['개발 도구에서 쓰기', 'Claude Code · Cursor · Codex처럼 컴퓨터 터미널에서 쓰는 AI라면 ZIP 대신 명령어 한 줄로 설치합니다(Node.js 필요): <code>npx skills add Nakyeonng/layer-ds --skill layer-design-system</code>. 업데이트는 <code>npx skills update</code>.'],
             ['프로젝트와 같이 써도 되나요?', '네. 다만 같은 자료가 두 번 들어가니 Skill을 쓰면 프로젝트의 Layer 파일은 빼도 돼요.']])
         + '<p class="note">Claude 도움말: <a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" target="_blank" rel="noopener">Using Skills in Claude</a> · Skill을 못 쓰는 환경이면 아래 1 · 2단계(프로젝트 방식)로 하세요.</p></section>')
     s3 = s3.replace('<section class="section"><h2>3단계', '<section class="section" id="s3"><h2>3단계', 1)
