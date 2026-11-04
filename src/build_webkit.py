@@ -119,6 +119,17 @@ js = ('/* Layer Design System — layer-icons.js v%s\n   <span class="icon icon-
       '  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { fill(); }); else fill();\n})();\n') % (VER, json.dumps(ALL, ensure_ascii=False, indent=0))
 (K / 'layer-icons.js').write_text(js)
 
+
+# ── layer.js — one script that injects layer.css (urls resolved against the script's own location) + icons ──
+LJS = ('/* Layer Design System — layer.js v%s · <script src=".../kit/layer.js"></script> 한 줄로 스타일 + 아이콘.\n'
+       '   외부 CSS를 막는 미리보기 환경(채팅 아티팩트 등)에서도 동작하도록 CSS를 <style>로 넣는다. */\n'
+       '(function () {\n  var me = document.currentScript; var base = me ? me.src.replace(/[^/]*$/, "") : "";\n'
+       '  var css = %s;\n  css = css.replace(/url\\("(?!data:|https?:)([^"]+)"\\)/g, function (m, u) { return \'url("\' + base + u + \'")\'; });\n'
+       '  var st = document.createElement("style"); st.setAttribute("data-layer", "%s"); st.textContent = css; (document.head || document.documentElement).appendChild(st);\n'
+       '  var I = %s;\n  function fill(root) { (root || document).querySelectorAll("[data-icon]").forEach(function (el) { var s = I[el.getAttribute("data-icon")]; if (s && !el.firstElementChild) el.innerHTML = s; }); }\n'
+       '  window.LayerIcons = { names: Object.keys(I), fill: fill };\n'
+       '  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { fill(); }); else fill();\n})();\n') % (VER, json.dumps(CSS, ensure_ascii=False), VER, json.dumps(ALL, ensure_ascii=False))
+(K / 'layer.js').write_text(LJS)
 # ── copy assets ──
 for sub, src in [('logo', R / 'img/logo'), ('illustrations', R / 'img/illustrations')]:
     d = K / sub; d.mkdir(exist_ok=True)

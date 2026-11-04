@@ -9,10 +9,11 @@
 ## 웹 키트 바로 쓰기 (jsDelivr)
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css">
-<!-- 페이지 끝 -->
-<script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer-icons.js"></script>
+<!-- <head>에 한 줄: 스타일(layer.css 전체) + 아이콘 -->
+<script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script>
 ```
+
+외부 CSS를 막는 미리보기(채팅 아티팩트 등)에서도 동작하도록 CSS를 `<style>`로 넣습니다. 일반 웹페이지라면 `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css">` + `layer-icons.js`도 됩니다.
 
 - 컴포넌트 마크업: [`kit/layer-examples.html`](kit/layer-examples.html)을 복사해 글자만 바꿉니다.
 - 아이콘: `<span class="icon icon-24" data-icon="add"></span>`

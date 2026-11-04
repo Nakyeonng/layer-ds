@@ -310,7 +310,7 @@ Pretendard 하나로 15단계를 씁니다. 행간은 140%(Heading 24만 150%), 
 
 웹페이지로 만들 때는 컴포넌트 모양을 새로 짜지 않고 키트 파일을 가져다 씁니다.
 
-- 키트는 고정 주소로 불러옵니다: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css">`, 페이지 끝 `<script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer-icons.js"></script>`. web 폴더 안에 저장해 열 때만 상대 경로(`layer.css`)를 써도 됩니다.
+- 키트는 `<head>`에 스크립트 한 줄로 불러옵니다: `<script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script>` — layer.css 전체와 아이콘을 넣어 줍니다(외부 CSS를 막는 미리보기에서도 동작). web 폴더 안에 저장해 열 때는 `layer.css` + `layer-icons.js` 상대 경로도 됩니다.
 - 마크업은 `layer-examples.html`에서 복사합니다. `components.json`의 각 컴포넌트 `code.example`이 그 위치(예: `layer-examples.html#card-retro-mobile`)입니다. 글자 · 숫자 · 상태 클래스(`--selected`, `aria-current`, `aria-pressed`)만 바꿉니다.
 - 화면 뼈대: 모바일 `.layout-mobile`(목록 화면은 `+ .layout-mobile--secondary`) 안에 `.os-status` → `.app-bar` → `.layout-mobile__content` → `.nav-bar`. 웹 `.layout-web-list`(`.lnb` + `.layout-web-list__body`) 또는 `.layout-web-work`(`.lnb.lnb--folded` + `__list` + `__panel`).
 - 메뉴 · 팝오버가 열린 상태: 더보기 버튼(또는 그 카드)을 감싼 요소에 `.menu-anchor`, 그 안에 `.menu` — 버튼 바로 아래 오른쪽 끝(사이 4)에 붙고 딤드는 없습니다.

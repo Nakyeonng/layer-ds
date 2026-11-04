@@ -27,9 +27,9 @@
 
 ## 웹페이지(HTML)로 만들어 달라고 할 때
 - web 폴더의 키트를 쓴다: layer.css(스타일 전부) · layer-icons.js(아이콘) · layer-examples.html(컴포넌트별 실제 마크업) · logo/ · illustrations/ · fonts/.
-- 키트는 고정 주소로 불러온다(채팅 미리보기 · 아티팩트 · 공유용 HTML 모두):
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css">
-  <script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer-icons.js"></script>  (페이지 끝)
+- 키트는 고정 주소의 스크립트 한 줄로 불러온다(채팅 미리보기 · 아티팩트 · 공유용 HTML 모두). <head>에:
+  <script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script>
+  이 한 줄이 layer.css 전체를 <style>로 넣고 data-icon 아이콘도 채운다(외부 CSS를 막는 미리보기에서도 동작). 따로 layer.css · layer-icons.js를 불러오지 않는다.
   로고 · 일러스트 그림은 https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/logo/파일 · https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/illustrations/파일 (파일 이름은 web 폴더와 같다)
 - 사용자가 HTML 파일을 web 폴더 안에 저장해 쓰는 경우에만 상대 경로(layer.css · layer-icons.js)를 써도 된다.
 - 미리보기에서 스타일이 적용되지 않으면(외부 파일을 막는 환경) 고치려고 CSS를 새로 쓰지 말고, HTML 파일로 저장해 브라우저로 열어 보도록 안내한다.

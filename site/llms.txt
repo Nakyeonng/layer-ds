@@ -11,7 +11,7 @@ AI가 화면을 만들 때: DESIGN.md를 먼저 읽고, components.json에 있�
 - [AI 안내문](downloads/ai-instructions.md): 프로젝트 지침에 붙여넣는 글
 - [layer.css](kit/layer.css) · [layer-icons.js](kit/layer-icons.js) · [layer-examples.html](kit/layer-examples.html): 웹 키트
 - [llms-full.txt](llms-full.txt): 문서 전체 텍스트
-- 웹 키트 고정 주소: https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css · https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer-icons.js
+- 웹 키트 고정 주소: <script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script> (스타일 + 아이콘 한 줄)
 - GitHub: https://github.com/Nakyeonng/layer-ds
 - [Figma 커뮤니티 파일](https://www.figma.com/community/file/1699490552460986431/layer-ds): 복제해서 쓰는 Figma 원본(컴포넌트 · 변수 · 스타일)
 

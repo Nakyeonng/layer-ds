@@ -2306,7 +2306,7 @@ def p_ai_guide():
             ['결과', 'Figma 파일 안의 화면(컴포넌트 인스턴스) — 디자이너가 바로 고쳐 쓸 수 있음', '브라우저에서 여는 화면 — 링크로 공유하거나 프로토타입처럼 볼 때'],
             ['준비', '<a href="figma-file.html">커뮤니티 파일 복제</a> + Claude에 Figma 연결 + Figma 유료 플랜(아래)', '없음. ZIP의 web 폴더만 프로젝트에 있으면 됨'],
             ['요청할 때', '"아래 Figma 파일에 그려 줘" + 파일 링크', '"웹페이지(HTML)로 만들어 줘"'],
-            ['미리보기', 'Figma 파일에서 바로 확인', 'Claude가 키트를 고정 주소(jsDelivr)로 불러와 채팅 미리보기에 바로 보여 줌. 스타일이 안 보이면 HTML 파일로 받아 브라우저로 열기']])
+            ['미리보기', 'Figma 파일에서 바로 확인', 'Claude가 키트를 고정 주소(jsDelivr)의 스크립트 한 줄(layer.js)로 불러와 채팅 미리보기에 바로 보여 줌. 스타일이 안 보이면 HTML 파일로 받아 브라우저로 열기']])
         + '<h3>Figma에 그리려면</h3><p>연결해 두면 Claude가 <strong>Figma 파일 안에 실제 Layer 컴포넌트로 화면을 그립니다</strong>.</p>'
         + table(['확인할 것', '내용'], [
             ['연결', 'Claude 설정의 <strong>커넥터(Connectors)</strong>에서 Figma를 찾아 연결하고 Figma 계정으로 로그인합니다.'],
