@@ -2290,8 +2290,8 @@ new StyleDictionary({
 def p_ai_guide():
     content = page_head('시작하기', 'AI로 화면 만들기', 'Claude에게 디자인 시스템 파일을 주고 말로 부탁하면, 우리 컴포넌트로 화면을 만들어 줍니다. Figma에 그리게 할 수도 있고, 바로 열어 보는 웹페이지(HTML)로 받을 수도 있습니다. 준비는 처음 한 번만 하면 됩니다.', status=('ok', 'v0.2.1'))
     strip = ('<ol class="aig-steps">'
-        '<li><b>1</b><strong>파일 받기</strong><span>ZIP 하나로</span></li>'
-        '<li><b>2</b><strong>Claude에 알려 주기</strong><span>Skill 추가(추천) 또는 프로젝트</span></li>'
+        '<li><b>1</b><strong>파일 받기</strong><span>방법 B(프로젝트)만</span></li>'
+        '<li><b>2</b><strong>Claude에 알려 주기</strong><span>A Skill(추천) · B 프로젝트</span></li>'
         '<li><b>3</b><strong>받을 곳 정하기</strong><span>Figma(복제본) 또는 웹페이지</span></li>'
         '<li><b>4</b><strong>부탁하기</strong><span>채팅창에 말로</span></li></ol>')
     def dl(path, name):
@@ -2305,7 +2305,7 @@ def p_ai_guide():
     kit = ('<div class="aig-kit"><div><strong>한 번에 받기 · layer-ai-kit-v0.2.1.zip</strong>'
         '<span>아래 파일 4개와 web 폴더가 한 폴더에 들어 있어요. 압축을 푼 폴더를 2단계에서 그대로 씁니다.</span></div>'
         '<button type="button" class="btn btn--primary btn--sm" data-dl="" data-dl-name="layer-ai-kit-v0.2.1.zip" data-zip="layer-ai-kit-v0.2.1|downloads/DESIGN-v0.2.1.md=DESIGN.md,downloads/layer-components-v0.2.1.json=layer-components-v0.2.1.json,downloads/layer-tokens-v0.2.1.json=layer-tokens-v0.2.1.json,downloads/ai-instructions.md=ai-instructions.md,downloads/skill/checklist.md=checklist.md,kit/layer-inline.css=web/layer-inline.css,kit/layer.js=web/layer.js,kit/layer.css=web/layer.css,kit/layer-icons.js=web/layer-icons.js,kit/layer-examples.html=web/layer-examples.html,fonts/PretendardVariable.woff2=web/fonts/PretendardVariable.woff2,fonts/OFL.txt=web/fonts/OFL.txt,kit/logo/favicon-basic.svg=web/logo/favicon-basic.svg,kit/logo/favicon-blue.svg=web/logo/favicon-blue.svg,kit/logo/favicon-dark-blue.svg=web/logo/favicon-dark-blue.svg,kit/logo/logo-horizontal-basic.svg=web/logo/logo-horizontal-basic.svg,kit/logo/logo-horizontal-on-dark.svg=web/logo/logo-horizontal-on-dark.svg,kit/logo/symbol-single-color.svg=web/logo/symbol-single-color.svg,kit/logo/symbol-three-colors.svg=web/logo/symbol-three-colors.svg,kit/illustrations/banner-1x1.svg=web/illustrations/banner-1x1.svg,kit/illustrations/banner-2x1.svg=web/illustrations/banner-2x1.svg,kit/illustrations/content-done.svg=web/illustrations/content-done.svg,kit/illustrations/content-invite.svg=web/illustrations/content-invite.svg,kit/illustrations/content-recommend.svg=web/illustrations/content-recommend.svg,kit/illustrations/content-space-empty.svg=web/illustrations/content-space-empty.svg,kit/illustrations/content-space.svg=web/illustrations/content-space.svg,kit/illustrations/content-start.svg=web/illustrations/content-start.svg,kit/illustrations/content-write.svg=web/illustrations/content-write.svg,kit/illustrations/retro-5f.svg=web/illustrations/retro-5f.svg,kit/illustrations/retro-custom.svg=web/illustrations/retro-custom.svg,kit/illustrations/retro-kpt.svg=web/illustrations/retro-kpt.svg,kit/illustrations/retro-mad-sad-glad.svg=web/illustrations/retro-mad-sad-glad.svg,kit/illustrations/retro-pmi.svg=web/illustrations/retro-pmi.svg,kit/illustrations/retro-ssc.svg=web/illustrations/retro-ssc.svg,kit/illustrations/retro-untitled.svg=web/illustrations/retro-untitled.svg,kit/illustrations/splash-goal.svg=web/illustrations/splash-goal.svg,kit/illustrations/splash-report.svg=web/illustrations/splash-report.svg,kit/illustrations/splash-schedule.svg=web/illustrations/splash-schedule.svg,kit/illustrations/splash-step-by-step.svg=web/illustrations/splash-step-by-step.svg">ZIP 다운로드</button></div>')
-    s1 = ('<section class="section"><h2>1단계 · 파일 받기 <span class="tk-note">Skill을 못 쓸 때</span></h2><p>ZIP 하나로 받는 것을 추천합니다(웹페이지용 web 폴더는 ZIP에만 있어요). 아래 표에서 하나씩 받을 수도 있습니다. 파일 이름은 바꾸지 않아도 됩니다. 열어 볼 필요도 없습니다 — 읽는 건 AI입니다.</p>'
+    s1 = ('<section class="section"><h2>1단계 · 파일 받기</h2><p>ZIP 하나로 받는 것을 추천합니다(웹페이지용 web 폴더는 ZIP에만 있어요). 아래 표에서 하나씩 받을 수도 있습니다. 파일 이름은 바꾸지 않아도 됩니다. 열어 볼 필요도 없습니다 — 읽는 건 AI입니다.</p>'
         + kit + files + '<p id="tk-msg" class="note" aria-live="polite"></p></section>')
     s2 = ('<section class="section"><h2>2단계 · Claude 프로젝트에 올리기</h2>'
         '<p>Claude의 <strong>프로젝트</strong>는 자료와 지시문을 넣어 두는 폴더입니다. 한 번 올려 두면 그 안에서 여는 모든 채팅이 파일을 이미 읽은 상태로 시작해서, 매번 첨부할 필요가 없습니다.</p>'
@@ -2407,7 +2407,7 @@ def p_ai_guide():
         'kit/layer-examples.html=references/web/layer-examples.html', 'kit/layer-icons.js=references/web/layer-icons.js']
     for d in ('logo', 'illustrations'):
         sk_files += [f'kit/{d}/{f}=references/web/{d}/{f}' for f in sorted(os.listdir(R / 'kit' / d))]
-    sk = ('<section class="section" id="skill"><h2>가장 쉬운 방법 · Layer Skill 추가하기 <span class="chip chip--ok">추천</span></h2>'
+    sk = ('<section class="section" id="skill"><h2>Layer Skill 추가하기</h2>'
         '<p><strong>Skill</strong>은 Claude에 한 번 넣어 두는 "작업 안내서 + 자료 묶음"이에요. Layer Skill을 추가하면 프로젝트를 만들거나 파일을 올리지 않아도, '
         '<strong>아무 채팅에서나</strong> "레이어 회고 화면 만들어 줘"라고 하면 Claude가 알아서 Layer 규칙 · 컴포넌트 · 웹 키트를 꺼내 써요. '
         '다 만든 뒤에는 <strong>검수 체크리스트</strong>(틀 · 컴포넌트 · 버튼 · 색 · 문구 · 웹 스타일 빠짐)로 스스로 점검하고 고친 것을 알려 줘요.</p>'
@@ -2417,16 +2417,25 @@ def p_ai_guide():
         '<ol class="aig-list">'
         '<li>Claude <strong>설정 → 기능(Capabilities)</strong>에서 <strong>코드 실행 및 파일 생성</strong>이 켜져 있는지 확인합니다. Skill은 이 기능 위에서 돌아가요.</li>'
         '<li>같은 화면 아래 <strong>Skills</strong>에서 <strong>스킬 업로드(Upload skill)</strong>를 누르고, 받은 <strong>layer-design-system.zip</strong>을 고릅니다.</li>'
-        '<li>목록에 <strong>layer-design-system</strong>이 생기고 켜져 있으면 끝. 이제 아래 <a href="#s3">3단계</a>로 가서 받을 곳을 정하고 부탁하면 됩니다(1 · 2단계는 건너뜀).</li></ol>'
+        '<li>목록에 <strong>layer-design-system</strong>이 생기고 켜져 있으면 끝. 이제 방법 B(1 · 2단계)는 건너뛰고 <a href="#s3">3단계</a>로 가서 받을 곳을 정하고 부탁하면 됩니다.</li></ol>'
         + table(['확인할 것', '내용'], [
             ['플랜', 'Pro · Max · Team · Enterprise에서 쓸 수 있어요. Enterprise는 관리자가 Skills를 켜 둬야 해요.'],
             ['팀원과 함께 쓰기', 'Skill은 내 계정에만 들어가요. 팀원은 각자 같은 ZIP을 올리면 됩니다(Team · Enterprise 관리자는 조직 전체에 한 번에 넣을 수 있어요).'],
             ['업데이트', '새 버전이 나오면 Skill을 다시 받아 같은 방법으로 올립니다. Skill 안에 자료가 없을 때는 GitHub 최신본을 읽도록 되어 있어요.'],
             ['개발 도구에서 쓰기', 'Claude Code · Cursor · Codex처럼 컴퓨터 터미널에서 쓰는 AI라면 ZIP 대신 명령어 한 줄로 설치합니다(Node.js 필요): <code>npx skills add Nakyeonng/layer-ds --skill layer-design-system</code>. 업데이트는 <code>npx skills update</code>.'],
             ['프로젝트와 같이 써도 되나요?', '네. 다만 같은 자료가 두 번 들어가니 Skill을 쓰면 프로젝트의 Layer 파일은 빼도 돼요.']])
-        + '<p class="note">Claude 도움말: <a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" target="_blank" rel="noopener">Using Skills in Claude</a> · Skill을 못 쓰는 환경이면 아래 1 · 2단계(프로젝트 방식)로 하세요.</p></section>')
+        + '<p class="note">Claude 도움말: <a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" target="_blank" rel="noopener">Using Skills in Claude</a> · Skill을 못 쓰는 환경이면 아래 방법 B(프로젝트)로 하세요.</p></section>')
     s3 = s3.replace('<section class="section"><h2>3단계', '<section class="section" id="s3"><h2>3단계', 1)
-    return content + strip + sk + s1 + s2 + s3 + s4 + s5 + faq + s6
+    choose = ('<div class="path-choose">'
+        '<a class="path-card path-card--a" href="#skill"><span class="path-tag path-tag--a">방법 A · 추천</span><strong>Layer Skill 추가</strong><span>ZIP 하나 올리면 끝 → 3 · 4단계</span></a>'
+        '<a class="path-card" href="#path-b"><span class="path-tag">방법 B</span><strong>프로젝트로 쓰기</strong><span>Skill을 못 쓸 때만 → 1 · 2 · 3 · 4단계</span></a></div>')
+    box_a = ('<div class="path-box path-box--a"><div class="path-box__head"><span class="path-tag path-tag--a">방법 A · 추천</span>'
+        '<strong>Skill로 쓰기</strong><span class="path-box__skip">끝나면 <a href="#s3">3단계로 →</a></span></div>' + sk + '</div>')
+    box_b = ('<div class="path-box" id="path-b"><div class="path-box__head"><span class="path-tag">방법 B</span>'
+        '<strong>프로젝트로 쓰기 — Skill을 못 쓸 때만</strong><span class="path-box__skip">Skill을 추가했다면 건너뛰고 <a href="#s3">3단계로 →</a></span></div>'
+        '<p class="path-box__why">무료 플랜이거나, 회사 계정에서 코드 실행 · Skills가 막혀 있을 때 이 방법을 씁니다.</p>' + s1 + s2 + '</div>')
+    join = '<div class="path-join"><span>여기부터 A · B 공통</span></div>'
+    return content + strip + choose + box_a + box_b + join + s3 + s4 + s5 + faq + s6
 
 def p_figma_file():
     COMM = "https://www.figma.com/community/file/1699490552460986431/layer-ds"

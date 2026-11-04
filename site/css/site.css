@@ -204,6 +204,29 @@ td.num, th.num { font-variant-numeric: tabular-nums; }
 }
 .site-toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+/* AI guide — two setup paths (A Skill · B Project) */
+.path-choose { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0; }
+.path-card { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--fg); }
+.path-card:hover { background: var(--bg-sunk); }
+.path-card--a { border-color: var(--accent); }
+.path-card strong { font-size: 16px; }
+.path-card span:last-child { color: var(--fg-muted); font-size: 13px; }
+.path-tag { align-self: flex-start; display: inline-block; padding: 3px 9px; border-radius: 99px; font-size: 12px; font-weight: 700; background: var(--todo-soft); color: var(--fg-muted); white-space: nowrap; }
+.path-tag--a { background: var(--accent-soft); color: var(--accent); }
+.path-box { display: flex; flex-direction: column; gap: 40px; margin: 0; padding: 4px 28px 32px; border: 1px solid var(--line); border-radius: 16px; min-width: 0; }
+.path-box--a { border-color: var(--accent); }
+.path-box__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 20px 0 16px; border-bottom: 1px solid var(--line); }
+.path-box__head strong { font-size: 18px; }
+.path-box__skip { margin-left: auto; font-size: 13px; color: var(--fg-muted); }
+.path-box__why { margin: -20px 0 -8px; color: var(--fg-muted); }
+.path-join { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--fg-muted); font-size: 13px; font-weight: 600; }
+.path-join::before, .path-join::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+@media (max-width: 600px) {
+  .path-choose { grid-template-columns: 1fr; }
+  .path-box { padding: 2px 16px 24px; gap: 32px; }
+  .path-box__skip { margin-left: 0; flex-basis: 100%; }
+}
+
 /* Page-top button — Layer Floating Button, icon only (Chevron-Up 24) */
 .to-top {
   position: fixed; right: calc(24px + env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px));
