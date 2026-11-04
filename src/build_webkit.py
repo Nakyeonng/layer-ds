@@ -110,6 +110,50 @@ CSS = ''.join(css)
 K.mkdir(exist_ok=True)
 (K / 'layer.css').write_text(CSS)
 
+# ── layer-inline.css — for previews that block every external file (claude.ai chat artifacts) ──
+# The AI pastes "base" + the block of every class root a screen uses into one <style>. Minified, grouped by class root.
+def _mini(c):
+    c = re.sub(r'/\*.*?\*/', '', c, flags=re.S)
+    c = re.sub(r'\s+', ' ', c)
+    c = re.sub(r'\s*([{};,>])\s*', r'\1', c)
+    c = re.sub(r'\s*:\s*(?=[^{}]*[;}])', ':', c)
+    return c.replace(';}', '}').strip()
+def _blocks(c):
+    out, d, st = [], 0, 0
+    for i, ch in enumerate(c):
+        if ch == '{': d += 1
+        elif ch == '}':
+            d -= 1
+            if d == 0: out.append(c[st:i + 1].strip()); st = i + 1
+    return [x for x in out if x]
+def _root(block):
+    sel = block.split('{', 1)[0] if not block.startswith('@media') else block.split('{', 2)[1]
+    for m in re.finditer(r'\.([a-z][a-z0-9]*(?:-[a-z0-9]+)*)', sel):
+        n = re.split(r'__|--', m.group(1))[0]
+        if not n.startswith('is-') and n not in ('icon',): return n
+    return None
+_cut = EXTRA.index('/* Section Header')
+INLINE_FONT = ('@font-face{font-family:"Pretendard";src:url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations");font-weight:45 920;font-display:swap}'
+               'html{-webkit-text-size-adjust:100%}body{margin:0;font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;color:var(--color-text-primary,#212329);background:var(--color-bg-surface,#fff);-webkit-font-smoothing:antialiased}*,*::before,*::after{box-sizing:border-box}')
+BASE_FILES = ['color', 'typography', 'spacing', 'radius', 'elevation', 'layout', 'icons']
+base = [INLINE_FONT] + [_mini((R / 'css' / f'{n}.css').read_text()) for n in BASE_FILES] + [_mini(EXTRA[:_cut])]
+groups = {}
+srcs = [(R / 'css' / f'{n}.css').read_text() for n in ORDER if n not in BASE_FILES] + [EXTRA[_cut:]]
+for raw in srcs:
+    for blk in _blocks(_mini(raw)):
+        r = _root(blk)
+        if r is None or blk.startswith(':root') or blk.startswith('@keyframes'): base.append(blk); continue
+        groups.setdefault(r, []).append(blk)
+_hdr = ['/* Layer Design System — layer-inline.css v%s' % VER,
+        '   외부 파일(스크립트 · CSS · 폰트 주소)을 막는 미리보기(Claude 채팅 아티팩트 등)용. 한 <style> 안에 직접 붙여 넣는다.',
+        '   ① "@part base" 아래 한 줄은 항상 넣는다.',
+        '   ② 화면 HTML에 쓴 클래스마다 앞부분 이름(.retro-card__title → retro-card, .btn--primary → btn)의 "@part 이름" 아래 한 줄을 넣는다.',
+        '   ③ 글자 하나 바꾸지 않고 그대로 복사한다. 줄이거나 다시 쓰지 않는다. 헷갈리면 넣는다(빠지면 모양이 깨진다).',
+        '   아이콘: layer-icons.js에서 같은 이름의 SVG를 <span class="icon icon-24"> 안에 그대로 넣는다(스크립트 없이).',
+        '   부품: ' + ' · '.join(groups) + ' */']
+INLINE = '\n'.join(_hdr) + '\n/*@part base*/\n' + ''.join(base) + '\n' + ''.join('/*@part %s*/\n%s\n' % (k, ''.join(v)) for k, v in groups.items())
+(K / 'layer-inline.css').write_text(INLINE)
+
 # ── layer-icons.js ──
 js = ('/* Layer Design System — layer-icons.js v%s\n   <span class="icon icon-24" data-icon="arrow-left"></span> 처럼 쓰고, 페이지 끝에서 이 파일을 불러온다.\n'
       '   단색 아이콘은 글자색(currentColor)을 따른다. Graphic(graphic-* · emotion-*)은 색이 정해져 있다. */\n'

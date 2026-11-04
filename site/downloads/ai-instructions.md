@@ -26,13 +26,14 @@
 - 문구가 없으면 서비스 맥락에 맞는 예시 문구로 채우고, 다 그린 뒤 "지어낸 문구"를 알려 준다.
 
 ## 웹페이지(HTML)로 만들어 달라고 할 때
-- web 폴더의 키트를 쓴다: layer.css(스타일 전부) · layer-icons.js(아이콘) · layer-examples.html(컴포넌트별 실제 마크업) · logo/ · illustrations/ · fonts/.
-- 키트는 고정 주소의 스크립트 한 줄로 불러온다(채팅 미리보기 · 아티팩트 · 공유용 HTML 모두). <head>에:
+- web 폴더의 키트를 쓴다: layer-inline.css(붙여 넣는 스타일) · layer-icons.js(아이콘 SVG) · layer-examples.html(컴포넌트별 실제 마크업) · logo/ · illustrations/.
+- 채팅 미리보기 · 아티팩트로 보여 줄 때(기본): 외부 주소(<script src> · <link> · 이미지 · 폰트 주소)는 막힌다. 외부 파일을 하나도 부르지 않는다.
+  - <head>의 <style> 하나에 layer-inline.css에서 ① "@part base" 아래 줄 ② 화면에 쓴 클래스마다 앞부분 이름(.retro-card__title → retro-card, .btn--primary → btn)의 "@part" 아래 줄을 글자 하나 바꾸지 않고 그대로 붙여 넣는다. 줄이거나 다시 쓰지 않는다. 헷갈리면 넣는다.
+  - 아이콘은 <span class="icon icon-24"> 안에 layer-icons.js의 같은 이름 SVG를 그대로 넣는다. 로고 · 일러스트도 logo/ · illustrations/의 SVG 코드를 그대로 넣는다.
+- HTML 파일로 받아 브라우저에서 열거나 사이트에 올릴 때: <style> 대신 <head>에 한 줄
   <script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script>
-  이 한 줄이 layer.css 전체를 <style>로 넣고 data-icon 아이콘도 채운다(외부 CSS를 막는 미리보기에서도 동작). 따로 layer.css · layer-icons.js를 불러오지 않는다.
-  로고 · 일러스트 그림은 https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/logo/파일 · https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/illustrations/파일 (파일 이름은 web 폴더와 같다)
-- 사용자가 HTML 파일을 web 폴더 안에 저장해 쓰는 경우에만 상대 경로(layer.css · layer-icons.js)를 써도 된다.
-- 미리보기에서 스타일이 적용되지 않으면(외부 파일을 막는 환경) 고치려고 CSS를 새로 쓰지 말고, HTML 파일로 저장해 브라우저로 열어 보도록 안내한다.
+  (스타일 전부 + data-icon 아이콘). 로고 · 일러스트는 https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/logo/파일 · …/kit/illustrations/파일.
+- 사용자가 어느 쪽인지 말하지 않으면 채팅 미리보기 방식으로 만든다.
 - 컴포넌트는 components.json의 code.example이 가리키는 layer-examples.html 마크업을 그대로 복사하고 글자 · 숫자 · 상태만 바꾼다. 카드 · 버튼 · 탭 · 앱 바의 CSS를 새로 쓰지 않는다.
 - 뼈대: 모바일 .layout-mobile(목록 화면은 .layout-mobile--secondary 추가) → .os-status → .app-bar → .layout-mobile__content → .nav-bar. 웹 .layout-web-list(.lnb + .layout-web-list__body) 또는 .layout-web-work(.lnb.lnb--folded + __list + __panel).
 - 메뉴 · 팝오버를 연 상태는 더보기 버튼을 감싼 요소에 .menu-anchor를 주고 그 안에 .menu를 넣는다(위치 계산 스크립트를 쓰지 않는다).

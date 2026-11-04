@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script>
 ```
 
-외부 CSS를 막는 미리보기(채팅 아티팩트 등)에서도 동작하도록 CSS를 `<style>`로 넣습니다. 일반 웹페이지라면 `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css">` + `layer-icons.js`도 됩니다.
+HTML 파일 · 사이트용입니다. Claude 채팅 아티팩트처럼 외부 주소를 모두 막는 미리보기에서는 [`kit/layer-inline.css`](kit/layer-inline.css)의 `@part base` + 쓰는 부품 줄을 `<style>`에 그대로 붙여 넣습니다. 일반 웹페이지라면 `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.css">` + `layer-icons.js`도 됩니다.
 
 - 컴포넌트 마크업: [`kit/layer-examples.html`](kit/layer-examples.html)을 복사해 글자만 바꿉니다.
 - 아이콘: `<span class="icon icon-24" data-icon="add"></span>`
@@ -23,7 +23,7 @@
 
 | 폴더 | 내용 |
 |---|---|
-| `kit/` | 웹 키트 — layer.css · layer-icons.js · layer-examples.html · logo · illustrations · fonts |
+| `kit/` | 웹 키트 — layer-inline.css(붙여 넣기용) · layer.js · layer.css · layer-icons.js · layer-examples.html · logo · illustrations · fonts |
 | `site/` | 문서 사이트(정적 HTML)와 `downloads/`(DESIGN.md · components.json · tokens.json · AI 안내문) |
 | `foundations/` | 토큰 · CSS 원본, 아이콘 · 로고 · 일러스트 원본 |
 | `src/` | 위 파일을 만드는 스크립트, `src/data/figma_components.json`(Figma 컴포넌트 목록 스냅샷) |

@@ -113,6 +113,7 @@ Layer Design System
 
 | 날짜 | 영역 | 내용 | 반영 |
 |---|---|---|---|
+| 2026-11-04 | AI로 화면 만들기 · 웹 키트 | Claude 채팅 미리보기가 외부 스크립트(jsDelivr)를 막아 스타일이 빠지던 문제 대응: 붙여 넣기용 layer-inline.css 추가(기본 + 클래스 이름별 부품, 압축). AI는 화면에 쓴 부품만 <style>에 넣고 아이콘 · 로고는 SVG를 직접 넣음. layer.js 한 줄은 HTML 파일 · 사이트용으로. 프로젝트에는 layer.js · layer.css를 빼고 올리도록 안내 | 코드 |
 | 2026-11-04 | AI로 화면 만들기 · GitHub | 웹 키트를 GitHub(Nakyeonng/layer-ds) + jsDelivr 고정 주소로 공개 — 채팅 미리보기 · 공유용 HTML에서도 레이어 스타일이 그대로 적용. AI 안내문 · DESIGN.md · components.json에 고정 주소, 저장소에 다시 만드는 스크립트(build_all.sh) · 사용 조건(LICENSE.md). 보안 정리: 예시 이름을 가상 이름으로, 공개 파일에서 원본 Figma 파일 주소 삭제, Pretendard 라이선스(OFL) 동봉 | 코드 |
 | 2026-11-04 | Popover · Menu · Lists | List/Member Item "팀원 추가"의 + 아이콘이 동그라미 왼쪽 위로 치우치던 문제 수정(아이콘 칸 24 → 16, 가운데 정렬). 웹 키트 layer.css에도 반영 | 코드 |
 | 2026-11-04 | AI로 화면 만들기 · Tokens | 받기 칸의 "열기" · "예시 보기" 링크 숨김(공유 링크에서는 파일을 새 창으로 열 수 없음). 다운로드 버튼만 남김, 웹 키트 예시는 ZIP 안 web/layer-examples.html | 코드 |
@@ -433,7 +434,7 @@ ZIP 하나로 받는 것을 추천합니다(웹페이지용 web 폴더는 ZIP에
 | layer-components-v0.2.1.json | 쓸 수 있는 컴포넌트 82개의 목록 — 언제 쓰는지, 바꿀 수 있는 값, Figma 위치, 웹 마크업 위치 | 다운로드 |
 | layer-tokens-v0.2.1.json | 색 · 간격 · 모서리 · 글자 크기 값 151개 | 다운로드 |
 | AI 안내문 | Claude가 어떻게 그릴지 정해 둔 글. 프로젝트 지침 에 복사해서 붙여넣습니다(2단계) | 다운로드 |
-| web 폴더 | 웹페이지로 만들 때 쓰는 부품 — layer.js (한 줄로 스타일 + 아이콘) · layer.css (스타일 전부) · layer-icons.js (아이콘) · layer-examples.html (컴포넌트 72개의 실제 HTML) · 로고 · 일러스트 · 폰트. ZIP에만 들어 있어요 | ZIP에 포함 |
+| web 폴더 | 웹페이지로 만들 때 쓰는 부품 — layer-inline.css (채팅 미리보기에 붙여 넣는 스타일) · layer.js (HTML 파일용, 한 줄로 스타일 + 아이콘) · layer.css (스타일 전부) · layer-icons.js (아이콘) · layer-examples.html (컴포넌트 72개의 실제 HTML) · 로고 · 일러스트 · 폰트. ZIP에만 들어 있어요 | ZIP에 포함 |
 
 ## 2단계 · Claude 프로젝트에 올리기
 
@@ -441,13 +442,13 @@ Claude의 프로젝트는 자료와 지시문을 넣어 두는 폴더입니다. 
 
 - Claude 왼쪽 메뉴의 프로젝트 옆 +를 눌러 새 프로젝트를 만듭니다. "처음부터 시작"을 고르고 이름을 정합니다(예: "Layer 화면 만들기").
 - 프로젝트 화면의 지침을 열고, 아래 AI 안내문을 통째로 붙여넣어 저장합니다. 안내문 오른쪽 위 "복사" 버튼을 쓰면 편합니다.
-- 컨텍스트에서 추가를 눌러 압축을 푼 layer-ai-kit-v0.2.1 폴더를 통째로 넣습니다(web 폴더 포함). 폴더 안 AI 안내문 파일이 같이 들어가도 괜찮습니다. ZIP 파일 그대로는 넣지 않습니다.
+- 컨텍스트에서 추가를 눌러 압축을 푼 layer-ai-kit-v0.2.1 폴더를 통째로 넣습니다(web 폴더 포함). 폴더 안 AI 안내문 파일이 같이 들어가도 괜찮습니다. ZIP 파일 그대로는 넣지 않습니다. 넣은 뒤 web 폴더의 layer.js · layer.css 두 파일은 빼 주세요 — 크기가 커서 AI가 읽을 자리를 많이 차지하고, 채팅에서는 쓰지 않습니다(같은 내용이 layer-inline.css에 들어 있어요).
 - 메모리 · 예정됨은 건드리지 않아도 됩니다.
 
 | 프로젝트 화면에 보이는 메뉴 | 안내문은 | 파일 3개는 |
 |---|---|---|
 | 지침 · 컨텍스트 · 메모리 · 예정됨 | 지침 에 붙여넣기 | 컨텍스트 에 압축 푼 폴더 추가 |
-| 프로젝트 지식(Project knowledge) · Set project instructions | Set project instructions 에 붙여넣기 | 프로젝트 지식 의 +로 파일 3개 올리기(웹페이지로도 받으려면 web 폴더의 layer.css · layer-examples.html도) |
+| 프로젝트 지식(Project knowledge) · Set project instructions | Set project instructions 에 붙여넣기 | 프로젝트 지식 의 +로 파일 3개 올리기(웹페이지로도 받으려면 web 폴더의 layer-inline.css · layer-icons.js · layer-examples.html도) |
 
 Claude 화면은 버전마다 메뉴 이름이 다릅니다. 위 표에서 내 화면에 보이는 쪽을 따르세요.
 AI 안내문 전체 보기 · 복사
@@ -481,13 +482,14 @@ AI 안내문 전체 보기 · 복사
 - 문구가 없으면 서비스 맥락에 맞는 예시 문구로 채우고, 다 그린 뒤 "지어낸 문구"를 알려 준다.
 
 ## 웹페이지(HTML)로 만들어 달라고 할 때
-- web 폴더의 키트를 쓴다: layer.css(스타일 전부) · layer-icons.js(아이콘) · layer-examples.html(컴포넌트별 실제 마크업) · logo/ · illustrations/ · fonts/.
-- 키트는 고정 주소의 스크립트 한 줄로 불러온다(채팅 미리보기 · 아티팩트 · 공유용 HTML 모두). <head>에:
+- web 폴더의 키트를 쓴다: layer-inline.css(붙여 넣는 스타일) · layer-icons.js(아이콘 SVG) · layer-examples.html(컴포넌트별 실제 마크업) · logo/ · illustrations/.
+- 채팅 미리보기 · 아티팩트로 보여 줄 때(기본): 외부 주소(<script src> · <link> · 이미지 · 폰트 주소)는 막힌다. 외부 파일을 하나도 부르지 않는다.
+  - <head>의 <style> 하나에 layer-inline.css에서 ① "@part base" 아래 줄 ② 화면에 쓴 클래스마다 앞부분 이름(.retro-card__title → retro-card, .btn--primary → btn)의 "@part" 아래 줄을 글자 하나 바꾸지 않고 그대로 붙여 넣는다. 줄이거나 다시 쓰지 않는다. 헷갈리면 넣는다.
+  - 아이콘은 <span class="icon icon-24"> 안에 layer-icons.js의 같은 이름 SVG를 그대로 넣는다. 로고 · 일러스트도 logo/ · illustrations/의 SVG 코드를 그대로 넣는다.
+- HTML 파일로 받아 브라우저에서 열거나 사이트에 올릴 때: <style> 대신 <head>에 한 줄
   <script src="https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/layer.js"></script>
-  이 한 줄이 layer.css 전체를 <style>로 넣고 data-icon 아이콘도 채운다(외부 CSS를 막는 미리보기에서도 동작). 따로 layer.css · layer-icons.js를 불러오지 않는다.
-  로고 · 일러스트 그림은 https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/logo/파일 · https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/illustrations/파일 (파일 이름은 web 폴더와 같다)
-- 사용자가 HTML 파일을 web 폴더 안에 저장해 쓰는 경우에만 상대 경로(layer.css · layer-icons.js)를 써도 된다.
-- 미리보기에서 스타일이 적용되지 않으면(외부 파일을 막는 환경) 고치려고 CSS를 새로 쓰지 말고, HTML 파일로 저장해 브라우저로 열어 보도록 안내한다.
+  (스타일 전부 + data-icon 아이콘). 로고 · 일러스트는 https://cdn.jsdelivr.net/gh/Nakyeonng/layer-ds@v0.2.1/kit/logo/파일 · …/kit/illustrations/파일.
+- 사용자가 어느 쪽인지 말하지 않으면 채팅 미리보기 방식으로 만든다.
 - 컴포넌트는 components.json의 code.example이 가리키는 layer-examples.html 마크업을 그대로 복사하고 글자 · 숫자 · 상태만 바꾼다. 카드 · 버튼 · 탭 · 앱 바의 CSS를 새로 쓰지 않는다.
 - 뼈대: 모바일 .layout-mobile(목록 화면은 .layout-mobile--secondary 추가) → .os-status → .app-bar → .layout-mobile__content → .nav-bar. 웹 .layout-web-list(.lnb + .layout-web-list__body) 또는 .layout-web-work(.lnb.lnb--folded + __list + __panel).
 - 메뉴 · 팝오버를 연 상태는 더보기 버튼을 감싼 요소에 .menu-anchor를 주고 그 안에 .menu를 넣는다(위치 계산 스크립트를 쓰지 않는다).
@@ -523,7 +525,7 @@ Claude 도움말: 프로젝트(지침 · 컨텍스트 화면) · 프로젝트(�
 | 결과 | Figma 파일 안의 화면(컴포넌트 인스턴스) — 디자이너가 바로 고쳐 쓸 수 있음 | 브라우저에서 여는 화면 — 링크로 공유하거나 프로토타입처럼 볼 때 |
 | 준비 | 커뮤니티 파일 복제 + Claude에 Figma 연결 + Figma 유료 플랜(아래) | 없음. ZIP의 web 폴더만 프로젝트에 있으면 됨 |
 | 요청할 때 | "아래 Figma 파일에 그려 줘" + 파일 링크 | "웹페이지(HTML)로 만들어 줘" |
-| 미리보기 | Figma 파일에서 바로 확인 | Claude가 키트를 고정 주소(jsDelivr)의 스크립트 한 줄(layer.js)로 불러와 채팅 미리보기에 바로 보여 줌. 스타일이 안 보이면 HTML 파일로 받아 브라우저로 열기 |
+| 미리보기 | Figma 파일에서 바로 확인 | 채팅 미리보기는 외부 파일을 막아서, Claude가 layer-inline.css에서 필요한 스타일만 화면 안에 붙여 넣어 바로 보여 줌. HTML 파일로 받으면 고정 주소(jsDelivr) 한 줄(layer.js)로 불러옴. 그래도 스타일이 안 보이면 HTML 파일로 받아 브라우저로 열기 |
 
 ### Figma에 그리려면
 
