@@ -2097,7 +2097,11 @@ AI_FIRST_WEB = """다음 화면을 웹페이지(HTML)로 만들어 줘.
 
 (여기에 화면 설명)"""
 
-AI_EXPLORE = """탐색 모드로 해 줘. 해외여행 보험 가입 프로모션 화면(모바일)이야.
+AI_SLASH = """/layer-design-system 레이어 홈 화면을 모바일 웹페이지로 만들어 줘. 회고 카드 2장(하나는 D-4, 하나는 작성 중)
+
+/layer-design-system 탐색 모드로, 해외여행 보험 프로모션 화면 3개"""
+
+AI_EXPLORE = """/layer-design-system 탐색 모드로 해 줘. 해외여행 보험 가입 프로모션 화면(모바일)이야.
 - 지킬 것: Layer 토큰(색 · 글자 · 간격 · 모서리 · 그림자), 버튼 · 배지 같은 기본 컴포넌트, 해요체
 - 자유롭게: 레이아웃, 정보 구성, 비주얼, 조합. 없는 묶음은 토큰으로 새로 만들어도 돼
 - 내용: 가입하면 최대 1,150 포인트 / 보험료 3,290원부터(40세 라이트 플랜) / 할인 3가지(미리 3% · 함께 최대 20% · 다시 5%) / 알아보기 버튼
@@ -2346,7 +2350,7 @@ def p_ai_guide():
         ['5', '<strong>열려 있는 것</strong> — 메뉴, 팝업, 바텀시트', '무엇을 눌러서 열렸는지 쓰면 위치까지 맞춰 그립니다']])
     ex = ''.join(f'<h3>{t}</h3><p>{d}</p>' + code(c) for t, d, c in AI_EXAMPLES)
     s4 = ('<section class="section"><h2>4단계 · 부탁하기</h2>'
-        '<p>Layer Skill을 추가했다면 아무 채팅에서나, 프로젝트 방식이면 프로젝트 안에서 새 채팅을 열고, 어디에 만들지와 어떤 화면인지를 씁니다. 첫 문장은 둘 중 하나로 시작하면 됩니다.</p>'
+        '<p>Layer Skill을 추가했다면 아무 채팅에서나(확실하게 하려면 맨 앞에 <a href="#skill-call">/layer-design-system</a>), 프로젝트 방식이면 프로젝트 안에서 새 채팅을 열고, 어디에 만들지와 어떤 화면인지를 씁니다. 첫 문장은 둘 중 하나로 시작하면 됩니다.</p>'
         + code(AI_FIRST) + code(AI_FIRST_WEB)
         + '<h3>"회고 화면 만들어줘"만 써도 되나요?</h3><p>됩니다. 다만 적은 만큼만 정확해집니다.</p>' + levels
         + '<h3>좋은 요청에 들어가는 다섯 가지</h3><p>전부 쓸 필요는 없지만, 많이 쓸수록 다시 고칠 일이 줄어듭니다. 특히 <strong>3번 문구</strong>가 결과를 가장 크게 바꿉니다.</p>' + checklist
@@ -2361,6 +2365,13 @@ def p_ai_guide():
             ['자유로운 것', '—', '레이아웃 · 정보 구성 · 조합, 토큰으로 만든 새 묶음, Layer 스타일의 새 일러스트, 주제 문구'],
             ['결과', '시안 1개', '서로 다른 방향 3개 + 시안마다 콘셉트 한 줄 · 시스템에서 벗어난 부분']])
         + code(AI_EXPLORE)
+        + '<h3>이렇게 나와요 — 해외여행 보험 프로모션 시안 3개</h3>'
+        '<p>위 요청을 Skill로 부탁해 받은 실제 결과예요. 세 시안 모두 Layer 토큰 · 버튼 · 배지 · 앱 바는 그대로 쓰고, 레이아웃과 정보 구성 · 비주얼을 서로 다르게 풀었어요. 시안마다 위에 <strong>콘셉트</strong>와 <strong>벗어난 부분</strong>(x-로 시작하는 새 묶음)이 적혀 있어요.</p>'
+        '<figure class="aig-fig"><a href="examples/explore-insurance.html"><img src="img/ai-explore-insurance.png" alt="탐색 모드 시안 3개: A 정보 중심(요약 상자와 번호 할인 목록), B 비주얼 강조(비행기 · 가방 일러스트 히어로, 탑승권 카드, 할인 도장), C 비교표형(요약 2칸과 할인 비교표 · 막대)" loading="lazy"></a><figcaption>A 정보 중심 · B 비주얼 강조 · C 비교표형 — <a href="examples/explore-insurance.html">시안 크게 보기</a></figcaption></figure>'
+        + table(['시안', '방향', '새로 만든 묶음(벗어난 부분)'], [
+            ['A · 정보 중심', '혜택 · 가격 · 할인을 위에서 아래로 한 줄씩', 'x-facts(요약 상자) · x-discounts(번호 할인 목록)'],
+            ['B · 비주얼 강조', '탑승권 · 도장 은유로 떠날 준비의 설렘', 'x-hero + 새 일러스트(비행기 · 가방 · 방패) · x-pass(탑승권 카드) · x-stamps(할인 도장)'],
+            ['C · 비교표형', '세 할인을 한 줄에 놓고 막대로 비교', 'x-summary(2칸 요약) · x-table(비교표 + 비율 막대)']])
         + '<p class="note">레퍼런스 캡처를 같이 올리고 "이 구성은 참고하고, 모양은 Layer로"라고 하면 첫 결과부터 원하는 방향에 가까워져요. 마음에 드는 시안의 새 묶음(이름 앞 x-)은 정식 컴포넌트 후보로 모아 두세요.</p>' + '</section>')
     s5 = ('<section class="section"><h2>결과 확인하기</h2>'
         + table(['확인', '어떻게'], [
@@ -2416,8 +2427,15 @@ def p_ai_guide():
         '<button type="button" class="btn btn--primary btn--sm" data-dl="" data-dl-name="layer-design-system.zip" data-zip="layer-design-system|' + ','.join(sk_files) + '">Skill 받기</button></div>'
         '<ol class="aig-list">'
         '<li>Claude <strong>설정 → 기능(Capabilities)</strong>에서 <strong>코드 실행 및 파일 생성</strong>이 켜져 있는지 확인합니다. Skill은 이 기능 위에서 돌아가요.</li>'
-        '<li>같은 화면 아래 <strong>Skills</strong>에서 <strong>스킬 업로드(Upload skill)</strong>를 누르고, 받은 <strong>layer-design-system.zip</strong>을 고릅니다.</li>'
-        '<li>목록에 <strong>layer-design-system</strong>이 생기고 켜져 있으면 끝. 이제 방법 B(1 · 2단계)는 건너뛰고 <a href="#s3">3단계</a>로 가서 받을 곳을 정하고 부탁하면 됩니다.</li></ol>'
+        '<li>설정 왼쪽 메뉴 아래 <strong>사용자 지정 → Skills</strong>에서 <strong>Skill 업로드</strong>를 누르고, 받은 <strong>layer-design-system.zip</strong>을 고릅니다.</li>'
+        '<li><strong>미리보기</strong>에 이름 <strong>layer-design-system</strong>과 설명이 나오면 맞는 파일이에요. <strong>업로드</strong>를 누르면 보안 스캔을 거쳐 추가됩니다.</li>'
+        '<li>Skills 목록에 생기고 켜져 있으면 끝. 이제 방법 B(1 · 2단계)는 건너뛰고 <a href="#s3">3단계</a>로 가서 받을 곳을 정하고 부탁하면 됩니다.</li></ol>'
+        '<figure class="aig-fig"><img src="img/skill-upload.png" alt="Claude 설정의 Skill 업로드 화면. layer-design-system.zip을 고르면 미리보기에 이름과 설명, 보안 스캔이 보이고 아래에 업로드 버튼이 있다" loading="lazy"><figcaption>Skill 업로드 화면 — 미리보기에 이름 · 설명이 보이면 업로드를 누릅니다</figcaption></figure>'
+        '<h3 id="skill-call">Skill 부르기 — 확실하게 쓰고 싶을 때</h3>'
+        '<p>Skill은 요청에 "레이어 · Layer"가 들어 있으면 Claude가 알아서 꺼내 써요. 그런데 <strong>보험 · 쇼핑처럼 레이어와 상관없는 주제</strong>를 부탁하거나, 꼭 이 Skill로 만들게 하고 싶을 때는 '
+        '채팅창에 <strong>/</strong>를 입력하고 <strong>layer-design-system</strong>을 골라 부르세요. 그 뒤에 이어서 요청을 쓰면 됩니다.</p>'
+        '<figure class="aig-fig aig-fig--sm"><img src="img/skill-slash.png" alt="채팅 입력창에 /layer-design-system 을 입력한 모습" loading="lazy"><figcaption>채팅창에 /layer-design-system 입력</figcaption></figure>'
+        + code(AI_SLASH)
         + table(['확인할 것', '내용'], [
             ['플랜', 'Pro · Max · Team · Enterprise에서 쓸 수 있어요. Enterprise는 관리자가 Skills를 켜 둬야 해요.'],
             ['팀원과 함께 쓰기', 'Skill은 내 계정에만 들어가요. 팀원은 각자 같은 ZIP을 올리면 됩니다(Team · Enterprise 관리자는 조직 전체에 한 번에 넣을 수 있어요).'],
@@ -2487,6 +2505,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
+        ['2026-11-04', '<a href="ai-guide.html#skill-call">AI로 화면 만들기</a>', 'Skill 업로드 화면 캡처 · 넣는 순서를 실제 메뉴(사용자 지정 → Skills → Skill 업로드)로 고침. Skill 부르기(/layer-design-system) 안내 추가. 탐색 모드에 실제 결과(해외여행 보험 시안 3개) 예시 · 크게 보기 추가', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#explore">AI로 화면 만들기</a> · Skill', '탐색 모드 추가 — 정확 모드(기본, 규칙 전부)와 탐색 모드(토큰 · 기본 컴포넌트 · 해요체 · 접근성만 지키고 레이아웃 · 조합 · 새 묶음 · 일러스트는 자유, 서로 다른 시안 3개 + 벗어난 부분 표시). 회고가 아닌 주제는 자동으로 탐색 모드, 회고 전용 요소 제외. Skill · DESIGN.md · AI 안내문 · 검수 체크리스트에 반영', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#skill">AI로 화면 만들기</a> · Skill', 'Layer Skill(layer-design-system.zip) 추가 — Claude 설정 → 기능 → Skills에 한 번 올리면 프로젝트 없이 아무 채팅에서 Layer 화면 만들기. 작업 순서(준비 → 설계 → 그리기 → 검수 → 알려 주기)와 검수 체크리스트(틀 · 컴포넌트 · 버튼 · 겹침 · 색 · 내용 · 웹 스타일 빠짐 · Figma) 포함. AI 안내문에도 검수 단계 추가. GitHub skill/ 폴더', '코드'],
         ['2026-11-04', '<a href="ai-guide.html">AI로 화면 만들기</a> · 웹 키트', 'Claude 채팅 미리보기가 외부 스크립트(jsDelivr)를 막아 스타일이 빠지던 문제 대응: 붙여 넣기용 <code>layer-inline.css</code> 추가(기본 + 클래스 이름별 부품, 압축). AI는 화면에 쓴 부품만 &lt;style&gt;에 넣고 아이콘 · 로고는 SVG를 직접 넣음. layer.js 한 줄은 HTML 파일 · 사이트용으로. 프로젝트에는 layer.js · layer.css를 빼고 올리도록 안내', '코드'],

@@ -306,6 +306,10 @@ td.num, th.num { font-variant-numeric: tabular-nums; }
 .aig-kit > div { display: grid; gap: 2px; min-width: 0; }
 .aig-kit strong { font-size: 15px; overflow-wrap: anywhere; }
 .aig-kit span { font-size: 13px; color: var(--fg-faint); }
+.aig-fig { margin: 4px 0 0; display: grid; gap: 8px; }
+.aig-fig img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 12px; }
+.aig-fig--sm img { width: auto; max-width: 100%; height: 43px; }
+.aig-fig figcaption { font-size: 13px; color: var(--fg-faint); }
 .aig-shots { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 16px; align-items: start; margin: 12px 0 16px; }
 .aig-shots figure { margin: 0; display: grid; gap: 6px; }
 .aig-shots img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; display: block; }
