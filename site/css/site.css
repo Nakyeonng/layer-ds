@@ -213,6 +213,15 @@ td.num, th.num { font-variant-numeric: tabular-nums; }
 }
 .to-top.is-shown { opacity: 1; visibility: visible; transform: none; transition: opacity .2s, transform .2s, visibility 0s; }
 .to-top:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: 3px; }
+/* Dark: page is Gray 900, so the button steps one tone up — Gray 800 · hover 700 · pressed 600 */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .to-top { --btn-bg: var(--color-gray-800, #454952); }
+  :root:not([data-theme="light"]) .to-top:hover { --btn-bg: var(--color-gray-700, #666b75); }
+  :root:not([data-theme="light"]) .to-top:active { --btn-bg: var(--color-gray-600, #8b909c); }
+}
+:root[data-theme="dark"] .to-top { --btn-bg: var(--color-gray-800, #454952); }
+:root[data-theme="dark"] .to-top:hover { --btn-bg: var(--color-gray-700, #666b75); }
+:root[data-theme="dark"] .to-top:active { --btn-bg: var(--color-gray-600, #8b909c); }
 @media (prefers-reduced-motion: reduce) { .to-top, .to-top.is-shown { transition: none; transform: none; } }
 @media print { .to-top { display: none; } }
 
