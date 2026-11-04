@@ -484,6 +484,16 @@ Pretendard 하나로 15단계를 씁니다. 행간은 140%(Heading 24만 150%), 
 - 아이콘: `<span class="icon icon-24" data-icon="arrow-left"></span>`. 이름은 `layer-icons.js` 목록(예: add · more · close · chevron-right · nav-home · graphic-team · emotion-good).
 - 배치(열, 간격, 정렬)에만 `style`이나 작은 CSS를 쓰고, 값은 `var(--spacing-16)` · `var(--color-text-primary)` 같은 layer.css 변수로 씁니다. 색 코드나 px를 새로 만들지 않습니다.
 
+## Modes — 정확 모드 · 탐색 모드
+
+- **정확 모드(기본)**: 레이어(회고 서비스)의 실제 화면. 이 문서의 규칙을 전부 지킵니다.
+- **탐색 모드**: "탐색 모드 · 자유롭게 · 아이데이션 · 여러 시안 · 다양하게 · 변주"라고 하거나, 주제가 레이어 회고 서비스가 아닐 때(보험 · 쇼핑 · 이벤트 등).
+  - 지키는 단위: 색 · 글자 · 간격 · 모서리 · 그림자 토큰, Pretendard 텍스트 스타일, 해요체, 기본 컴포넌트는 원본 그대로, 접근성(대비 4.5:1 · 누르는 곳 44px), 파란색은 강조에만 · Primary 하나.
+  - 풀어 주는 것: 레이아웃 · 정보 구성 · 컴포넌트 조합, 토큰만 써서 만든 새 묶음(이름 앞 `x-` · `x/`), Layer 색과 스타일의 새 일러스트, 주제에 맞는 문구.
+  - 주제가 회고가 아니면 회고 전용 요소(Card/Retro · Space · Goal · Answer · Analysis · Writing 부품, 감정 · 회고 그래픽 아이콘, Retro 일러스트)를 쓰지 않습니다.
+  - 결과는 서로 다른 방향 3개(레이아웃 · 정보 위계 · 비주얼 중 둘 이상이 다르게). 시안마다 방향 이름 · 콘셉트 한 줄 · 시스템에서 벗어난 부분을 적습니다.
+  - 레퍼런스 이미지는 구성만 참고하고 모양은 Layer 단위로 바꿉니다.
+
 ## Do's and Don'ts
 
 - Do: 화면당 Primary 버튼은 하나. 하단 CTA는 Button Group에 넣는다.
