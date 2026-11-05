@@ -1,0 +1,30 @@
+/* Layer Design System — layout (Figma collection "Layout" + grid styles Layout/*)
+   Start every new screen from a template: Web List · Web Work · Mobile. */
+:root {
+  --layout-mobile-width: 375px;      /* 모바일 기준 화면 375 × 812 */
+  --layout-web-width: 1440px;        /* 웹 기준 화면 1440 × 900 */
+  --layout-lnb: 284px;               /* 펼친 LNB — Web/List */
+  --layout-lnb-folded: 84px;         /* 접은 LNB — Web/Work */
+  --layout-card-column: 296px;       /* 웹 카드 · 목록 열 */
+  --layout-side-panel: 306px;        /* Web/List 오른쪽 패널 */
+  --layout-margin-list: var(--spacing-40, 40px);    /* Web/List 본문 좌우 · 열 사이 */
+  --layout-margin-work: var(--spacing-20, 20px);    /* Web/Work 여백 · 목록과 패널 사이 */
+  --layout-panel-padding: var(--spacing-40, 40px);  /* Web/Work 작업 패널 안쪽 좌우 */
+}
+
+/* Template/Web Type=List — 펼친 LNB + 본문(여백 40). 카드 열 296 × n(사이 40) + 오른쪽 패널 306, 남는 너비는 열과 패널 사이로 */
+.layout-web-list { display: grid; grid-template-columns: var(--layout-lnb) 1fr; min-height: 100vh; background: var(--color-bg-secondary, #f2f4f8); }
+.layout-web-list__body { padding: 28px var(--layout-margin-list) 0; min-width: 0; }
+.layout-web-list__row { display: flex; justify-content: space-between; gap: var(--layout-margin-list); }
+.layout-web-list__columns { display: flex; gap: var(--layout-margin-list); }
+.layout-web-list__columns > * { width: var(--layout-card-column); flex: none; }
+.layout-web-list__panel { width: var(--layout-side-panel); flex: none; }
+
+/* Template/Web Type=Work — 접은 LNB + 목록 열(여백 20) + 작업 패널(오른쪽 끝에 붙는 흰 시트, 안쪽 좌우 40) */
+.layout-web-work { display: grid; grid-template-columns: var(--layout-lnb-folded) calc(var(--layout-card-column) + 2 * var(--layout-margin-work)) 1fr; min-height: 100vh; background: var(--color-bg-secondary, #f2f4f8); }
+.layout-web-work__list { padding: 28px var(--layout-margin-work) 0; }
+.layout-web-work__panel { padding: 24px var(--layout-panel-padding); background: var(--color-bg-surface, #fff); min-width: 0; }
+
+/* Template/Mobile — 375 · 상태 바 44 · 앱 바 58 · 본문(좌우 20) · Navigation Bar 88 */
+.layout-mobile { display: flex; flex-direction: column; width: 100%; max-width: var(--layout-mobile-width); min-height: 100vh; margin: 0 auto; background: var(--color-bg-surface, #fff); }
+.layout-mobile__content { flex: 1; padding: 0 var(--spacing-screen-x, 20px); }

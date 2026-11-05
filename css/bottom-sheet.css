@@ -1,0 +1,63 @@
+/* ─────────────────────────────────────────────────────────────
+   Bottom Sheet — derived from Figma "Bottom Sheet" (node 1:1511)
+   Bottom Sheet/Short (hugs its content): Content = Default · Chip Button · Illustration · Text Area,
+                                          Button = None · Single · Side by Side
+   Bottom Sheet/Long (fixed 670):         Content = Default · Tab · Tab + Text Input · Tab + Filter
+   Order: Header → (Title | Tabs) → Body → Footer (button group with safe area, or home indicator only).
+   No handle bar; the sheet cannot be resized. Close button or the dimmed area closes it.
+
+   Builds on: buttons.css (.btn-group), chips.css, fields.css, tabs.css, lists.css, illustration.css.
+   Colours are the values read from the frame; comments name the palette step.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+.bsheet {
+  position: relative; display: flex; flex-direction: column; box-sizing: border-box;
+  width: 100%; max-width: 375px; overflow: hidden;
+  background: var(--color-bg-surface, #ffffff);                                                                 /* Gray 0 */
+  border-radius: var(--radius-modal, 16px) var(--radius-modal, 16px) 0 0;
+  box-shadow: var(--shadow-modal, 0 4px 8px rgb(6 8 12 / 0.08), 0 4px 12px rgb(6 8 12 / 0.22));          /* Shadow 400 */
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1; color: var(--color-text-primary, #212329);
+}
+.bsheet--long { height: 670px; }
+
+/* ① Header area: title in the middle, close button on the right (56) */
+.bsheet__header { position: relative; display: flex; align-items: center; justify-content: center; flex: none; height: 56px; padding: var(--spacing-8, 8px) 52px; box-sizing: border-box; }
+.bsheet__header-title { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; text-align: center; }   /* Title 16 Bold, Gray 900 */
+.bsheet__close {
+  position: absolute; top: 8px; right: 12px; display: inline-flex; width: 40px; height: 40px; padding: var(--spacing-8, 8px); box-sizing: border-box;
+  border: 0; background: none; color: var(--color-text-primary, #212329); cursor: pointer;
+}
+.bsheet__close .icon, .bsheet__close svg { display: block; width: 24px; height: 24px; }
+
+/* ② Title area: up to two lines */
+.bsheet__title {
+  margin: 0; padding: 0 var(--spacing-screen-x, 20px); flex: none;
+  font-size: 20px; font-weight: 700; line-height: 1.4; text-align: center; color: var(--color-text-primary, #212329);    /* Title 20 Bold, Gray 900 */
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ③ Contents area — add .scroll-area (controls.css) so overflow uses the DS Scroll Bar, not the system one */
+.bsheet__body { flex: 1 1 auto; min-height: 0; padding: var(--spacing-24, 24px) var(--spacing-screen-x, 20px); overflow-y: auto; }   /* 24 after the title */
+.bsheet__header + .bsheet__body,
+.bsheet__tabs + .bsheet__body { padding-top: var(--spacing-20, 20px); }                                     /* 20 after header or tabs */
+.bsheet--long .bsheet__body { padding-bottom: var(--spacing-20, 20px); }
+.bsheet__body--flush { padding-left: 0; padding-right: 0; }
+.bsheet__illust { display: flex; justify-content: center; }
+.bsheet__illust .illust { width: 160px; }                                              /* Illustration instance, swappable */
+
+/* Toggle area: text tabs right under the header; Filter adds scrollable box tabs below */
+.bsheet__tabs { flex: none; }
+.bsheet__tabs .box-tabs { padding-left: var(--spacing-screen-x, 20px); padding-right: var(--spacing-screen-x, 20px); }
+
+/* ④ Button area — reuse .btn-group; without buttons only the home indicator remains */
+.bsheet__footer { flex: none; margin-top: auto; }
+.bsheet__safe svg { display: block; width: 100%; height: auto; }
+
+/* Parts that cap themselves at 375 on their own pages fill the sheet's full width here */
+.bsheet .tabs, .bsheet .box-tabs, .bsheet .list, .bsheet .btn-group { max-width: none; }
+
+/* Dimmed backdrop (Opacity 72) */
+.bsheet-dim { position: fixed; inset: 0; display: flex; align-items: flex-end; justify-content: center; background: var(--color-overlay-dim, rgb(6 8 12 / 0.72)); z-index: 40; }
+.bsheet-dim[hidden] { display: none; }

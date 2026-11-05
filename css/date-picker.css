@@ -1,0 +1,67 @@
+/* ─────────────────────────────────────────────────────────────
+   Date Time Picker — derived from Figma "Date Time Picker" (node 1:1804)
+   A bottom sheet (375 × 670): Header (close) · Calendar · Time (오전/오후 + hour chips) · Button area
+   State: Default (nothing chosen) · Date Selected · Time Selected (AM) · Time Selected (PM)
+   The button is enabled only when both a date and a time are chosen.
+
+   Builds on: buttons.css (CTA), chips.css (.chip-button--38 for hours), tabs.css (.tabs--plain for 오전/오후).
+   Updated 2026-10-27: real calendar (weeks start on Sunday), Day component with states, 12-hour times,
+   scrollable hour row with fog, text styles linked (sizes kept).
+   Colours are the values read from the frame; comments name the palette step.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+.dtp {
+  position: relative; display: flex; flex-direction: column; box-sizing: border-box;
+  width: 100%; max-width: 375px; height: 670px; overflow: hidden; background: var(--color-bg-surface, #ffffff);    /* Gray 0 */
+  font-family: var(--font-family-primary); font-feature-settings: "case" 1, "ss02" 1; color: var(--color-text-primary, #212329);
+}
+.dtp button { font-family: inherit; -webkit-tap-highlight-color: transparent; }
+
+/* ── Header area: close button on the right (56px) ── */
+.dtp__header { display: flex; justify-content: flex-end; box-sizing: border-box; height: 56px; padding: var(--spacing-16, 16px) var(--spacing-screen-x, 20px); flex: none; }
+.dtp__icon-btn { display: inline-flex; width: 24px; height: 24px; padding: 0; border: 0; background: none; color: var(--color-text-primary, #212329); cursor: pointer; }
+.dtp__icon-btn .icon, .dtp__icon-btn svg { display: block; width: 24px; height: 24px; }
+
+/* ── Calendar ─────────────────────────────── */
+.dtp__calendar { display: flex; flex-direction: column; gap: var(--spacing-24, 24px); flex: none; }
+.dtp__month { display: flex; align-items: center; justify-content: space-between; height: 41px; padding: 0 var(--spacing-screen-x, 20px); }
+.dtp__month-title { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.4; color: var(--color-text-primary, #212329); }   /* Subtitle 18 SemiBold, Gray 900 */
+.dtp__week, .dtp__days { display: grid; grid-template-columns: repeat(7, 41px); column-gap: var(--spacing-8, 8px); width: 336px; margin: 0 0 0 20px; padding: 0; list-style: none; }
+/* Body 15 Medium (140%) inside the original 15px row — the row height does not change */
+.dtp__week { height: 15px; align-items: center; }
+.dtp__week span { text-align: center; font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--color-gray-600, #8b909c); } /* Gray 600 */
+.dtp__days { row-gap: var(--spacing-8, 8px); grid-auto-rows: 41px; }
+
+/* Day: 41 × 41 circle — Default · Hover · Pressed · Selected · Today · Disabled */
+.dtp__day {
+  display: flex; align-items: center; justify-content: center; width: 41px; height: 41px; padding: 0;
+  border: 0; border-radius: var(--radius-pill, 50%); background: none; cursor: pointer;
+  font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--color-gray-800, #454952);                                   /* Body 15 Medium, Gray 800 */
+}
+.dtp__day:hover, .dtp__day.is-hover { background: var(--color-gray-100, #f2f4f8); }                                                 /* Gray 100 */
+.dtp__day:active, .dtp__day.is-pressed { background: var(--color-gray-200, #edf0f4); }                                              /* Gray 200 */
+.dtp__day.is-today, .dtp__day[aria-current="date"] { color: var(--color-text-accent, #6c9cfa); }                                      /* Today: Blue 600 */
+.dtp__day[aria-pressed="true"], .dtp__day.is-selected { background: var(--color-bg-accent, #6c9cfa); color: var(--color-text-inverse, #ffffff); }             /* Blue 600 / Gray 0 */
+.dtp__day:disabled, .dtp__day.is-disabled { background: none; color: var(--color-text-disabled, #ced2da); cursor: not-allowed; }         /* Gray 400 */
+.dtp__day:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: 2px; }   /* Focus: Blue 600 */
+
+/* ── Time ─────────────────────────────────── */
+.dtp__time { margin-top: 28px; flex: none; }
+.dtp__time .tabs { max-width: none; }                       /* Tabs · No Underline: 오전 / 오후 */
+/* Hours: Chip Button Size 38, scrolls sideways; the edges fade while there is more to scroll.
+   A small script sets --fog-l / --fog-r from the scroll position (same as Box Tabs · Scrollable). */
+.dtp__hours {
+  --fog-l: 0px; --fog-r: 40px;
+  display: flex; gap: var(--spacing-8, 8px); padding: var(--spacing-24, 24px) var(--spacing-screen-x, 20px) 0; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--fog-l), #000 calc(100% - var(--fog-r)), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 var(--fog-l), #000 calc(100% - var(--fog-r)), transparent);
+}
+.dtp__hours::-webkit-scrollbar { display: none; }
+.dtp__hours .chip-button { flex: none; }
+
+/* ── Button area (Button/Button Group, One Button) ── */
+.dtp__footer { margin-top: auto; flex: none; }
+.dtp__footer .dtp__cta { padding: var(--spacing-8, 8px) var(--spacing-screen-x, 20px) var(--spacing-16, 16px); }
+.dtp__footer .safe svg { display: block; width: 375px; height: 34px; }

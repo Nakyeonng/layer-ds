@@ -1,0 +1,81 @@
+/* ─────────────────────────────────────────────────────────────
+   Fields — derived from Figma "Fields" (node 1:2301)
+   Text Input · Text Area · Select Field
+   States: Default · Focus · Typing · Typed · Error · OverTyping · Disabled
+   (Focus/Typing come from :focus-within; Typed = has a value, not focused)
+   Error = invalid characters · OverTyping = over the length limit (count shows N/N)
+   Error keeps the Blue 600 border (agreed); only the help text is red.
+
+   Colours are the values read from the frame; comments name the palette step.
+   .is-focus / .is-error / .is-disabled force a state for documentation specimens.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+.field {
+  --field-border: var(--color-border-default, #dfe3ea);               /* Gray 300 */
+  --field-text: var(--color-text-primary, #212329);                 /* Gray 900 */
+  --field-placeholder: var(--color-text-tertiary, #a9afbb);          /* Gray 500 */
+  --field-count: var(--color-text-tertiary, #a9afbb);                /* Gray 500 */
+  display: flex; flex-direction: column; gap: var(--spacing-8, 8px); width: 100%;
+  font-family: var(--font-family-primary);
+  font-feature-settings: "case" 1, "ss02" 1;
+}
+.field__label {                          /* Subtitle 14 SemiBold */
+  margin: 0; font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--color-text-primary, #212329);
+}
+.field__box {
+  display: flex; align-items: center; gap: 6px; box-sizing: border-box;
+  padding: 15px 13px; border: 1px solid var(--field-border); border-radius: var(--radius-field, 12px);   /* 16·14 incl. 1px inside stroke */
+  background: var(--color-bg-surface, #ffffff);
+}
+.field__input {                          /* Body 15 Medium */
+  flex: 1 1 0; min-width: 0; margin: 0; padding: 0; border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 15px; font-weight: 500; line-height: 1.4; height: 21px;
+  color: var(--field-text); caret-color: var(--color-text-accent, #6c9cfa);                                      /* cursor: Blue 600 */
+}
+.field__input::placeholder { color: var(--field-placeholder); opacity: 1; }
+.field__count {                          /* Body 12 Medium */
+  flex: none; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--field-count); white-space: nowrap;
+}
+.field__count b { font-weight: 500; color: var(--color-text-accent, #6c9cfa); }                                  /* typed count: Blue 600 */
+.field__help {                           /* Body 14 Medium */
+  margin: 0; font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--color-text-error, #f03e3e);     /* Red 500 */
+}
+
+/* Focus · Typing */
+.field__box:focus-within, .field.is-focus .field__box { --field-border: var(--color-border-focus, #6c9cfa); }    /* Blue 600 */
+/* Error · OverTyping (Figma keeps the Blue 600 focus border) */
+.field.is-error .field__box { --field-border: var(--color-border-focus, #6c9cfa); }
+/* Disabled */
+.field.is-disabled .field__box, .field__box:has(:disabled) {
+  --field-border: var(--color-gray-200, #edf0f4);                                                              /* Gray 200 */
+  --field-text: var(--color-gray-300, #dfe3ea); --field-placeholder: var(--color-gray-300, #dfe3ea); --field-count: var(--color-gray-300, #dfe3ea);          /* Gray 300 */
+}
+.field__input:disabled { cursor: not-allowed; -webkit-text-fill-color: currentColor; }
+
+/* Static caret for documentation specimens (the real caret is caret-color) */
+.field__caret { display: inline-block; width: 1.5px; height: 18px; background: var(--color-bg-accent, #6c9cfa); vertical-align: -3px; }
+
+/* ── Text Area ───────────────────────────── */
+.field--area .field__box { flex-direction: column; align-items: stretch; gap: var(--spacing-4, 4px); }
+.field--area .field__input { height: auto; min-height: 21px; resize: none; field-sizing: content; display: block; }
+.field--area .field__count { text-align: right; }
+
+/* ── Select Field ────────────────────────── */
+.select-field {
+  --field-border: var(--color-border-default, #dfe3ea);
+  display: flex; align-items: center; gap: var(--spacing-8, 8px); box-sizing: border-box; width: 100%;
+  padding: 15px 13px; border: 1px solid var(--field-border); border-radius: var(--radius-field, 12px);   /* 16·14 incl. 1px inside stroke */ background: var(--color-bg-surface, #ffffff);
+  font-family: var(--font-family-primary); font-size: 15px; font-weight: 500; line-height: 1.4;
+  font-feature-settings: "case" 1, "ss02" 1; text-align: left; cursor: pointer;
+  color: var(--color-text-tertiary, #a9afbb);                                                                        /* placeholder: Gray 500 */
+}
+.select-field__text { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.select-field .icon { width: 20px; height: 20px; flex: none; color: var(--color-text-secondary, #666b75); }          /* Gray 700 */
+.select-field:focus-visible, .select-field:active, .select-field.is-focus { outline: 0; --field-border: var(--color-border-focus, #6c9cfa); }
+.select-field:focus-visible .icon, .select-field:active .icon, .select-field.is-focus .icon { color: var(--color-gray-800, #454952); } /* Gray 800 */
+.select-field.is-selected { color: var(--color-text-primary, #212329); }                                            /* Gray 900 (same as typed text) */
+.select-field.is-selected .icon { color: var(--color-gray-800, #454952); }
+.select-field:disabled, .select-field.is-disabled { --field-border: var(--color-gray-200, #edf0f4); color: var(--color-gray-300, #dfe3ea); cursor: not-allowed; }
+.select-field:disabled .icon, .select-field.is-disabled .icon { color: var(--color-gray-300, #dfe3ea); }

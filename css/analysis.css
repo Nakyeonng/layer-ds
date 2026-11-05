@@ -1,0 +1,57 @@
+/* Layer Design System — Analysis (Figma board "Components · Analysis")
+   회고 결과 분석 블록. 차트 모양은 예시이고 실제 비율은 데이터로 그린다. */
+.analysis-section { display: flex; flex-direction: column; gap: 9px; }
+.analysis-title { display: flex; align-items: center; gap: 7px; margin: 0; font-size: 14px; line-height: 1.4; color: var(--color-gray-800, #454952); }
+.analysis-title b { font-weight: 700; }                                              /* Label: Title 14 Bold */
+.analysis-title b::after { content: ""; display: inline-block; width: 1px; height: 14px; margin-left: 7px; vertical-align: -2px; background: var(--color-gray-300, #dfe3ea); }
+.analysis-title span { font-weight: 500; }                                           /* Description: Body 14 Medium */
+
+/* Analysis/Progress Panel — Gray 100 판을 세로선으로 반 나눔: 만족도 | 목표달성률 */
+.analysis-panel { display: flex; gap: 28px; box-sizing: border-box; padding: var(--spacing-24, 24px) var(--spacing-24, 24px) 28px; border-radius: var(--radius-card, 12px); background: var(--color-bg-secondary, #f2f4f8); }
+.analysis-panel__half { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-24, 24px); }
+.analysis-panel__half + .analysis-panel__half { padding-left: 28px; border-left: 1px solid var(--color-gray-300, #dfe3ea); }
+.analysis-panel__title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--color-text-primary, #212329); }   /* Subtitle 16 SemiBold */
+.analysis-panel__title em { font-style: normal; color: var(--color-text-accent, #6c9cfa); }
+.analysis-panel__body { display: flex; justify-content: center; }
+
+/* Analysis/Satisfaction — 도넛 138 + 범례 5줄(매우 만족 Blue 600 → 매우 불만족 Blue 800) */
+.satisfaction { display: flex; align-items: center; gap: 63px; }
+.satisfaction__chart { flex: none; width: 138px; height: 138px; border-radius: 50%;
+  -webkit-mask: radial-gradient(circle, transparent 34px, #000 35px); mask: radial-gradient(circle, transparent 34px, #000 35px); }
+.satisfaction__legend { display: flex; flex-direction: column; gap: 6px; width: 120px; margin: 0; padding: 0; list-style: none; }
+.satisfaction__legend li { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--color-gray-800, #454952); }   /* Body 12 Medium */
+.satisfaction__legend li > span { display: flex; align-items: center; gap: 4px; }
+.satisfaction__legend svg { width: 18px; height: 18px; }
+.satisfaction__legend b { font-weight: 500; color: var(--color-gray-500, #a9afbb); }
+
+/* Analysis/Goal Rate — 5칸 막대(높이 30, 빈 칸 흰색 — Gray 100 판 위) + 말풍선 */
+.goal-rate { position: relative; width: 100%; max-width: 311px; padding-top: 36px; }
+.goal-rate__tip { position: absolute; top: 0; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: var(--radius-pill, 30px);
+  background: var(--color-bg-surface, #fff); font-size: 12px; font-weight: 600; line-height: 1.4; color: var(--color-gray-800, #454952); }   /* Body 12 SemiBold */
+.goal-rate__tip::after { content: ""; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%); border: 6px solid transparent; border-bottom: 0; border-top-color: var(--color-bg-surface, #fff); }
+.goal-rate__tip svg { width: 18px; height: 18px; }
+.goal-rate__track { display: flex; gap: 3px; height: 30px; border-radius: var(--radius-pill, 30px); overflow: hidden; }
+.goal-rate__track span { flex: 1; background: var(--color-bg-surface, #fff); }
+.goal-rate__track span.is-on { background: var(--color-bg-accent, #6c9cfa); }
+.goal-rate__axis { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--color-gray-500, #a9afbb); }
+
+/* Analysis/Keyword Group · Keyword Item — Type=Good(Check Gray 800) · Bad(Minus status/error) · Improve(More bg/accent) */
+.keyword-panel { display: flex; gap: var(--spacing-24, 24px); box-sizing: border-box; padding: var(--spacing-24, 24px) var(--spacing-24, 24px) 28px; border-radius: var(--radius-card, 12px); background: var(--color-bg-secondary, #f2f4f8); }
+.keyword-group { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-20, 20px); }
+.keyword-group__title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--color-text-primary, #212329); }   /* Subtitle 16 SemiBold */
+.keyword-list { display: flex; flex-direction: column; gap: var(--spacing-8, 8px); margin: 0; padding: 0; list-style: none; }
+.keyword-item { display: flex; align-items: center; gap: var(--spacing-12, 12px); padding: 12px var(--spacing-16, 16px); border-radius: var(--radius-8, 8px); background: var(--color-bg-surface, #fff);
+  font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--color-gray-800, #454952); }           /* Subtitle 14 SemiBold */
+.keyword-item__text { flex: 1; min-width: 0; }
+.keyword-item__count { font-size: 12px; font-weight: 500; color: var(--color-gray-500, #a9afbb); }
+.keyword-item svg { flex: none; width: 16px; height: 16px; }
+.keyword-item--good svg { color: var(--color-gray-800, #454952); }
+.keyword-item--bad svg { color: var(--color-status-error, #f03e3e); }
+.keyword-item--improve svg { color: var(--color-bg-accent, #6c9cfa); }
+.keyword-item--mobile { padding: 15px var(--spacing-12, 12px); background: var(--color-bg-secondary, #f2f4f8); font-size: 16px; }   /* Subtitle 16 SemiBold */
+.keyword-item--mobile svg { width: 24px; height: 24px; }
+.keyword-item--mobile .keyword-item__count { font-size: 14px; color: var(--color-gray-600, #8b909c); }
+
+/* Analysis/Highlight Title — "이회고님은 [칩] 를 / 가장 잘 하고 있어요" */
+.highlight-title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.6; color: var(--color-text-primary, #212329); }   /* Subtitle 16 SemiBold */
+.highlight-title .badge { margin: 0 4px; vertical-align: 1px; }

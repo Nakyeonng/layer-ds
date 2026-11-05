@@ -1,0 +1,2142 @@
+{
+  "$description": "Layer Design System tokens — v0.2.0 (2026-11-03). Format: W3C Design Tokens (DTCG). Names match Figma variables (Color, Color Role, Spacing, Radius collections) and CSS custom properties. Use role tokens (color.text.*, color.bg.*, …) in components; palette steps are for Hover/Pressed and cases without a role.",
+  "color": {
+    "$type": "color",
+    "$description": "Palette (Figma collection \"Color\") and role tokens (collection \"Color Role\"). Palette steps color.gray.* · blue.* · purple.* · green.* · red.* · orange.* · opacity.* are hidden from Figma pickers; reach for the role groups (text, bg, border, overlay, status) first. Hover/Pressed are not roles: move one/two palette steps from the default colour (see State).",
+    "gray": {
+      "0": {
+        "$value": "#FFFFFF",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/0"
+          },
+          "web": {
+            "css": "var(--color-gray-0)"
+          }
+        }
+      },
+      "100": {
+        "$value": "#F2F4F8",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/100"
+          },
+          "web": {
+            "css": "var(--color-gray-100)"
+          }
+        }
+      },
+      "200": {
+        "$value": "#EDF0F4",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/200"
+          },
+          "web": {
+            "css": "var(--color-gray-200)"
+          }
+        }
+      },
+      "300": {
+        "$value": "#DFE3EA",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/300"
+          },
+          "web": {
+            "css": "var(--color-gray-300)"
+          }
+        }
+      },
+      "400": {
+        "$value": "#CED2DA",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/400"
+          },
+          "web": {
+            "css": "var(--color-gray-400)"
+          }
+        }
+      },
+      "500": {
+        "$value": "#A9AFBB",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/500"
+          },
+          "web": {
+            "css": "var(--color-gray-500)"
+          }
+        }
+      },
+      "600": {
+        "$value": "#8B909C",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/600"
+          },
+          "web": {
+            "css": "var(--color-gray-600)"
+          }
+        }
+      },
+      "700": {
+        "$value": "#666B75",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/700"
+          },
+          "web": {
+            "css": "var(--color-gray-700)"
+          }
+        }
+      },
+      "800": {
+        "$value": "#454952",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/800"
+          },
+          "web": {
+            "css": "var(--color-gray-800)"
+          }
+        }
+      },
+      "900": {
+        "$value": "#212329",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/gray/900"
+          },
+          "web": {
+            "css": "var(--color-gray-900)"
+          }
+        }
+      }
+    },
+    "blue": {
+      "50": {
+        "$value": "#F1F6FF",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/50"
+          },
+          "web": {
+            "css": "var(--color-blue-50)"
+          }
+        }
+      },
+      "100": {
+        "$value": "#E9F0FF",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/100"
+          },
+          "web": {
+            "css": "var(--color-blue-100)"
+          }
+        }
+      },
+      "200": {
+        "$value": "#E2EBFE",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/200"
+          },
+          "web": {
+            "css": "var(--color-blue-200)"
+          }
+        }
+      },
+      "300": {
+        "$value": "#C4D7FD",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/300"
+          },
+          "web": {
+            "css": "var(--color-blue-300)"
+          }
+        }
+      },
+      "400": {
+        "$value": "#A7C4FC",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/400"
+          },
+          "web": {
+            "css": "var(--color-blue-400)"
+          }
+        }
+      },
+      "500": {
+        "$value": "#89B0FB",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/500"
+          },
+          "web": {
+            "css": "var(--color-blue-500)"
+          }
+        }
+      },
+      "600": {
+        "$value": "#6C9CFA",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/600"
+          },
+          "web": {
+            "css": "var(--color-blue-600)"
+          }
+        }
+      },
+      "700": {
+        "$value": "#415E96",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/700"
+          },
+          "web": {
+            "css": "var(--color-blue-700)"
+          }
+        }
+      },
+      "800": {
+        "$value": "#2B3E64",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/800"
+          },
+          "web": {
+            "css": "var(--color-blue-800)"
+          }
+        }
+      },
+      "900": {
+        "$value": "#172031",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/blue/900"
+          },
+          "web": {
+            "css": "var(--color-blue-900)"
+          }
+        }
+      }
+    },
+    "purple": {
+      "50": {
+        "$value": "#FBFAFF",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/50"
+          },
+          "web": {
+            "css": "var(--color-purple-50)"
+          }
+        }
+      },
+      "100": {
+        "$value": "#F6F5FE",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/100"
+          },
+          "web": {
+            "css": "var(--color-purple-100)"
+          }
+        }
+      },
+      "200": {
+        "$value": "#E8E6FD",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/200"
+          },
+          "web": {
+            "css": "var(--color-purple-200)"
+          }
+        }
+      },
+      "300": {
+        "$value": "#D1CDFC",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/300"
+          },
+          "web": {
+            "css": "var(--color-purple-300)"
+          }
+        }
+      },
+      "400": {
+        "$value": "#BAB3FA",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/400"
+          },
+          "web": {
+            "css": "var(--color-purple-400)"
+          }
+        }
+      },
+      "500": {
+        "$value": "#A39AF9",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/500"
+          },
+          "web": {
+            "css": "var(--color-purple-500)"
+          }
+        }
+      },
+      "600": {
+        "$value": "#8C81F7",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/600"
+          },
+          "web": {
+            "css": "var(--color-purple-600)"
+          }
+        }
+      },
+      "700": {
+        "$value": "#544D94",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/700"
+          },
+          "web": {
+            "css": "var(--color-purple-700)"
+          }
+        }
+      },
+      "800": {
+        "$value": "#383463",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/800"
+          },
+          "web": {
+            "css": "var(--color-purple-800)"
+          }
+        }
+      },
+      "900": {
+        "$value": "#1C1A31",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/purple/900"
+          },
+          "web": {
+            "css": "var(--color-purple-900)"
+          }
+        }
+      }
+    },
+    "green": {
+      "100": {
+        "$value": "#E2FCF0",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/green/100"
+          },
+          "web": {
+            "css": "var(--color-green-100)"
+          }
+        }
+      },
+      "200": {
+        "$value": "#C6F1DD",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/green/200"
+          },
+          "web": {
+            "css": "var(--color-green-200)"
+          }
+        }
+      },
+      "300": {
+        "$value": "#A6E9C8",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/green/300"
+          },
+          "web": {
+            "css": "var(--color-green-300)"
+          }
+        }
+      },
+      "400": {
+        "$value": "#6FDAA6",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/green/400"
+          },
+          "web": {
+            "css": "var(--color-green-400)"
+          }
+        }
+      },
+      "500": {
+        "$value": "#28C07B",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/green/500"
+          },
+          "web": {
+            "css": "var(--color-green-500)"
+          }
+        }
+      },
+      "900": {
+        "$value": "#034C0C",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/green/900"
+          },
+          "web": {
+            "css": "var(--color-green-900)"
+          }
+        }
+      }
+    },
+    "red": {
+      "100": {
+        "$value": "#FFE5E5",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/red/100"
+          },
+          "web": {
+            "css": "var(--color-red-100)"
+          }
+        }
+      },
+      "200": {
+        "$value": "#FFC7C7",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/red/200"
+          },
+          "web": {
+            "css": "var(--color-red-200)"
+          }
+        }
+      },
+      "300": {
+        "$value": "#FFA7A7",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/red/300"
+          },
+          "web": {
+            "css": "var(--color-red-300)"
+          }
+        }
+      },
+      "400": {
+        "$value": "#FB5C5C",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/red/400"
+          },
+          "web": {
+            "css": "var(--color-red-400)"
+          }
+        }
+      },
+      "500": {
+        "$value": "#F03E3E",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/red/500"
+          },
+          "web": {
+            "css": "var(--color-red-500)"
+          }
+        }
+      }
+    },
+    "orange": {
+      "100": {
+        "$value": "#FFF0CF",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/orange/100"
+          },
+          "web": {
+            "css": "var(--color-orange-100)"
+          }
+        }
+      },
+      "200": {
+        "$value": "#FDD495",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/orange/200"
+          },
+          "web": {
+            "css": "var(--color-orange-200)"
+          }
+        }
+      },
+      "300": {
+        "$value": "#FDB663",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/orange/300"
+          },
+          "web": {
+            "css": "var(--color-orange-300)"
+          }
+        }
+      },
+      "400": {
+        "$value": "#FC9F30",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/orange/400"
+          },
+          "web": {
+            "css": "var(--color-orange-400)"
+          }
+        }
+      },
+      "500": {
+        "$value": "#F58603",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/orange/500"
+          },
+          "web": {
+            "css": "var(--color-orange-500)"
+          }
+        }
+      }
+    },
+    "opacity": {
+      "4": {
+        "$value": "#06080C0A",
+        "$description": "#06080C at 4% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/4"
+          },
+          "web": {
+            "css": "var(--color-opacity-4)"
+          }
+        }
+      },
+      "8": {
+        "$value": "#06080C14",
+        "$description": "#06080C at 8% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/8"
+          },
+          "web": {
+            "css": "var(--color-opacity-8)"
+          }
+        }
+      },
+      "12": {
+        "$value": "#06080C1F",
+        "$description": "#06080C at 12% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/12"
+          },
+          "web": {
+            "css": "var(--color-opacity-12)"
+          }
+        }
+      },
+      "22": {
+        "$value": "#06080C38",
+        "$description": "#06080C at 22% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/22"
+          },
+          "web": {
+            "css": "var(--color-opacity-22)"
+          }
+        }
+      },
+      "32": {
+        "$value": "#06080C52",
+        "$description": "#06080C at 32% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/32"
+          },
+          "web": {
+            "css": "var(--color-opacity-32)"
+          }
+        }
+      },
+      "48": {
+        "$value": "#06080C7A",
+        "$description": "#06080C at 48% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/48"
+          },
+          "web": {
+            "css": "var(--color-opacity-48)"
+          }
+        }
+      },
+      "56": {
+        "$value": "#06080C8F",
+        "$description": "#06080C at 56% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/56"
+          },
+          "web": {
+            "css": "var(--color-opacity-56)"
+          }
+        }
+      },
+      "72": {
+        "$value": "#06080CB8",
+        "$description": "#06080C at 72% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/72"
+          },
+          "web": {
+            "css": "var(--color-opacity-72)"
+          }
+        }
+      },
+      "86": {
+        "$value": "#06080CDB",
+        "$description": "#06080C at 86% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/86"
+          },
+          "web": {
+            "css": "var(--color-opacity-86)"
+          }
+        }
+      },
+      "100": {
+        "$value": "#06080CFF",
+        "$description": "#06080C at 100% — shadows, dividers, dim",
+        "$extensions": {
+          "com.figma": {
+            "variable": "color/opacity/100"
+          },
+          "web": {
+            "css": "var(--color-opacity-100)"
+          }
+        }
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "{color.gray.900}",
+        "$description": "제목, 본문, 입력한 글자, 선택된 탭",
+        "$extensions": {
+          "com.figma": {
+            "variable": "text/primary",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-text-primary)"
+          }
+        }
+      },
+      "secondary": {
+        "$value": "{color.gray.700}",
+        "$description": "아코디언 내용·제목 등 보조 글자",
+        "$extensions": {
+          "com.figma": {
+            "variable": "text/secondary",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-text-secondary)"
+          }
+        }
+      },
+      "tertiary": {
+        "$value": "{color.gray.500}",
+        "$description": "안내 문구(placeholder), 팝업 부제, 선택 안 된 탭",
+        "$extensions": {
+          "com.figma": {
+            "variable": "text/tertiary",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-text-tertiary)"
+          }
+        }
+      },
+      "disabled": {
+        "$value": "{color.gray.400}",
+        "$description": "비활성 버튼·칩·라벨·날짜 글자",
+        "$extensions": {
+          "com.figma": {
+            "variable": "text/disabled",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-text-disabled)"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "{color.gray.0}",
+        "$description": "진한 바탕 위 글자(Primary 버튼, 토스트, 선택된 칩)",
+        "$extensions": {
+          "com.figma": {
+            "variable": "text/inverse",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-text-inverse)"
+          }
+        }
+      },
+      "accent": {
+        "$value": "{color.blue.600}",
+        "$description": "Blue Ghost·Light Blue 버튼 글자, 오늘 날짜, 입력 중 글자 수",
+        "$extensions": {
+          "com.figma": {
+            "variable": "text/accent",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-text-accent)"
+          }
+        }
+      },
+      "error": {
+        "$value": "{color.red.500}",
+        "$description": "입력 오류 안내, 위험 행동 글자(삭제 · 내보내기)",
+        "$extensions": {
+          "com.figma": {
+            "variable": "text/error",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-text-error)"
+          }
+        }
+      }
+    },
+    "bg": {
+      "surface": {
+        "$value": "{color.gray.0}",
+        "$description": "화면, 카드, 팝업, 바텀시트 바탕",
+        "$extensions": {
+          "com.figma": {
+            "variable": "bg/surface",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-bg-surface)"
+          }
+        }
+      },
+      "secondary": {
+        "$value": "{color.gray.100}",
+        "$description": "칩, Box 탭, 목록 카드, 아코디언, 비활성 바탕",
+        "$extensions": {
+          "com.figma": {
+            "variable": "bg/secondary",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-bg-secondary)"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "{color.gray.900}",
+        "$description": "Primary·Floating 버튼",
+        "$extensions": {
+          "com.figma": {
+            "variable": "bg/inverse",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-bg-inverse)"
+          }
+        }
+      },
+      "accent": {
+        "$value": "{color.blue.600}",
+        "$description": "Blue 버튼, 선택된 칩·날짜, 체크된 체크박스·라디오",
+        "$extensions": {
+          "com.figma": {
+            "variable": "bg/accent",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-bg-accent)"
+          }
+        }
+      },
+      "accent-secondary": {
+        "$value": "{color.blue.100}",
+        "$description": "Light Blue 버튼, Guide 툴팁",
+        "$extensions": {
+          "com.figma": {
+            "variable": "bg/accent-secondary",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-bg-accent-secondary)"
+          }
+        }
+      },
+      "selected": {
+        "$value": "{color.blue.200}",
+        "$description": "아코디언 Index 현재 항목",
+        "$extensions": {
+          "com.figma": {
+            "variable": "bg/selected",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-bg-selected)"
+          }
+        }
+      },
+      "toast": {
+        "$value": "{color.opacity.86}",
+        "$description": "토스트",
+        "$extensions": {
+          "com.figma": {
+            "variable": "bg/toast",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-bg-toast)"
+          }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "{color.gray.300}",
+        "$description": "입력창, Outlined 버튼 테두리",
+        "$extensions": {
+          "com.figma": {
+            "variable": "border/default",
+            "scopes": [
+              "STROKE_COLOR"
+            ]
+          },
+          "web": {
+            "css": "var(--color-border-default)"
+          }
+        }
+      },
+      "divider": {
+        "$value": "{color.opacity.8}",
+        "$description": "탭 아래 구분선",
+        "$extensions": {
+          "com.figma": {
+            "variable": "border/divider",
+            "scopes": [
+              "STROKE_COLOR",
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-border-divider)"
+          }
+        }
+      },
+      "focus": {
+        "$value": "{color.blue.600}",
+        "$description": "입력창 포커스, 키보드 Focus 표시(2px)",
+        "$extensions": {
+          "com.figma": {
+            "variable": "border/focus",
+            "scopes": [
+              "STROKE_COLOR"
+            ]
+          },
+          "web": {
+            "css": "var(--color-border-focus)"
+          }
+        }
+      }
+    },
+    "overlay": {
+      "dim": {
+        "$value": "{color.opacity.72}",
+        "$description": "모달 뒤 딤드(팝업 · 웹 모달 · 바텀시트) — 흐름을 멈추고 답을 받아야 할 때",
+        "$extensions": {
+          "com.figma": {
+            "variable": "overlay/dim",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ]
+          },
+          "web": {
+            "css": "var(--color-overlay-dim)"
+          }
+        }
+      }
+    },
+    "status": {
+      "error": {
+        "$value": "{color.red.500}",
+        "$description": "삭제 아이콘 바탕, 오류 아이콘",
+        "$extensions": {
+          "com.figma": {
+            "variable": "status/error",
+            "scopes": [
+              "ALL_FILLS"
+            ]
+          },
+          "web": {
+            "css": "var(--color-status-error)"
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "$description": "Six steps for gap and padding, plus section gaps 32 / 40 between large blocks of a screen. Values such as 13 / 15 / 18 come from fixed component heights and are not tokens.",
+    "4": {
+      "$value": "4px",
+      "$description": "Stacked 버튼 사이, 아이콘과 글자, 체크박스와 라벨",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/4",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-4)"
+        }
+      }
+    },
+    "8": {
+      "$value": "8px",
+      "$description": "칩·버튼 나란히, Side by Side 버튼, 컴포넌트 안 묶음",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/8",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-8)"
+        }
+      }
+    },
+    "12": {
+      "$value": "12px",
+      "$description": "탭 사이, 제목과 부제, 숫자 동그라미와 글자",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/12",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-12)"
+        }
+      }
+    },
+    "16": {
+      "$value": "16px",
+      "$description": "카드 안 아이콘과 글자, 입력창 안쪽 위아래",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/16",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-16)"
+        }
+      }
+    },
+    "20": {
+      "$value": "20px",
+      "$description": "화면 좌우 여백, 카드·토스트 안쪽 여백",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/20",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-20)"
+        }
+      }
+    },
+    "24": {
+      "$value": "24px",
+      "$description": "바텀시트 본문 위아래, 날짜 선택 칸 사이",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/24",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-24)"
+        }
+      }
+    },
+    "32": {
+      "$value": "32px",
+      "$description": "섹션 간격(작은): 상단 박스 ↔ 목록처럼 화면의 큰 덩어리 사이",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/32",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-32)"
+        }
+      }
+    },
+    "40": {
+      "$value": "40px",
+      "$description": "섹션 간격(큰): 질문 제목 ↔ 선택지처럼 화면의 큰 덩어리 사이",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/40",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-40)"
+        }
+      }
+    },
+    "screen-x": {
+      "$value": "{spacing.20}",
+      "$description": "화면 좌우 여백(버튼 묶음, 바텀시트, 탭, 목록 행)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "spacing/screen-x",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--spacing-screen-x)"
+        }
+      }
+    }
+  },
+  "layout": {
+    "$type": "dimension",
+    "$description": "Screen widths, fixed web widths and template margins (Figma collection \"Layout\"). Start new screens from Template/Web (Type=List · Work) · Template/Mobile.",
+    "mobile-width": {
+      "$value": "375px",
+      "$description": "모바일 기준 화면 너비(375 × 812)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/mobile-width",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-mobile-width)"
+        }
+      }
+    },
+    "web-width": {
+      "$value": "1440px",
+      "$description": "웹 기준 화면 너비(1440 × 900)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/web-width",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-web-width)"
+        }
+      }
+    },
+    "lnb": {
+      "$value": "284px",
+      "$description": "펼친 LNB 너비 — Web/List",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/lnb",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-lnb)"
+        }
+      }
+    },
+    "lnb-folded": {
+      "$value": "84px",
+      "$description": "접은 LNB 너비 — Web/Work",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/lnb-folded",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-lnb-folded)"
+        }
+      }
+    },
+    "card-column": {
+      "$value": "296px",
+      "$description": "웹 카드 · 목록 열 너비",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/card-column",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-card-column)"
+        }
+      }
+    },
+    "side-panel": {
+      "$value": "306px",
+      "$description": "Web/List 오른쪽 패널 너비(실행목표)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/side-panel",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-side-panel)"
+        }
+      }
+    },
+    "margin-list": {
+      "$value": "{spacing.40}",
+      "$description": "Web/List 본문 좌우 여백 · 열 사이",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/margin-list",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-margin-list)"
+        }
+      }
+    },
+    "margin-work": {
+      "$value": "{spacing.20}",
+      "$description": "Web/Work 여백 · 목록과 작업 패널 사이",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/margin-work",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-margin-work)"
+        }
+      }
+    },
+    "panel-padding": {
+      "$value": "{spacing.40}",
+      "$description": "Web/Work 작업 패널 안쪽 좌우",
+      "$extensions": {
+        "com.figma": {
+          "variable": "layout/panel-padding",
+          "scopes": [
+            "GAP"
+          ]
+        },
+        "web": {
+          "css": "var(--layout-panel-padding)"
+        }
+      }
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "$description": "Seven steps; the bigger the surface, the rounder the corner. Usage names point at a step.",
+    "4": {
+      "$value": "4px",
+      "$description": "체크박스, 삭제 아이콘 바탕",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/4",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-4)"
+        }
+      }
+    },
+    "6": {
+      "$value": "6px",
+      "$description": "작은 칩(38)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/6",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-6)"
+        }
+      }
+    },
+    "8": {
+      "$value": "8px",
+      "$description": "칩 48, Box 탭, 툴팁, 목록 카드",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/8",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-8)"
+        }
+      }
+    },
+    "10": {
+      "$value": "10px",
+      "$description": "버튼 40",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/10",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-10)"
+        }
+      }
+    },
+    "12": {
+      "$value": "12px",
+      "$description": "버튼 48, 입력창, 카드, 토스트, 아코디언",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/12",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-12)"
+        }
+      }
+    },
+    "20": {
+      "$value": "20px",
+      "$description": "웹 모달",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/20",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-20)"
+        }
+      }
+    },
+    "16": {
+      "$value": "16px",
+      "$description": "팝업, 바텀시트(위 모서리)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/16",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-16)"
+        }
+      }
+    },
+    "full": {
+      "$value": "999px",
+      "$description": "원·알약 모양",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/full",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-full)"
+        }
+      }
+    },
+    "button": {
+      "$value": "{radius.12}",
+      "$description": "버튼 48",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/button",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-button)"
+        }
+      }
+    },
+    "button-sm": {
+      "$value": "{radius.10}",
+      "$description": "버튼 40",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/button-sm",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-button-sm)"
+        }
+      }
+    },
+    "button-xs": {
+      "$value": "{radius.8}",
+      "$description": "버튼 36(웹), Dropdown",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/button-xs",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-button-xs)"
+        }
+      }
+    },
+    "chip": {
+      "$value": "{radius.8}",
+      "$description": "칩 버튼 48",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/chip",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-chip)"
+        }
+      }
+    },
+    "chip-sm": {
+      "$value": "{radius.6}",
+      "$description": "칩 버튼 38",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/chip-sm",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-chip-sm)"
+        }
+      }
+    },
+    "field": {
+      "$value": "{radius.12}",
+      "$description": "입력창·선택창",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/field",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-field)"
+        }
+      }
+    },
+    "card": {
+      "$value": "{radius.12}",
+      "$description": "Two Choice 카드, 아코디언",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/card",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-card)"
+        }
+      }
+    },
+    "toast": {
+      "$value": "{radius.12}",
+      "$description": "토스트",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/toast",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-toast)"
+        }
+      }
+    },
+    "tooltip": {
+      "$value": "{radius.8}",
+      "$description": "툴팁",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/tooltip",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-tooltip)"
+        }
+      }
+    },
+    "list-card": {
+      "$value": "{radius.8}",
+      "$description": "아이콘 리스트 카드",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/list-card",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-list-card)"
+        }
+      }
+    },
+    "checkbox": {
+      "$value": "{radius.4}",
+      "$description": "체크박스",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/checkbox",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-checkbox)"
+        }
+      }
+    },
+    "card-lg": {
+      "$value": "{radius.16}",
+      "$description": "웹의 넓은 섹션 카드(본문 928)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/card-lg",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-card-lg)"
+        }
+      }
+    },
+    "modal": {
+      "$value": "{radius.16}",
+      "$description": "팝업, 바텀시트·날짜 선택(위 모서리)",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/modal",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-modal)"
+        }
+      }
+    },
+    "modal-lg": {
+      "$value": "{radius.20}",
+      "$description": "웹 모달(Modal (Web))",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/modal-lg",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-modal-lg)"
+        }
+      }
+    },
+    "pill": {
+      "$value": "{radius.full}",
+      "$description": "Floating 버튼, 아바타, 라디오, 날짜 칸, 진행 바, 스크롤 바",
+      "$extensions": {
+        "com.figma": {
+          "variable": "radius/pill",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        "web": {
+          "css": "var(--radius-pill)"
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "primary": {
+        "$value": [
+          "Pretendard",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Apple SD Gothic Neo",
+          "sans-serif"
+        ]
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "medium": {
+        "$value": 500
+      },
+      "semibold": {
+        "$value": 600
+      },
+      "bold": {
+        "$value": 700
+      }
+    }
+  },
+  "typography": {
+    "$type": "typography",
+    "$description": "Text styles (Figma local text styles, same names). Letter spacing 0.",
+    "heading": {
+      "28-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "28px",
+          "lineHeight": 1.5,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Heading/28 Bold"
+          },
+          "web": {
+            "class": ".text-heading-28-bold"
+          }
+        },
+        "$description": "웹 페이지 제목(1440)"
+      },
+      "24-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "24px",
+          "lineHeight": 1.5,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Heading/24 Bold"
+          },
+          "web": {
+            "class": ".text-heading-24-bold"
+          }
+        },
+        "$description": "홈 앱 바 제목"
+      }
+    },
+    "title": {
+      "20-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "20px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Title/20 Bold"
+          },
+          "web": {
+            "class": ".text-title-20-bold"
+          }
+        },
+        "$description": "바텀시트 큰 제목"
+      },
+      "18-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "18px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Title/18 Bold"
+          },
+          "web": {
+            "class": ".text-title-18-bold"
+          }
+        },
+        "$description": "팝업 제목, 같은 너비 탭"
+      },
+      "22-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "22px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Title/22 Bold"
+          },
+          "web": {
+            "class": ".text-title-22-bold"
+          }
+        },
+        "$description": "웹 모달 제목"
+      },
+      "16-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "16px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Title/16 Bold"
+          },
+          "web": {
+            "class": ".text-title-16-bold"
+          }
+        },
+        "$description": "바텀시트 헤더 제목"
+      },
+      "15-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "15px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Title/15 Bold"
+          },
+          "web": {
+            "class": ".text-title-15-bold"
+          }
+        },
+        "$description": "웹 섹션 제목, 웹 회고 카드 제목"
+      },
+      "14-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "14px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Title/14 Bold"
+          },
+          "web": {
+            "class": ".text-title-14-bold"
+          }
+        },
+        "$description": "웹 소제목, 접기 제목, 이전/다음, 템플릿 카드 제목"
+      }
+    },
+    "subtitle": {
+      "18-semibold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "18px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Subtitle/18 SemiBold"
+          },
+          "web": {
+            "class": ".text-subtitle-18-semibold"
+          }
+        },
+        "$description": "Text 탭, 서브 앱 바 제목, 달력 월"
+      },
+      "16-semibold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "16px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Subtitle/16 SemiBold"
+          },
+          "web": {
+            "class": ".text-subtitle-16-semibold"
+          }
+        },
+        "$description": "버튼 48, 아코디언 제목"
+      },
+      "14-semibold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "14px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Subtitle/14 SemiBold"
+          },
+          "web": {
+            "class": ".text-subtitle-14-semibold"
+          }
+        },
+        "$description": "버튼 40, 칩 38, Box 탭, 입력창 라벨"
+      }
+    },
+    "body": {
+      "16-medium": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "16px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Body/16 Medium"
+          },
+          "web": {
+            "class": ".text-body-16-medium"
+          }
+        },
+        "$description": "칩 버튼 48, 토스트, 팝업 부제"
+      },
+      "15-medium": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "15px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Body/15 Medium"
+          },
+          "web": {
+            "class": ".text-body-15-medium"
+          }
+        },
+        "$description": "입력 글자, 체크박스 라벨, 날짜"
+      },
+      "15-medium-long": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "15px",
+          "lineHeight": 1.8,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Body/15 Medium Long"
+          },
+          "web": {
+            "class": ".text-body-15-medium-long"
+          }
+        },
+        "$description": "긴 글 읽기(회고 답변 카드 본문)"
+      },
+      "14-medium": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "14px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Body/14 Medium"
+          },
+          "web": {
+            "class": ".text-body-14-medium"
+          }
+        },
+        "$description": "목록 카드, 아코디언 내용, 오류 안내"
+      },
+      "13-medium": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "13px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Body/13 Medium"
+          },
+          "web": {
+            "class": ".text-body-13-medium"
+          }
+        },
+        "$description": "카드 설명(스페이스 카드)"
+      },
+      "12-semibold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "12px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Body/12 SemiBold"
+          },
+          "web": {
+            "class": ".text-body-12-semibold"
+          }
+        },
+        "$description": "툴팁, 아코디언 번호"
+      },
+      "12-medium": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "12px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Body/12 Medium"
+          },
+          "web": {
+            "class": ".text-body-12-medium"
+          }
+        },
+        "$description": "글자 수, Guide 툴팁 본문"
+      }
+    },
+    "caption": {
+      "11-semibold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "11px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Caption/11 SemiBold"
+          },
+          "web": {
+            "class": ".text-caption-11-semibold"
+          }
+        },
+        "$description": "Badge Outlined 상태 태그"
+      },
+      "11-medium": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "11px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Caption/11 Medium"
+          },
+          "web": {
+            "class": ".text-caption-11-medium"
+          }
+        },
+        "$description": "Navigation Bar 라벨"
+      },
+      "10-bold": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.bold}",
+          "fontSize": "10px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Caption/10 Bold"
+          },
+          "web": {
+            "class": ".text-caption-10-bold"
+          }
+        },
+        "$description": "목록 카드 번호 동그라미"
+      },
+      "10-medium": {
+        "$value": {
+          "fontFamily": "{font.family.primary}",
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "10px",
+          "lineHeight": 1.4,
+          "letterSpacing": "0px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "textStyle": "Caption/10 Medium"
+          },
+          "web": {
+            "class": ".text-caption-10-medium"
+          }
+        }
+      }
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "$description": "Elevation (Figma local effect styles Shadow/100–400).",
+    "100": {
+      "$value": [
+        {
+          "color": "#06080C0A",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px"
+        }
+      ],
+      "$extensions": {
+        "com.figma": {
+          "effectStyle": "Shadow/100"
+        },
+        "web": {
+          "css": "var(--shadow-100)"
+        }
+      }
+    },
+    "200": {
+      "$value": [
+        {
+          "color": "#06080C1F",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "0px"
+        },
+        {
+          "color": "#06080C14",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "4px",
+          "spread": "0px"
+        }
+      ],
+      "$extensions": {
+        "com.figma": {
+          "effectStyle": "Shadow/200"
+        },
+        "web": {
+          "css": "var(--shadow-200)"
+        }
+      }
+    },
+    "300": {
+      "$value": [
+        {
+          "color": "#06080C1F",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px"
+        },
+        {
+          "color": "#06080C14",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "0px"
+        }
+      ],
+      "$extensions": {
+        "com.figma": {
+          "effectStyle": "Shadow/300"
+        },
+        "web": {
+          "css": "var(--shadow-300)"
+        }
+      }
+    },
+    "400": {
+      "$value": [
+        {
+          "color": "#06080C38",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px"
+        },
+        {
+          "color": "#06080C14",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "0px"
+        }
+      ],
+      "$extensions": {
+        "com.figma": {
+          "effectStyle": "Shadow/400"
+        },
+        "web": {
+          "css": "var(--shadow-400)"
+        }
+      }
+    },
+    "card": {
+      "$value": "{shadow.100}",
+      "$description": "카드"
+    },
+    "floating-button": {
+      "$value": "{shadow.200}",
+      "$description": "Floating 버튼"
+    },
+    "layer": {
+      "$value": "{shadow.300}",
+      "$description": "화면 위에 겹치는 층"
+    },
+    "modal": {
+      "$value": "{shadow.400}",
+      "$description": "팝업, 바텀시트"
+    }
+  },
+  "focus": {
+    "ring": {
+      "$type": "border",
+      "$value": {
+        "color": "{color.border.focus}",
+        "width": "2px",
+        "style": "solid"
+      },
+      "$description": "키보드 Focus 표시(코드 전용). 떨어진 요소는 바깥 2px, 탭·내비게이션은 안쪽 2px."
+    }
+  }
+}

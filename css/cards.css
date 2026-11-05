@@ -1,0 +1,162 @@
+/* Cards — Figma "Components · Card" 보드 (Card/Space · Card/Retro (Mobile) · Card/Answer · Card/Retro (Web)) */
+
+/* Card/Space — 홈 회고 스페이스 카드 (335) */
+.space-card {
+  display: flex; gap: var(--spacing-16, 16px); box-sizing: border-box; width: 100%;
+  padding: var(--spacing-16, 16px); border-radius: var(--radius-card, 12px); background: var(--color-bg-surface, #fff);
+}
+.space-card__thumb {
+  width: 40px; height: 40px; flex: none; display: grid; place-items: center;
+  border-radius: 50%; background: var(--color-gray-200, #edf0f4);
+}
+.space-card__thumb svg { width: 28px; height: 28px; }
+.space-card__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-8, 8px); }
+.space-card__head { display: flex; flex-direction: column; gap: 6px; }
+.space-card__row { display: flex; align-items: center; gap: var(--spacing-8, 8px); }
+.space-card__title { flex: 1; min-width: 0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 16px; font-weight: 700; line-height: 1.4; color: var(--color-text-primary, #212329); }          /* Title 16 Bold, 한 줄 */
+.space-card__desc { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 13px; font-weight: 500; line-height: 1.4; color: var(--color-gray-600, #8b909c); }              /* Body 13 Medium, 한 줄 */
+.space-card__meta { margin: 0; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--color-gray-600, #8b909c); }
+
+/* Card/Retro (Mobile) — 진행 중 회고 카드 (335 × 160) */
+.retro-card {
+  display: flex; flex-direction: column; gap: 10px; box-sizing: border-box; width: 100%;
+  padding: var(--spacing-20, 20px); border-radius: var(--radius-card, 12px); background: var(--color-blue-50, #f1f6ff);
+}
+.retro-card__top { display: flex; gap: var(--spacing-4, 4px); }
+.retro-card__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-4, 4px); }
+.retro-card__title { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; color: var(--color-gray-900, #212329); }
+.retro-card__desc { margin: 0; font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--color-gray-800, #454952); }
+.retro-card__date { display: flex; align-items: center; gap: var(--spacing-4, 4px); font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--color-gray-500, #a9afbb); }
+.retro-card__date .icon { width: 16px; height: 16px; }
+.retro-card__side { display: flex; align-items: flex-start; gap: 1px; }
+.retro-card__side .icon { width: 24px; height: 24px; color: var(--color-gray-900, #212329); }
+.retro-card__bottom { display: flex; align-items: center; justify-content: space-between; }
+.retro-card__count { display: flex; align-items: center; gap: 4px; font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--color-gray-500, #a9afbb); }   /* 전체 "/ 10" Gray 500 */
+.retro-card__count b { font-weight: inherit; color: var(--color-blue-600, #6c9cfa); }   /* 제출 인원 Blue 600 */
+.retro-card__count--done b { color: var(--color-gray-500, #a9afbb); }                     /* 모두 제출 */
+.retro-card__count svg { width: 24px; height: 24px; }
+/* Status=Closed — 마감된 회고(회고 관리): Gray 100 바탕, D-day 없음, 기간(시작 ~ 마감) 아이콘 없이, 인원 모두 Gray 500, Button 40 Primary(분석 확인) */
+.retro-card--closed { background: var(--color-bg-secondary, #f2f4f8); }
+.retro-card--closed .retro-card__count b { color: var(--color-gray-500, #a9afbb); }
+
+/* Card/Answer — 질문별 답변 카드 (335, 높이는 글에 맞춤) */
+.answer-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-12, 12px); box-sizing: border-box; width: 100%;
+  padding: var(--spacing-16, 16px) var(--spacing-16, 16px) var(--spacing-20, 20px);
+  border-radius: var(--radius-card, 12px); background: var(--color-bg-surface, #fff);
+  box-shadow: var(--shadow-100, 0 4px 12px rgb(33 37 41 / .04));
+}
+.answer-card__text { margin: 0; font-size: 15px; font-weight: 500; line-height: 1.8; color: var(--color-gray-800, #454952); }  /* Body 15 Medium Long */
+/* Platform=Web — 질문 묶음(회색) 위에 놓여 그림자 없음 */
+.answer-card--web { padding: var(--spacing-12, 12px) var(--spacing-12, 12px) 18px; border-radius: var(--radius-8, 8px); box-shadow: none; }
+.answer-card > .emotion-scale { align-self: center; padding-top: var(--spacing-8, 8px); }
+.answer-card > .score-bar { align-self: stretch; }
+
+/* Answer/Emotion Scale — 만족도 얼굴 5단계(고른 것만 색, 나머지 _Disabled 회색) */
+.emotion-scale { display: flex; gap: var(--spacing-8, 8px); margin: 0; padding: 0; list-style: none; }
+.emotion-scale svg { display: block; width: 36px; height: 36px; }
+
+/* Answer/Score Bar — 0~100 점수(20 단위 5칸) */
+.score-bar { display: flex; flex-direction: column; gap: var(--spacing-8, 8px); width: 100%; }
+.score-bar__labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--color-gray-500, #a9afbb); }   /* Caption 11 Medium */
+.score-bar__labels .is-current { font-weight: 600; color: var(--color-text-accent, #6c9cfa); }                                                                  /* Caption 11 SemiBold */
+.score-bar__track { display: flex; gap: 2px; height: 16px; border-radius: var(--radius-8, 8px); overflow: hidden; }
+.score-bar__track span { flex: 1; background: var(--color-gray-200, #edf0f4); }
+.score-bar__track span.is-on { background: var(--color-bg-accent, #6c9cfa); }
+
+/* Card/Question Group (Web) — 질문 제목 + 답변 카드 묶음(질문별 보기 열 · 제출 전 확인) */
+.question-group { display: flex; flex-direction: column; gap: var(--spacing-16, 16px); box-sizing: border-box; width: 100%; padding: var(--spacing-16, 16px);
+  border-radius: var(--radius-card, 12px); background: var(--color-bg-secondary, #f2f4f8); }
+.question-group__title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; color: var(--color-text-primary, #212329); }   /* Title 15 Bold */
+.question-group__content { display: flex; flex-direction: column; gap: var(--spacing-12, 12px); }
+
+/* Card/Retro (Web) — 웹 회고 스페이스 카드 (296 × 138) */
+.retro-card-web {
+  display: flex; flex-direction: column; gap: var(--spacing-8, 8px); box-sizing: border-box; width: 296px; max-width: 100%;
+  padding: 18px; border-radius: var(--radius-card, 12px); background: var(--color-gray-0, #fff);
+}
+.retro-card-web__head { display: flex; align-items: center; justify-content: space-between; }
+.retro-card-web__head .icon { width: 20px; height: 20px; color: var(--color-gray-500, #a9afbb); }
+.retro-card-web__title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; color: var(--color-gray-900, #212329); }  /* Title 15 Bold */
+.retro-card-web__desc { margin: -4px 0 0; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--color-gray-800, #454952); }
+.retro-card-web__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 4px;
+  font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--color-gray-500, #a9afbb); }
+.retro-card-web__foot i { font-style: normal; color: var(--color-gray-300, #dfe3ea); margin: 0 4px; }
+.retro-card-web__count { display: flex; align-items: center; gap: 2px; font-weight: 600; color: var(--color-gray-500, #a9afbb); }   /* "/ 10" Gray 500 */
+.retro-card-web__count b { font-weight: inherit; }
+.retro-card-web__count svg { width: 16px; height: 16px; }
+.retro-card-web__count--active b { color: var(--color-blue-600, #6c9cfa); }   /* 작성 중 · 제출 완료: 제출 인원 Blue 600 (0명이면 Gray 500) */
+.retro-card-web__count--zero b { color: var(--color-gray-500, #a9afbb); }
+.retro-card-web__count--closed b { color: var(--color-gray-700, #666b75); }   /* 마감: Gray 700 */
+
+/* Card/Goal (Web) — 웹 실행목표 패널의 회고별 목표 묶음 (270) */
+.goal-card { display: flex; flex-direction: column; gap: var(--spacing-12, 12px); }
+.goal-card + .goal-card { padding-top: var(--spacing-20, 20px); border-top: 1px solid var(--color-gray-100, #f2f4f8); }
+.goal-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-8, 8px); padding-left: var(--spacing-4, 4px); }
+.goal-card__actions { display: flex; gap: 6px; color: var(--color-gray-500, #a9afbb); }
+.goal-card__actions .icon { width: 18px; height: 18px; padding: 1px; }
+.goal-card__body { display: flex; flex-direction: column; gap: 6px; padding: 0 6px; }
+.goal-card__title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; color: var(--color-gray-900, #212329); }   /* Title 15 Bold */
+.goal-card__list { margin: 0; padding: 0; list-style: none; }
+.goal-card__list li { display: flex; align-items: center; gap: var(--spacing-8, 8px); padding: var(--spacing-12, 12px) 0;
+  font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--color-gray-900, #212329); }                                  /* Body 14 Medium, 줄 높이 36 */
+.goal-card__list li::before { content: ""; flex: none; width: 5px; height: 5px; margin: 0 3.5px; border-radius: 50%; background: var(--color-gray-400, #ced2da); }
+
+/* Card/Goal (Mobile) — 실행목표 화면에 쌓는 흰 카드(335). 구조는 웹과 같고 크기만 키움 */
+.goal-card--mobile { box-sizing: border-box; width: 100%; max-width: 335px; gap: var(--spacing-16, 16px); padding: var(--spacing-20, 20px) var(--spacing-20, 20px) var(--spacing-16, 16px);
+  border-radius: var(--radius-card, 12px); background: var(--color-bg-surface, #fff); box-shadow: var(--shadow-100, 0 4px 12px rgb(6 8 12 / .04)); }
+.goal-card--mobile + .goal-card--mobile { padding-top: var(--spacing-20, 20px); border-top: 0; margin-top: var(--spacing-12, 12px); }
+.goal-card--mobile .goal-card__head { padding-left: 0; }
+.goal-card--mobile .goal-card__actions { gap: 0; }
+.goal-card--mobile .goal-card__actions .icon { width: 24px; height: 24px; padding: 2px; }
+.goal-card--mobile .goal-card__body { padding: 0 4px; }
+.goal-card--mobile .goal-card__title { font-size: 18px; }   /* Title 18 Bold */
+.goal-card--mobile .goal-card__list li { font-size: 16px; }  /* Body 16 Medium, 줄 높이 46 */
+.goal-card--mobile .goal-card__list li::before { width: 6px; height: 6px; margin: 0 4px; }
+.goal-card--mobile .empty-state { padding: var(--spacing-32, 32px) 0 var(--spacing-16, 16px); }
+
+/* Selected=On — 지금 열어 둔(작성 중인) 회고. 한 열에 하나만 */
+.retro-card-web--selected { box-shadow: inset 0 0 0 1px var(--color-blue-400, #a7c4fc), var(--shadow-100, 0 4px 12px rgb(6 8 12 / .04)); }
+
+/* ── Card/Template — 회고 템플릿 카드 (Figma 467:6683) ──
+   Type=Default: 제목 2줄 + 방식 배지 + 오른쪽 아래 Retro 일러스트(Show Button: 아래 Outlined 40 "선택하기")
+   Type=Custom: 제목 + More / 방식 배지 + 만든 날짜. Platform=Web 230 · 테두리 Gray 100 · 모서리 8 · 안쪽 16 / Mobile 335 · Shadow 100 · 모서리 12 · 안쪽 20 */
+.template-card { display: flex; flex-direction: column; gap: var(--spacing-16, 16px); box-sizing: border-box; width: 230px; padding: var(--spacing-16, 16px);
+  border: 1px solid var(--color-gray-100, #f2f4f8); border-radius: var(--radius-8, 8px); background: var(--color-bg-surface, #fff); }
+.template-card--mobile { width: 100%; max-width: 335px; padding: var(--spacing-20, 20px); border: 0; border-radius: var(--radius-card, 12px); box-shadow: var(--shadow-100, 0 4px 12px rgb(6 8 12 / .04)); }
+.template-card__row { display: flex; align-items: flex-end; min-height: 105px; }
+.template-card__text { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; align-self: stretch; align-items: flex-start; }
+.template-card__title { margin: 0; font-size: 14px; font-weight: 700; line-height: 1.4; color: var(--color-gray-800, #454952); white-space: pre-line; }   /* Title 14 Bold */
+.template-card--mobile .template-card__title { font-size: 16px; }                                                                                    /* Title 16 Bold */
+.template-card__art { flex: none; width: 86px; height: 86px; }
+.template-card--mobile .template-card__art { width: 100px; height: 100px; }
+.template-card--custom { gap: 40px; }
+.template-card--custom.template-card--mobile { gap: var(--spacing-16, 16px); }
+.template-card--custom .template-card__top { display: flex; align-items: flex-start; gap: var(--spacing-4, 4px); }
+.template-card--custom .template-card__top .template-card__title { flex: 1; }
+.template-card--custom.template-card--mobile .template-card__title { font-size: 18px; }                                                             /* Title 18 Bold */
+.template-card__meta { display: flex; align-items: center; justify-content: space-between; }
+.template-card--mobile .template-card__meta { flex-direction: column; align-items: flex-start; gap: 6px; }
+.template-card__date { font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--color-gray-500, #a9afbb); }                                    /* Body 12 Medium */
+.template-card--mobile .template-card__date { font-size: 14px; }
+
+/* Card/Template Detail — 템플릿 소개(정사각형, Size=335 · 240) */
+.template-detail { display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; width: 335px; height: 335px; padding: var(--spacing-24, 24px);
+  border-radius: var(--radius-card, 12px); background: var(--color-bg-surface, #fff); box-shadow: var(--shadow-100, 0 4px 12px rgb(6 8 12 / .04)); }
+.template-detail__head { display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-12, 12px); }
+.template-detail__title { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--color-text-primary, #212329); }             /* Title 20 Bold */
+.template-detail__art { align-self: center; width: 160px; height: 160px; }
+.template-detail--240 { width: 240px; height: 240px; padding: var(--spacing-20, 20px); }
+.template-detail--240 .template-detail__head { gap: var(--spacing-8, 8px); }
+.template-detail--240 .template-detail__title { font-size: 14px; }
+.template-detail--240 .template-detail__art { width: 115px; height: 115px; }
+
+/* Card/Template Summary — 템플릿 요약(질문 목록 + 질문 수정) */
+.template-summary { display: flex; flex-direction: column; gap: var(--spacing-24, 24px); box-sizing: border-box; width: 100%; max-width: 472px; padding: var(--spacing-20, 20px);
+  border: 1px solid var(--color-border-default, #dfe3ea); border-radius: var(--radius-card, 12px); background: var(--color-bg-surface, #fff); }
+.template-summary__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--spacing-16, 16px); }
+.template-summary__head > div { display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-8, 8px); }
+.template-summary__title { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--color-text-primary, #212329); }
+.template-summary .list--cards { max-width: none; gap: var(--spacing-8, 8px); }

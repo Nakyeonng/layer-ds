@@ -1,0 +1,71 @@
+/* ─────────────────────────────────────────────────────────────
+   Chip Button / Progress Bar — derived from Figma node 1:1304
+   Chip: Multi Choice (Size 48 · 38), Multi Choice with Icon, Two Choice
+   States: Default · Hover · Pressed/Selected · Disabled  (selection = aria-pressed="true")
+   Progress Bar: Step Size 4 · 3 · 2 × Current Step 0…n
+
+   Colours are the values read from the frame; comments name the palette step.
+   .is-hover / .is-selected force a state for documentation specimens.
+   Tokens: colors, spacing and radius use var(--token, literal) — load color.css, spacing.css and radius.css to apply the tokens;
+   the literal fallback keeps this file working on its own.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Chip (Multi Choice) ─────────────────── */
+.chip-button {
+  --chip-bg: var(--color-bg-secondary, #f2f4f8);                    /* Gray 100 */
+  --chip-fg: var(--color-gray-800, #454952);                    /* Gray 800 */
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-sizing: border-box;
+  height: 48px; padding: 13px var(--spacing-20, 20px); border: 0; border-radius: var(--radius-chip, 8px);
+  background: var(--chip-bg); color: var(--chip-fg);
+  font-family: var(--font-family-primary); font-size: 16px; font-weight: 500; line-height: 1.4; /* Body 16 Medium */
+  font-feature-settings: "case" 1, "ss02" 1;
+  white-space: nowrap; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.chip-button:hover, .chip-button.is-hover { --chip-bg: var(--color-gray-200, #edf0f4); }                       /* Gray 200 */
+.chip-button:active, .chip-button.is-selected,
+.chip-button[aria-pressed="true"] { --chip-bg: var(--color-bg-accent, #6c9cfa); --chip-fg: var(--color-text-inverse, #ffffff); }          /* Blue 600 / Gray 0 */
+.chip-button:focus-visible { outline: 2px solid var(--color-border-focus, #6c9cfa); outline-offset: 2px; }   /* Focus: Blue 600 */
+/* Disabled = Button disabled colours */
+.chip-button:disabled, .chip-button.is-disabled { --chip-bg: var(--color-bg-secondary, #f2f4f8); --chip-fg: var(--color-text-disabled, #ced2da); cursor: not-allowed; } /* Gray 100 / Gray 400 */
+.chip-button:disabled .icon-graphic, .chip-button.is-disabled .icon-graphic { opacity: 0.4; }
+.chip-button:disabled .icon-off, .chip-button.is-disabled .icon-off { display: block; }
+.chip-button:disabled .icon-on,  .chip-button.is-disabled .icon-on  { display: none; }
+
+/* Graphic icon: colour version normally, white version when selected */
+.chip-button .icon-graphic { width: 28px; height: 28px; flex: none; }
+.chip-button .icon-graphic svg { display: block; width: 100%; height: 100%; }
+.chip-button .icon-on { display: none; }
+.chip-button:active .icon-off, .chip-button.is-selected .icon-off, .chip-button[aria-pressed="true"] .icon-off { display: none; }
+.chip-button:active .icon-on,  .chip-button.is-selected .icon-on,  .chip-button[aria-pressed="true"] .icon-on  { display: block; }
+
+/* Size 38 (added 2026-10-27, used by the Date Time Picker hours): radius 6, Subtitle 14 SemiBold */
+.chip-button--38 { height: 38px; padding: 9px var(--spacing-16, 16px); border-radius: var(--radius-chip-sm, 6px); font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* ── Chip with Icon ──────────────────────── */
+.chip-button--icon { gap: var(--spacing-8, 8px); padding: 13px var(--spacing-20, 20px) 13px 14px; }
+
+/* ── Two Choice (square card) ────────────── */
+.chip-button--card {
+  flex-direction: column; gap: var(--spacing-16, 16px);
+  width: 100%; height: 163px; padding: 18px 38px; border-radius: var(--radius-card, 12px);   /* width follows the screen */
+  white-space: normal; text-align: center;
+}
+.chip-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-8, 8px); }  /* two cards side by side */
+.chip-button--card .icon-graphic { width: 40px; height: 40px; }
+
+/* Rows of chips */
+.chip-group { display: flex; flex-wrap: wrap; gap: var(--spacing-8, 8px); }
+
+/* ── Progress Bar ────────────────────────── */
+.progress-bar {
+  display: flex; align-items: center; box-sizing: border-box;
+  width: 100%; padding: 0;   /* 여백 없음(모바일 · 웹 공통). 모바일 화면은 감싸는 쪽이 위 8 · 좌우 20 · 아래 20 */
+}
+.progress-bar__track { display: flex; flex: 1 1 0; gap: var(--spacing-4, 4px); margin: 0; padding: 0; list-style: none; }
+.progress-bar__step {
+  flex: 1 1 0; min-width: 0; height: 4px; border-radius: var(--radius-pill, 100px);
+  background: var(--color-opacity-4, rgb(6 8 12 / 0.04));                                                       /* Opacity 4 */
+}
+.progress-bar__step.is-done { background: var(--color-bg-accent, #6c9cfa); }                                    /* Blue 600 */
