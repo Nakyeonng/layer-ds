@@ -2383,9 +2383,11 @@ def p_ai_guide():
         + table(['질문', '답'], [
             ['Figma 파일은 어디서 받나요?', '<a href="figma-file.html">Figma 파일 쓰기</a> — 커뮤니티 파일을 내 파일로 복제해서 씁니다. Figma에 그리게 할 때도 이 복제본에 그립니다.'],
             ['Claude 말고 다른 AI도 되나요?', '파일은 일반 텍스트라 다른 AI에게도 줄 수 있습니다. 다만 Figma에 바로 그리려면 그 도구가 Figma 연결을 지원해야 합니다.'],
-            ['ChatGPT에서도 쓸 수 있나요?', '네. ChatGPT에는 Skill 업로드가 없어서 방법 B(프로젝트)처럼 씁니다. '
-             '한 번만 쓸 때는 새 채팅 첫 메시지에 AI 안내문을 붙여 넣고 ZIP 안 파일(DESIGN.md · components.json · tokens.json, 웹페이지면 web 폴더의 layer-inline.css · layer-examples.html · layer-icons.js)을 첨부한 뒤 요청을 씁니다. '
-             '자주 쓸 때는 ChatGPT <strong>프로젝트</strong>를 만들어 지침에 AI 안내문을, 파일에 같은 파일들을 넣어 두면 그 프로젝트의 채팅마다 바로 Layer 규칙으로 만들어요. '
+            ['ChatGPT에서도 쓸 수 있나요?', '네. 가장 쉬운 방법은 <strong>Skill ZIP을 그대로 올리는 것</strong>이에요. '
+             '위 방법 A에서 <strong>layer-design-system.zip</strong>을 받아 ChatGPT 새 채팅에 첨부하고, 이렇게 써요: '
+             '<em>"이 ZIP을 풀어서 SKILL.md를 읽고, 이 채팅에서는 그 규칙과 references 폴더 자료로 작업해 줘. 첫 요청: 레이어 홈 화면을 모바일 웹페이지로 만들어 줘."</em> '
+             'ChatGPT가 ZIP 안의 안내서와 자료를 읽고 같은 규칙(정확 · 탐색 모드, 검수 체크리스트)으로 만들어요. '
+             '자주 쓸 때는 ChatGPT <strong>프로젝트</strong> 파일에 이 ZIP을 넣고, 프로젝트 지침에 "항상 layer-design-system.zip의 SKILL.md를 따른다"라고 적어 두면 매번 첨부하지 않아도 돼요. '
              '웹페이지 결과는 캔버스에서 미리 볼 수 있어요. Figma에 직접 그리기는 Claude에서만 됩니다.'],
             ['디자인 시스템이 업데이트되면?', '<a href="updates.html">업데이트</a> 페이지에서 새 버전 파일을 받아, 컨텍스트(또는 프로젝트 지식)의 예전 파일을 새 파일로 바꿉니다. Skill을 쓰면 Skill ZIP을 다시 받아 올립니다.'],
             ['웹과 모바일을 한 번에 부탁해도 되나요?', '됩니다. "같은 내용으로 웹 화면도 그려 줘"라고 이어서 말하면 됩니다.'],
@@ -2509,7 +2511,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
-        ['2026-11-05', '<a href="ai-guide.html">AI로 화면 만들기</a>', '자주 묻는 질문에 "ChatGPT에서도 쓸 수 있나요?" 추가 — 프로젝트(지침 + 파일) 방식으로 쓰는 법', '코드'],
+        ['2026-11-05', '<a href="ai-guide.html">AI로 화면 만들기</a>', '자주 묻는 질문에 "ChatGPT에서도 쓸 수 있나요?" 추가 — Skill ZIP을 채팅에 올려 그대로 적용하는 법, 자주 쓸 때는 프로젝트에 넣기', '코드'],
         ['2026-11-04', '문서 사이트', 'GitHub Pages로도 공개 — <a href="https://nakyeonng.github.io/layer-ds/" target="_blank" rel="noopener">nakyeonng.github.io/layer-ds</a>(로그인 없이 열리는 고정 주소, llms.txt 포함). README에 링크', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#skill-call">AI로 화면 만들기</a>', 'Skill 업로드 화면 캡처 · 넣는 순서를 실제 메뉴(사용자 지정 → Skills → Skill 업로드)로 고침. Skill 부르기(/layer-design-system) 안내 추가. 탐색 모드에 실제 결과(해외여행 보험 시안 3개) 예시 추가', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#explore">AI로 화면 만들기</a> · Skill', '탐색 모드 추가 — 정확 모드(기본, 규칙 전부)와 탐색 모드(토큰 · 기본 컴포넌트 · 해요체 · 접근성만 지키고 레이아웃 · 조합 · 새 묶음 · 일러스트는 자유, 서로 다른 시안 3개 + 벗어난 부분 표시). 회고가 아닌 주제는 자동으로 탐색 모드, 회고 전용 요소 제외. Skill · DESIGN.md · AI 안내문 · 검수 체크리스트에 반영', '코드'],
