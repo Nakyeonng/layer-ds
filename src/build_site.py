@@ -30,7 +30,7 @@ def figma_link(node, label='Figma 파일'): return f'<a href="{FIGMA}" target="_
 # ── navigation ────────────────────────────────────────────
 PAGES = [
     ('index', '소개', 'start', None), ('updates', '업데이트', 'start', None), ('figma-file', 'Figma 파일 쓰기', 'start', None), ('ai-guide', 'AI로 화면 만들기', 'start', None),
-    ('logo', 'Logo', 'brand', 'ok'), ('illustration', 'Illustration', 'brand', 'ok'),
+    ('logo', 'Logo', 'brand', 'ok'), ('illustration', 'Illustration', 'brand', 'ok'), ('3d-icons', '3D Icons', 'brand', 'ok'),
     ('tokens', 'Tokens', 'found', 'ok'), ('color', 'Color', 'found', 'wait'), ('typography', 'Typography', 'found', 'ok'),
     ('elevation', 'Elevation', 'found', 'ok'), ('iconography', 'Iconography', 'found', 'ok'), ('spacing', 'Spacing', 'found', 'ok'), ('layout', 'Layout', 'found', 'ok'), ('radius', 'Radius', 'found', 'ok'), ('state', 'State', 'found', 'ok'),
     ('accordion', 'Accordion', 'comp', 'ok'), ('app-bar', 'App Bar', 'comp', 'ok'), ('bottom-sheet', 'Bottom Sheet', 'comp', 'ok'), ('button', 'Button', 'comp', 'ok'), ('chip-button', 'Chip Button', 'comp', 'ok'), ('controls', 'Controls', 'comp', 'ok'), ('date-picker', 'Date Time Picker', 'comp', 'ok'), ('fields', 'Fields', 'comp', 'ok'), ('lists', 'Lists', 'comp', 'ok'), ('navigation-bar', 'Navigation Bar', 'comp', 'ok'), ('popup', 'Popup', 'comp', 'ok'), ('progress-bar', 'Progress Bar', 'comp', 'ok'), ('scroll-bar', 'Scroll Bar', 'comp', 'ok'), ('tabs', 'Tabs', 'comp', 'ok'), ('toast', 'Toast', 'comp', 'ok'), ('tooltip', 'Tooltip', 'comp', 'ok'), ('avatar', 'Avatar', 'comp', 'ok'), ('badge', 'Badge', 'comp', 'ok'), ('empty-state', 'Empty State', 'comp', 'ok'), ('cards', 'Cards', 'comp', 'ok'), ('dropdown', 'Dropdown', 'comp', 'ok'), ('popover', 'Popover · Menu', 'comp', 'ok'), ('analysis', 'Analysis', 'comp', 'ok'), ('writing-panel', 'Writing Panel', 'comp', 'ok'),
@@ -95,11 +95,26 @@ SCRIPT = r'''<script>
     function fallback(s) { var r = document.createRange(), p = document.createElement('span'); p.textContent = s; p.style.position = 'fixed'; p.style.opacity = '0'; document.body.appendChild(p); r.selectNodeContents(p); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); say('선택했어요. 복사해 주세요'); setTimeout(function () { p.remove(); }, 4000); }
   }
   document.addEventListener('click', function (e) {
+    var ci = e.target.closest('[data-copy-img]');
+    if (ci) { copyImg(ci.getAttribute('data-copy-img'), ci, ci.getAttribute('data-copy-msg')); return; }
     var b = e.target.closest('[data-copy]');
     if (b) { copy(b.getAttribute('data-copy'), b, b.getAttribute('data-copy-msg')); return; }
     var p = e.target.closest('[data-copy-pre]');
     if (p) { copy(p.parentNode.querySelector('pre').innerText, p); }
   });
+  // Copy a PNG image: call clipboard.write inside the click, hand the image over as a promise (works in Safari too).
+  function copyImg(src, btn, msg) {
+    var blocked = '여기서는 이미지 복사가 막혀 있어요. 다운로드로 받아 주세요';
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.write || typeof ClipboardItem === 'undefined') throw new Error();
+      var png = fetch(src).then(function (r) { if (!r.ok) throw new Error(r.status); return r.blob(); }).then(function (blob) { return blob.type === 'image/png' ? blob : new Blob([blob], { type: 'image/png' }); });
+      navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]).then(function () {
+        say(msg || '이미지를 복사했어요');
+        var label = btn.getAttribute('data-label') || btn.textContent; btn.setAttribute('data-label', label); btn.textContent = '복사됨'; btn.classList.add('is-done');
+        setTimeout(function () { btn.textContent = label; btn.classList.remove('is-done'); }, 1200);
+      }, function () { say(blocked); });
+    } catch (e) { say(blocked); }
+  }
   document.querySelectorAll('.js-nav').forEach(function (nav) {
     nav.addEventListener('click', function (e) {
       var item = e.target.closest('.nav-item'); if (!item) return;
@@ -258,11 +273,11 @@ SCRIPT = r'''<script>
     if (window.claude && window.claude.use) { window.claude.use('downloads').then(function (d) { dlp = d; }); }
     btns.forEach(function (b) { b.addEventListener('click', function () {
       var path = b.getAttribute('data-dl'), name = b.getAttribute('data-dl-name');
-      var isZip = b.hasAttribute('data-zip');
-      (isZip ? makeZip(b.getAttribute('data-zip')) : fetch(path).then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })).then(function (text) {
+      var isZip = b.hasAttribute('data-zip'), isBin = b.hasAttribute('data-dl-bin');
+      (isZip ? makeZip(b.getAttribute('data-zip')) : fetch(path).then(function (r) { if (!r.ok) throw new Error(r.status); return isBin ? r.blob() : r.text(); })).then(function (text) {
         if (dlp) return dlp.save({ filename: name, data: text }).then(function () { note(name + ' 파일을 저장했어요.'); }, function (e) {
           if (e && e.code === 'declined') note('저장을 취소했어요.'); else note('여기서는 저장할 수 없어요. 잠시 뒤 다시 눌러 주세요.'); });
-        var a = document.createElement('a'); a.href = URL.createObjectURL((isZip ? text : new Blob([text], { type: 'application/json' }))); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+        var a = document.createElement('a'); a.href = URL.createObjectURL((isZip || isBin ? text : new Blob([text], { type: 'application/json' }))); a.download = name; document.body.appendChild(a); a.click(); a.remove();
         note(name + ' 파일을 내려받았어요.');
       }).catch(function () { note('파일을 불러오지 못했어요. 잠시 뒤 다시 눌러 주세요.'); });
     }); });
@@ -2041,6 +2056,75 @@ def p_illustration():
 </div></section>'''
     return content
 
+I3_ANGLES = [('34', '기본 3/4', '위에서 약 20° 내려다보고 오른쪽으로 약 30° 돌린 3/4 뷰', '표지 메인, 대표 컷'),
+             ('front', '정면', '정면에서 약 5° 위, 좌우 회전 없음', '본문 작은 아이콘, 여러 개 나란히'),
+             ('float', '띄운 컷', '기본 3/4에서 시계 방향 15° 기울이고 살짝 띄움, 그림자는 옅고 넓게', 'CTA 장, 강조 장면')]
+
+def p_3d_icons():
+    data = json.load(open('src/data/icons_3d.json'))
+    def cut(i, key, label):
+        f = i['cuts'].get(key)
+        if not f:
+            return f'<div class="i3-cut"><div class="i3-cut__img i3-cut__img--none">없음</div><div class="i3-cut__meta"><span class="i3-cut__key">{key}</span></div></div>'
+        alt = f'{i["name"]} {label}'
+        return (f'<div class="i3-cut"><div class="i3-cut__img"><img src="img/3d/{f}" alt="{alt}" loading="lazy"></div>'
+                f'<div class="i3-cut__meta"><span class="i3-cut__key">{key}</span><span class="i3-cut__btns">'
+                f'<button type="button" class="copy copy--inline" data-copy-img="img/3d/{f}" data-copy-msg="{alt} 이미지를 복사했어요">복사</button>'
+                f'<button type="button" class="copy copy--inline" data-dl="img/3d/{f}" data-dl-name="{f}" data-dl-bin>다운로드</button></span></div></div>')
+    ORIG = '<span class="chip chip--ok">승인 원본</span>'
+    def card(i):
+        badges = (ORIG if i.get('source') == 'original' else '') + f'<span class="i3-badge">{i["group"]}</span><span class="i3-badge">v{i.get("version", 1)}</span>'
+        cuts = ''.join(cut(i, k, l) for k, l, _, _ in I3_ANGLES)
+        return (f'<article class="i3-card"><div class="i3-card__head"><div><h3>{i["name"]}</h3><span class="i3-card__slug">{i["slug"]}</span></div>'
+                f'<div class="i3-card__badges">{badges}</div></div><div class="i3-cuts">{cuts}</div></article>')
+    cards = ''.join(card(i) for i in data['icons'])
+    n_obj = len(data['icons']); n_cut = sum(1 for i in data['icons'] for v in i['cuts'].values() if v)
+    skill_zip = ('layer-3d-icons|downloads/layer-3d-icons/SKILL.md=SKILL.md,downloads/layer-3d-icons/references/kpt.png=references/kpt.png,'
+                 'downloads/layer-3d-icons/references/chat.png=references/chat.png,downloads/layer-3d-icons/references/compass.png=references/compass.png,'
+                 'downloads/layer-3d-icons/references/set-context.png=references/set-context.png')
+    skill_btn = f'<button type="button" class="btn btn--primary btn--sm" data-dl="" data-dl-name="layer-3d-icons.zip" data-zip="{skill_zip}">Skill 받기</button>'
+    steps = [
+        ('처음 한 번 · ChatGPT', 'Skill 만들기',
+         f'<ol><li>아래 <strong>Skill 받기</strong>로 <code>layer-3d-icons.zip</code>을 받습니다.</li>'
+         '<li>ChatGPT 새 채팅에 zip 파일을 올리고 <q>이 파일로 Skill을 만들어 줘</q>라고 요청합니다.</li>'
+         '<li>Skill 목록에 layer-3d-icons가 생기면 준비 끝입니다. 예전 버전이 있으면 먼저 지워 두 개가 겹치지 않게 합니다.</li>'
+         '<li>ChatGPT에 Google Drive를 연결해 둡니다. 연결해야 4번에서 등록함에 저장할 수 있습니다.</li></ol>'
+         f'<div class="i3-acc__action">{skill_btn}</div>'),
+        ('ChatGPT', '오브제 이름 입력', '<p><q>모래시계 3D 아이콘 만들어 줘</q>처럼 오브제 이름을 말합니다. 후보 5개(A안–E안)와 흰 앱 카드에 올린 적용 시안, 후보별 검수표가 나옵니다.</p>'),
+        ('ChatGPT', '후보 고르기', '<p><q>C안으로 정할게</q>처럼 후보 이름을 정확히 말합니다. 바로 기본 3/4 · 정면 · 띄운 컷 3장을 만듭니다. 고칠 점이 있으면 <q>C안으로 정할게. 받침을 조금 낮게</q>처럼 함께 적습니다.</p>'),
+        ('ChatGPT → Google Drive', '"등록"으로 승인', '<p>GPT가 <q>이대로 등록할까요?</q>라고 물으면 <q>등록해 줘</q>라고 답합니다. GPT가 3컷과 정보 파일(이름 · 영문 · 묶음)을 Google Drive의 <strong>Layer 3D 등록함</strong>에 저장합니다. 마음에 들지 않는 컷이 있으면 그 컷만 다시 만들어 달라고 합니다.</p>'),
+        ('등록 페이지', '검수하고 등록', '<p>등록 페이지를 열면 등록함을 자동으로 확인합니다. Claude가 각도 · 색 · 재질 · 글자 · 구조 · 구도를 검수하고, 통과하면 세트에 넣은 뒤 파일을 <strong>등록 완료</strong> 폴더로 옮깁니다. 색 · 재질 · 글자가 어긋나면 등록하지 않고 <strong>확인 필요</strong> 폴더로 옮기고 이유를 기록합니다.</p>'),
+        ('등록 페이지 · Claude', '가져다 쓰기', '<p>세트의 각 컷 아래 <strong>복사</strong>로 Figma나 문서에 바로 붙여넣고, <strong>다운로드</strong>로 PNG를 받습니다. Claude는 카드뉴스 작업 때 세트를 직접 읽어 씁니다.</p>'),
+    ]
+    flow = ''.join(f'<details class="i3-acc"><summary><span class="i3-acc__num">{n}</span><span class="i3-acc__title"><span class="i3-acc__where">{w}</span><strong>{t}</strong></span></summary><div class="i3-acc__body">{d}</div></details>'
+                   for n, (w, t, d) in enumerate(steps, 1))
+    content = page_head('Brand', '3D Icons', '회고를 연상시키는 오브제(노트, 시계, 달력 등)를 Layer 3D v1 스타일로 만든 3D 아이콘입니다. 인스타그램 카드뉴스의 표지 · 본문 · CTA에 씁니다. ChatGPT에서 만들고 등록 페이지에서 검수해 세트로 모읍니다.',
+                        status=('wait', '수집 중'), extra=f'<span>오브제 {n_obj}종 · 컷 {n_cut}장</span>')
+    content += f'''<section class="section"><h2>세트</h2><p>카드뉴스에서는 쓰는 자리에 맞는 각도의 컷을 골라 크기와 위치만 조절합니다. 다시 칠하거나 모양을 바꾸지 않습니다. 비어 있는 각도는 아직 만들지 않은 컷입니다.</p><div class="i3-grid">{cards}</div><p class="note" id="tk-msg" role="status"></p></section>
+<section class="section"><h2>만들고 등록하는 방법</h2><p>단계를 눌러 자세히 봅니다. 1번은 처음 한 번만 합니다.</p><div class="i3-accs">{flow}</div>
+<p>GPT가 Google Drive에 저장하지 못하면 이미지를 등록함에 직접 올리거나 등록 페이지의 <strong>최종 컷 등록</strong>에 붙여넣으면 됩니다. 등록함 폴더와 등록 페이지는 레이어 팀만 씁니다.</p></section>
+<section class="section"><h2>각도</h2><p>후보는 모두 기본 3/4로 만들고, 최종 컷은 아래 3개 각도만 만듭니다.</p>{table(['각도', '코드', '보는 방향', '쓰는 곳'], [[l, f'<code>{k}</code>', d, u] for k, l, d, u in I3_ANGLES])}</section>
+<section class="section"><h2>스타일 규칙 · Layer 3D v1</h2>{table(['항목', '규칙'], [
+        ['재질', '소프트 무광, 점토처럼 매끈한 표면, 두툼하고 둥근 모서리. 장식용 작은 부품, 광택, 반사 없음'],
+        ['주색', '<code>#6C9CFA</code> 몸체와 주요 구조. 밝은 면 <code>#8CB4FC</code>~<code>#98BFFD</code>, 그늘 면 <code>#507CD3</code>~<code>#5F90E3</code>. 그늘이 남색 · 보라로 내려가지 않음'],
+        ['보조색 · 흰색', '<code>#E9F0FF</code> 보조 부품. 흰색은 종이 · 말풍선 · 다이얼처럼 넓은 면에 씀'],
+        ['기능 표식', '<code>#212329</code> 계열은 바늘 · 눈금 · 점 같은 작은 표식에만'],
+        ['투명', '렌즈, 모래시계 볼처럼 원래 투명한 부분에만 옅은 하늘색 반투명'],
+        ['조명', '넓은 좌상단 확산광, 오브제 아래 옅은 회색 접지 그림자'],
+        ['브랜드 디테일', '로고 모티프인 화살표 또는 플러스를 오브제당 최대 1개, 주색으로'],
+        ['글자', '넣지 않음. KPT 블록처럼 글자가 오브제의 정체인 경우에만 예외'],
+        ['구도', '정사각 투명 PNG, 오브제가 가운데에서 약 65%'],
+        ['그 외 색', '보라, 남색, 청록, 노랑, 빨강 등은 쓰지 않음']])}</section>
+<section class="section"><h2>파일 이름</h2>{table(['파일', '내용'], [
+        ['<code>layer3d_영문_34.png</code>', '기본 3/4 컷'], ['<code>layer3d_영문_front.png</code>', '정면 컷'], ['<code>layer3d_영문_float.png</code>', '띄운 컷'],
+        ['<code>layer3d_영문_info.json</code>', '이름 · 영문 · 묶음(기록 · 시간 · 정리 · 성장 · 대화 · 기타) · 메모']])}<p class="note">세트에 등록되면 버전이 붙습니다(예: <code>layer3d_hourglass_34_v1.png</code>). 같은 영문 이름으로 다시 등록하면 v2가 되고, 넣지 않은 각도는 이전 컷을 그대로 씁니다.</p></section>
+<section class="section"><h2>결정 기록</h2><div class="callouts">
+  {callout('ok', '추가', '2026-11-10', 'ChatGPT용 layer-3d-icons Skill을 이 페이지에서 받을 수 있게 했습니다. 후보 이름을 A안–E안으로 정하고, 스타일 이름은 Layer 3D v1로 통일해 "C안"과 헷갈리지 않게 했습니다.')}
+  {callout('ok', '추가', '2026-11-10', '3D 아이콘 페이지를 추가했습니다. 각도를 기본 3/4 · 정면 · 띄운 컷 3개로 정하고, ChatGPT → Google Drive 등록함 → 등록 페이지 검수 순서로 세트를 모읍니다.')}
+  {callout('ok', '반영', '2026-11-09', '스타일을 Layer 3D v1(소프트 무광, 블루 계열)로 확정했습니다. 승인 원본은 KPT 블록 · 말풍선 · 나침반 3종입니다. 대표 캐릭터 대신 회고 오브제 세트를 쓰기로 했습니다.')}
+</div></section>'''
+    return content
+
 IL_CODE = """<link rel="stylesheet" href="css/illustration.css">
 
 <!-- 꾸밈용 그림: alt="" -->
@@ -2511,6 +2595,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
+        ['2026-11-10', '<a href="3d-icons.html">3D Icons</a>', '새 페이지: Layer 3D v1 스타일의 회고 오브제 3D 아이콘 세트(승인 원본 3종) · 컷별 복사 · 다운로드, 각도 3종(기본 3/4 · 정면 · 띄운 컷), 스타일 규칙, ChatGPT용 layer-3d-icons Skill 받기, ChatGPT → Google Drive 등록함 → 등록 페이지 검수로 이어지는 생성 · 등록 방법(단계별 펼치기), 파일 이름 규칙', '코드'],
         ['2026-11-05', '<a href="ai-guide.html">AI로 화면 만들기</a>', '자주 묻는 질문에 "ChatGPT에서도 쓸 수 있나요?" 추가 — Skill ZIP을 채팅에 올려 그대로 적용하는 법, 자주 쓸 때는 프로젝트에 넣기', '코드'],
         ['2026-11-04', '문서 사이트', 'GitHub Pages로도 공개 — <a href="https://nakyeonng.github.io/layer-ds/" target="_blank" rel="noopener">nakyeonng.github.io/layer-ds</a>(로그인 없이 열리는 고정 주소, llms.txt 포함). README에 링크', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#skill-call">AI로 화면 만들기</a>', 'Skill 업로드 화면 캡처 · 넣는 순서를 실제 메뉴(사용자 지정 → Skills → Skill 업로드)로 고침. Skill 부르기(/layer-design-system) 안내 추가. 탐색 모드에 실제 결과(해외여행 보험 시안 3개) 예시 추가', '코드'],
@@ -3009,6 +3094,41 @@ td small { color: var(--fg-faint); }
 .fb-hint { font-size: 13px; color: var(--fg-faint); padding-top: 7px; }
 .ac-index-demo .acc-index { width: 100%; }
 .acc-title[hidden], .acc-index[hidden] { display: none; }
+
+/* 3D Icons */
+.i3-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.i3-card { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line); min-width: 0; }
+.i3-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.i3-card__head h3 { margin: 0; font-size: 15px; }
+.i3-card__slug { font-family: var(--font-mono); font-size: 12px; color: var(--fg-faint); overflow-wrap: anywhere; }
+.i3-card__badges { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+.i3-badge { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 6px; background: var(--bg-sunk); color: var(--fg-muted); white-space: nowrap; }
+.i3-cuts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.i3-cut { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.i3-cut__img { aspect-ratio: 1 / 1; border-radius: 8px; background: #f2f4f8; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.i3-cut__img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.i3-cut__img--none { background: transparent; box-shadow: inset 0 0 0 1px var(--line); color: var(--fg-faint); font-size: 12px; }
+.i3-cut__meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2px 4px; min-height: 26px; }
+.i3-cut__key { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); }
+.i3-cut__btns { display: flex; flex-wrap: wrap; gap: 2px; }
+.i3-accs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.i3-acc { border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line); }
+.i3-acc[open] { background: var(--bg-sunk); box-shadow: none; }
+.i3-acc summary { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; list-style: none; }
+.i3-acc summary::-webkit-details-marker { display: none; }
+.i3-acc summary::after { content: ""; margin-left: auto; width: 8px; height: 8px; border-right: 1.5px solid var(--fg-muted); border-bottom: 1.5px solid var(--fg-muted); transform: rotate(45deg); transition: transform .15s; flex: none; }
+.i3-acc[open] summary::after { transform: rotate(-135deg); }
+.i3-acc summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 12px; }
+.i3-acc__num { flex: none; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--accent-soft); color: var(--accent); }
+.i3-acc__title { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.i3-acc__where { font-size: 12px; color: var(--fg-faint); font-weight: 600; }
+.i3-acc__body { padding: 0 16px 16px 52px; font-size: 14px; color: var(--fg-muted); }
+.i3-acc__body p, .i3-acc__body ol { margin: 0; }
+.i3-acc__body ol { padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.i3-acc__action { margin-top: 12px; }
+@media (prefers-reduced-motion: reduce) { .i3-acc summary::after { transition: none; } }
+@media (max-width: 560px) { .i3-acc__body { padding-left: 16px; } }
+@media (max-width: 560px) { .i3-grid { grid-template-columns: 1fr; } }
 '''
 
 def sentence_breaks(html):
@@ -3043,10 +3163,10 @@ def sentence_breaks(html):
 def main():
     build_color_css()
     (R / 'css/pages.css').write_text(PAGES_CSS)
-    titles = {'index': 'Layer Design System', 'updates': '업데이트 · Layer DS', 'figma-file': 'Figma 파일 쓰기 · Layer DS', 'ai-guide': 'AI로 화면 만들기 · Layer DS', 'logo': 'Logo · Layer DS', 'illustration': 'Illustration · Layer DS', 'color': 'Color · Layer DS', 'typography': 'Typography · Layer DS',
+    titles = {'index': 'Layer Design System', 'updates': '업데이트 · Layer DS', 'figma-file': 'Figma 파일 쓰기 · Layer DS', 'ai-guide': 'AI로 화면 만들기 · Layer DS', 'logo': 'Logo · Layer DS', 'illustration': 'Illustration · Layer DS', '3d-icons': '3D Icons · Layer DS', 'color': 'Color · Layer DS', 'typography': 'Typography · Layer DS',
               'elevation': 'Elevation · Layer DS', 'tokens': 'Tokens · Layer DS', 'spacing': 'Spacing · Layer DS', 'layout': 'Layout · Layer DS', 'radius': 'Radius · Layer DS', 'state': 'State · Layer DS', 'iconography': 'Iconography · Layer DS', 'app-bar': 'App Bar · Layer DS',
               'navigation-bar': 'Navigation Bar · Layer DS', 'avatar': 'Avatar · Layer DS', 'badge': 'Badge · Layer DS', 'empty-state': 'Empty State · Layer DS', 'cards': 'Cards · Layer DS', 'dropdown': 'Dropdown · Layer DS', 'popover': 'Popover · Menu · Layer DS', 'analysis': 'Analysis · Layer DS', 'writing-panel': 'Writing Panel · Layer DS', 'button': 'Button · Layer DS', 'chip-button': 'Chip Button · Layer DS', 'progress-bar': 'Progress Bar · Layer DS', 'fields': 'Fields · Layer DS', 'tabs': 'Tabs · Layer DS', 'controls': 'Controls · Layer DS', 'scroll-bar': 'Scroll Bar · Layer DS', 'lists': 'Lists · Layer DS', 'accordion': 'Accordion · Layer DS', 'date-picker': 'Date Time Picker · Layer DS', 'popup': 'Popup · Layer DS', 'bottom-sheet': 'Bottom Sheet · Layer DS', 'toast': 'Toast · Layer DS', 'tooltip': 'Tooltip · Layer DS'}
-    builders = {'index': p_index, 'updates': p_updates, 'figma-file': p_figma_file, 'ai-guide': p_ai_guide, 'logo': p_logo, 'illustration': p_illustration, 'color': p_color, 'typography': p_typography, 'elevation': p_elevation, 'tokens': p_tokens, 'layout': p_layout, 'spacing': p_spacing, 'radius': p_radius, 'state': p_state,
+    builders = {'index': p_index, 'updates': p_updates, 'figma-file': p_figma_file, 'ai-guide': p_ai_guide, 'logo': p_logo, 'illustration': p_illustration, '3d-icons': p_3d_icons, 'color': p_color, 'typography': p_typography, 'elevation': p_elevation, 'tokens': p_tokens, 'layout': p_layout, 'spacing': p_spacing, 'radius': p_radius, 'state': p_state,
                 'iconography': p_iconography, 'app-bar': p_app_bar, 'navigation-bar': p_nav, 'avatar': p_avatar, 'badge': p_badge, 'empty-state': p_empty, 'cards': p_cards, 'dropdown': p_dropdown, 'popover': p_popover, 'analysis': p_analysis, 'writing-panel': p_writing, 'button': p_button, 'chip-button': p_chip, 'progress-bar': p_progress, 'fields': p_fields, 'tabs': p_tabs, 'controls': p_controls, 'scroll-bar': p_scrollbar, 'lists': p_lists, 'accordion': p_accordion, 'date-picker': p_datepicker, 'popup': p_popup, 'bottom-sheet': p_bsheet, 'toast': p_toast, 'tooltip': p_tooltip}
     for pid, fn in builders.items():
         (R / f'{pid}.html').write_text(shell(pid, titles[pid], sentence_breaks(fn()), wrapped=(pid == 'index')))
