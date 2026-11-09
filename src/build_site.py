@@ -2094,16 +2094,33 @@ def p_3d_icons():
         ('ChatGPT', '오브제 이름 입력', '<p><q>모래시계 3D 아이콘 만들어 줘</q>처럼 오브제 이름을 말합니다. 후보 5개(A안–E안)와 흰 앱 카드에 올린 적용 시안, 후보별 검수표가 나옵니다.</p>'),
         ('ChatGPT', '후보 고르기', '<p><q>C안으로 정할게</q>처럼 후보 이름을 정확히 말합니다. 바로 기본 3/4 · 정면 · 띄운 컷 3장을 만듭니다. 고칠 점이 있으면 <q>C안으로 정할게. 받침을 조금 낮게</q>처럼 함께 적습니다.</p>'),
         ('ChatGPT → Google Drive', '"등록"으로 승인', '<p>GPT가 <q>이대로 등록할까요?</q>라고 물으면 <q>등록해 줘</q>라고 답합니다. GPT가 3컷과 정보 파일(이름 · 영문 · 묶음)을 Google Drive의 <strong>Layer 3D 등록함</strong>에 저장합니다. 마음에 들지 않는 컷이 있으면 그 컷만 다시 만들어 달라고 합니다.</p>'),
-        ('등록 페이지', '검수하고 등록', '<p>등록 페이지를 열면 등록함을 자동으로 확인합니다. Claude가 각도 · 색 · 재질 · 글자 · 구조 · 구도를 검수하고, 통과하면 세트에 넣은 뒤 파일을 <strong>등록 완료</strong> 폴더로 옮깁니다. 색 · 재질 · 글자가 어긋나면 등록하지 않고 <strong>확인 필요</strong> 폴더로 옮기고 이유를 기록합니다.</p>'),
+        ('등록 페이지', '검수하고 등록', '<p>등록 페이지를 열면 등록함을 자동으로 확인합니다(바로 확인하려면 <strong>지금 가져오기</strong>). 자세한 규칙은 아래 Drive 등록함을 봅니다. Claude가 각도 · 색 · 재질 · 글자 · 구조 · 구도를 검수하고, 통과하면 세트에 넣은 뒤 파일을 <strong>등록 완료</strong> 폴더로 옮깁니다. 색 · 재질 · 글자가 어긋나면 등록하지 않고 <strong>확인 필요</strong> 폴더로 옮기고 이유를 기록합니다.</p>'),
         ('등록 페이지 · Claude', '가져다 쓰기', '<p>세트의 각 컷 아래 <strong>복사</strong>로 Figma나 문서에 바로 붙여넣고, <strong>다운로드</strong>로 PNG를 받습니다. Claude는 카드뉴스 작업 때 세트를 직접 읽어 씁니다.</p>'),
     ]
     flow = ''.join(f'<details class="i3-acc"><summary><span class="i3-acc__num">{n}</span><span class="i3-acc__title"><span class="i3-acc__where">{w}</span><strong>{t}</strong></span></summary><div class="i3-acc__body">{d}</div></details>'
                    for n, (w, t, d) in enumerate(steps, 1))
     content = page_head('Tryout', '3D Icons', '회고를 연상시키는 오브제(노트, 시계, 달력 등)를 Layer 3D v1 스타일로 만든 3D 아이콘입니다. 인스타그램 카드뉴스의 표지 · 본문 · CTA에 씁니다. ChatGPT에서 만들고 등록 페이지에서 검수해 세트로 모읍니다. 아직 시도 단계라 규칙과 흐름이 바뀔 수 있습니다.',
                         status=('wait', '시도 중'), extra=f'<span>오브제 {n_obj}종 · 컷 {n_cut}장</span>')
-    content += f'''<section class="section"><h2>세트</h2><p>카드뉴스에서는 쓰는 자리에 맞는 각도의 컷을 골라 크기와 위치만 조절합니다. 다시 칠하거나 모양을 바꾸지 않습니다. 비어 있는 각도는 아직 만들지 않은 컷입니다.</p><div class="i3-grid">{cards}</div><p class="note" id="tk-msg" role="status"></p></section>
-<section class="section"><h2>만들고 등록하는 방법</h2><p>단계를 눌러 자세히 봅니다. 1번은 처음 한 번만 합니다.</p><div class="i3-accs">{flow}</div>
-<p>GPT가 Google Drive에 저장하지 못하면 이미지를 등록함에 직접 올리거나 등록 페이지의 <strong>최종 컷 등록</strong>에 붙여넣으면 됩니다. 등록함 폴더와 등록 페이지는 레이어 팀만 씁니다.</p></section>
+    reg_url = 'https://claude.ai/artifact/RpL9WUyUb1n9XD8GiWg8S4'
+    drive_tbl = table(['폴더', '들어가는 것', '누가 옮기나'], [
+        ['<strong>Layer 3D 등록함</strong>', 'GPT가 저장한 3컷(<code>_34</code> · <code>_front</code> · <code>_float</code>)과 정보 파일(<code>_info.json</code>). 하위 폴더 없이 바로 아래에 둡니다', 'ChatGPT(4번 단계) 또는 사람이 직접'],
+        ['└ <strong>등록 완료</strong>', '검수를 통과해 세트에 들어간 파일', '등록 페이지가 자동으로'],
+        ['└ <strong>확인 필요</strong>', '색 · 재질 · 글자 검수에서 "다시"가 나왔거나, 이미지 없이 정보 파일만 있는 묶음', '등록 페이지가 자동으로'],
+    ])
+    check_tbl = table(['검수 항목', '"다시"가 나오면'], [
+        ['색 · 재질 · 글자', '등록하지 않고 <strong>확인 필요</strong> 폴더로 옮깁니다. 이유는 등록 기록에 남습니다'],
+        ['각도 · 구조 · 구도', '등록은 하고, 세트 카드에 <strong>검수 다시 n</strong> · <strong>검수 확인 n</strong> 배지로 표시합니다'],
+    ])
+    content += f'''<section class="section"><h2>만들고 등록하는 방법</h2><p>단계를 눌러 자세히 봅니다. 1번은 처음 한 번만 합니다.</p><div class="i3-accs">{flow}</div></section>
+<section class="section"><h2>Drive 등록함</h2><p>ChatGPT가 승인된 3컷을 Google Drive의 <strong>Layer 3D 등록함</strong>에 저장하면, 등록 페이지가 그 폴더를 읽어 Claude 검수를 거쳐 세트에 등록합니다. 등록 페이지를 열 때마다 자동으로 확인하고, <strong>지금 가져오기</strong>로 바로 확인할 수도 있습니다.</p>
+{drive_tbl}
+<h3>가져올 때 하는 일</h3>
+<ol class="steps"><li>등록함에서 파일 이름이 규칙(<code>layer3d_영문_각도.png</code>)에 맞는 파일을 영문 이름별로 묶습니다. 규칙에 맞지 않는 파일은 건드리지 않고 등록함에 둡니다.</li><li>Claude가 3컷을 Layer 3D v1 규칙으로 검수합니다.</li><li>통과하면 세트에 등록하고 파일을 <strong>등록 완료</strong>로 옮깁니다. 같은 영문 이름이 이미 있으면 새 버전(v2, v3…)으로 올리고, 넣지 않은 각도는 이전 컷을 그대로 씁니다.</li><li>등록 기록에 날짜 · 버전 · 각도 · 올린 사람(Drive 파일 주인)을 남깁니다.</li></ol>
+{check_tbl}
+<h3>Drive 없이 등록하기</h3><p>GPT가 Drive에 저장하지 못하면 이미지를 등록함 폴더에 직접 올리거나, 등록 페이지의 <strong>최종 컷 등록</strong>에서 ChatGPT 이미지를 복사해 기본 3/4 → 정면 → 띄운 컷 순서로 붙여넣습니다. 이름 · 영문 이름 · 묶음을 적고 <strong>세트에 등록</strong>을 누르면 됩니다.</p>
+<p><a class="btn btn--secondary btn--sm" href="{reg_url}" target="_blank" rel="noopener">등록 페이지 열기</a></p>
+<p class="note">등록함 폴더와 등록 페이지는 레이어 팀만 씁니다. 등록 페이지는 Claude에 로그인한 팀원만 열 수 있습니다.</p></section>
+<section class="section"><h2>세트</h2><p>카드뉴스에서는 쓰는 자리에 맞는 각도의 컷을 골라 크기와 위치만 조절합니다. 다시 칠하거나 모양을 바꾸지 않습니다. 비어 있는 각도는 아직 만들지 않은 컷입니다. 이 페이지의 세트는 등록 페이지의 세트를 옮겨 온 것이라, 최근 등록은 다음 문서 업데이트 때 반영됩니다.</p><div class="i3-grid">{cards}</div><p class="note" id="tk-msg" role="status"></p></section>
 <section class="section"><h2>각도</h2><p>후보는 모두 기본 3/4로 만들고, 최종 컷은 아래 3개 각도만 만듭니다.</p>{table(['각도', '코드', '보는 방향', '쓰는 곳'], [[l, f'<code>{k}</code>', d, u] for k, l, d, u in I3_ANGLES])}</section>
 <section class="section"><h2>스타일 규칙 · Layer 3D v1</h2>{table(['항목', '규칙'], [
         ['재질', '소프트 무광, 점토처럼 매끈한 표면, 두툼하고 둥근 모서리. 장식용 작은 부품, 광택, 반사 없음'],
@@ -2120,6 +2137,7 @@ def p_3d_icons():
         ['<code>layer3d_영문_34.png</code>', '기본 3/4 컷'], ['<code>layer3d_영문_front.png</code>', '정면 컷'], ['<code>layer3d_영문_float.png</code>', '띄운 컷'],
         ['<code>layer3d_영문_info.json</code>', '이름 · 영문 · 묶음(기록 · 시간 · 정리 · 성장 · 대화 · 기타) · 메모']])}<p class="note">세트에 등록되면 버전이 붙습니다(예: <code>layer3d_hourglass_34_v1.png</code>). 같은 영문 이름으로 다시 등록하면 v2가 되고, 넣지 않은 각도는 이전 컷을 그대로 씁니다.</p></section>
 <section class="section"><h2>결정 기록</h2><div class="callouts">
+  {callout('ok', '추가', '2026-11-10', '등록 페이지와 같은 구조로 맞췄습니다. 만드는 방법 → Drive 등록함(폴더 구조 · 가져올 때 하는 일 · 검수 결과별 처리 · Drive 없이 등록하기) → 세트 순서입니다.')}
   {callout('ok', '변경', '2026-11-10', '확정된 Brand 자산과 구분하려고 사이드바에 Tryout 묶음을 새로 만들고 3D Icons를 옮겼습니다. 시도 중인 작업은 Tryout에 두고, 확정되면 Brand · Foundations로 옮깁니다.')}
   {callout('ok', '추가', '2026-11-10', 'ChatGPT용 layer-3d-icons Skill을 이 페이지에서 받을 수 있게 했습니다. 후보 이름을 A안–E안으로 정하고, 스타일 이름은 Layer 3D v1로 통일해 "C안"과 헷갈리지 않게 했습니다.')}
   {callout('ok', '추가', '2026-11-10', '3D 아이콘 페이지를 추가했습니다. 각도를 기본 3/4 · 정면 · 띄운 컷 3개로 정하고, ChatGPT → Google Drive 등록함 → 등록 페이지 검수 순서로 세트를 모읍니다.')}
