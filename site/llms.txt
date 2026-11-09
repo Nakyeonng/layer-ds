@@ -27,7 +27,6 @@ AI가 화면을 만들 때: DESIGN.md를 먼저 읽고, components.json에 있�
 
 - [Logo](logo.html): Layer 로고는 회고를 뜻하는 화살표와 Layer의 첫 글자 L을 겹친 모양입니다. 대부분의 경우 Basic을 씁니다. 로고 아래의 버튼을 누르면 SVG 코드가 복사됩니다.
 - [Illustration](illustration.html): 일러스트는 화면의 상황과 회고 방식을 그림으로 보여 주는 브랜드 그래픽입니다. 쓰임에 따라 Content, Banner, Retro, Splash 네 가지로 나누고, 500 × 500 원본을 비율대로 줄여 씁니다.
-- [3D Icons](3d-icons.html): 회고를 연상시키는 오브제(노트, 시계, 달력 등)를 Layer 3D v1 스타일로 만든 3D 아이콘입니다. 인스타그램 카드뉴스의 표지 · 본문 · CTA에 씁니다. ChatGPT에서 만들고 등록 페이지에서 검수해 세트로 모읍니다.
 
 ## Foundations
 

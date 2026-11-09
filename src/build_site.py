@@ -30,13 +30,14 @@ def figma_link(node, label='Figma 파일'): return f'<a href="{FIGMA}" target="_
 # ── navigation ────────────────────────────────────────────
 PAGES = [
     ('index', '소개', 'start', None), ('updates', '업데이트', 'start', None), ('figma-file', 'Figma 파일 쓰기', 'start', None), ('ai-guide', 'AI로 화면 만들기', 'start', None),
-    ('logo', 'Logo', 'brand', 'ok'), ('illustration', 'Illustration', 'brand', 'ok'), ('3d-icons', '3D Icons', 'brand', 'ok'),
+    ('3d-icons', '3D Icons', 'try', None),
+    ('logo', 'Logo', 'brand', 'ok'), ('illustration', 'Illustration', 'brand', 'ok'),
     ('tokens', 'Tokens', 'found', 'ok'), ('color', 'Color', 'found', 'wait'), ('typography', 'Typography', 'found', 'ok'),
     ('elevation', 'Elevation', 'found', 'ok'), ('iconography', 'Iconography', 'found', 'ok'), ('spacing', 'Spacing', 'found', 'ok'), ('layout', 'Layout', 'found', 'ok'), ('radius', 'Radius', 'found', 'ok'), ('state', 'State', 'found', 'ok'),
     ('accordion', 'Accordion', 'comp', 'ok'), ('app-bar', 'App Bar', 'comp', 'ok'), ('bottom-sheet', 'Bottom Sheet', 'comp', 'ok'), ('button', 'Button', 'comp', 'ok'), ('chip-button', 'Chip Button', 'comp', 'ok'), ('controls', 'Controls', 'comp', 'ok'), ('date-picker', 'Date Time Picker', 'comp', 'ok'), ('fields', 'Fields', 'comp', 'ok'), ('lists', 'Lists', 'comp', 'ok'), ('navigation-bar', 'Navigation Bar', 'comp', 'ok'), ('popup', 'Popup', 'comp', 'ok'), ('progress-bar', 'Progress Bar', 'comp', 'ok'), ('scroll-bar', 'Scroll Bar', 'comp', 'ok'), ('tabs', 'Tabs', 'comp', 'ok'), ('toast', 'Toast', 'comp', 'ok'), ('tooltip', 'Tooltip', 'comp', 'ok'), ('avatar', 'Avatar', 'comp', 'ok'), ('badge', 'Badge', 'comp', 'ok'), ('empty-state', 'Empty State', 'comp', 'ok'), ('cards', 'Cards', 'comp', 'ok'), ('dropdown', 'Dropdown', 'comp', 'ok'), ('popover', 'Popover · Menu', 'comp', 'ok'), ('analysis', 'Analysis', 'comp', 'ok'), ('writing-panel', 'Writing Panel', 'comp', 'ok'),
 ]
 SOON = {'found': [], 'comp': []}
-GROUPS = [('start', '시작하기'), ('brand', 'Brand'), ('found', 'Foundations'), ('comp', 'Components')]
+GROUPS = [('start', '시작하기'), ('try', 'Tryout'), ('brand', 'Brand'), ('found', 'Foundations'), ('comp', 'Components')]
 LOGO = pathlib.Path('foundations/logo')
 def logo_svg(n, label=None):
     t = (LOGO / f'{n}.svg').read_text()
@@ -2098,8 +2099,8 @@ def p_3d_icons():
     ]
     flow = ''.join(f'<details class="i3-acc"><summary><span class="i3-acc__num">{n}</span><span class="i3-acc__title"><span class="i3-acc__where">{w}</span><strong>{t}</strong></span></summary><div class="i3-acc__body">{d}</div></details>'
                    for n, (w, t, d) in enumerate(steps, 1))
-    content = page_head('Brand', '3D Icons', '회고를 연상시키는 오브제(노트, 시계, 달력 등)를 Layer 3D v1 스타일로 만든 3D 아이콘입니다. 인스타그램 카드뉴스의 표지 · 본문 · CTA에 씁니다. ChatGPT에서 만들고 등록 페이지에서 검수해 세트로 모읍니다.',
-                        status=('wait', '수집 중'), extra=f'<span>오브제 {n_obj}종 · 컷 {n_cut}장</span>')
+    content = page_head('Tryout', '3D Icons', '회고를 연상시키는 오브제(노트, 시계, 달력 등)를 Layer 3D v1 스타일로 만든 3D 아이콘입니다. 인스타그램 카드뉴스의 표지 · 본문 · CTA에 씁니다. ChatGPT에서 만들고 등록 페이지에서 검수해 세트로 모읍니다. 아직 시도 단계라 규칙과 흐름이 바뀔 수 있습니다.',
+                        status=('wait', '시도 중'), extra=f'<span>오브제 {n_obj}종 · 컷 {n_cut}장</span>')
     content += f'''<section class="section"><h2>세트</h2><p>카드뉴스에서는 쓰는 자리에 맞는 각도의 컷을 골라 크기와 위치만 조절합니다. 다시 칠하거나 모양을 바꾸지 않습니다. 비어 있는 각도는 아직 만들지 않은 컷입니다.</p><div class="i3-grid">{cards}</div><p class="note" id="tk-msg" role="status"></p></section>
 <section class="section"><h2>만들고 등록하는 방법</h2><p>단계를 눌러 자세히 봅니다. 1번은 처음 한 번만 합니다.</p><div class="i3-accs">{flow}</div>
 <p>GPT가 Google Drive에 저장하지 못하면 이미지를 등록함에 직접 올리거나 등록 페이지의 <strong>최종 컷 등록</strong>에 붙여넣으면 됩니다. 등록함 폴더와 등록 페이지는 레이어 팀만 씁니다.</p></section>
@@ -2119,6 +2120,7 @@ def p_3d_icons():
         ['<code>layer3d_영문_34.png</code>', '기본 3/4 컷'], ['<code>layer3d_영문_front.png</code>', '정면 컷'], ['<code>layer3d_영문_float.png</code>', '띄운 컷'],
         ['<code>layer3d_영문_info.json</code>', '이름 · 영문 · 묶음(기록 · 시간 · 정리 · 성장 · 대화 · 기타) · 메모']])}<p class="note">세트에 등록되면 버전이 붙습니다(예: <code>layer3d_hourglass_34_v1.png</code>). 같은 영문 이름으로 다시 등록하면 v2가 되고, 넣지 않은 각도는 이전 컷을 그대로 씁니다.</p></section>
 <section class="section"><h2>결정 기록</h2><div class="callouts">
+  {callout('ok', '변경', '2026-11-10', '확정된 Brand 자산과 구분하려고 사이드바에 Tryout 묶음을 새로 만들고 3D Icons를 옮겼습니다. 시도 중인 작업은 Tryout에 두고, 확정되면 Brand · Foundations로 옮깁니다.')}
   {callout('ok', '추가', '2026-11-10', 'ChatGPT용 layer-3d-icons Skill을 이 페이지에서 받을 수 있게 했습니다. 후보 이름을 A안–E안으로 정하고, 스타일 이름은 Layer 3D v1로 통일해 "C안"과 헷갈리지 않게 했습니다.')}
   {callout('ok', '추가', '2026-11-10', '3D 아이콘 페이지를 추가했습니다. 각도를 기본 3/4 · 정면 · 띄운 컷 3개로 정하고, ChatGPT → Google Drive 등록함 → 등록 페이지 검수 순서로 세트를 모읍니다.')}
   {callout('ok', '반영', '2026-11-09', '스타일을 Layer 3D v1(소프트 무광, 블루 계열)로 확정했습니다. 승인 원본은 KPT 블록 · 말풍선 · 나침반 3종입니다. 대표 캐릭터 대신 회고 오브제 세트를 쓰기로 했습니다.')}
@@ -2595,7 +2597,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
-        ['2026-11-10', '<a href="3d-icons.html">3D Icons</a>', '새 페이지: Layer 3D v1 스타일의 회고 오브제 3D 아이콘 세트(승인 원본 3종) · 컷별 복사 · 다운로드, 각도 3종(기본 3/4 · 정면 · 띄운 컷), 스타일 규칙, ChatGPT용 layer-3d-icons Skill 받기, ChatGPT → Google Drive 등록함 → 등록 페이지 검수로 이어지는 생성 · 등록 방법(단계별 펼치기), 파일 이름 규칙', '코드'],
+        ['2026-11-10', '<a href="3d-icons.html">3D Icons</a>', '사이드바에 Tryout 묶음 추가(시작하기 아래, 시도 중인 작업을 두는 곳). 새 페이지: Layer 3D v1 스타일의 회고 오브제 3D 아이콘 세트(승인 원본 3종) · 컷별 복사 · 다운로드, 각도 3종(기본 3/4 · 정면 · 띄운 컷), 스타일 규칙, ChatGPT용 layer-3d-icons Skill 받기, ChatGPT → Google Drive 등록함 → 등록 페이지 검수로 이어지는 생성 · 등록 방법(단계별 펼치기), 파일 이름 규칙', '코드'],
         ['2026-11-05', '<a href="ai-guide.html">AI로 화면 만들기</a>', '자주 묻는 질문에 "ChatGPT에서도 쓸 수 있나요?" 추가 — Skill ZIP을 채팅에 올려 그대로 적용하는 법, 자주 쓸 때는 프로젝트에 넣기', '코드'],
         ['2026-11-04', '문서 사이트', 'GitHub Pages로도 공개 — <a href="https://nakyeonng.github.io/layer-ds/" target="_blank" rel="noopener">nakyeonng.github.io/layer-ds</a>(로그인 없이 열리는 고정 주소, llms.txt 포함). README에 링크', '코드'],
         ['2026-11-04', '<a href="ai-guide.html#skill-call">AI로 화면 만들기</a>', 'Skill 업로드 화면 캡처 · 넣는 순서를 실제 메뉴(사용자 지정 → Skills → Skill 업로드)로 고침. Skill 부르기(/layer-design-system) 안내 추가. 탐색 모드에 실제 결과(해외여행 보험 시안 3개) 예시 추가', '코드'],
