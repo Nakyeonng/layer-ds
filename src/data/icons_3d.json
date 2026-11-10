@@ -1,8 +1,0 @@
-{
-  "synced": "2026-11-10",
-  "icons": [
-    {"slug": "kpt-blocks", "name": "KPT 블록", "group": "정리", "version": 1, "source": "original", "cuts": {"34": "layer3d_kpt-blocks_34_v1.png", "front": null, "float": null}},
-    {"slug": "speech-bubble", "name": "말풍선", "group": "대화", "version": 1, "source": "original", "cuts": {"34": null, "front": "layer3d_speech-bubble_front_v1.png", "float": null}},
-    {"slug": "compass", "name": "나침반", "group": "성장", "version": 1, "source": "original", "cuts": {"34": null, "front": "layer3d_compass_front_v1.png", "float": null}}
-  ]
-}
