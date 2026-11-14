@@ -1,0 +1,17 @@
+/* ─────────────────────────────────────────────────────────────
+   Illustration — derived from Figma "image" board (node 236:5486)
+   Brand illustrations exported from Figma as SVG files (illustrations/*.svg).
+   Kinds: Spot 500 (빈 화면 · 회고 단계 · 회고 방식) · Banner (1:1, 2:1) · Splash 280 · Invite (envelope)
+   Colours inside the SVGs are the Blue / Gray palette values from color.css.
+
+   Use as an image. Decorative illustrations get alt="" (the text next to them carries the meaning).
+   ───────────────────────────────────────────────────────────── */
+
+.illust { display: block; flex: none; max-width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; }
+.illust--banner-wide { aspect-ratio: 2 / 1; }
+
+/* Sizes — the source art is 500 (spot), 280 (splash) or 1000 × 500 (banner); scale down, never up */
+.illust--120 { width: 120px; }   /* Popup · With Illustration */
+.illust--160 { width: 160px; }   /* empty state inside a list or card */
+.illust--200 { width: 200px; }   /* empty state on a full screen */
+.illust--280 { width: 280px; }   /* onboarding / splash */
