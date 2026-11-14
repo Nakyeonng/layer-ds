@@ -37,7 +37,7 @@ PAGES = [
 ]
 SOON = {'found': [], 'comp': []}
 # 확정 전 시도는 문서에 넣지 않고 바깥 페이지로 연결한다
-NAV_LINKS = {'try': [('3D Icons', 'https://claude.ai/artifact/RpL9WUyUb1n9XD8GiWg8S4')]}
+NAV_LINKS = {'try': [('3D · 2D 제작', 'https://claude.ai/artifact/RpL9WUyUb1n9XD8GiWg8S4')]}
 GROUPS = [('start', '시작하기'), ('try', 'Tryout'), ('brand', 'Brand'), ('found', 'Foundations'), ('comp', 'Components')]
 LOGO = pathlib.Path('foundations/logo')
 def logo_svg(n, label=None):
@@ -2530,6 +2530,7 @@ def p_figma_file():
 
 def p_updates():
     log = [
+        ['2026-11-14', 'Tryout', '사이드바 메뉴 이름 3D Icons → 3D · 2D 제작', '문서'],
         ['2026-11-10', 'Tryout', '사이드바에 Tryout 묶음 추가(시작하기 아래, 확정 전 시도를 두는 곳). 첫 항목 3D Icons는 문서에 넣지 않고 별도 등록 페이지(Claude 아티팩트)로 연결 — 회고 오브제 3D 아이콘 세트, 3D 쇼룸, ChatGPT Skill 받기, Google Drive 등록함 검수 · 등록', '코드'],
         ['2026-11-05', '<a href="ai-guide.html">AI로 화면 만들기</a>', '자주 묻는 질문에 "ChatGPT에서도 쓸 수 있나요?" 추가 — Skill ZIP을 채팅에 올려 그대로 적용하는 법, 자주 쓸 때는 프로젝트에 넣기', '코드'],
         ['2026-11-04', '문서 사이트', 'GitHub Pages로도 공개 — <a href="https://nakyeonng.github.io/layer-ds/" target="_blank" rel="noopener">nakyeonng.github.io/layer-ds</a>(로그인 없이 열리는 고정 주소, llms.txt 포함). README에 링크', '코드'],
